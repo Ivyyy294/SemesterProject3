@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerConfiguration
 {
-	public GameObject playerObj;
+	public bool ready;
 	public string playerName;
 }

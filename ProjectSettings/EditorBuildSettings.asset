@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/00_Scenes/00_MenuScene.unity
+    guid: fa57e44c38ff79a4abdb3749e40bb212
+  - enabled: 1
+    path: Assets/00_Scenes/01_LobbyScene.unity
+    guid: 0bb0bfb0d05a30940b7bb2d94ab81b21
+  - enabled: 1
+    path: Assets/00_Scenes/LaraScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
