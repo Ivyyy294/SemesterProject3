@@ -33,8 +33,6 @@ public class DiverInput : NetworkBehaviour
 
     void Update()
     {
-		Owner = NetworkManager.Me && NetworkManager.Me.Host;
-
 		if (Owner)
 		{
 			UpdateForwardInput();
