@@ -840,6 +840,7 @@ GameObject:
   - component: {fileID: 7341406990156325916}
   - component: {fileID: 7135263276644123730}
   - component: {fileID: 4403961346145412793}
+  - component: {fileID: 502994952303067584}
   m_Layer: 0
   m_Name: Diver
   m_TagString: Untagged
@@ -876,6 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1acad4a3c31163b4ba0e082755bbb927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guid: e49a4992-14e5-4444-98a1-c7dbba026e74
   startForward:
     m_PersistentCalls:
       m_Calls: []
@@ -901,6 +903,18 @@ MonoBehaviour:
   torso: {fileID: 647205402533289170}
   movementSpeed: 1
   turnSpeedDegrees: 90
+--- !u!114 &502994952303067584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723070870191324833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7601368387749446108
 GameObject:
   m_ObjectHideFlags: 0

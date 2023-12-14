@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Ivyyy.Network;
 
-public class DiverInput : MonoBehaviour
+public class DiverInput : NetworkBehaviour
 {
     private float _forwardTime = Mathf.NegativeInfinity;
     private float _pitch;
@@ -21,11 +22,36 @@ public class DiverInput : MonoBehaviour
     public float Yaw => _yaw;
     public float YawSway => _yawSway;
     
+	protected override void SetPackageData()
+	{
+		networkPackage.AddValue (new NetworkPackageValue (_forwardTime));
+		networkPackage.AddValue (new NetworkPackageValue (_pitch));
+		networkPackage.AddValue (new NetworkPackageValue (_pitchSway));
+		networkPackage.AddValue (new NetworkPackageValue (_yaw));
+		networkPackage.AddValue (new NetworkPackageValue (_yawSway));
+	}
+
     void Update()
     {
-        UpdateForwardInput();
-        UpdatePitch();
-        UpdateYaw();
+		Owner = NetworkManager.Me && NetworkManager.Me.Host;
+
+		if (Owner)
+		{
+			UpdateForwardInput();
+			UpdatePitch();
+			UpdateYaw();
+		}
+		else
+		{
+			if (networkPackage.Count == 5)
+			{
+				_forwardTime = networkPackage.Value(0).GetFloat();
+				_pitch = networkPackage.Value(1).GetFloat();
+				_pitchSway = networkPackage.Value(2).GetFloat();
+				_yaw = networkPackage.Value(3).GetFloat();
+				_yawSway = networkPackage.Value(4).GetFloat();
+			}
+		}
     }
 
     void UpdateForwardInput()
