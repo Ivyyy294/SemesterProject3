@@ -29,7 +29,7 @@ public class SelectPlayMode : MonoBehaviour
 			iPAddress = IPAddress.Parse (ip_string);
 
 			if (NetworkManager.Me.StartClient (iPAddress.ToString() , 23000))
-				SceneManager.LoadScene (2);
+				SceneManager.LoadScene (1);
 		}
 		catch (Exception excp)
 		{
