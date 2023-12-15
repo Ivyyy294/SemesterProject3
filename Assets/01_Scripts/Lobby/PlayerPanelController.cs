@@ -18,6 +18,11 @@ public class PlayerPanelController : MonoBehaviour
 		clientConnected = true;
 	}
 
+	public bool AllPlayersReady()
+	{
+		return playerConfiguration.playerConfigurations[0].ready && playerConfiguration.playerConfigurations[1].ready;
+	}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,8 +54,5 @@ public class PlayerPanelController : MonoBehaviour
     {
 		if (clientConnected && !playerPanels[1].gameObject.activeInHierarchy)
 			playerPanels[1].gameObject.SetActive (true);
-
-        if (playerConfiguration.playerConfigurations[0].ready && playerConfiguration.playerConfigurations[1].ready)
-			SceneManager.LoadScene (2);
     }
 }

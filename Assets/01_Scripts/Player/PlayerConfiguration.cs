@@ -7,16 +7,21 @@ using Ivyyy.Network;
 public class PlayerConfiguration :NetworkBehaviour
 {
 	public string playerName;
-	public bool ready;
+	public bool ready = false;
+	public bool sceneLoaded = false;
 
 	protected override void SetPackageData()
 	{
 		networkPackage.AddValue (new NetworkPackageValue (ready));
+		networkPackage.AddValue (new NetworkPackageValue (sceneLoaded));
 	}
 
 	private void Update()
 	{
 		if (!Owner && networkPackage.Count > 0)
+		{
 			ready = networkPackage.Value(0).GetBool();
+			sceneLoaded = networkPackage.Value(1).GetBool();
+		}
 	}
 }

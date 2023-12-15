@@ -11,6 +11,24 @@ public class PlayerConfigurationManager : MonoBehaviour
 	static public PlayerConfigurationManager Me {get; private set;}
 	public PlayerConfiguration[] playerConfigurations = new PlayerConfiguration[2];
 
+	public bool PlayersReady()
+	{
+		return playerConfigurations[0].ready && playerConfigurations[1].ready;
+	}
+
+	public bool PlayersLoadedScene()
+	{
+		return playerConfigurations[0].sceneLoaded && playerConfigurations[1].sceneLoaded;
+	}
+
+	public void ResetPlayers()
+	{
+		for (int i = 0; i < playerConfigurations.Length; ++i)
+		{
+			playerConfigurations[1].ready = false;
+		}
+	}
+
 	private void Awake()
 	{
 		if (Me == null)
@@ -20,5 +38,10 @@ public class PlayerConfigurationManager : MonoBehaviour
 		}
 		else
 			Destroy (this);
+	}
+
+	private void Update()
+	{
+		LocalPlayerId = NetworkManager.Me.Host ? 0 : 1;
 	}
 }

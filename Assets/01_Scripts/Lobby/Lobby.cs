@@ -7,26 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviour
 {
-	//NetworkManager networkManager;
-	//bool done;
- //   // Start is called before the first frame update
- //   void Start()
- //   {
- //       networkManager = NetworkManager.Me;
-	//	done = false;
+	PlayerConfigurationManager configurationManager;
 
-	//	if (networkManager && networkManager.Host)
-	//		networkManager.onClientConnected = OnClientConnected;
- //   }
+	private void Start()
+	{
+		configurationManager = PlayerConfigurationManager.Me;
 
-	//public void OnClientConnected(int clientNumber, Socket socket)
-	//{
-	//	done = true;
-	//}
+		if (configurationManager)
+			configurationManager.ResetPlayers();
+	}
 
-	//private void Update()
-	//{
-	//	if (done)
-	//		SceneManager.LoadScene (2);
-	//}
+	private void Update()
+	{
+		if (configurationManager && configurationManager.PlayersReady())
+			SceneManager.LoadScene(2);
+	}
 }
