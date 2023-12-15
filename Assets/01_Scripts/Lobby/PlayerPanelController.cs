@@ -9,6 +9,7 @@ public class PlayerPanelController : MonoBehaviour
 {
 	[SerializeField] PlayerPanel[] playerPanels = new PlayerPanel[2];
 	NetworkManager networkManager;
+	PlayerConfigurationManager playerConfiguration;
 
 	bool clientConnected = false;
 
@@ -21,12 +22,18 @@ public class PlayerPanelController : MonoBehaviour
     void Start()
     {
 		networkManager = NetworkManager.Me;
+		playerConfiguration = PlayerConfigurationManager.Me;
 
 		if (networkManager && networkManager.Host)
 			networkManager.onClientConnected = OnClientConnected;
 		
-		playerPanels[0].Owner = networkManager.Host;
-		playerPanels[1].Owner = !networkManager.Host;
+		if (playerConfiguration)
+		{
+			playerConfiguration.playerConfigurations[0].Owner = networkManager.Host;
+			playerConfiguration.playerConfigurations[1].Owner = !networkManager.Host;
+			playerPanels[0].playerConfiguration = playerConfiguration.playerConfigurations[0];
+			playerPanels[1].playerConfiguration = playerConfiguration.playerConfigurations[1];
+		}
 
         if (networkManager.Host)
 			playerPanels[0].gameObject.SetActive (true);
@@ -43,7 +50,7 @@ public class PlayerPanelController : MonoBehaviour
 		if (clientConnected && !playerPanels[1].gameObject.activeInHierarchy)
 			playerPanels[1].gameObject.SetActive (true);
 
-        if (playerPanels[0].Ready && playerPanels[1].Ready)
+        if (playerConfiguration.playerConfigurations[0].ready && playerConfiguration.playerConfigurations[1].ready)
 			SceneManager.LoadScene (2);
     }
 }

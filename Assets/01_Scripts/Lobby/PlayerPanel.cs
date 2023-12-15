@@ -5,32 +5,24 @@ using Ivyyy.Network;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerPanel : NetworkBehaviour
+public class PlayerPanel : MonoBehaviour
 {
+	public PlayerConfiguration playerConfiguration;
+
 	[SerializeField] GameObject readyButton;
 	[SerializeField] TextMeshProUGUI labelWaiting;
 	[SerializeField] TextMeshProUGUI labelReady;
-
-	public bool Ready { get { return ready;} }
-	bool ready = false;
 
 	public void OnReadyButtonPressed()
 	{
 		readyButton.SetActive (false);
 		labelReady.gameObject.SetActive (true);
-		ready = true;
-	}
-
-	protected override void SetPackageData()
-	{
-		networkPackage.AddValue (new NetworkPackageValue (ready));
+		playerConfiguration.ready = true;
 	}
 
 	private void OnEnable()
 	{
-		ready = false;
-
-		if (Owner)
+		if (playerConfiguration.Owner)
 		{
 			labelWaiting.gameObject.SetActive (false);
 			labelReady.gameObject.SetActive (false);
@@ -44,12 +36,10 @@ public class PlayerPanel : NetworkBehaviour
 
 	private void Update()
 	{
-		if (!Owner && networkPackage.Count > 0)
+		if (!playerConfiguration.Owner)
 		{
-			ready = networkPackage.Value (0).GetBool();
-
-			labelWaiting.gameObject.SetActive (!ready);
-			labelReady.gameObject.SetActive (ready);
+			labelWaiting.gameObject.SetActive (!playerConfiguration.ready);
+			labelReady.gameObject.SetActive (playerConfiguration.ready);
 		}
 	}
 }

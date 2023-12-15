@@ -7,9 +7,9 @@ using System;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-	[SerializeField] PlayerConfiguration[] playerConfigurations = new PlayerConfiguration[2];
 	public int LocalPlayerId { get; set;}
 	static public PlayerConfigurationManager Me {get; private set;}
+	public PlayerConfiguration[] playerConfigurations = new PlayerConfiguration[2];
 
 	private void Awake()
 	{

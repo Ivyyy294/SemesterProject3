@@ -280,7 +280,6 @@ GameObject:
   - component: {fileID: 2791049472610732529}
   - component: {fileID: 5946025918601264256}
   - component: {fileID: 3603110834737913848}
-  - component: {fileID: 934637054769012183}
   m_Layer: 5
   m_Name: PlayerPanel
   m_TagString: Untagged
@@ -361,22 +360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251036efad6d0234db8d6702b6aac0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: ff5ba864-2242-40e2-ab22-a238cd7401d1
+  playerConfiguration: {fileID: 0}
   readyButton: {fileID: 4390776404921594120}
   labelWaiting: {fileID: 1100200735433295126}
   labelReady: {fileID: 8579509224538138681}
---- !u!114 &934637054769012183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2497853489760350329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4390776404921594120
 GameObject:
   m_ObjectHideFlags: 0
