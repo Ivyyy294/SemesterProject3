@@ -13,11 +13,11 @@ public class LevelController : MonoBehaviour
     {
 		//Freez time until all players are ready
         configurationManager = PlayerConfigurationManager.Me;
-		Time.timeScale = 0f;
 
 		//Report that this instance finished loading
 		if (configurationManager)
 		{
+			Time.timeScale = 0f;
 			indexLocalPlayer = configurationManager.LocalPlayerId;
 			configurationManager.playerConfigurations[indexLocalPlayer].sceneLoaded = true;
 		}
@@ -26,11 +26,14 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//Wait for all instances to finish loading
-        if (waiting && configurationManager.PlayersLoadedScene())
+		if (configurationManager)
 		{
-			waiting = false;
-			Time.timeScale = 1f;
+			//Wait for all instances to finish loading
+			if (waiting && configurationManager.PlayersLoadedScene())
+			{
+				waiting = false;
+				Time.timeScale = 1f;
+			}
 		}
     }
 }
