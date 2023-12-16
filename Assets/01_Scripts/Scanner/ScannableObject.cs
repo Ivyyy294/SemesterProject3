@@ -8,20 +8,28 @@ public class ScannableObject : NetworkBehaviour
 	[Min (0.1f)]
 	[SerializeField] float targetScanTime;
 	int scannerCount = 0;
-	bool active = true;
+	bool scanned = false;
 	float scanTimer = 0f;
+	GeneticInformation geneticInformation;
 
+	//Public
+	public bool IsScanned { get { return scanned;} }
+
+	//Protected
 	protected override void SetPackageData()
 	{
-		networkPackage.AddValue (new NetworkPackageValue (active));
+		networkPackage.AddValue (new NetworkPackageValue (scanned));
 	}
 
+	//Private
 	private void Start()
 	{
 		if (NetworkManager.Me)
 			Owner = NetworkManager.Me.Host;
 		else
 			Owner = true;
+
+		geneticInformation = GetComponent <GeneticInformation>();
 	}
 
 	private void Update()
@@ -34,12 +42,10 @@ public class ScannableObject : NetworkBehaviour
 			else
 				scanTimer = 0f;
 			
-			active = scanTimer < targetScanTime;
+			scanned = scanTimer > targetScanTime;
 		}
 		else if (networkPackage.Count > 0)
-			active = networkPackage.Value(0).GetBool();
-
-		gameObject.SetActive (active);
+			scanned = networkPackage.Value(0).GetBool();
 	}
 
 	private void OnTriggerEnter (Collider other)
