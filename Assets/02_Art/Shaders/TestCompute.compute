@@ -1,0 +1,19 @@
+
+#pragma kernel Spheres
+
+#include "Random.cginc"
+
+RWStructuredBuffer<float3> Result;
+uniform float Time;
+
+[numthreads(64,1,1)]
+void Spheres(uint3 id: SV_DispatchThreadID)
+{
+    // Result[id.x] = Noise3t3(id + Time) * 10;
+    float u = id.x + Time;
+    // Result[id.x] = Noise3t3(id + Time) * 10;
+    Result[id.x] = Hash33(id + Time) * 10;
+}
+
+
+
