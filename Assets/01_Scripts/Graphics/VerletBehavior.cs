@@ -36,17 +36,18 @@ public class VerletBehavior : MonoBehaviour
         _simulation = new VerletSimulation(_nodes);
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        float dt = Time.fixedDeltaTime;
         if (useGravity)
         {
             var g = gravity * Vector3.down;
             foreach (var node in _nodes)
             {
-                node.position += Time.deltaTime * g;
+                node.position += dt * g;
             }
         }
-        _simulation.Simulate(iterations, Time.deltaTime);
+        _simulation.Simulate(iterations, dt);
         _nodes[0].position = transform.position;
     }
     
