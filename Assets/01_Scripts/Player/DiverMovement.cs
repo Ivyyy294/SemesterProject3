@@ -9,8 +9,6 @@ public class DiverMovement : MonoBehaviour
 {
     [SerializeField] private Transform diverModel;
     [SerializeField] private Transform diverModel2;
-    [SerializeField] private Transform cameraPivot;
-    [SerializeField] private Transform cameraGhost;
     [SerializeField] private Transform torso;
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float turnSpeedDegrees = 10f;
@@ -46,15 +44,6 @@ public class DiverMovement : MonoBehaviour
         // create delayed motion in the body parts
         UpdateTwistTransforms();
         UpdateTorsoTransforms();
-        
-        UpdateCameraTransforms();
-    }
-
-    void UpdateCameraTransforms()
-    {
-        var lookVector = Vector3.Cross(diverModel.right, Vector3.up);
-        lookVector.y = 0;
-        cameraPivot.rotation = Quaternion.LookRotation(lookVector, Vector3.up);
     }
 
     void UpdateTwistTransforms()

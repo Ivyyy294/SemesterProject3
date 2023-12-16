@@ -891,6 +891,7 @@ GameObject:
   - component: {fileID: 4403961346145412793}
   - component: {fileID: 502994952303067584}
   - component: {fileID: 8811052713946613569}
+  - component: {fileID: 3314907051116619135}
   m_Layer: 0
   m_Name: Diver
   m_TagString: Untagged
@@ -948,8 +949,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diverModel: {fileID: 1640454560365876596}
   diverModel2: {fileID: 3607005626367371009}
-  cameraPivot: {fileID: 2794192000715921741}
-  cameraGhost: {fileID: 2629997689723479621}
   torso: {fileID: 647205402533289170}
   movementSpeed: 1
   turnSpeedDegrees: 90
@@ -980,6 +979,20 @@ MonoBehaviour:
   guid: 12324b42-a5e2-4682-9a49-694b09a41446
   playerScanner: {fileID: 2535323451274822534}
   scanKey: 102
+--- !u!114 &3314907051116619135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723070870191324833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1582da56fb5ee46a4f8ac7f13888fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diverModel: {fileID: 1640454560365876596}
+  cameraPivot: {fileID: 2794192000715921741}
 --- !u!1 &7490512687915977763
 GameObject:
   m_ObjectHideFlags: 0
