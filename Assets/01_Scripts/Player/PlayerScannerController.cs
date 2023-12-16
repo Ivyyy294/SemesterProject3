@@ -7,8 +7,11 @@ public class PlayerScannerController : NetworkBehaviour
 {
 	[SerializeField] Scanner playerScanner;
 	[SerializeField] KeyCode scanKey;
-
-	protected override void SetPackageData(){}
+	bool scannerActive = false;
+	protected override void SetPackageData()
+	{
+		networkPackage.AddValue (new NetworkPackageValue (scannerActive));
+	}
 
     // Update is called once per frame
     void Update()
@@ -16,30 +19,35 @@ public class PlayerScannerController : NetworkBehaviour
 		if (Owner)
 		{
 			if (Input.GetKeyDown (scanKey))
-				ActivateScanner();
+				scannerActive = true;
 			else if (Input.GetKeyUp(scanKey))
-				DeactivateScanner();
+				scannerActive = false;
 		}
+		else if (networkPackage.Count > 0)
+			scannerActive = networkPackage.Value (0).GetBool();
+
+		if (playerScanner)
+			playerScanner.SetActivate (scannerActive);
     }
 
-	[RPCAttribute]
-	void ActivateScanner()
-	{
-		if (Owner)
-			Invoke ("ActivateScanner");
+	//[RPCAttribute]
+	//void ActivateScanner()
+	//{
+	//	if (Owner)
+	//		Invoke ("ActivateScanner");
 
-		if (playerScanner)
-			playerScanner.SetActivate (true);
-	}
+	//	if (playerScanner)
+	//		playerScanner.SetActivate (true);
+	//}
 
-	[RPCAttribute]
-	void DeactivateScanner()
-	{
-		if (Owner)
-			Invoke ("DeactivateScanner");
+	//[RPCAttribute]
+	//void DeactivateScanner()
+	//{
+	//	if (Owner)
+	//		Invoke ("DeactivateScanner");
 
-		if (playerScanner)
-			playerScanner.SetActivate (false);
-	}
+	//	if (playerScanner)
+	//		playerScanner.SetActivate (false);
+	//}
 
 }

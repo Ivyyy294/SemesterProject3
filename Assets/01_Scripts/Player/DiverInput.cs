@@ -12,9 +12,6 @@ public class DiverInput : NetworkBehaviour
     private float _yaw;
     private float _yawSway = 0;
 
-    public UnityEvent startForward;
-    public UnityEvent stopForward;
-
     public float ForwardTime => _forwardTime;
     public bool IsGoingForward => _forwardTime > 0f;
     public float Pitch => _pitch;
@@ -29,6 +26,8 @@ public class DiverInput : NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (_pitchSway));
 		networkPackage.AddValue (new NetworkPackageValue (_yaw));
 		networkPackage.AddValue (new NetworkPackageValue (_yawSway));
+		networkPackage.AddValue (new NetworkPackageValue (transform.position));
+		networkPackage.AddValue (new NetworkPackageValue (transform.forward));
 	}
 
     void Update()
@@ -41,13 +40,16 @@ public class DiverInput : NetworkBehaviour
 		}
 		else
 		{
-			if (networkPackage.Count == 5)
+			if (networkPackage.Count > 0)
 			{
 				_forwardTime = networkPackage.Value(0).GetFloat();
 				_pitch = networkPackage.Value(1).GetFloat();
 				_pitchSway = networkPackage.Value(2).GetFloat();
 				_yaw = networkPackage.Value(3).GetFloat();
 				_yawSway = networkPackage.Value(4).GetFloat();
+				transform.position = networkPackage.Value(5).GetVector3();
+				transform.forward = networkPackage.Value(6).GetVector3();
+				//networkPackage.Clear();
 			}
 		}
     }
@@ -56,25 +58,17 @@ public class DiverInput : NetworkBehaviour
     {
         var forwardKey = KeyCode.Space;
         if (Input.GetKeyDown(forwardKey))
-        {
             _forwardTime = Time.deltaTime;
-            startForward.Invoke();
-        }
 
         if (Input.GetKeyUp(forwardKey))
-        {
             _forwardTime = -Time.deltaTime;
-            stopForward.Invoke();
-        }
-        if (Input.GetKey(forwardKey))
-        {
+        
+		if (Input.GetKey(forwardKey))
             _forwardTime += Time.deltaTime;
-        }
         else
-        {
             _forwardTime -= Time.deltaTime;
-        }
     }
+
     void UpdatePitch()
     {
         _pitch = Input.GetAxisRaw("Vertical");
