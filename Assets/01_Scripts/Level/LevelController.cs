@@ -19,7 +19,6 @@ public class LevelController : MonoBehaviour
 		{
 			Time.timeScale = 0f;
 			indexLocalPlayer = configurationManager.LocalPlayerId;
-			configurationManager.playerConfigurations[indexLocalPlayer].sceneLoaded = true;
 		}
     }
 
@@ -28,6 +27,8 @@ public class LevelController : MonoBehaviour
     {
 		if (configurationManager)
 		{
+			configurationManager.playerConfigurations[indexLocalPlayer].sceneLoaded = true;
+			
 			//Wait for all instances to finish loading
 			if (waiting && configurationManager.PlayersLoadedScene())
 			{

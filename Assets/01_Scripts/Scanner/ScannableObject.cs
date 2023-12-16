@@ -42,13 +42,13 @@ public class ScannableObject : NetworkBehaviour
 		gameObject.SetActive (active);
 	}
 
-	private void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter (Collider other)
 	{
 		if (other.CompareTag ("Scanner"))
 			scannerCount++;
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void OnTriggerExit (Collider other)
 	{
 		if (other.CompareTag ("Scanner"))
 			scannerCount--;
