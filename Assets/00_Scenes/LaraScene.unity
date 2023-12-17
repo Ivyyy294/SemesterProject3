@@ -131,13 +131,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 110566784773255463, guid: e4444ac621798954c800829a93fbfadf, type: 3}
+      propertyPath: guid
+      value: 5f95b938-a232-4020-a13a-67538021547f
+      objectReference: {fileID: 0}
     - target: {fileID: 240276046763560541, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: m_Name
       value: ScannableObject (1)
       objectReference: {fileID: 0}
     - target: {fileID: 444020261431830328, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: nameSpecies
-      value: Cube2
+      value: Cube1
       objectReference: {fileID: 0}
     - target: {fileID: 4929579227691609911, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -282,8 +286,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315981633}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.06, y: 1.78, z: 7.02}
+  m_LocalRotation: {x: -0.14849715, y: 0.69133836, z: 0.14849716, w: 0.69133824}
+  m_LocalPosition: {x: 1.06, y: 2.2303724, z: 7.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9bc238665be1549a944a0ac5cf8db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: e2ff952a-7b31-403a-bce1-cd8d9dd918e8
+  guid: 6262cb22-070d-433f-97f3-a9c05e32bea5
   speed: 0.5
 --- !u!114 &315981636
 MonoBehaviour:
@@ -417,6 +421,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 110566784773255463, guid: e4444ac621798954c800829a93fbfadf, type: 3}
+      propertyPath: guid
+      value: b2ec8899-4289-456b-a8ff-e8fdda2d4da0
+      objectReference: {fileID: 0}
     - target: {fileID: 240276046763560541, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: m_Name
       value: ScannableObject (2)
@@ -526,13 +534,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 110566784773255463, guid: e4444ac621798954c800829a93fbfadf, type: 3}
+      propertyPath: guid
+      value: 35776fcc-96eb-488b-85b6-2e7e6aefefb2
+      objectReference: {fileID: 0}
     - target: {fileID: 240276046763560541, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: m_Name
       value: ScannableObject
       objectReference: {fileID: 0}
     - target: {fileID: 444020261431830328, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: nameSpecies
-      value: Cube1
+      value: Cube2
       objectReference: {fileID: 0}
     - target: {fileID: 4929579227691609911, guid: e4444ac621798954c800829a93fbfadf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -591,9 +603,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1142089644638401319, guid: 322cbc2204a2fd545a382c0e1c59fb86, type: 3}
+      propertyPath: guid
+      value: 7ee100ce-bde1-4a47-be3a-4ac352fd3c1c
+      objectReference: {fileID: 0}
+    - target: {fileID: 1628945842240368692, guid: 322cbc2204a2fd545a382c0e1c59fb86, type: 3}
+      propertyPath: guid
+      value: 8c964d88-406e-4643-b1ab-3ebb3dde5b56
+      objectReference: {fileID: 0}
     - target: {fileID: 4027571128571085909, guid: 322cbc2204a2fd545a382c0e1c59fb86, type: 3}
       propertyPath: m_Name
       value: PlayerManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4824888558760645630, guid: 322cbc2204a2fd545a382c0e1c59fb86, type: 3}
+      propertyPath: guid
+      value: 06376b28-b714-4621-8ae2-7db530404f46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6608992266474393837, guid: 322cbc2204a2fd545a382c0e1c59fb86, type: 3}
+      propertyPath: guid
+      value: 3b73dd90-8200-4238-9326-d705bc22b4b0
       objectReference: {fileID: 0}
     - target: {fileID: 7213916129566285051, guid: 322cbc2204a2fd545a382c0e1c59fb86, type: 3}
       propertyPath: m_LocalPosition.x
@@ -649,6 +677,6 @@ SceneRoots:
   - {fileID: 507563204545167025}
   - {fileID: 1452604201}
   - {fileID: 315981634}
-  - {fileID: 377120586489673095}
   - {fileID: 175401609}
+  - {fileID: 377120586489673095}
   - {fileID: 976600786}

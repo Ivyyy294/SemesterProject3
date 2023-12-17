@@ -36,13 +36,16 @@ public class ScannableObject : NetworkBehaviour
 	{
 		if (Owner)
 		{
-			if (scannerCount > 0)
-				scanTimer += Time.deltaTime * scannerCount;
-			//Reset scanTimer if no player has lock
-			else
-				scanTimer = 0f;
+			if (!scanned)
+			{
+				if (scannerCount > 0)
+					scanTimer += Time.deltaTime * scannerCount;
+				//Reset scanTimer if no player has lock
+				else
+					scanTimer = 0f;
 			
-			scanned = scanTimer > targetScanTime;
+				scanned = scanTimer > targetScanTime;
+			}
 		}
 		else if (networkPackage.Count > 0)
 			scanned = networkPackage.Value(0).GetBool();
