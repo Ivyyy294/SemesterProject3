@@ -30,9 +30,14 @@ public class DiverInput : NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (transform.forward));
 	}
 
-    void Update()
+	void Start()
+	{
+		if (NetworkManager.Me is null) Owner = true;		
+	}
+
+	void Update()
     {
-		if (Owner)
+	    if (Owner)
 		{
 			UpdateForwardInput();
 			UpdatePitch();
