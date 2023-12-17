@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         playerConfigurationManager = PlayerConfigurationManager.Me;
-		networkManager = Ivyyy.Network.NetworkManager.Me;
+		networkManager = NetworkManager.Me;
 
 		if (playerConfigurationManager && networkManager)
 		{
