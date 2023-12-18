@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Matrix4x4 = UnityEngine.Matrix4x4;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -15,6 +11,8 @@ public class DiverAnimation : MonoBehaviour
 {
     [SerializeField] private TransformDelay legDelay;
     [SerializeField] private InverseChain hipSpineChain;
+    [SerializeField] private Transform shoulders;
+    [SerializeField] private List<Transform> lowerLegs;
 
     [SerializeField] private Animator animator;
 
@@ -25,6 +23,8 @@ public class DiverAnimation : MonoBehaviour
      private Vector3 _previousPosition;
      private int _positionBufferSize = 24; 
      private Vector3 _velocity;
+
+     private AnimUtils.AngleTracker _angleTracker;
 
      private void OnEnable()
     {
@@ -38,7 +38,7 @@ public class DiverAnimation : MonoBehaviour
      void Update()
     {
         UpdatePreviosPositions(); // Always update first to validate the values
-
+        
         animator.SetFloat(ID_SwimSpeed, Mathf.Clamp01(_velocity.magnitude));
         animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
     }
@@ -58,32 +58,34 @@ public class DiverAnimation : MonoBehaviour
         _previousVelocities.RemoveAt(0);
         _previousVelocities.Add((transform.position - _previousPosition) / Time.deltaTime);
         _previousPosition = transform.position;
+
+        _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
+        Debug.Log($"Vertical: {_angleTracker.Angle1}, Horizontal: {_angleTracker.Angle2}");
     }
     
     void UpdateTwistTransforms()
     {
-        // upperBody.localEulerAngles = new Vector3(0, 0, -diverInput.YawSway * 30f);
+        shoulders.Rotate(Vector3.up, _angleTracker.Angle2 * 0.5f);
     }
 
     void UpdateTorsoTransforms()
     {
-        var direction = legDelay.DelayPosition - hipSpineChain.root.position;
-        var upDirection = legDelay.DelayRotation * Vector3.up;
-        var targetRotation = Quaternion.LookRotation(direction, upDirection);
         hipSpineChain.GetOriginal();
         var root = hipSpineChain.RootInverse;
-        root.rotation = targetRotation;
-        root.Rotate(Vector3.forward, 180);
-        root.Rotate(Vector3.right, -90);
+        root.Rotate(Vector3.right, _angleTracker.Angle1 * 1f);
+        root.Rotate(Vector3.forward, -_angleTracker.Angle2);
         hipSpineChain.Apply();
-        
-        
+        foreach (var t in lowerLegs)
+        {
+            t.Rotate(Vector3.right, -_angleTracker.Angle1 * 1f);
+            Debug.Log(t.localEulerAngles.x);
+        }
     }
     
     #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        
+        // if(_angleTracker is not null) _angleTracker.DrawDebug();
     }
     #endif
 }
