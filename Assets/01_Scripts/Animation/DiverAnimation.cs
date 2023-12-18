@@ -23,7 +23,7 @@ public class DiverAnimation : MonoBehaviour
 
      private List<Vector3> _previousVelocities;
      private Vector3 _previousPosition;
-     private int _positionBufferSize = 10; 
+     private int _positionBufferSize = 24; 
      private Vector3 _velocity;
 
      private void OnEnable()
