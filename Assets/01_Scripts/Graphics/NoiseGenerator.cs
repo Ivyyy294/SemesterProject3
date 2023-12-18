@@ -23,6 +23,7 @@ public enum ResolutionPreset
     _2048
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(NoiseGenerator))]
 public class NoiseGeneratorEditor : Editor
 {
@@ -38,7 +39,7 @@ public class NoiseGeneratorEditor : Editor
         DrawDefaultInspector();
     }
 }
-
+#endif
 
 public class NoiseGenerator : MonoBehaviour
 {
@@ -102,7 +103,8 @@ public class NoiseGenerator : MonoBehaviour
         v /= scale;
         return new Color(u, v, 0);
     }
-
+    
+    #if UNITY_EDITOR
     public void GenerateTexture()
     {
         Debug.Log("Generating");
@@ -112,4 +114,5 @@ public class NoiseGenerator : MonoBehaviour
         FillTexture(shader, texture, noiseType, noiseScale);
         AssetDatabase.CreateAsset(texture, $"Assets/02_Art/Textures/Procedural/{textureName}.asset");
     }
+    #endif
 }

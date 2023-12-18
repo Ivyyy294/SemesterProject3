@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(MeshInverter))]
 [CanEditMultipleObjects]
 public class MeshInverterEditor : Editor
@@ -19,6 +20,7 @@ public class MeshInverterEditor : Editor
         DrawDefaultInspector();
     }
 }
+#endif
 
 public class MeshInverter : MonoBehaviour
 {
