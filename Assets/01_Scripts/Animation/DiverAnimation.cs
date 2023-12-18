@@ -62,7 +62,6 @@ public class DiverAnimation : MonoBehaviour
         _previousPosition = transform.position;
 
         _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
-        Debug.Log($"Vertical: {_angleTracker.Angle1}, Horizontal: {_angleTracker.Angle2}");
     }
     
     void UpdateTwistTransforms()
@@ -90,7 +89,6 @@ public class DiverAnimation : MonoBehaviour
         foreach (var t in lowerLegs)
         {
             t.Rotate(Vector3.right, -_angleTracker.Angle1 * 1f);
-            Debug.Log(t.localEulerAngles.x);
         }
     }
     
