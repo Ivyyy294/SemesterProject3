@@ -49,6 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legDelay: {fileID: 7971995281756212482}
   hipSpineChain: {fileID: 2496753735942581176}
+  shoulders: {fileID: 0}
+  lowerLegs: []
   animator: {fileID: 0}
 --- !u!114 &2496753735942581176
 MonoBehaviour:
@@ -111,7 +113,7 @@ MonoBehaviour:
   positionSpeed: 2
   rotationSpeed: 10
   directionUpdateMargin: 0.01
-  showDebug: 1
+  showDebug: 0
 --- !u!1001 &5472812161281848521
 PrefabInstance:
   m_ObjectHideFlags: 0
