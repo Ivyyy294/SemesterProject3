@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -11,8 +12,9 @@ public class DiverAnimation : MonoBehaviour
 {
     [SerializeField] private TransformDelay legDelay;
     [SerializeField] private InverseChain hipSpineChain;
-    [SerializeField] private Transform shoulders;
+    [SerializeField] private Transform upperSpine;
     [SerializeField] private List<Transform> lowerLegs;
+    [SerializeField] private List<Transform> arms;
 
     [SerializeField] private Animator animator;
 
@@ -65,7 +67,17 @@ public class DiverAnimation : MonoBehaviour
     
     void UpdateTwistTransforms()
     {
-        shoulders.Rotate(Vector3.up, _angleTracker.Angle2 * 0.5f);
+        float verticalAngle = _angleTracker.Angle1;
+        float horizontalAngle = _angleTracker.Angle2;
+        upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f);
+        upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f);
+        foreach (var t in arms)
+        {
+            var vectorYaw = t.InverseTransformDirection(transform.up);
+            var vectorPitch = t.InverseTransformDirection(transform.right);
+            t.Rotate(vectorYaw, horizontalAngle * 0.5f);
+            t.Rotate(vectorPitch, verticalAngle * 0.5f);
+        }
     }
 
     void UpdateTorsoTransforms()

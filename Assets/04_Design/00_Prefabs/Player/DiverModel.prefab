@@ -49,8 +49,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legDelay: {fileID: 7971995281756212482}
   hipSpineChain: {fileID: 2496753735942581176}
-  shoulders: {fileID: 0}
-  lowerLegs: []
+  upperSpine: {fileID: 8101770628012132320}
+  lowerLegs:
+  - {fileID: 4012926721602374782}
+  - {fileID: 5965419222298959314}
+  arms:
+  - {fileID: 7917451540314168039}
+  - {fileID: 6715961606634166166}
   animator: {fileID: 0}
 --- !u!114 &2496753735942581176
 MonoBehaviour:
@@ -197,6 +202,36 @@ Transform:
 --- !u!4 &3248556738153092941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7414724398935270276, guid: 56fd4282183ed6543aecf79a5fe6e306,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472812161281848521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4012926721602374782 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8954161277474453687, guid: 56fd4282183ed6543aecf79a5fe6e306,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472812161281848521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5965419222298959314 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1817827552787360027, guid: 56fd4282183ed6543aecf79a5fe6e306,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472812161281848521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6715961606634166166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1639511293447840607, guid: 56fd4282183ed6543aecf79a5fe6e306,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472812161281848521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7917451540314168039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2743577898965265966, guid: 56fd4282183ed6543aecf79a5fe6e306,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472812161281848521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8101770628012132320 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4295326682052506409, guid: 56fd4282183ed6543aecf79a5fe6e306,
     type: 3}
   m_PrefabInstance: {fileID: 5472812161281848521}
   m_PrefabAsset: {fileID: 0}
