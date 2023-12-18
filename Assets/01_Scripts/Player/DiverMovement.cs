@@ -8,8 +8,6 @@ using UnityEngine;
 public class DiverMovement : MonoBehaviour
 {
     [SerializeField] private Transform diverModel;
-    [SerializeField] private Transform diverModel2;
-    [SerializeField] private Transform torso;
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float turnSpeedDegrees = 10f;
 
@@ -40,22 +38,8 @@ public class DiverMovement : MonoBehaviour
 
         float adjustedMovementSpeed = GetForwardMotionMultiplier() * movementSpeed;
         transform.position += adjustedMovementSpeed * Time.deltaTime * diverModel.forward;
-        
-        // create delayed motion in the body parts
-        UpdateTwistTransforms();
-        UpdateTorsoTransforms();
     }
 
-    void UpdateTwistTransforms()
-    {
-        diverModel2.localEulerAngles = new Vector3(0, 0, -diverInput.YawSway * 30f);
-    }
-
-    void UpdateTorsoTransforms()
-    {
-        torso.localEulerAngles = new Vector3(-diverInput.PitchSway * 70f, -diverInput.YawSway * 40f, 0);
-    }
-    
     Vector3 GetIdealRightVector()
     {
         return Vector3.Cross(Vector3.up, diverModel.forward).normalized;
