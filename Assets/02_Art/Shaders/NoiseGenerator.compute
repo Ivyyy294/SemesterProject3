@@ -1,0 +1,35 @@
+
+#pragma kernel White
+#pragma kernel Perlin
+
+#include "Random.cginc"
+
+RWTexture2D<float3> Result;
+uniform uint2 TextureSize;
+uniform int NoiseScale;
+
+float2 UV(uint3 id)
+{
+    int sX = TextureSize.x;
+    int sY = TextureSize.y;
+    return float2(id.x / (float)sX, id.y / (float)sY);
+}
+
+[numthreads(8,8,1)]
+void White(uint3 id: SV_DispatchThreadID)
+{
+    float2 uv = UV(id);
+
+    float3 noise = Hash33(float3(uv * 234567.124, .34));
+    
+    Result[id.xy] = noise;
+}
+
+[numthreads(8,8,1)]
+void Perlin(uint3 id: SV_DispatchThreadID)
+{
+    float r = PerlinNoise(UV(id), NoiseScale);
+    float g = PerlinNoise(UV(id), NoiseScale, 23425.1243);
+    float b = PerlinNoise(UV(id), NoiseScale, 90383.24);
+    Result[id.xy] = float3(r,g,b);
+}
