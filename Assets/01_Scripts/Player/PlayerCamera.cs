@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-	[SerializeField] private Transform diverModel;
 	[SerializeField] private Transform cameraPivot;
 
     // Update is called once per frame
@@ -15,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
 
 	void UpdateCameraTransforms()
     {
-        var lookVector = Vector3.Cross(diverModel.right, Vector3.up);
+        var lookVector = Vector3.Cross(transform.right, Vector3.up);
         lookVector.y = 0;
         cameraPivot.rotation = Quaternion.LookRotation(lookVector, Vector3.up);
     }

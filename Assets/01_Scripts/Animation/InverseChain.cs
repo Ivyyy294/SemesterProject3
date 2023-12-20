@@ -30,8 +30,8 @@ public class InverseChain : MonoBehaviour
 
     public void OnDisable()
     {
-        Destroy(_rootInverse);
-        Destroy(_childInverse);
+        Destroy(_rootInverse.gameObject);
+        Destroy(_childInverse.gameObject);
     }
 
     public void GetOriginal()
