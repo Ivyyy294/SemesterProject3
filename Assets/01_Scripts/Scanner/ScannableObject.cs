@@ -11,6 +11,6 @@ public class ScannableObject : MonoBehaviour
 
 	public bool IsScanned ()
 	{
-		return	ScannableObjectManager.me.IsScanned (geneticInformation.GUID);
+		return	ScannableObjectManager.me && ScannableObjectManager.me.IsScanned (geneticInformation.GUID);
 	}
 }

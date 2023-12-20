@@ -15,7 +15,7 @@ struct ScanInfoData
 	}
 }
 
-public class ScannableObjectManager : MonoBehaviour
+public class ScannableObjectManager : NetworkBehaviour
 {
 	static public ScannableObjectManager me;
 	
@@ -23,14 +23,20 @@ public class ScannableObjectManager : MonoBehaviour
 	[SerializeField] AudioAsset audioScanSuccesful;
 
 	private Dictionary <string, ScanInfoData> geneticInformationMap = new Dictionary<string, ScanInfoData>();
+	private List <string> scannedObjects = new List<string>();
 
 	//Public
 	public bool IsScanned (string guid)
 	{
-		if (geneticInformationMap.ContainsKey (guid))
-			return geneticInformationMap[guid].IsScanned();
+		return scannedObjects.Contains (guid);
+	}
 
-		return false;
+	//Protected
+	protected override void SetPackageData()
+	{
+		//expensive......
+		foreach (string i in scannedObjects)
+			networkPackage.AddValue (new NetworkPackageValue (i));
 	}
 
 	//Private
@@ -38,41 +44,15 @@ public class ScannableObjectManager : MonoBehaviour
 	{
 		InitScannableObjectMap();
 		me = this;
-		//Owner = !NetworkManager.Me || NetworkManager.Me.Host;
+		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
 	}
 
 	private void Update()
 	{
-		List <string> targetList = new List<string>();
-
-		foreach (Scanner i in playerScanner)
-		{
-			if (i.CurrentTargetId.Length > 0)
-				targetList.Add (i.CurrentTargetId);
-		}
-
-		foreach (string i in targetList)
-		{
-			ScanInfoData scanInfoData = geneticInformationMap[i];
-
-			if (!scanInfoData.IsScanned())
-			{
-				if (scanInfoData.geneticInformation.DualScanRequired
-					&& targetList.Count(item => item == i) > 1
-					|| !scanInfoData.geneticInformation.DualScanRequired)
-				{
-					scanInfoData.scanTime += Time.deltaTime;
-					geneticInformationMap[i] = scanInfoData;
-					Debug.Log ("Scanning: " + scanInfoData.geneticInformation.name);
-
-					if (scanInfoData.IsScanned() && audioScanSuccesful)
-					{
-						audioScanSuccesful.PlayOneShot();
-						Debug.Log ("Scan complete: " + scanInfoData.geneticInformation.name + "!");
-					}
-				}
-			}
-		}
+		if (Owner)
+			HostUpdate();
+		else
+			ClientUpdate();
 	}
 
 	private void InitScannableObjectMap()
@@ -87,6 +67,56 @@ public class ScannableObjectManager : MonoBehaviour
 				scanInfoData.scanTime = 0f;
 				scanInfoData.geneticInformation = geneticInformation;
 				geneticInformationMap.Add (geneticInformation.GUID, scanInfoData);
+			}
+		}
+	}
+
+	private void HostUpdate()
+	{
+		List <string> targetList = new List<string>();
+
+		foreach (Scanner i in playerScanner)
+		{
+			if (i.CurrentTargetId.Length > 0)
+				targetList.Add (i.CurrentTargetId);
+		}
+
+		foreach (string i in targetList)
+		{
+			ScanInfoData scanInfoData = geneticInformationMap[i];
+			string guid = scanInfoData.geneticInformation.GUID;
+
+			if (!IsScanned (guid))
+			{
+				if (scanInfoData.geneticInformation.DualScanRequired
+					&& targetList.Count(item => item == i) > 1
+					|| !scanInfoData.geneticInformation.DualScanRequired)
+				{
+					scanInfoData.scanTime += Time.deltaTime;
+					geneticInformationMap[i] = scanInfoData;
+					Debug.Log ("Scanning: " + scanInfoData.geneticInformation.name);
+
+					if (scanInfoData.IsScanned() && audioScanSuccesful)
+					{
+						scannedObjects.Add (guid);
+						audioScanSuccesful.PlayOneShot();
+						Debug.Log ("Scan complete: " + scanInfoData.geneticInformation.name + "!");
+					}
+				}
+			}
+		}
+	}
+	private void ClientUpdate()
+	{
+		if (networkPackage.Available)
+		{
+			audioScanSuccesful.PlayOneShot();
+			
+			while (networkPackage.Count > scannedObjects.Count)
+			{
+				string guid = networkPackage.Value(scannedObjects.Count).GetString();
+				scannedObjects.Add (guid);
+				Debug.Log ("Scan complete: " + guid + "!");
 			}
 		}
 	}
