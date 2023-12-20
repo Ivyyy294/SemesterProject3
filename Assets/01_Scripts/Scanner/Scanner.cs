@@ -2,43 +2,81 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent (typeof (DiverInput))]
 public class Scanner : MonoBehaviour
 {
-	[Min(0.1f)]
-	[SerializeField] float range = 0f;
+	[SerializeField] float scanRadius = 0.5f;
+	[SerializeField] GameObject scanOverlay;
 
-	[Min(0.1f)]
-	[SerializeField] float diameter = 0f;
+	DiverInput diverInput;
+	ScannableObject currentTarget;
 
-	[Header ("Lara Values")]
-	[SerializeField] GameObject scannerCollider;
-
-	bool active = false;
-
-	public void SetActivate (bool val)
+	private void Start()
 	{
-		active = val;
+		diverInput = GetComponent <DiverInput>();
 	}
-
-    // Start is called before the first frame update
-    void Start()
-    {
-		ScaleScannerCollider();
-    }
 
 	private void Update()
 	{
-		if (scannerCollider.activeInHierarchy != active)
-			scannerCollider.SetActive (active);
+		if (currentTarget)
+			ScanInProgress();
+		else
+			ScanForTarget();
 	}
 
-	void ScaleScannerCollider()
+	private void ScanInProgress()
 	{
-        if (scannerCollider)
+		float distance = Vector3.Distance (transform.position, currentTarget.transform.position);
+		bool targetOnScreen = IsOnScreen (currentTarget.transform);
+
+		if (diverInput.IsScanPressed && targetOnScreen && distance <= currentTarget.GeneticInformation.ScanRange)
 		{
-			scannerCollider.transform.localScale = new Vector3 (diameter, range, diameter);
-			scannerCollider.transform.localPosition = new Vector3 (0, 0, range);
+			SetIndicatorPosition (currentTarget.transform.position);
+			Debug.Log ("Scan...");
 		}
+		else
+		{
+			currentTarget = null;
+			Debug.Log ("Scan abort!");
+		}
+	}
+
+	private void ScanForTarget()
+	{
+		RaycastHit hitInfo;
+		bool overlayVisible = false;
+		
+		if (Physics.SphereCast (transform.position, scanRadius, transform.forward, out hitInfo))
+		{
+			ScannableObject scannableObject = hitInfo.transform.GetComponent<ScannableObject>();
+
+			if (scannableObject && hitInfo.distance <= scannableObject.GeneticInformation.ScanRange)
+			{
+				if (!scanOverlay.activeInHierarchy)
+					scanOverlay.SetActive (true);
+
+				overlayVisible = true;
+				SetIndicatorPosition (scannableObject.transform.position);
+
+				if (diverInput.IsScanPressed)
+					currentTarget = scannableObject;
+			}
+		}
+
+		if (scanOverlay.activeInHierarchy != overlayVisible)
+			scanOverlay.SetActive (overlayVisible);
+	}
+
+	private void SetIndicatorPosition (Vector3 worldPos)
+	{
+		scanOverlay.transform.position = Camera.main.WorldToScreenPoint (worldPos);
+	}
+
+	private bool IsOnScreen (Transform target)
+	{
+		Vector3 screenPos = Camera.main.WorldToScreenPoint (target.position);
+		bool onScreen = screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y > 0f && screenPos.y < Screen.height;
+		return onScreen;
 	}
 }
 

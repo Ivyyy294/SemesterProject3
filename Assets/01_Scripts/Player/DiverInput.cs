@@ -11,6 +11,7 @@ public class DiverInput : NetworkBehaviour
     private float _pitchSway = 0;
     private float _yaw;
     private float _yawSway = 0;
+	private bool scanPressed;
 
     public float ForwardTime => _forwardTime;
     public bool IsGoingForward => _forwardTime > 0f;
@@ -18,6 +19,13 @@ public class DiverInput : NetworkBehaviour
     public float PitchSway => _pitchSway;
     public float Yaw => _yaw;
     public float YawSway => _yawSway;
+
+	[Header ("Key Bindings")]
+	KeyCode forwardKey = KeyCode.Space;
+	KeyCode scanKey = KeyCode.LeftShift;
+
+	//Public
+	public bool IsScanPressed { get { return scanPressed;} }
     
 	protected override void SetPackageData()
 	{
@@ -32,13 +40,18 @@ public class DiverInput : NetworkBehaviour
 
 	void Start()
 	{
-		if (NetworkManager.Me is null) Owner = true;		
+		if (NetworkManager.Me is null) Owner = true;
 	}
 
 	void Update()
     {
 	    if (Owner)
 		{
+			if (Input.GetKeyDown (scanKey))
+				scanPressed = true;
+			else if (Input.GetKeyUp (scanKey))
+				scanPressed = false;
+
 			UpdateForwardInput();
 			UpdatePitch();
 			UpdateYaw();

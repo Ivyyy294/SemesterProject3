@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4375432042187006645}
   - component: {fileID: 4582935195782203569}
   - component: {fileID: 110566784773255463}
-  - component: {fileID: 444020261431830328}
   - component: {fileID: 9041060194702591741}
   - component: {fileID: 3414364073272329250}
   m_Layer: 0
@@ -122,20 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 356f2614-4d78-47c8-b9d1-5e50cae6da30
+  geneticInformation: {fileID: 11400000, guid: ee5a4548fdf6a0f45853a85442f95933, type: 2}
   targetScanTime: 1
---- !u!114 &444020261431830328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240276046763560541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f2596e72cba79440b2c7718eec72312, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameSpecies: Cube
 --- !u!114 &9041060194702591741
 MonoBehaviour:
   m_ObjectHideFlags: 0
