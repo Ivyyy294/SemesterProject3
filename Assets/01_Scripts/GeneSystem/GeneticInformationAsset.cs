@@ -19,5 +19,5 @@ public class GeneticInformationAsset : ScriptableObject
 	public string NameSpecies { get { return nameSpecies;} }
 	public float ScanTime { get { return scanTime;} }
 	public float ScanRange { get { return scanRange;} }
-	public bool DualScanREquired { get { return dualScanRequired;} }
+	public bool DualScanRequired { get { return dualScanRequired;} }
 }

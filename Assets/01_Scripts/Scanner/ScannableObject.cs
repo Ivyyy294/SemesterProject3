@@ -8,4 +8,9 @@ public class ScannableObject : MonoBehaviour
 
 	//Public
 	public GeneticInformationAsset GeneticInformation { get { return geneticInformation;} }
+
+	public bool IsScanned ()
+	{
+		return	ScannableObjectManager.me.IsScanned (geneticInformation.GUID);
+	}
 }

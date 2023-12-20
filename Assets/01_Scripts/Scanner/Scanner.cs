@@ -1,16 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ivyyy.Network;
 
 [RequireComponent (typeof (DiverInput))]
-public class Scanner : MonoBehaviour
+public class Scanner : NetworkBehaviour
 {
 	[SerializeField] float scanRadius = 0.5f;
 	[SerializeField] GameObject scanOverlay;
 
 	DiverInput diverInput;
 	ScannableObject currentTarget;
+	string targetGuid = "";
 
+	//Public
+	public string CurrentTargetId { get { return targetGuid;} }
+
+	//Protected Methods
+	protected override void SetPackageData()
+	{
+		if (currentTarget)
+			networkPackage.AddValue (new NetworkPackageValue (targetGuid));
+	}
+
+	//Private Methods
 	private void Start()
 	{
 		diverInput = GetComponent <DiverInput>();
@@ -18,10 +31,24 @@ public class Scanner : MonoBehaviour
 
 	private void Update()
 	{
-		if (currentTarget)
-			ScanInProgress();
+		if (Owner)
+		{
+			if (currentTarget)
+				ScanInProgress();
+			else
+				ScanForTarget();
+		}
 		else
-			ScanForTarget();
+		{
+			if (networkPackage.Available)
+				targetGuid = networkPackage.Value(0).GetString();
+			else
+				targetGuid = "";
+		}
+
+		//Disable Scan Overlay for remote player
+		if (!Owner && scanOverlay.activeInHierarchy)
+			scanOverlay.SetActive (false);
 	}
 
 	private void ScanInProgress()
@@ -29,14 +56,16 @@ public class Scanner : MonoBehaviour
 		float distance = Vector3.Distance (transform.position, currentTarget.transform.position);
 		bool targetOnScreen = IsOnScreen (currentTarget.transform);
 
-		if (diverInput.IsScanPressed && targetOnScreen && distance <= currentTarget.GeneticInformation.ScanRange)
-		{
+		//Scan Complete
+		if (currentTarget.IsScanned())
+			SetTarget (null);
+		//Scan pending
+		else if (diverInput.IsScanPressed && targetOnScreen && distance <= currentTarget.GeneticInformation.ScanRange)
 			SetIndicatorPosition (currentTarget.transform.position);
-			Debug.Log ("Scan...");
-		}
+		//Scan abort
 		else
 		{
-			currentTarget = null;
+			SetTarget (null);
 			Debug.Log ("Scan abort!");
 		}
 	}
@@ -50,7 +79,9 @@ public class Scanner : MonoBehaviour
 		{
 			ScannableObject scannableObject = hitInfo.transform.GetComponent<ScannableObject>();
 
-			if (scannableObject && hitInfo.distance <= scannableObject.GeneticInformation.ScanRange)
+			if (scannableObject
+				&& !scannableObject.IsScanned()
+				&& hitInfo.distance <= scannableObject.GeneticInformation.ScanRange)
 			{
 				if (!scanOverlay.activeInHierarchy)
 					scanOverlay.SetActive (true);
@@ -59,7 +90,7 @@ public class Scanner : MonoBehaviour
 				SetIndicatorPosition (scannableObject.transform.position);
 
 				if (diverInput.IsScanPressed)
-					currentTarget = scannableObject;
+					SetTarget (scannableObject);
 			}
 		}
 
@@ -77,6 +108,16 @@ public class Scanner : MonoBehaviour
 		Vector3 screenPos = Camera.main.WorldToScreenPoint (target.position);
 		bool onScreen = screenPos.x > 0f && screenPos.x < Screen.width && screenPos.y > 0f && screenPos.y < Screen.height;
 		return onScreen;
+	}
+
+	private void SetTarget (ScannableObject target)
+	{
+		currentTarget = target;
+		
+		if (target)
+			targetGuid = target.GeneticInformation.GUID;
+		else
+			targetGuid = "";
 	}
 }
 

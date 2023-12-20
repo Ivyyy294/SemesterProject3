@@ -779,6 +779,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1964038116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &949896018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 949896021}
+  - component: {fileID: 949896020}
+  - component: {fileID: 949896019}
+  m_Layer: 0
+  m_Name: ScannableObjectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &949896019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949896018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 033f1ef3995054145b3d062e9a7859c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScanner:
+  - {fileID: 1331031214}
+  - {fileID: 1454757244}
+  audioScanSuccesful: {fileID: 11400000, guid: a03a9f7134c20c74ebd8a13c81aa05c7, type: 2}
+--- !u!114 &949896020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949896018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &949896021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949896018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14412245, y: -0.40098312, z: 7.8611345}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &976600786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -893,6 +954,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1964038116}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1331031214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 66902539337942570, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 507563204545167025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ada6f93ef97bd64988bb99ae3a9e48a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1439830099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1003,6 +1076,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a9cb7038f513634eab3691844f5f3f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1454757244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6089975592724145632, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 507563204545167025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ada6f93ef97bd64988bb99ae3a9e48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1742241553
@@ -1286,6 +1371,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 66902539337942570, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: guid
+      value: 23fa59aa-b371-47f2-b8a5-4f2371d66544
+      objectReference: {fileID: 0}
     - target: {fileID: 1142089644638401319, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
       propertyPath: guid
@@ -1305,6 +1395,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: 06376b28-b714-4621-8ae2-7db530404f46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089975592724145632, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: guid
+      value: 7098afb8-f3a7-49ab-90f4-11a798a74317
       objectReference: {fileID: 0}
     - target: {fileID: 6608992266474393837, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
@@ -1380,3 +1475,4 @@ SceneRoots:
   - {fileID: 976600786}
   - {fileID: 1964038116}
   - {fileID: 1439830102}
+  - {fileID: 949896021}
