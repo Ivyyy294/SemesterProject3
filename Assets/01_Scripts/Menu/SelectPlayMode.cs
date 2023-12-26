@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ivyyy.Network;
-using UnityEngine.SceneManagement;
 using System;
 using System.Net;
 
@@ -15,7 +14,8 @@ public class SelectPlayMode : MonoBehaviour
 	public void OnHostPressed()
 	{
 		NetworkManager.Me.StartHost (23000);
-		SceneManager.LoadScene (1);
+		NetworkSceneController.Me.Owner = true;
+		NetworkSceneController.Me.LoadScene (1);
 	}
 
 	public void OnJoinPressed()
@@ -28,8 +28,7 @@ public class SelectPlayMode : MonoBehaviour
 			//Cast input to IPAddress
 			iPAddress = IPAddress.Parse (ip_string);
 
-			if (NetworkManager.Me.StartClient (iPAddress.ToString() , 23000))
-				SceneManager.LoadScene (1);
+			NetworkManager.Me.StartClient (iPAddress.ToString() , 23000);
 		}
 		catch (Exception excp)
 		{

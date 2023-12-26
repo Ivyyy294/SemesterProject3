@@ -11,13 +11,6 @@ public class PlayerPanelController : MonoBehaviour
 	NetworkManager networkManager;
 	PlayerConfigurationManager playerConfiguration;
 
-	bool clientConnected = false;
-
-	public void OnClientConnected(int clientNumber, Socket socket)
-	{
-		clientConnected = true;
-	}
-
 	public bool AllPlayersReady()
 	{
 		return playerConfiguration.playerConfigurations[0].ready && playerConfiguration.playerConfigurations[1].ready;
@@ -27,20 +20,18 @@ public class PlayerPanelController : MonoBehaviour
     void Start()
     {
 		networkManager = NetworkManager.Me;
+		bool isHost = networkManager.Host;
 		playerConfiguration = PlayerConfigurationManager.Me;
-
-		if (networkManager && networkManager.Host)
-			networkManager.onClientConnected = OnClientConnected;
 		
 		if (playerConfiguration)
 		{
-			playerConfiguration.playerConfigurations[0].Owner = networkManager.Host;
-			playerConfiguration.playerConfigurations[1].Owner = !networkManager.Host;
+			playerConfiguration.playerConfigurations[0].Owner = isHost;
+			playerConfiguration.playerConfigurations[1].Owner = !isHost;
 			playerPanels[0].playerConfiguration = playerConfiguration.playerConfigurations[0];
 			playerPanels[1].playerConfiguration = playerConfiguration.playerConfigurations[1];
 		}
 
-        if (networkManager.Host)
+        if (isHost)
 			playerPanels[0].gameObject.SetActive (true);
 		else
 		{
@@ -52,7 +43,7 @@ public class PlayerPanelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (clientConnected && !playerPanels[1].gameObject.activeInHierarchy)
+		if (playerConfiguration.ClientConnected && !playerPanels[1].gameObject.activeInHierarchy)
 			playerPanels[1].gameObject.SetActive (true);
     }
 }

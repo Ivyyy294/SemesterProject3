@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 using Ivyyy.Network;
-using UnityEngine.SceneManagement;
 
 public class Lobby : MonoBehaviour
 {
 	PlayerConfigurationManager configurationManager;
+	NetworkSceneController networkSceneController;
 
 	private void Start()
 	{
 		configurationManager = PlayerConfigurationManager.Me;
+		networkSceneController = NetworkSceneController.Me;
 
 		if (configurationManager)
 			configurationManager.ResetPlayers();
@@ -20,6 +21,6 @@ public class Lobby : MonoBehaviour
 	private void Update()
 	{
 		if (configurationManager && configurationManager.PlayersReady())
-			SceneManager.LoadScene(2);
+			networkSceneController.LoadScene(2);
 	}
 }

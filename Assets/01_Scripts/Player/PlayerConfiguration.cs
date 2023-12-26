@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
+using System.Net;
 
 [System.Serializable]
 public class PlayerConfiguration :NetworkBehaviour
@@ -9,6 +10,7 @@ public class PlayerConfiguration :NetworkBehaviour
 	public string playerName;
 	public bool ready = false;
 	public bool sceneLoaded = false;
+	public IPAddress iPAddress;
 
 	protected override void SetPackageData()
 	{
