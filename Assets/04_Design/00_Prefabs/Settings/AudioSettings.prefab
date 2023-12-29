@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 5414085718706961677}
   - component: {fileID: 8317589073038089373}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: MusicSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 0
+  m_Spacing: 8
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 2021915010593213177}
   - component: {fileID: 284743972791654047}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: VoiceLineSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 6224205341262757864}
   - component: {fileID: 2153290872553772995}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: AmbientSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1613,7 +1613,7 @@ GameObject:
   - component: {fileID: 8991832759320394848}
   - component: {fileID: 6909009635256098711}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: SubtitleToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1698,7 +1698,7 @@ GameObject:
   - component: {fileID: 4691784221380442271}
   - component: {fileID: 5010800353152706188}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: SFXSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1788,7 +1788,7 @@ GameObject:
   - component: {fileID: 4435834662570942182}
   - component: {fileID: 7111065897428318132}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: UISlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3085,6 +3085,7 @@ GameObject:
   - component: {fileID: 3972430089502040386}
   - component: {fileID: 5530054287341413494}
   - component: {fileID: 6352093103426735997}
+  - component: {fileID: 1385672710218422036}
   m_Layer: 5
   m_Name: AudioSettings
   m_TagString: Untagged
@@ -3150,6 +3151,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1385672710218422036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326924807455691937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98cd54feea71c7b43a280f69d3dae75c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSetting: {fileID: 8317589073038089373}
+  ambientSetting: {fileID: 2153290872553772995}
+  sfxSetting: {fileID: 5010800353152706188}
+  voiceSetting: {fileID: 284743972791654047}
+  uiSetting: {fileID: 7111065897428318132}
+  subtitle: {fileID: 6909009635256098711}
 --- !u!1 &7586744349058739997
 GameObject:
   m_ObjectHideFlags: 0
