@@ -25,6 +25,15 @@ public class Ball : NetworkBehaviour
 		}
 	}
 
+	public void RespawnBall()
+	{
+		if (Host)
+		{
+			transform.position = Vector3.zero;
+			m_rigidbody.velocity = Vector3.zero;
+		}
+	}
+
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -64,8 +73,6 @@ public class Ball : NetworkBehaviour
 				InvokeRPC ("DespawnBall");
 			}
 		}
-		else if (networkPackage.Available)
-			CurrentPlayerId = networkPackage.Value(0).GetShort();
 	}
 
 	protected override void SetPackageData()
