@@ -240,6 +240,7 @@ MonoBehaviour:
   playerName: 
   ready: 0
   sceneLoaded: 0
+  connected: 0
 --- !u!114 &330773164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +394,7 @@ MonoBehaviour:
   playerName: 
   ready: 0
   sceneLoaded: 0
+  connected: 0
 --- !u!114 &1038674163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,7 +478,7 @@ MonoBehaviour:
   - {fileID: 1677226417}
   - {fileID: 1984760931}
   - {fileID: 1038674162}
-  maxPlayers: 2
+  maxPlayers: 3
 --- !u!114 &1394660847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +671,7 @@ MonoBehaviour:
   playerName: 
   ready: 0
   sceneLoaded: 0
+  connected: 0
 --- !u!114 &1677226418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1650,6 +1653,7 @@ MonoBehaviour:
   playerName: 
   ready: 0
   sceneLoaded: 0
+  connected: 0
 --- !u!114 &1984760932
 MonoBehaviour:
   m_ObjectHideFlags: 0

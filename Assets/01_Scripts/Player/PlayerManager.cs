@@ -14,18 +14,21 @@ public class PlayerManager : MonoBehaviour
         playerConfigurationManager = PlayerConfigurationManager.Me;
 		networkManager = NetworkManager.Me;
 
-		if (playerConfigurationManager && networkManager)
+		if (networkManager)
 		{
-			SetOwnerState (playerList[0], networkManager.Host);
-			SetOwnerState (playerList[1], !networkManager.Host);
+			for (int i = 0; i < playerList.Length; ++i)
+			{
+				SetOwnerState (playerList[i], playerConfigurationManager.playerConfigurations[i].Owner);
+				playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
+			}
 		}
-		//Player one is default
 		else
 		{
-			SetOwnerState (playerList[0], true);
-
-			//Disable player 2
-			playerList[1].SetActive (false);
+			for (int i = 0; i < playerList.Length; ++i)
+			{
+				SetOwnerState (playerList[i], i == 0);
+				playerList[i].SetActive (i == 0);
+			}
 		}
     }
 
