@@ -8,42 +8,81 @@ using System.Net;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-	public int LocalPlayerId { get; set;}
+	//Public Values
 	static public PlayerConfigurationManager Me {get; private set;}
 	public PlayerConfiguration[] playerConfigurations = new PlayerConfiguration[2];
-	public bool ClientConnected {get{return playerConfigurations[1].iPAddress != null;} }
 
+	//Private Values
+	[SerializeField] int maxPlayers = 4;
 	NetworkManager networkManager;
+
+	//Public Methods
+	//ToDo Remove
+	public int LocalPlayerId { get; set;}
+	public int MaxPlayerCount { get { return maxPlayers;} }
+
+	public bool IsClientConnected (int indexPlayer)
+	{
+		if (indexPlayer < playerConfigurations.Length)
+		{
+			//Player 0 is always host
+			if (indexPlayer == LocalPlayerId)
+				return true;
+			else
+				return playerConfigurations[indexPlayer].connected;
+		}
+		else
+			return false;
+	}
 
 	public bool PlayersReady()
 	{
-		return playerConfigurations[0].ready && playerConfigurations[1].ready;
+		for (int i = 0; i < MaxPlayerCount; ++i)
+		{
+			if (!playerConfigurations[i].ready)
+				return false;
+		}
+
+		return true;
 	}
 
 	public bool PlayersLoadedScene()
 	{
-		return playerConfigurations[0].sceneLoaded && playerConfigurations[1].sceneLoaded;
+		for (int i = 0; i < playerConfigurations.Length; ++i)
+		{
+			if (!playerConfigurations[i].sceneLoaded)
+				return false;
+		}
+
+		return true;
 	}
 
 	public void ResetPlayers()
 	{
 		for (int i = 0; i < playerConfigurations.Length; ++i)
 		{
-			playerConfigurations[1].ready = false;
+			playerConfigurations[i].ready = false;
 		}
 	}
 
 	//NetworkManagerCallbacks
 	public bool OnAcceptClient (Socket socket)
 	{
+		//Make sure Host in owner of their confuguration
+		playerConfigurations[LocalPlayerId].Owner = true;
+		playerConfigurations[LocalPlayerId].connected = true;
+
 		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
 
-		//New Client
-		if (playerConfigurations[1].iPAddress == null)
-			return true;
-		else if (playerConfigurations[1].iPAddress.Equals (iPAddress))
+		int newPlayerIndex = GetNewPlayerIndex (iPAddress);
+
+		if (newPlayerIndex != -1)
 		{
-			Debug.Log ("Client re-joned: " + iPAddress);
+			playerConfigurations[newPlayerIndex].iPAddress = iPAddress;
+
+			//Send index to player
+			socket.Send(BitConverter.GetBytes (newPlayerIndex));
+
 			return true;
 		}
 		else
@@ -51,15 +90,19 @@ public class PlayerConfigurationManager : MonoBehaviour
 			Debug.Log ("Client rejected: " + iPAddress);
 			return false;
 		}
-		//Re-joining CLient
 	}
 
-	public void OnClientConnected (Socket socket)
+	public void OnConnectedToHost (Socket socket)
 	{
-		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
-		playerConfigurations[1].iPAddress = iPAddress;
+		byte[] buffer = new byte[sizeof(int)];
+		socket.Receive (buffer);
+		LocalPlayerId = BitConverter.ToInt32 (buffer, 0);
+		playerConfigurations[LocalPlayerId].Owner = true;
+		playerConfigurations[LocalPlayerId].connected = true;
+		Debug.Log ("LocalPlayerId: " + LocalPlayerId);
 	}
 
+	//Private Methods
 	private void Awake()
 	{
 		if (Me == null)
@@ -74,16 +117,29 @@ public class PlayerConfigurationManager : MonoBehaviour
 	private void Start()
 	{
 		networkManager = NetworkManager.Me;
+		LocalPlayerId = 0;
 
 		if (networkManager)
 		{
 			networkManager.acceptClient = OnAcceptClient;
-			networkManager.onClientConnected = OnClientConnected;
+			networkManager.onConnectedToHost = OnConnectedToHost;
+			//networkManager.onClientConnected = OnClientConnected;
 		}
 	}
 
-	private void Update()
+	int GetNewPlayerIndex(IPAddress iPAddress)
 	{
-		LocalPlayerId = networkManager.Host ? 0 : 1;
+		//Player 0 is always host
+		for (int i = 1; i < playerConfigurations.Length; ++i)
+		{
+			//New player
+			if (playerConfigurations[i].iPAddress == null)
+				return i;
+			//Returning player
+			else if (playerConfigurations[i].iPAddress.Equals (iPAddress))
+				return i;
+		}
+
+		return -1;
 	}
 }

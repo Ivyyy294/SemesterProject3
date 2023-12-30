@@ -15,8 +15,6 @@ public class PlayerPanel : MonoBehaviour
 
 	public void OnReadyButtonPressed()
 	{
-		readyButton.SetActive (false);
-		labelReady.gameObject.SetActive (true);
 		playerConfiguration.ready = true;
 	}
 
@@ -36,10 +34,8 @@ public class PlayerPanel : MonoBehaviour
 
 	private void Update()
 	{
-		if (!playerConfiguration.Owner)
-		{
-			labelWaiting.gameObject.SetActive (!playerConfiguration.ready);
-			labelReady.gameObject.SetActive (playerConfiguration.ready);
-		}
+		readyButton.SetActive (playerConfiguration.Owner && !playerConfiguration.ready);
+		labelWaiting.gameObject.SetActive (!playerConfiguration.Owner && !playerConfiguration.ready);
+		labelReady.gameObject.SetActive (playerConfiguration.ready);
 	}
 }
