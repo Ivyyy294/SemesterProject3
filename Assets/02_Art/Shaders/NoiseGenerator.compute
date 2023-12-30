@@ -1,35 +1,118 @@
 
 #pragma kernel White
+#pragma kernel White3D
 #pragma kernel Perlin
+#pragma kernel Perlin3D
+#pragma kernel Fractal
+#pragma kernel Fractal3D
+#pragma kernel Voronoi
+#pragma kernel TestUV
+#pragma kernel TestUV3D
 
-#include "Random.cginc"
+#include "PerlinNoise.cginc"
+#include "CellNoise.cginc"
+#include "Hash.cginc"
+#include "Common.cginc"
+#include "ComputeCommon.cginc"
 
-RWTexture2D<float3> Result;
-uniform uint2 TextureSize;
+RWStructuredBuffer<float4> Result;
+uniform int TextureSize;
 uniform int NoiseScale;
+uniform int NoiseOctaves;
 
-float2 UV(uint3 id)
-{
-    int sX = TextureSize.x;
-    int sY = TextureSize.y;
-    return float2(id.x / (float)sX, id.y / (float)sY);
-}
 
 [numthreads(8,8,1)]
 void White(uint3 id: SV_DispatchThreadID)
 {
-    float2 uv = UV(id);
+    float2 uv = UV(id, TextureSize);
 
-    float3 noise = Hash33(float3(uv * 234567.124, .34));
+    float4 noise = Hash42(uv * 123.45);
     
-    Result[id.xy] = noise;
+    Result[UnravelID(id, TextureSize)] = noise;
+}
+
+[numthreads(8,8,8)]
+void White3D(uint3 id: SV_DispatchThreadID)
+{
+    float3 uvw = UVW(id, TextureSize);
+    float4 noise = Hash43(uvw * 312.65);
+    Result[UnravelID(id, TextureSize)] = noise;
 }
 
 [numthreads(8,8,1)]
 void Perlin(uint3 id: SV_DispatchThreadID)
 {
-    float r = PerlinNoise(UV(id), NoiseScale);
-    float g = PerlinNoise(UV(id), NoiseScale, 23425.1243);
-    float b = PerlinNoise(UV(id), NoiseScale, 90383.24);
-    Result[id.xy] = float3(r,g,b);
+    float4 result = PerlinNoise2Tiled(UV(id, TextureSize) * NoiseScale, int2(NoiseScale, NoiseScale));
+    result = remapClamped(result, 0.23, .7, 0, 1);
+    Result[UnravelID(id, TextureSize)] = result;
+}
+
+[numthreads(8,8,8)]
+void Perlin3D(uint3 id: SV_DispatchThreadID)
+{
+    float4 result = PerlinNoise3Tiled(UVW(id, TextureSize) * NoiseScale, NoiseScale.xxx);
+    result = remapClamped(result, 0.23, .7, 0, 1);
+    Result[UnravelID(id, TextureSize)] = result;
+}
+
+[numthreads(8,8,1)]
+void Fractal(uint3 id: SV_DispatchThreadID)
+{
+    int scale = NoiseScale;
+    float totalWeight = 0;
+    float currentWeight = 1;
+    float4 result = float4(0,0,0,0);
+    float2 uv = UV(id, TextureSize);
+    for(int i = 0; i < NoiseOctaves; i++)
+    {
+        float4 sample = PerlinNoise2Tiled(uv * scale + float2(i, i) * 123.5, int2(scale, scale));
+        sample = remapClamped(sample, .23, .7, 0, 1);
+        result += sample * currentWeight;
+        totalWeight += currentWeight;
+        scale *= 2;
+        currentWeight *= 0.5;
+    }
+    Result[UnravelID(id, TextureSize)] = result/totalWeight;
+}
+
+[numthreads(8,8,8)]
+void Fractal3D(uint3 id: SV_DispatchThreadID)
+{
+    int scale = NoiseScale;
+    float totalWeight = 0;
+    float currentWeight = 1;
+    float4 result = float4(0,0,0,0);
+    float3 uvw = UVW(id, TextureSize);
+    for(int i = 0; i < NoiseOctaves; i++)
+    {
+        float4 sample = PerlinNoise3Tiled(uvw * scale + float3(i, i, i) * 123.5, scale.xxx);
+        sample = remapClamped(sample, .23, .7, 0, 1);
+        result += sample * currentWeight;
+        totalWeight += currentWeight;
+        scale *= 2;
+        currentWeight *= 0.5;
+    }
+    Result[UnravelID(id, TextureSize)] = result/totalWeight;
+}
+
+[numthreads(8,8,1)]
+void Voronoi(uint3 id: SV_DispatchThreadID)
+{
+    CellNoiseResult result = CellNoise2Tiled(UV(id, TextureSize) * NoiseScale, NoiseScale.xx);
+    Result[UnravelID(id, TextureSize)] = float4(result.Distance.xxx, 1);
+}
+
+
+[numthreads(8,8,1)]
+void TestUV(uint3 id: SV_DispatchThreadID)
+{
+    float2 uv = UV(id, TextureSize);
+    Result[UnravelID(id, TextureSize)] = float4(uv, 0, 1);
+}
+
+[numthreads(8,8,8)]
+void TestUV3D(uint3 id: SV_DispatchThreadID)
+{
+    float3 uvw = UVW(id, TextureSize);
+    Result[UnravelID(id, TextureSize)] = float4(uvw, 1);
 }

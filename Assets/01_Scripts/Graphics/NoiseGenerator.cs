@@ -1,20 +1,24 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
+using UnityEngine.Rendering;
 
 public enum NoiseType
 {
     White,
     Perlin,
+    Fractal,
     Voronoi,
-    Cell
+    Cell,
+    TestUV
 }
 
 public enum ResolutionPreset
 {
+    _16,
+    _32,
     _64,
     _128,
     _256,
@@ -32,87 +36,126 @@ public class NoiseGeneratorEditor : Editor
         NoiseGenerator generator = target as NoiseGenerator;
         if (generator is null) return;
 
-        if (GUILayout.Button("Generate!"))
-        {
-            generator.GenerateTexture();
-        }
+        if (GUILayout.Button("Generate!")) generator.GenerateTexture();
+        
         DrawDefaultInspector();
     }
 }
-#endif
 
 public class NoiseGenerator : MonoBehaviour
 {
     public NoiseType noiseType;
     public ResolutionPreset resolutionPreset;
+    public int Resolution => GetResolution(resolutionPreset);
     public TextureFormat textureFormat = TextureFormat.RGB24;
     [Min(1)]public int noiseScale = 4;
-    public ComputeShader shader;
+    [Min(1)] public int octaves = 1;
+    public bool useLinear = true;
+    public bool _3D = false;
+
 
     public static int GetResolution(ResolutionPreset r)
     {
-        switch (r)
-        {
-            case ResolutionPreset._64: return 64;
-            case ResolutionPreset._128: return 128;
-            case ResolutionPreset._256: return 256;
-            case ResolutionPreset._512: return 512;
-            case ResolutionPreset._1024: return 1024;
-            case ResolutionPreset._2048: return 2048;
-            default: return 64;
-        }
+        return int.Parse(r.ToString().Replace("_", ""));
+    }
+    
+    public static ComputeShader GetComputeShader()
+    {
+        return AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/02_Art/Shaders/NoiseGenerator.compute");
     }
 
-    public static void FillTexture(ComputeShader shader, Texture2D texture, NoiseType noise, int scale)
+    public Texture2D CreateTexture2D()
     {
-        int width = texture.width;
-        int height = texture.height;
-        int kernel = shader.FindKernel(noise.ToString());
+        return new Texture2D(
+            Resolution, 
+            Resolution, 
+            textureFormat, 
+            mipChain: true, 
+            linear: useLinear, 
+            createUninitialized: true);
+    }
+    
+    public Texture3D CreateTexture3D()
+    {
+        return new Texture3D(
+                Resolution,
+                Resolution,
+                Resolution,
+            textureFormat,
+            mipChain: true,
+            createUninitialized: true);
+    }
+
+    private string GetAssetPath()
+    {
+        string scaleText = noiseType == NoiseType.White ? "" : noiseScale.ToString();
+        string prefixText = _3D ? "VOL" : "TEX";
+        string textureName = $"{prefixText}_Noise{noiseType.ToString()}{scaleText}_{Resolution.ToString()}.asset";
+        string path = $"Assets/02_Art/Textures/Procedural/{textureName}.asset";
+        return path;
+    }
+
+    private Texture3D GetTexture3D(string path, out bool assetExists)
+    {
+        assetExists = true;
+        Texture3D asset = AssetDatabase.LoadAssetAtPath<Texture3D>(path);
+        if (asset is not null) return asset;
+        assetExists = false;
+        return CreateTexture3D();
+    }
+
+    private Texture2D GetTexture2D(string path, out bool assetExists)
+    {
+        assetExists = true;
+        Texture2D asset = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+        if (asset is not null) return asset;
+        assetExists = false;
+        return CreateTexture2D();
+    }
+    
+    public void GenerateTexture()
+    {
+        Debug.Log("Generate Texture");
+        int res = Resolution;
+        string path = GetAssetPath();
+
+        var shader = GetComputeShader();
+        string _3DSuffix = _3D ? "3D" : "";
+        int kernel = shader.FindKernel($"{noiseType}{_3DSuffix}");
         uint tX, tY, tZ;
         shader.GetKernelThreadGroupSizes(kernel, out tX, out tY, out tZ);
 
-        var renderTexture = new RenderTexture(texture.width, texture.height, 0);
-        renderTexture.enableRandomWrite = true;
-        renderTexture.Create();
+        int pixelCount = (int)Mathf.Pow(res, _3D? 3 : 2);
+        var buffer = new ComputeBuffer(pixelCount, sizeof(float) * 4);
+        Color[] colors = new Color[pixelCount];
         
-        shader.SetTexture(kernel, "Result", renderTexture);
-        shader.SetInts("TextureSize", new[]{width, height});
-        shader.SetInt("NoiseScale", scale);
-        shader.Dispatch(kernel, width/(int)tX, height/(int)tY, 1);
+        shader.SetBuffer(kernel, "Result", buffer);
+        shader.SetInt("TextureSize", res);
+        shader.SetInt("NoiseScale", noiseScale);
+        shader.SetInt("NoiseOctaves", octaves);
+        shader.Dispatch(kernel, res/(int)tX, res/(int)tY, res/(int)tZ);
+        
+        buffer.GetData(colors);
+        buffer.Dispose();
 
-        RenderTexture.active = renderTexture;
-        texture.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
-        texture.Apply();
-        RenderTexture.active = null;
-        renderTexture.Release();
+        bool assetExists;
+        if (_3D)
+        {
+            var texture = GetTexture3D(path, out assetExists);
+            texture.SetPixels(colors);
+            texture.Apply();
+            if (assetExists) AssetDatabase.SaveAssets();
+            else AssetDatabase.CreateAsset(texture, path);
+        }
+        else
+        {
+            var texture = GetTexture2D(path, out assetExists);
+            texture.SetPixels(colors);
+            texture.Apply();
+            if (assetExists) AssetDatabase.SaveAssets();
+            else AssetDatabase.CreateAsset(texture, path);
+        }
     }
-    
-
-    public static Color WhiteNoise(float u, float v)
-    {
-        return new Color(Random.value, Random.value, Random.value);
-    }
-
-    public static Color PerlinNoise(float u, float v, int scale)
-    {
-        u *= scale;
-        v *= scale;
-        u = Mathf.Floor(u);
-        v = Mathf.Floor(v);
-        u /= scale;
-        v /= scale;
-        return new Color(u, v, 0);
-    }
-    
-    #if UNITY_EDITOR
-    public void GenerateTexture()
-    {
-        Debug.Log("Generating");
-        int res = GetResolution(resolutionPreset);
-        string textureName = $"TEX_{noiseType.ToString()}Noise_{res.ToString()}.asset";
-        Texture2D texture = new Texture2D(res, res, textureFormat, mipChain: true, linear: true);
-        FillTexture(shader, texture, noiseType, noiseScale);
-        AssetDatabase.CreateAsset(texture, $"Assets/02_Art/Textures/Procedural/{textureName}.asset");
-    }
-    #endif
 }
+#endif
+
