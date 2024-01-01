@@ -4,17 +4,28 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[RequireComponent(typeof(DiverInput))]
+[RequireComponent(typeof(DiverInput), typeof (Rigidbody))]
 public class DiverMovement : MonoBehaviour
 {
+	[Range (0f, 5f)]
     [SerializeField] private float movementSpeed = 1f;
+
     [SerializeField] private float turnSpeedDegrees = 10f;
+
+	[Range (0.3f, 1f)]
+	[SerializeField] private float movementSmoothTime = 0.3f;
+
+	//Private values
+	float refSpeed = 0f;
+	float currentSpeed = 0f;
+	Rigidbody m_rigidbody;
 
     private DiverInput diverInput;
 
     private void Awake()
     {
         diverInput = GetComponent<DiverInput>();
+		m_rigidbody = GetComponent <Rigidbody>();
     }
 
     void Update()
@@ -34,26 +45,19 @@ public class DiverMovement : MonoBehaviour
             var targetRotation = relativeRotation * transform.rotation;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * turnSpeedDegrees * 0.5f);
         }
-
-        float adjustedMovementSpeed = GetForwardMotionMultiplier() * movementSpeed;
-        transform.position += adjustedMovementSpeed * Time.deltaTime * transform.forward;
     }
 
-    Vector3 GetIdealRightVector()
+	private void FixedUpdate()
+	{
+		float targetSpeed = movementSpeed * (diverInput.ForwardPressed ? 1f : 0f);
+		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, movementSmoothTime);
+		Vector3 newPos = transform.position + (transform.forward * currentSpeed * Time.fixedDeltaTime);
+		m_rigidbody.MovePosition (newPos);
+	}
+
+	Vector3 GetIdealRightVector()
     {
         return Vector3.Cross(Vector3.up, transform.forward).normalized;
-    }
-
-    float GetForwardMotionMultiplier()
-    {
-        // cheap acceleration / deceleration approximation
-        float result = diverInput.ForwardTime;
-        if (result < 0)
-        {
-            result = 1 - (diverInput.ForwardTime * -1);
-        }
-
-        return Mathf.Clamp01(result);
     }
     
     #if UNITY_EDITOR

@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b7f5733a5a3bf4f85036d621c29265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
 --- !u!1 &6383079809846321220
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   turnSpeedDegrees: 90
+  movementSmoothTime: 1
 --- !u!114 &502994952303067584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a298b2e11a89b243a31140efd9c8722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: d57157c6-0af6-40cc-bc14-41dc3f22534f
+  guid: 6f716ede-8eb0-445c-8066-6c566d1684a7
   throwForce: 200
 --- !u!54 &3815084793452285855
 Rigidbody:
@@ -321,9 +323,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &8540205835892990177
 GameObject:
@@ -372,6 +374,11 @@ PrefabInstance:
       objectReference: {fileID: 7776682980862571321}
     - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
       propertyPath: shoulders
       value: 
       objectReference: {fileID: 6617956268465818330}
@@ -394,6 +401,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DiverModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2496753735942581176, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3312742190173497984, guid: eef044af6a3269e47a44d90594077447,
         type: 3}

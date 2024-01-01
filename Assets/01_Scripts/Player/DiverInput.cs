@@ -6,98 +6,98 @@ using Ivyyy.Network;
 
 public class DiverInput : NetworkBehaviour
 {
-    private float _forwardTime = Mathf.NegativeInfinity;
     private float _pitch;
     private float _pitchSway = 0;
     private float _yaw;
     private float _yawSway = 0;
-	private bool scanPressed;
+	private bool forwardPressed = false;
 
-    public float ForwardTime => _forwardTime;
-    public bool IsGoingForward => _forwardTime > 0f;
     public float Pitch => _pitch;
     public float PitchSway => _pitchSway;
     public float Yaw => _yaw;
     public float YawSway => _yawSway;
+	public bool ForwardPressed => forwardPressed;
 
 	[Header ("Key Bindings")]
 	KeyCode forwardKey = KeyCode.Space;
-	KeyCode scanKey = KeyCode.LeftShift;
-
-	//Public
-	public bool IsScanPressed { get { return scanPressed;} }
     
+	Rigidbody _rigidbody;
+
 	protected override void SetPackageData()
 	{
-		networkPackage.AddValue (new NetworkPackageValue (_forwardTime));
-		networkPackage.AddValue (new NetworkPackageValue (_pitch));
-		networkPackage.AddValue (new NetworkPackageValue (_pitchSway));
-		networkPackage.AddValue (new NetworkPackageValue (_yaw));
-		networkPackage.AddValue (new NetworkPackageValue (_yawSway));
-		networkPackage.AddValue (new NetworkPackageValue (transform.position));
-		networkPackage.AddValue (new NetworkPackageValue (transform.forward));
+		networkPackage.AddValue (new NetworkPackageValue (_pitch));				//0
+		networkPackage.AddValue (new NetworkPackageValue (_pitchSway));			//1
+		networkPackage.AddValue (new NetworkPackageValue (_yaw));				//2
+		networkPackage.AddValue (new NetworkPackageValue (_yawSway));			//3
+		networkPackage.AddValue (new NetworkPackageValue (transform.position));	//4
+		networkPackage.AddValue (new NetworkPackageValue (transform.forward));	//5
+		networkPackage.AddValue (new NetworkPackageValue (forwardPressed));		//6
 	}
 
 	void Start()
 	{
 		if (NetworkManager.Me is null) Owner = true;
+		_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void Update()
     {
-	    if (Owner)
-		{
-			if (Input.GetKeyDown (scanKey))
-				scanPressed = true;
-			else if (Input.GetKeyUp (scanKey))
-				scanPressed = false;
+		UpdateForwardInput();
+		UpdatePitch();
+		UpdateYaw();
 
-			UpdateForwardInput();
-			UpdatePitch();
-			UpdateYaw();
-		}
-		else
-		{
-			if (networkPackage.Count > 0)
-			{
-				_forwardTime = networkPackage.Value(0).GetFloat();
-				_pitch = networkPackage.Value(1).GetFloat();
-				_pitchSway = networkPackage.Value(2).GetFloat();
-				_yaw = networkPackage.Value(3).GetFloat();
-				_yawSway = networkPackage.Value(4).GetFloat();
-				transform.position = networkPackage.Value(5).GetVector3();
-				transform.forward = networkPackage.Value(6).GetVector3();
-				//networkPackage.Clear();
-			}
-		}
+		if (!Owner)
+			UpdatePositionData();
+
+		//Delete old package data
+		if (networkPackage.Available)
+			networkPackage.Clear();
     }
 
     void UpdateForwardInput()
     {
-        var forwardKey = KeyCode.Space;
-        if (Input.GetKeyDown(forwardKey))
-            _forwardTime = Time.deltaTime;
-
-        if (Input.GetKeyUp(forwardKey))
-            _forwardTime = -Time.deltaTime;
-        
-		if (Input.GetKey(forwardKey))
-            _forwardTime += Time.deltaTime;
-        else
-            _forwardTime -= Time.deltaTime;
+		if (Owner)
+			forwardPressed = Input.GetKey(forwardKey);
+		else if (networkPackage.Available)
+			forwardPressed = networkPackage.Value(6).GetBool();
     }
 
     void UpdatePitch()
     {
-        _pitch = Input.GetAxisRaw("Vertical");
-        float diff = Mathf.Sign(_pitch - _pitchSway);
-        _pitchSway = Mathf.Clamp(_pitchSway + diff * Time.deltaTime, -1, 1);
+		if (Owner)
+		{
+			_pitch = Input.GetAxisRaw("Vertical");
+			float diff = Mathf.Sign(_pitch - _pitchSway);
+			_pitchSway = Mathf.Clamp(_pitchSway + diff * Time.deltaTime, -1, 1);
+		}
+		else if (networkPackage.Available)
+		{
+			_pitch = networkPackage.Value(1).GetFloat();
+			_pitchSway = networkPackage.Value(2).GetFloat();
+		}
     }
 
     void UpdateYaw()
     {
-        _yaw = Input.GetAxisRaw("Horizontal");
-        float diff = Mathf.Sign(_yaw - _yawSway);
-        _yawSway = Mathf.Clamp(_yawSway + diff * Time.deltaTime, -1, 1);
+		if (Owner)
+		{
+			_yaw = Input.GetAxisRaw("Horizontal");
+			float diff = Mathf.Sign(_yaw - _yawSway);
+			_yawSway = Mathf.Clamp(_yawSway + diff * Time.deltaTime, -1, 1);
+		}
+		else if (networkPackage.Available)
+		{
+			_yaw = networkPackage.Value(2).GetFloat();
+			_yawSway = networkPackage.Value(3).GetFloat();
+		}
     }
+
+	void UpdatePositionData()
+	{
+		if (networkPackage.Available)
+		{
+			transform.position = networkPackage.Value(4).GetVector3();
+			transform.forward = networkPackage.Value(5).GetVector3();
+		}
+	}
 }

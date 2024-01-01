@@ -799,13 +799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5867f6afed345a74e813439e27c80d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 0189b700-0d47-4bc0-bb3b-21ecffcce8bd
-  passageList:
-  - {fileID: 583908145}
-  - {fileID: 1742241553}
-  - {fileID: 159494854}
-  - {fileID: 513218771}
-  openPassagesCount: 1
 --- !u!114 &1439830101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,6 +1091,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: 0b90962b-a70e-4184-bc2f-bcb03ba5618c
+      objectReference: {fileID: 0}
+    - target: {fileID: 2084882074061861141, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: movementSmoothing
+      value: 0.018
       objectReference: {fileID: 0}
     - target: {fileID: 3028488847139307813, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
