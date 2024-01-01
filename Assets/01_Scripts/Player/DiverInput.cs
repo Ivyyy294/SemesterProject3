@@ -30,7 +30,7 @@ public class DiverInput : NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (_yaw));				//2
 		networkPackage.AddValue (new NetworkPackageValue (_yawSway));			//3
 		networkPackage.AddValue (new NetworkPackageValue (transform.position));	//4
-		networkPackage.AddValue (new NetworkPackageValue (transform.forward));	//5
+		networkPackage.AddValue (new NetworkPackageValue (transform.rotation));	//5
 		networkPackage.AddValue (new NetworkPackageValue (forwardPressed));		//6
 	}
 
@@ -48,10 +48,6 @@ public class DiverInput : NetworkBehaviour
 
 		if (!Owner)
 			UpdatePositionData();
-
-		//Delete old package data
-		if (networkPackage.Available)
-			networkPackage.Clear();
     }
 
     void UpdateForwardInput()
@@ -97,7 +93,7 @@ public class DiverInput : NetworkBehaviour
 		if (networkPackage.Available)
 		{
 			transform.position = networkPackage.Value(4).GetVector3();
-			transform.forward = networkPackage.Value(5).GetVector3();
+			transform.rotation = networkPackage.Value(5).GetQuaternion();
 		}
 	}
 }

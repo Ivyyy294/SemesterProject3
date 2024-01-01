@@ -35,9 +35,11 @@ public class DiverAnimation : MonoBehaviour
         {
             _previousVelocities.Add(transform.position);
         }
+
+		UpdatePreviosPositions();
     }
 
-     void Update()
+     void FixedUpdate()
     {
         UpdatePreviosPositions(); // Always update first to validate the values
         

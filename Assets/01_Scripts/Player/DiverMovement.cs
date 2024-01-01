@@ -30,24 +30,29 @@ public class DiverMovement : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * diverInput.Pitch);
-        transform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * diverInput.Yaw);
+		transform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * diverInput.Pitch);
+		transform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * diverInput.Yaw);
         
-        // how horizontal the diver is, is needed to ONLY auto-correct when the diver a little horizontal
-        float levelness = 1 - Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up));
-        // how vertical the diver's local RIGHT axis is, is needed to allow loopings
-        float twist = Mathf.Abs(Vector3.Dot(transform.right, Vector3.up));
+        //// how horizontal the diver is, is needed to ONLY auto-correct when the diver a little horizontal
+        //float levelness = 1 - Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up));
+        //// how vertical the diver's local RIGHT axis is, is needed to allow loopings
+        //float twist = Mathf.Abs(Vector3.Dot(transform.right, Vector3.up));
         
-        if (levelness > 0.2f && twist > 0.1f)
-        {
-            // gradually roll the diver until their local RIGHT axis is horizontal again (their hip-line is horizontal)
-            var relativeRotation = Quaternion.FromToRotation(transform.right, GetIdealRightVector());
-            var targetRotation = relativeRotation * transform.rotation;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * turnSpeedDegrees * 0.5f);
-        }
+        //if (levelness > 0.2f && twist > 0.1f)
+        //{
+        //    // gradually roll the diver until their local RIGHT axis is horizontal again (their hip-line is horizontal)
+        //    var relativeRotation = Quaternion.FromToRotation(transform.right, GetIdealRightVector());
+        //    var targetRotation = relativeRotation * transform.rotation;
+        //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * turnSpeedDegrees * 0.5f);
+        //}
     }
 
 	private void FixedUpdate()
+	{
+		ForwardMovement();
+	}
+
+	void ForwardMovement()
 	{
 		float targetSpeed = movementSpeed * (diverInput.ForwardPressed ? 1f : 0f);
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, movementSmoothTime);

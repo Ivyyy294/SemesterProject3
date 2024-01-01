@@ -60,11 +60,11 @@ public class Ball : NetworkBehaviour
 		}
 	}
 
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider other)
 	{
 		if (Owner)
 		{
-			PlayerID playerID = collision.gameObject.GetComponentInChildren <PlayerID>();
+			PlayerID playerID = other.gameObject.GetComponentInChildren <PlayerID>();
 
 			if (playerID)
 			{

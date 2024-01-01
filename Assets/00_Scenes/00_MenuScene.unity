@@ -440,8 +440,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 23000
-  tickRate: 120
-  timeout: 5000
+  tickRate: 30
+  timeout: 0
 --- !u!4 &1394660845
 Transform:
   m_ObjectHideFlags: 0
