@@ -83,6 +83,9 @@ public class PlayerConfigurationManager : MonoBehaviour
 			//Send index to player
 			socket.Send(BitConverter.GetBytes (newPlayerIndex));
 
+			//Send max player count to player
+			socket.Send(BitConverter.GetBytes (maxPlayers));
+
 			return true;
 		}
 		else
@@ -97,9 +100,14 @@ public class PlayerConfigurationManager : MonoBehaviour
 		byte[] buffer = new byte[sizeof(int)];
 		socket.Receive (buffer);
 		LocalPlayerId = BitConverter.ToInt32 (buffer, 0);
+
+		socket.Receive (buffer);
+		maxPlayers = BitConverter.ToInt32 (buffer, 0);
+
 		playerConfigurations[LocalPlayerId].Owner = true;
 		playerConfigurations[LocalPlayerId].connected = true;
 		Debug.Log ("LocalPlayerId: " + LocalPlayerId);
+		Debug.Log ("MaxPlayerCount: " + maxPlayers);
 	}
 
 	//Private Methods
@@ -130,14 +138,14 @@ public class PlayerConfigurationManager : MonoBehaviour
 	int GetNewPlayerIndex(IPAddress iPAddress)
 	{
 		//Player 0 is always host
-		for (int i = 1; i < playerConfigurations.Length; ++i)
+		for (int i = 1; i < playerConfigurations.Length && i < maxPlayers; ++i)
 		{
 			//New player
 			if (playerConfigurations[i].iPAddress == null)
 				return i;
-			//Returning player
-			else if (playerConfigurations[i].iPAddress.Equals (iPAddress))
-				return i;
+			////Returning player
+			//else if (playerConfigurations[i].iPAddress.Equals (iPAddress))
+			//	return i;
 		}
 
 		return -1;
