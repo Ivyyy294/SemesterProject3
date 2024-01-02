@@ -6,6 +6,9 @@ using Ivyyy.Network;
 public class PlayerThrowBall : NetworkBehaviour
 {
 	[SerializeField] float throwForce = 10f;
+
+	[Header ("Lara Values")]
+	[SerializeField] GameObject ballGhost;
 	Ball ball;
 	short playerID;
     // Start is called before the first frame update
@@ -18,8 +21,14 @@ public class PlayerThrowBall : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Owner && PlayerHasBall())
+		bool hasBall = PlayerHasBall();
+
+		if (ballGhost.activeInHierarchy != hasBall)
+			ballGhost.SetActive (hasBall);
+
+        if (Owner && hasBall)
 		{
+
 			if (Input.GetMouseButtonDown (1))
 			{
 				if (Host)
