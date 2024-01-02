@@ -248,7 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5659af63b408c1445bbda7ac6021fdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1.5
+  movementSpeedNormal: 1
+  movementSpeedOxygenEmpty: 0.5
   turnSpeedDegrees: 90
   movementSmoothTime: 1
 --- !u!114 &502994952303067584
@@ -342,8 +343,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9883db0e658d83f43a98a804a334d823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guid: 0fe42068-d986-4f69-90bf-d808cfeed673
   maxOxygen: 100
-  passiveOxygenConsumption: 5
+  passiveOxygenConsumption: 2.5
 --- !u!1 &7302893791291506143
 GameObject:
   m_ObjectHideFlags: 0

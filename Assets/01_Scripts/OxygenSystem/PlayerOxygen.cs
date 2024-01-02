@@ -15,6 +15,12 @@ public class PlayerOxygen : NetworkBehaviour
 	//Public
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
 
+	public void Refill (float val)
+	{
+		if (currentOxygen < maxOxygen)
+			currentOxygen = Mathf.Min (currentOxygen + val, maxOxygen);
+	}
+
 	//Protected
 	protected override void SetPackageData()
 	{

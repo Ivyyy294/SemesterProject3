@@ -36,7 +36,7 @@ public class PlayerThrowBall : NetworkBehaviour
 		{
 			if (playerOxygen.OxygenEmpty)
 				DropBall();
-			else if (Input.GetMouseButtonDown (1))
+			else if (Input.GetMouseButtonDown (0))
 				ThrowBall();
 		}
     }

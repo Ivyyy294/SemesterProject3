@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[RequireComponent(typeof(DiverInput), typeof (Rigidbody))]
+[RequireComponent(typeof(DiverInput), typeof (Rigidbody), typeof (PlayerOxygen))]
 public class DiverMovement : MonoBehaviour
 {
 	[Range (0f, 5f)]
-    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float movementSpeedNormal = 1f;
+
+	[Range (0f, 5f)]
+    [SerializeField] private float movementSpeedOxygenEmpty = 0.5f;
 
     [SerializeField] private float turnSpeedDegrees = 10f;
 
@@ -19,6 +22,7 @@ public class DiverMovement : MonoBehaviour
 	float refSpeed = 0f;
 	float currentSpeed = 0f;
 	Rigidbody m_rigidbody;
+	PlayerOxygen playerOxygen;
 
     private DiverInput diverInput;
 
@@ -26,6 +30,7 @@ public class DiverMovement : MonoBehaviour
     {
         diverInput = GetComponent<DiverInput>();
 		m_rigidbody = GetComponent <Rigidbody>();
+		playerOxygen = GetComponent <PlayerOxygen>();
     }
 
     void Update()
@@ -54,7 +59,7 @@ public class DiverMovement : MonoBehaviour
 
 	void ForwardMovement()
 	{
-		float targetSpeed = movementSpeed * (diverInput.ForwardPressed ? 1f : 0f);
+		float targetSpeed = (playerOxygen.OxygenEmpty? movementSpeedOxygenEmpty : movementSpeedNormal) * (diverInput.ForwardPressed ? 1f : 0f);
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, movementSmoothTime);
 		Vector3 newPos = transform.position + (transform.forward * currentSpeed * Time.fixedDeltaTime);
 		m_rigidbody.MovePosition (newPos);
