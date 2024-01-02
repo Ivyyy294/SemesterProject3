@@ -11,6 +11,7 @@ public class Ball : NetworkBehaviour
 
 	[SerializeField] GameObject ball;
 	Rigidbody m_rigidbody;
+	Vector3 velocity;
 
 	//Public Methods
 	public void Throw (Vector3 startPos, Vector3 force)
@@ -53,10 +54,17 @@ public class Ball : NetworkBehaviour
 
 	private void Update()
 	{
-		if (!Owner && networkPackage.Available)
+		if (!Owner)
 		{
-			CurrentPlayerId = networkPackage.Value(0).GetShort();
-			transform.position = networkPackage.Value (1).GetVector3();
+			if (networkPackage.Available)
+			{
+				CurrentPlayerId = networkPackage.Value(0).GetShort();
+				transform.position = networkPackage.Value (1).GetVector3();
+				velocity = networkPackage.Value(2).GetVector3();
+				networkPackage.Clear();
+			}
+			else
+				transform.position += velocity * Time.deltaTime;
 		}
 	}
 
@@ -79,6 +87,7 @@ public class Ball : NetworkBehaviour
 	{
 		networkPackage.AddValue (new NetworkPackageValue (CurrentPlayerId));
 		networkPackage.AddValue (new NetworkPackageValue (transform.position));
+		networkPackage.AddValue (new NetworkPackageValue (m_rigidbody.velocity));
 	}
 
 	[RPCAttribute]
