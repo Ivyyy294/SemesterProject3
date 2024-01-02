@@ -18,12 +18,17 @@ public class Ball : NetworkBehaviour
 	{
 		if (Host)
 		{
-			CurrentPlayerId = -1;
-			transform.position = startPos;
-			ball.SetActive (true);
-			InvokeRPC ("SpawnBall");
+			BallDrop (startPos);
 			m_rigidbody.AddForce (force);
 		}
+	}
+
+	public void BallDrop (Vector3 spawnPos)
+	{
+		CurrentPlayerId = -1;
+		transform.position = spawnPos;
+		ball.SetActive (true);
+		InvokeRPC ("SpawnBall");
 	}
 
 	public void RespawnBall()
@@ -72,9 +77,10 @@ public class Ball : NetworkBehaviour
 	{
 		if (Owner)
 		{
-			PlayerID playerID = other.gameObject.GetComponentInChildren <PlayerID>();
+			PlayerID playerID = other.gameObject.GetComponent <PlayerID>();
+			PlayerOxygen playerOxygen = other.gameObject.GetComponentInParent<PlayerOxygen>();
 
-			if (playerID)
+			if (playerID && playerOxygen && !playerOxygen.OxygenEmpty)
 			{
 				CurrentPlayerId = playerID.PlayerId;
 				ball.SetActive (false);

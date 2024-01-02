@@ -3,46 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 
+[RequireComponent (typeof (PlayerBallStatus), typeof (PlayerOxygen))]
 public class PlayerThrowBall : NetworkBehaviour
 {
 	[SerializeField] float throwForce = 10f;
 
 	[Header ("Lara Values")]
 	[SerializeField] GameObject ballGhost;
+
+	//Private
 	Ball ball;
-	short playerID;
+	PlayerBallStatus playerBallStatus;
+	PlayerOxygen playerOxygen;
+
     // Start is called before the first frame update
     void Start()
     {
         ball = Ball.Me;
-		playerID = GetComponentInChildren <PlayerID>().PlayerId;
+		playerBallStatus = GetComponent<PlayerBallStatus>();
+		playerOxygen = GetComponent <PlayerOxygen>();
     }
 
     // Update is called once per frame
     void Update()
     {
-		bool hasBall = PlayerHasBall();
+		bool hasBall = playerBallStatus.PlayerHasBall();
 
 		if (ballGhost.activeInHierarchy != hasBall)
 			ballGhost.SetActive (hasBall);
 
         if (Owner && hasBall)
 		{
-
-			if (Input.GetMouseButtonDown (1))
-			{
-				if (Host)
-					ThrowBall();
-				else
-					InvokeRPC ("ThrowBall");
-			}
+			if (playerOxygen.OxygenEmpty)
+				DropBall();
+			else if (Input.GetMouseButtonDown (1))
+				ThrowBall();
 		}
     }
-
-	bool PlayerHasBall()
-	{
-		return ball != null && ball.CurrentPlayerId == playerID;
-	}
 
 	protected override void SetPackageData()
 	{
@@ -51,7 +48,18 @@ public class PlayerThrowBall : NetworkBehaviour
 	[RPCAttribute]
 	public void ThrowBall()
 	{
-		if (Host && ball)
+		if (Host)
 			ball.Throw (transform.position + transform.forward * 2f, transform.forward * throwForce);
+		else
+			InvokeRPC ("ThrowBall");
+	}
+
+	[RPCAttribute]
+	public void DropBall()
+	{
+		if (Host)
+			ball.BallDrop (transform.position + transform.up * -1f);
+		else
+			InvokeRPC("DropBall");
 	}
 }
