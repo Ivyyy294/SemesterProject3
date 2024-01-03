@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7221435729330241550}
@@ -66,6 +66,7 @@ GameObject:
   - component: {fileID: 5483662475098149662}
   - component: {fileID: 6619612925605246573}
   - component: {fileID: 5121845000149691810}
+  - component: {fileID: 593373981641342889}
   m_Layer: 0
   m_Name: OxygenBubble
   m_TagString: Untagged
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609352698e28c41479fc5151665d0018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guid: 8d15ec20-e790-45c9-9b87-fe96e08aa392
   buoyancy: 0.4
 --- !u!114 &6619612925605246573
 MonoBehaviour:
@@ -143,7 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd24081fdfa4fc48988d67601ffd9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  refillRatePerSecond: 20
+  guid: 999b01ae-1ea7-4fc3-a927-15ab9f33ab5a
+  refillRatePerSecond: 25
   capacityOxygen: 100
   currentOxygen: 100
 --- !u!114 &5121845000149691810
@@ -159,6 +162,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minScale: 0.5
+--- !u!114 &593373981641342889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848548415988282309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7414278338041693531
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +202,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7221435729330241550}

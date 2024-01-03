@@ -34,13 +34,14 @@ public class PlayerOxygen : NetworkBehaviour
 	void Start()
 	{
 		currentOxygen = maxOxygen;
-		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
 		//playerBallStatus = GetComponent<PlayerBallStatus>();
 	}
 
 	// Update is called once per frame
 	void Update()
     {
+		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
+
 		if (!Owner && networkPackage.Available)
 			currentOxygen = networkPackage.Value(0).GetFloat();
 		else if (currentOxygen > 0f)

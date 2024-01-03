@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ivyyy.Network;
 
-public class OxygenRefill : MonoBehaviour
+public class OxygenRefill : NetworkBehaviour
 {
 	[Range (1, 1000)]
 	[SerializeField] float refillRatePerSecond = 20f;
@@ -17,9 +18,34 @@ public class OxygenRefill : MonoBehaviour
 		currentOxygen = val;
 	}
 
+	[RPCAttribute]
+	public void Despawn()
+	{
+		gameObject.SetActive(false);
+	}
+
+	protected override void SetPackageData()
+	{
+		networkPackage.AddValue (new NetworkPackageValue (currentOxygen));
+	}
+
+	private void Start()
+	{
+		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
+	}
+
+	private void Update()
+	{
+		if (!Owner && networkPackage.Available)
+		{
+			currentOxygen = networkPackage.Value (0).GetFloat();
+			networkPackage.Clear();
+		}
+	}
+
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.isTrigger)
+		if (other.isTrigger || !Owner)
 			return;
 
 		PlayerOxygen playerOxygen = other.GetComponentInParent<PlayerOxygen>();
@@ -32,6 +58,9 @@ public class OxygenRefill : MonoBehaviour
 		}
 
 		if (currentOxygen <= 0f)
-			gameObject.SetActive(false);
+		{
+			InvokeRPC ("Despawn");
+			gameObject.SetActive (false);
+		}
 	}
 }

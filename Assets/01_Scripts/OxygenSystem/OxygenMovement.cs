@@ -4,7 +4,7 @@ using UnityEngine;
 using Ivyyy.Network;
 
 [RequireComponent (typeof (Rigidbody))]
-public class OxygenMovement : MonoBehaviour
+public class OxygenMovement : NetworkBehaviour
 {
 	[Range (0f, 1f)]
 	[SerializeField] float buoyancy = 1f;
@@ -16,25 +16,25 @@ public class OxygenMovement : MonoBehaviour
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
+		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
     }
 
-	//private void Update()
-	//{
-	//	if (!Owner)
-	//	{
-	//		if (networkPackage.Available)
-	//		{
-	//			transform.position = networkPackage.Value(0).GetVector3();
-	//			velocity = networkPackage.Value (1).GetVector3();
-	//		}
+	protected override void SetPackageData()
+	{
+		networkPackage.AddValue (new NetworkPackageValue (transform.position));
+	}
 
-	//		transform.position += velocity * Time.deltaTime;
-	//	}
-	//}
+	private void Update()
+	{
+		if (!Owner && networkPackage.Available)
+		{
+			transform.position = networkPackage.Value(0).GetVector3();
+			networkPackage.Clear();
+		}
+	}
 
 	private void FixedUpdate()
 	{
-		//if (Owner)
 		m_rigidbody.MovePosition (transform.position + (Vector3.up * buoyancy * Time.fixedDeltaTime));
 	}
 }
