@@ -12,6 +12,8 @@ public class PlayerOxygen : NetworkBehaviour
 	[Range (1f, 100f)]
 	[SerializeField] float passiveOxygenConsumption = 10f;
 
+	float currentOxygen;
+
 	//Public
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
 
@@ -28,13 +30,11 @@ public class PlayerOxygen : NetworkBehaviour
 	}
 
 	//Private
-	//PlayerBallStatus playerBallStatus;
-	float currentOxygen;
-
 	// Start is called before the first frame update
 	void Start()
 	{
 		currentOxygen = maxOxygen;
+		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
 		//playerBallStatus = GetComponent<PlayerBallStatus>();
 	}
 
@@ -42,16 +42,11 @@ public class PlayerOxygen : NetworkBehaviour
 	void Update()
     {
 		if (!Owner && networkPackage.Available)
-		{
 			currentOxygen = networkPackage.Value(0).GetFloat();
-		}
-		else
-		{
-			if (Owner)
-				Debug.Log ("Oxygen: " + currentOxygen);
+		else if (currentOxygen > 0f)
+			currentOxygen -= passiveOxygenConsumption * Time.deltaTime;
 
-			if (currentOxygen > 0f)
-				currentOxygen -= passiveOxygenConsumption * Time.deltaTime;
-		}
+		if (Owner)
+			Debug.Log ("Oxygen: " + currentOxygen);
     }
 }

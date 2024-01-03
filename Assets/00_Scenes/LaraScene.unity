@@ -958,6 +958,26 @@ PrefabInstance:
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 1452604202}
+    - target: {fileID: 2036091338106162674, guid: d610f7664864c874db8ed3fcaec02e9e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2730642350459974002, guid: d610f7664864c874db8ed3fcaec02e9e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501131277851447235, guid: d610f7664864c874db8ed3fcaec02e9e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501131277851447235, guid: d610f7664864c874db8ed3fcaec02e9e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.41
+      objectReference: {fileID: 0}
     - target: {fileID: 5997672072429139586, guid: d610f7664864c874db8ed3fcaec02e9e,
         type: 3}
       propertyPath: m_Name
