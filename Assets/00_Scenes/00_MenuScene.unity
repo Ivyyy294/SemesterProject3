@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 23000
-  tickRate: 30
+  tickRate: 60
   timeout: 0
 --- !u!4 &1394660845
 Transform:
@@ -478,7 +478,7 @@ MonoBehaviour:
   - {fileID: 1677226417}
   - {fileID: 1984760931}
   - {fileID: 1038674162}
-  maxPlayers: 2
+  maxPlayers: 3
 --- !u!114 &1394660847
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -36,10 +36,11 @@ public class PlayerManager : MonoBehaviour
 	{
 		if (obj)
 		{
-			NetworkBehaviour[] networkBehaviours = obj.GetComponentsInChildren <NetworkBehaviour>();
+			DiverInput diverInput = obj.GetComponent <DiverInput>();
+			diverInput.Owner = val;
 
-			foreach (NetworkBehaviour i in networkBehaviours)
-				i.Owner = val;
+			PlayerThrowBall playerThrowBall = obj.GetComponent <PlayerThrowBall>();
+			playerThrowBall.Owner = val;
 
 			//Disable camera on remote player
 			if (!val)

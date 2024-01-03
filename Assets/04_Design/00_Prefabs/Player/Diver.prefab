@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5659af63b408c1445bbda7ac6021fdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeedNormal: 1
+  movementSpeedNormal: 1.13
   movementSpeedOxygenEmpty: 0.5
   turnSpeedDegrees: 90
   movementSmoothTime: 1
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 0fe42068-d986-4f69-90bf-d808cfeed673
   maxOxygen: 100
-  passiveOxygenConsumption: 2.5
+  passiveOxygenConsumption: 1
 --- !u!114 &7256119003340509233
 MonoBehaviour:
   m_ObjectHideFlags: 0
