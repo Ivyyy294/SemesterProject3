@@ -74,25 +74,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
 
-		int newPlayerIndex = GetNewPlayerIndex (iPAddress);
-
-		if (newPlayerIndex != -1)
-		{
-			playerConfigurations[newPlayerIndex].iPAddress = iPAddress;
-
-			//Send index to player
-			socket.Send(BitConverter.GetBytes (newPlayerIndex));
-
-			//Send max player count to player
-			socket.Send(BitConverter.GetBytes (maxPlayers));
-
-			return true;
-		}
-		else
-		{
-			Debug.Log ("Client rejected: " + iPAddress);
-			return false;
-		}
+		return GetNewPlayerIndex (iPAddress) != -1;
 	}
 
 	public void OnConnectedToHost (Socket socket)
@@ -108,6 +90,23 @@ public class PlayerConfigurationManager : MonoBehaviour
 		playerConfigurations[LocalPlayerId].connected = true;
 		Debug.Log ("LocalPlayerId: " + LocalPlayerId);
 		Debug.Log ("MaxPlayerCount: " + maxPlayers);
+	}
+
+	public void OnClientConnected (Socket socket)
+	{
+		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
+		int newPlayerIndex = GetNewPlayerIndex (iPAddress);
+
+		if (newPlayerIndex != -1)
+		{
+			playerConfigurations[newPlayerIndex].iPAddress = iPAddress;
+
+			//Send index to player
+			socket.Send(BitConverter.GetBytes (newPlayerIndex));
+
+			//Send max player count to player
+			socket.Send(BitConverter.GetBytes (maxPlayers));
+		}
 	}
 
 	//Private Methods
@@ -131,7 +130,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 		{
 			networkManager.acceptClient = OnAcceptClient;
 			networkManager.onConnectedToHost = OnConnectedToHost;
-			//networkManager.onClientConnected = OnClientConnected;
+			networkManager.onClientConnected = OnClientConnected;
 		}
 	}
 
