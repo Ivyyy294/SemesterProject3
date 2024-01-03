@@ -7,7 +7,7 @@
 T real_coord = coord;
 #if TILE != 0
 T _tile_size = round((T)(tile_size));
-coord = fmod(coord, _tile_size);
+coord = rmod(coord, _tile_size);
 #endif
 T real_origin = floor(real_coord) + 0.5;
 T origin = floor(coord) + 0.5;
@@ -39,7 +39,7 @@ for(int w = -D.w; w <= D.w; w++)
                 T real_corner = real_origin + offset;
                 T corner = origin + offset;
                 #if TILE != 0
-                corner = fmod(corner, _tile_size);
+                corner = rmod(corner, _tile_size);
                 #endif
                 float4 corner_hash = hash(corner);
                 T real_cell_position = real_corner + ((T)(corner_hash) - 0.5);

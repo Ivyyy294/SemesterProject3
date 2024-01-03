@@ -5,6 +5,7 @@
 // Repository: https://github.com/bnpr/Malt
 
 #include "Hash.cginc"
+#include "Common.cginc"
 
 struct CellNoiseResult
 {
@@ -182,4 +183,3 @@ CellNoiseResult CellNoise1Tiled(float coord, int tile_size)
 }
 
 #endif
-

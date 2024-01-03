@@ -52,14 +52,15 @@ Shader "Unlit/TextureTest"
             {
                 fixed4 col = tex2D(_MainTex, i.uv * _Tile);
                 fixed4 col3D = tex3D(_3DTex, float3(i.uv * _Tile, _Time.y * 0.1 - 0.0032));
-                col3D += tex3D(_3DTex, float3(i.uv * _Tile * 2 + 0.1, _Time.y * 0.1 + 0.112)) * .5;
-                col3D += tex3D(_3DTex, float3(i.uv * _Tile * 4 - 0.4, _Time.y * 0.1 + 34.124)) * .25;
-                col3D += tex3D(_3DTex, float3(i.uv * _Tile * 8 + 4.51, _Time.y * 0.1)) * .125;
-                col3D *= .6;
-                col3D = col3D * 2 - 1;
+                // col3D += tex3D(_3DTex, float3(i.uv * _Tile * 2 + 0.1, _Time.y * 0.1 + 0.112)) * .5;
+                // col3D += tex3D(_3DTex, float3(i.uv * _Tile * 4 - 0.4, _Time.y * 0.1 + 34.124)) * .25;
+                // col3D += tex3D(_3DTex, float3(i.uv * _Tile * 8 + 4.51, _Time.y * 0.1)) * .125;
+                // col3D *= .6;
+                // col3D = col3D * 2 - 1;
                 col = tex2D(_MainTex, (i.uv * _Tile));
                 float t = col.r > _Threshold? 1.0:0.0;
                 float s = col3D.r > _Threshold? 1:0;
+                col.rgb = 1 - col3D.rgb;
                 return float4(col.rgb, 1);
             }
             ENDCG

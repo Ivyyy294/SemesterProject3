@@ -16,6 +16,8 @@
 
 #define lesser(a, b) a < b? 1:0
 
+#define rmod(a, b) frac(a / b) * b
+
 float2 lengthSquared(float2 a)
 {
     return (a.x * a.x) + (a.y * a.y);

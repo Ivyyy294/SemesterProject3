@@ -6,6 +6,7 @@
 #pragma kernel Fractal
 #pragma kernel Fractal3D
 #pragma kernel Voronoi
+#pragma kernel Voronoi3D
 #pragma kernel TestUV
 #pragma kernel TestUV3D
 
@@ -102,6 +103,13 @@ void Voronoi(uint3 id: SV_DispatchThreadID)
     Result[UnravelID(id, TextureSize)] = float4(result.Distance.xxx, 1);
 }
 
+[numthreads(8,8,8)]
+void Voronoi3D(uint3 id: SV_DispatchThreadID)
+{
+    CellNoiseResult result = CellNoise3Tiled(UVW(id, TextureSize) * NoiseScale, NoiseScale.xxx);
+    //CellNoiseResult result = CellNoise2Tiled(UV(id, TextureSize) * NoiseScale, NoiseScale.xx);
+    Result[UnravelID(id, TextureSize)] = float4(result.Distance.xxx, 1);
+}
 
 [numthreads(8,8,1)]
 void TestUV(uint3 id: SV_DispatchThreadID)
@@ -116,3 +124,4 @@ void TestUV3D(uint3 id: SV_DispatchThreadID)
     float3 uvw = UVW(id, TextureSize);
     Result[UnravelID(id, TextureSize)] = float4(uvw, 1);
 }
+
