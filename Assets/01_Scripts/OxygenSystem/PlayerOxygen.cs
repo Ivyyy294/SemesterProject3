@@ -16,6 +16,7 @@ public class PlayerOxygen : NetworkBehaviour
 
 	//Public
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
+	public float CurrentOxygen => currentOxygen;
 
 	public void Refill (float val)
 	{
@@ -46,8 +47,5 @@ public class PlayerOxygen : NetworkBehaviour
 			currentOxygen = networkPackage.Value(0).GetFloat();
 		else if (currentOxygen > 0f)
 			currentOxygen -= passiveOxygenConsumption * Time.deltaTime;
-
-		if (Owner)
-			Debug.Log ("Oxygen: " + currentOxygen);
     }
 }
