@@ -69,8 +69,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 	public bool OnAcceptClient (Socket socket)
 	{
 		//Make sure Host in owner of their confuguration
-		playerConfigurations[LocalPlayerId].Owner = true;
-		playerConfigurations[LocalPlayerId].connected = true;
+		playerConfigurations[0].Owner = true;
+		playerConfigurations[0].connected = true;
 
 		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
 
@@ -79,34 +79,45 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 	public void OnConnectedToHost (Socket socket)
 	{
+		Debug.Log ("Waiting for LocalPlayerId...");
 		byte[] buffer = new byte[sizeof(int)];
-		socket.Receive (buffer);
-		LocalPlayerId = BitConverter.ToInt32 (buffer, 0);
+		int tmpId = -1;
 
 		socket.Receive (buffer);
-		maxPlayers = BitConverter.ToInt32 (buffer, 0);
+		tmpId = BitConverter.ToInt32 (buffer, 0);
 
-		playerConfigurations[LocalPlayerId].Owner = true;
-		playerConfigurations[LocalPlayerId].connected = true;
-		Debug.Log ("LocalPlayerId: " + LocalPlayerId);
-		Debug.Log ("MaxPlayerCount: " + maxPlayers);
+		if (tmpId != -1)
+		{
+			LocalPlayerId = tmpId;
+			Debug.Log ("LocalPlayerId: " + LocalPlayerId);
+			playerConfigurations[LocalPlayerId].Owner = true;
+			playerConfigurations[LocalPlayerId].connected = true;
+		}
+		else
+			Debug.Log("Time out getting LocalPlayerId!");
+
+		//GetMaxPlayer
+		socket.Receive(buffer);
+		maxPlayers = BitConverter.ToInt32(buffer, 0);
+		Debug.Log("MaxPlayerCount: " + maxPlayers);
+
 	}
 
 	public void OnClientConnected (Socket socket)
 	{
 		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
+
 		int newPlayerIndex = GetNewPlayerIndex (iPAddress);
+		Debug.Log ("ClientId: " + newPlayerIndex);
 
-		if (newPlayerIndex != -1)
-		{
-			playerConfigurations[newPlayerIndex].iPAddress = iPAddress;
+		int byteSend = socket.Send(BitConverter.GetBytes (newPlayerIndex));
+		Debug.Log (socket.RemoteEndPoint);
+		playerConfigurations[newPlayerIndex].iPAddress = iPAddress;
+		Debug.Log ("ClientId send!: " + byteSend);
 
-			//Send index to player
-			socket.Send(BitConverter.GetBytes (newPlayerIndex));
-
-			//Send max player count to player
-			socket.Send(BitConverter.GetBytes (maxPlayers));
-		}
+		//Send max player count to player
+		socket.Send(BitConverter.GetBytes(maxPlayers));
+		Debug.Log("Max Players send!");
 	}
 
 	//Private Methods
