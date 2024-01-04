@@ -22,7 +22,7 @@ public class OxygenMovement : NetworkBehaviour
 	[RPCAttribute]
 	public void Spawn()
 	{
-		Debug.Log("Spawn Bubble");
+ 		Debug.Log("Spawn Bubble");
 
 		if (Owner)
 			InvokeRPC ("Spawn");

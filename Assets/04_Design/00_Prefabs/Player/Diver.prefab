@@ -258,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 4571666076196016718}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.06500006, z: 0.321}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 8674166432209351462}
   - component: {fileID: 2505866070068884537}
   - component: {fileID: 7256119003340509233}
+  - component: {fileID: 2855527505411308321}
   m_Layer: 8
   m_Name: Diver
   m_TagString: Untagged
@@ -539,6 +540,19 @@ MonoBehaviour:
   - oxygenLevelPercent: 0
     material: {fileID: 2100000, guid: a8f3db937eebc334eb8a02d2f6522a2c, type: 2}
   OxygenMeterObj: {fileID: 4519452659872576445}
+--- !u!114 &2855527505411308321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723070870191324833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b06784f8ef9b234fb89d16fb9e82799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: cf090b77-e585-406c-a851-bff06c7a401d
 --- !u!1 &7302893791291506143
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +580,7 @@ Transform:
   m_GameObject: {fileID: 7302893791291506143}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.06500006, z: 0.321}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

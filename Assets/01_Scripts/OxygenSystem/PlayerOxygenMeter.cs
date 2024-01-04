@@ -42,7 +42,6 @@ public class PlayerOxygenMeter : MonoBehaviour
 	Material GetActiveMaterial()
 	{
 		float currentOxygenLevel = playerOxygen.CurrentOxygenPercent;
-		Debug.Log(currentOxygenLevel);
 
 		foreach (var i in oxygenLevelIndicators)
 		{

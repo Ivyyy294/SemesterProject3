@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 
-[RequireComponent (typeof (PlayerBallStatus), typeof (PlayerOxygen))]
+[RequireComponent (typeof (PlayerStatus), typeof (PlayerOxygen))]
 public class PlayerThrowBall : NetworkBehaviour
 {
 	[SerializeField] float throwForce = 10f;
@@ -13,21 +13,21 @@ public class PlayerThrowBall : NetworkBehaviour
 
 	//Private
 	Ball ball;
-	PlayerBallStatus playerBallStatus;
+	PlayerStatus playerStatus;
 	PlayerOxygen playerOxygen;
 
     // Start is called before the first frame update
     void Start()
     {
         ball = Ball.Me;
-		playerBallStatus = GetComponent<PlayerBallStatus>();
+		playerStatus = GetComponent<PlayerStatus>();
 		playerOxygen = GetComponent <PlayerOxygen>();
     }
 
     // Update is called once per frame
     void Update()
     {
-		bool hasBall = playerBallStatus.PlayerHasBall();
+		bool hasBall = playerStatus.CheckStatusTyp(PlayerStatus.StatusTyp.HAS_BALL);
 
 		if (ballGhost.activeInHierarchy != hasBall)
 			ballGhost.SetActive (hasBall);
