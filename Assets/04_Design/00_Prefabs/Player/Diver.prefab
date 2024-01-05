@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 7256119003340509233}
   - component: {fileID: 2855527505411308321}
   - component: {fileID: 8816078820001303116}
+  - component: {fileID: 6420756037186270600}
   m_Layer: 8
   m_Name: Diver
   m_TagString: Untagged
@@ -567,6 +568,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamIndex: 0
+--- !u!114 &6420756037186270600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723070870191324833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c10fe8c6ac307444b08d750bc678bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 2941765652366996345}
+  teamColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.08179426, g: 1, b: 0, a: 1}
 --- !u!1 &7302893791291506143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,6 +1254,12 @@ PrefabInstance:
 --- !u!4 &21238748574157358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5965419222298959314, guid: eef044af6a3269e47a44d90594077447,
+    type: 3}
+  m_PrefabInstance: {fileID: 5945342678992820220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2941765652366996345 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8813924819655566469, guid: eef044af6a3269e47a44d90594077447,
     type: 3}
   m_PrefabInstance: {fileID: 5945342678992820220}
   m_PrefabAsset: {fileID: 0}
