@@ -18,15 +18,21 @@ public class DiverAnimation : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+    [SerializeField] private float fastTravelSpeedThreshold;
+
      private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
      private readonly int ID_Levelness = Animator.StringToHash("Levelness");
+     private readonly int ID_IsHoldingBall = Animator.StringToHash("IsHoldingBall");
+     private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
 
      private List<Vector3> _previousVelocities;
      private Vector3 _previousPosition;
      private int _positionBufferSize = 24; 
      private Vector3 _velocity;
+     private float _fastTravelTimer;
 
      private AnimUtils.AngleTracker _angleTracker;
+     private bool _isHoldingBall;
 
      private void OnEnable()
     {
@@ -36,15 +42,34 @@ public class DiverAnimation : MonoBehaviour
             _previousVelocities.Add(transform.position);
         }
 
+        _isHoldingBall = false;
+        _fastTravelTimer = 0;
+
 		UpdatePreviosPositions();
     }
+
+     void Update()
+     {
+         if (Input.GetKeyDown(KeyCode.E))
+         {
+             _isHoldingBall = !_isHoldingBall;
+             animator.SetBool(ID_IsHoldingBall, _isHoldingBall);
+         }
+     }
 
      void FixedUpdate()
     {
         UpdatePreviosPositions(); // Always update first to validate the values
+
+        if (_velocity.magnitude > fastTravelSpeedThreshold)
+        {
+            _fastTravelTimer += Time.deltaTime;
+        }
+        else _fastTravelTimer = 0;
         
         animator.SetFloat(ID_SwimSpeed, Mathf.Clamp01(_velocity.magnitude));
         animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
+        animator.SetBool(ID_IsMovingFastOverTime, _fastTravelTimer > 1f && !_isHoldingBall);
     }
 
     private void LateUpdate()
