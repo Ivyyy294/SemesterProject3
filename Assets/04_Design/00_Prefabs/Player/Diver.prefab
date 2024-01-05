@@ -187,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 013be8947f2f26c43b284519181494ad, type: 2}
+  - {fileID: 2100000, guid: e7bb1eb786c7ac74ba45c3903a8de8fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -534,14 +534,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9493f51eff90930498c50265629ce721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygenLevelIndicators:
-  - oxygenLevelPercent: 75
-    material: {fileID: 2100000, guid: 013be8947f2f26c43b284519181494ad, type: 2}
-  - oxygenLevelPercent: 25
-    material: {fileID: 2100000, guid: b3801758018ae4045a274dc58a58e92d, type: 2}
-  - oxygenLevelPercent: 0
-    material: {fileID: 2100000, guid: a8f3db937eebc334eb8a02d2f6522a2c, type: 2}
-  OxygenMeterObj: {fileID: 4519452659872576445}
+  oxygenLevelColors:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 0}
+    key1: {r: 1, g: 0.32716545, b: 0, a: 1}
+    key2: {r: 1, g: 0.5580654, b: 0, a: 1}
+    key3: {r: 1, g: 0.7525161, b: 0.02352941, a: 0}
+    key4: {r: 1, g: 0.90621763, b: 0.023584902, a: 0}
+    key5: {r: 0.40990737, g: 0.8667927, b: 0, a: 0}
+    key6: {r: 0.08611512, g: 1, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 5975
+    ctime2: 10987
+    ctime3: 17348
+    ctime4: 36044
+    ctime5: 44525
+    ctime6: 65535
+    ctime7: 0
+    atime0: 5590
+    atime1: 10794
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 7
+    m_NumAlphaKeys: 3
+  OxygenMeterRenderer: {fileID: 4936903910525199194}
 --- !u!114 &2855527505411308321
 MonoBehaviour:
   m_ObjectHideFlags: 0
