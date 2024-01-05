@@ -1191,6 +1191,11 @@ PrefabInstance:
       propertyPath: guid
       value: 12bfd0c9-adab-4401-894f-a8256097bdb1
       objectReference: {fileID: 0}
+    - target: {fileID: 3995760405703506425, guid: 0eab1d5be7c68564ba57873eafd83b5f,
+        type: 3}
+      propertyPath: scoreController
+      value: 
+      objectReference: {fileID: 1452604202}
     - target: {fileID: 4637521292429375762, guid: 0eab1d5be7c68564ba57873eafd83b5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1251,6 +1256,11 @@ PrefabInstance:
       propertyPath: guid
       value: 3701f9ec-76c9-4276-885d-626bde97d941
       objectReference: {fileID: 0}
+    - target: {fileID: 9222721529423013308, guid: 0eab1d5be7c68564ba57873eafd83b5f,
+        type: 3}
+      propertyPath: scoreController
+      value: 
+      objectReference: {fileID: 1452604202}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
