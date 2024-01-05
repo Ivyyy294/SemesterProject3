@@ -2,53 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class OxygenLevelIndicator
-{
-	public float oxygenLevelPercent;
-	public Material material;
-}
-
 [RequireComponent (typeof (PlayerOxygen))]
 public class PlayerOxygenMeter : MonoBehaviour
 {
-	[SerializeField] List <OxygenLevelIndicator> oxygenLevelIndicators = new List<OxygenLevelIndicator>();
+	public Gradient oxygenLevelColors;
 
+	private MaterialPropertyBlock _mpb;
+	public MaterialPropertyBlock Mpb { get {
+			if (_mpb is null) _mpb = new MaterialPropertyBlock();
+			return _mpb; } }
+	
 	[Header ("Lara Values")]
-	[SerializeField] GameObject OxygenMeterObj;
+	[SerializeField] Renderer OxygenMeterRenderer;
 
 	PlayerOxygen playerOxygen;
-	Renderer OxygenMeterRenderer;
 
-    // Start is called before the first frame update
+	// Start is called before the first frame update
     void Start()
     {
         playerOxygen = GetComponent<PlayerOxygen>();
-		OxygenMeterRenderer = OxygenMeterObj.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (OxygenMeterRenderer)
-		{
-			Material currentMaterial = GetActiveMaterial();
-
-			if (currentMaterial)
-				OxygenMeterRenderer.material = currentMaterial;
-		}
+	    Mpb.SetColor("_BaseColor", oxygenLevelColors.Evaluate(playerOxygen.CurrentOxygenPercent / 100f));
+	    OxygenMeterRenderer.SetPropertyBlock(Mpb);
     }
-
-	Material GetActiveMaterial()
-	{
-		float currentOxygenLevel = playerOxygen.CurrentOxygenPercent;
-
-		foreach (var i in oxygenLevelIndicators)
-		{
-			if (currentOxygenLevel >= i.oxygenLevelPercent)
-				return i.material;
-		}
-
-		return null;
-	}
 }
