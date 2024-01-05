@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 2505866070068884537}
   - component: {fileID: 7256119003340509233}
   - component: {fileID: 2855527505411308321}
+  - component: {fileID: 8816078820001303116}
   m_Layer: 8
   m_Name: Diver
   m_TagString: Untagged
@@ -553,6 +554,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: cf090b77-e585-406c-a851-bff06c7a401d
+--- !u!114 &8816078820001303116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723070870191324833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24719781f310c9d4392fd500bdff7718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamIndex: 0
 --- !u!1 &7302893791291506143
 GameObject:
   m_ObjectHideFlags: 0
