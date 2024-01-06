@@ -62,7 +62,7 @@ public class DiverMovement : MonoBehaviour
 		float targetSpeed = (playerOxygen.OxygenEmpty? movementSpeedOxygenEmpty : movementSpeedNormal) * (diverInput.ForwardPressed ? 1f : 0f);
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, movementSmoothTime);
 		Vector3 newPos = transform.position + (transform.forward * currentSpeed * Time.fixedDeltaTime);
-		m_rigidbody.velocity = Vector3.zero;
+		//m_rigidbody.velocity = Vector3.zero;
 		m_rigidbody.MovePosition (newPos);
 	}
 
