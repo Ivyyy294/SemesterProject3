@@ -241,6 +241,7 @@ MonoBehaviour:
   ready: 0
   sceneLoaded: 0
   connected: 0
+  teamNr: 0
 --- !u!114 &330773164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,6 +396,7 @@ MonoBehaviour:
   ready: 0
   sceneLoaded: 0
   connected: 0
+  teamNr: 0
 --- !u!114 &1038674163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,7 +422,6 @@ GameObject:
   - component: {fileID: 1394660846}
   - component: {fileID: 1394660847}
   - component: {fileID: 1394660848}
-  - component: {fileID: 1394660849}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -479,7 +480,7 @@ MonoBehaviour:
   - {fileID: 1677226417}
   - {fileID: 1984760931}
   - {fileID: 1038674162}
-  maxPlayers: 2
+  maxPlayers: 3
 --- !u!114 &1394660847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,18 +504,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1394660849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1394660843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5354f32c54a56248a9e08dc5fc89c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1431687365
@@ -685,6 +674,7 @@ MonoBehaviour:
   ready: 0
   sceneLoaded: 0
   connected: 0
+  teamNr: 0
 --- !u!114 &1677226418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1667,6 +1657,7 @@ MonoBehaviour:
   ready: 0
   sceneLoaded: 0
   connected: 0
+  teamNr: 0
 --- !u!114 &1984760932
 MonoBehaviour:
   m_ObjectHideFlags: 0
