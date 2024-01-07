@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.01
+  m_Fog: 1
+  m_FogColor: {r: 0.41491634, g: 0.7924528, b: 0.7469665, a: 1}
+  m_FogMode: 2
+  m_FogDensity: 0.08
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -336,6 +336,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154962054}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &166726173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166726175}
+  - component: {fileID: 166726174}
+  m_Layer: 0
+  m_Name: PostProcessing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &166726174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166726173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 75fa12d9a11ad5b4d9fa1698a8df5201, type: 2}
+--- !u!4 &166726175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166726173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.789276, y: -17.059776, z: -38.303844}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &500433076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,10 +1402,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2505866070068884537, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: 852ffc8b-1307-4598-8020-24e7fa493932
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855527505411308321, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: a9ff59d6-9f9b-44cf-9ac6-c4458e0adfa5
+      objectReference: {fileID: 0}
     - target: {fileID: 6723070870191324833, guid: dbb5dfd481c1355418068109b88c06b5,
         type: 3}
       propertyPath: m_Name
       value: Diver
+      objectReference: {fileID: 0}
+    - target: {fileID: 6888813315085956419, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: 8b5da35a-aa2e-40f7-b4dd-e62af8ecb759
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135263276644123730, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: 1e4d917a-8306-4af0-a667-93a427902732
       objectReference: {fileID: 0}
     - target: {fileID: 7341406990156325916, guid: dbb5dfd481c1355418068109b88c06b5,
         type: 3}
@@ -1420,3 +1489,4 @@ SceneRoots:
   - {fileID: 675677611}
   - {fileID: 6446550528468598773}
   - {fileID: 2034563128}
+  - {fileID: 166726175}
