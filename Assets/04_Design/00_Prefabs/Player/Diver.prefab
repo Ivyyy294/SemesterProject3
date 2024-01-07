@@ -636,7 +636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24719781f310c9d4392fd500bdff7718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamIndex: 0
+  playerConfiguration: {fileID: 0}
 --- !u!114 &6420756037186270600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c10fe8c6ac307444b08d750bc678bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 2941765652366996345}
+  targetRenderer: {fileID: 2941765652366996345}
   teamColors:
   - {r: 0.67844427, g: 0.40450338, b: 0.8490566, a: 1}
   - {r: 0.28248486, g: 0.6266152, b: 0.8679245, a: 1}
