@@ -77,7 +77,7 @@ public class Ball : NetworkBehaviour
 	{
 		if (Owner)
 		{
-			PlayerID playerID = other.gameObject.GetComponent <PlayerID>();
+			PlayerID playerID = other.gameObject.GetComponentInParent <PlayerID>();
 			PlayerOxygen playerOxygen = other.gameObject.GetComponentInParent<PlayerOxygen>();
 
 			if (playerID && playerOxygen && !playerOxygen.OxygenEmpty)

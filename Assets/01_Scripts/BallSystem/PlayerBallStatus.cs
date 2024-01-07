@@ -15,7 +15,7 @@ public class PlayerBallStatus : MonoBehaviour
     {
 		playerStatus = GetComponent <PlayerStatus>();
 		ball = Ball.Me;
-		playerID = GetComponentInChildren <PlayerID>().PlayerId;
+		playerID = GetComponent <PlayerID>().PlayerId;
     }
 
 	private void Update()
