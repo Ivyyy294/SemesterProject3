@@ -10,11 +10,11 @@
 #pragma kernel TestUV
 #pragma kernel TestUV3D
 
-#include "PerlinNoise.cginc"
-#include "CellNoise.cginc"
-#include "Hash.cginc"
-#include "Common.cginc"
-#include "ComputeCommon.cginc"
+#include "SHF_PerlinNoise.cginc"
+#include "SHF_CellNoise.cginc"
+#include "SHF_Hash.cginc"
+#include "SHF_Common.cginc"
+#include "SHF_ComputeCommon.cginc"
 
 RWStructuredBuffer<float4> Result;
 uniform int TextureSize;

@@ -1,11 +1,11 @@
-﻿#ifndef CELL_NOISE
-#define CELL_NOISE
+﻿#ifndef SHF_CELL_NOISE
+#define SHF_CELL_NOISE
 
 // Copied from BlenderMalt repository and adapted for HLSL
 // Repository: https://github.com/bnpr/Malt
 
-#include "Hash.cginc"
-#include "Common.cginc"
+#include "SHF_Hash.cginc"
+#include "SHF_Common.cginc"
 
 struct CellNoiseResult
 {
@@ -22,7 +22,7 @@ CellNoiseResult CellNoise4(float4 coord)
     #define TILE 0
     #define hash Hash44
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position = r_cell_position;
     result.Distance = r_cell_distance;
@@ -43,7 +43,7 @@ CellNoiseResult CellNoise4Tiled(float4 coord, int4 tile_size)
     #define TILE 1
     #define hash Hash44
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position = r_cell_position;
     result.Distance = r_cell_distance;
@@ -64,7 +64,7 @@ CellNoiseResult CellNoise3(float3 coord)
     #define TILE 0
     #define hash Hash43
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position.xyz = r_cell_position;
     result.Distance = r_cell_distance;
@@ -85,7 +85,7 @@ CellNoiseResult CellNoise3Tiled(float3 coord, int3 tile_size)
     #define TILE 1
     #define hash Hash43
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position.xyz = r_cell_position;
     result.Distance = r_cell_distance;
@@ -106,7 +106,7 @@ CellNoiseResult CellNoise2(float2 coord)
     #define TILE 0
     #define hash Hash42
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position.xy = r_cell_position;
     result.Distance = r_cell_distance;
@@ -127,7 +127,7 @@ CellNoiseResult CellNoise2Tiled(float2 coord, int2 tile_size)
     #define TILE 1
     #define hash Hash42
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position.xy = r_cell_position;
     result.Distance = r_cell_distance;
@@ -148,7 +148,7 @@ CellNoiseResult CellNoise1(float coord)
     #define TILE 0
     #define hash Hash41
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position.x = r_cell_position;
     result.Distance = r_cell_distance;
@@ -169,7 +169,7 @@ CellNoiseResult CellNoise1Tiled(float coord, int tile_size)
     #define TILE 1
     #define hash Hash41
     
-    #include "CellNoise.inl"
+    #include "SHF_CellNoise.inl"
     result.Color = r_cell_color;
     result.Position.x = r_cell_position;
     result.Distance = r_cell_distance;

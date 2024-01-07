@@ -1,5 +1,5 @@
-﻿#ifndef BLENDER_HASH_GLSL
-#define BLENDER_HASH_GLSL
+﻿#ifndef SHF_BLENDER_HASH_GLSL
+#define SHF_BLENDER_HASH_GLSL
 
 // Copied from BlenderMalt repository and adapted for HLSL
 // Repository: https://github.com/bnpr/Malt

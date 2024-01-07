@@ -1,7 +1,7 @@
 ﻿#ifndef SHGN_RAYMARCH_INCLUDED
 #define SHGN_RAYMARCH_INCLUDED
 
-#include "RaymarchingUtils.cginc"
+#include "SHF_RaymarchingUtils.cginc"
 
 float TestGetDist(float3 ro)
 {

@@ -1,5 +1,5 @@
-﻿#ifndef RAYMARCHING_UTILS
-#define RAYMARCHING_UTILS
+﻿#ifndef SHF_RAYMARCHING_UTILS
+#define SHF_RAYMARCHING_UTILS
 
 // Defaults
 

@@ -1,7 +1,7 @@
 ﻿
 
-#ifndef DAVID_HOSKINS_HASH
-#define DAVID_HOSKINS_HASH
+#ifndef SHF_DAVID_HOSKINS_HASH
+#define SHF_DAVID_HOSKINS_HASH
 // Hash without Sine
 // MIT License...
 /* Copyright (c)2014 David Hoskins.
