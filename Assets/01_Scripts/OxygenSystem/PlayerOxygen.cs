@@ -9,7 +9,7 @@ public class PlayerOxygen : NetworkBehaviour
 	[Range (1f, 1000f)]
 	[SerializeField] float maxOxygen = 100f;
 
-	[Range (1f, 100f)]
+	[Range (0f, 100f)]
 	[SerializeField] float passiveOxygenConsumption = 10f;
 
 	float currentOxygen;

@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField] GameObject[] playerList = new GameObject[2];
 	PlayerConfigurationManager playerConfigurationManager;
 	NetworkManager networkManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,20 +18,20 @@ public class PlayerManager : MonoBehaviour
 		if (networkManager)
 		{
 			for (int i = 0; i < playerList.Length; ++i)
-			{
 				SetOwnerState (playerList[i], playerConfigurationManager.playerConfigurations[i].Owner);
-				playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
-			}
 		}
 		else
 		{
 			for (int i = 0; i < playerList.Length; ++i)
-			{
 				SetOwnerState (playerList[i], i == 0);
-				playerList[i].SetActive (i == 0);
-			}
 		}
     }
+
+	private void Update()
+	{
+		for (int i = 0; i < playerList.Length; ++i)
+			playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
+	}
 
 	private void SetOwnerState (GameObject obj, bool val)
 	{

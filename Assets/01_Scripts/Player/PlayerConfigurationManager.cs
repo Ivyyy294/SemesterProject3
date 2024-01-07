@@ -68,10 +68,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 	//NetworkManagerCallbacks
 	public bool OnAcceptClient (Socket socket)
 	{
-		//Make sure Host in owner of their confuguration
-		playerConfigurations[0].Owner = true;
-		playerConfigurations[0].connected = true;
-
 		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
 
 		return GetNewPlayerIndex (iPAddress) != -1;
@@ -142,6 +138,16 @@ public class PlayerConfigurationManager : MonoBehaviour
 			networkManager.acceptClient = OnAcceptClient;
 			networkManager.onConnectedToHost = OnConnectedToHost;
 			networkManager.onClientConnected = OnClientConnected;
+		}
+	}
+
+	private void Update()
+	{
+		if (networkManager.Host && !playerConfigurations[0].Owner)
+		{
+			//Make sure Host in owner of their confuguration
+			playerConfigurations[0].Owner = true;
+			playerConfigurations[0].connected = true;
 		}
 	}
 
