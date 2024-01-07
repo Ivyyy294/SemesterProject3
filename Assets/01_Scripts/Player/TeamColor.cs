@@ -16,7 +16,7 @@ public class TeamColor : MonoBehaviour
         }
     }
     
-    [SerializeField] private Renderer renderer;
+    [SerializeField] private Renderer targetRenderer;
     [SerializeField] private List<Color> teamColors;
 
     private PlayerTeam _playerTeam;
@@ -29,7 +29,7 @@ public class TeamColor : MonoBehaviour
     public void SetTeam(int teamIndex)
     {
         Mpb.SetColor("_BaseColor", teamColors[teamIndex]);
-        renderer.SetPropertyBlock(Mpb);
+        targetRenderer.SetPropertyBlock(Mpb);
     }
 
     void Update()
