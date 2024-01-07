@@ -20,7 +20,7 @@ public class LocalPlayerPanel : MonoBehaviour
 
 	private void Start()
 	{
-		playerConfiguration.playerName = inputPlayerName.text;
+		inputPlayerName.text = playerConfiguration.playerName;
 	}
 
 	private void Update()
