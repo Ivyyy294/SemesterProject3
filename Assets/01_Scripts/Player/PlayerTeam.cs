@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerTeam : MonoBehaviour
 {
-	[SerializeField] int teamIndex = 0;
-	public int TeamIndex => teamIndex;
+	//ToDo component
+	public PlayerConfiguration playerConfiguration;
+	public int TeamIndex {get{return playerConfiguration ? playerConfiguration.teamNr : 0;} }
 }

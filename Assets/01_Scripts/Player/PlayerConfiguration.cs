@@ -12,6 +12,7 @@ public class PlayerConfiguration :NetworkBehaviour
 	public bool sceneLoaded = false;
 	public bool connected = false;
 	public IPAddress iPAddress = null;
+	public int teamNr = 0;
 
 	protected override void SetPackageData()
 	{
@@ -19,6 +20,7 @@ public class PlayerConfiguration :NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (sceneLoaded));	//1
 		networkPackage.AddValue (new NetworkPackageValue (connected));		//2
 		networkPackage.AddValue (new NetworkPackageValue (playerName));		//3
+		networkPackage.AddValue (new NetworkPackageValue (teamNr));			//4
 	}
 
 	private void Update()
@@ -28,9 +30,8 @@ public class PlayerConfiguration :NetworkBehaviour
 			ready = networkPackage.Value(0).GetBool();
 			sceneLoaded = networkPackage.Value(1).GetBool();
 			connected = networkPackage.Value(2).GetBool();
-
-			if (networkPackage.Count > 3)
-				playerName = networkPackage.Value(3).GetString();
+			playerName = networkPackage.Value(3).GetString();
+			teamNr = networkPackage.Value(4).GetInt32();
 		}
 	}
 }

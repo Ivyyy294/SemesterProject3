@@ -33,4 +33,9 @@ public class LocalPlayerPanel : MonoBehaviour
 	{
 		playerConfiguration.playerName = inputPlayerName.text;
 	}
+
+	public void SetTeamIndex (int teamNr)
+	{
+		playerConfiguration.teamNr = teamNr;
+	}
 }

@@ -18,19 +18,24 @@ public class PlayerManager : MonoBehaviour
 		if (networkManager)
 		{
 			for (int i = 0; i < playerList.Length; ++i)
-				SetOwnerState (playerList[i], playerConfigurationManager.playerConfigurations[i].Owner);
+				InitPlayerObject (playerList[i], playerConfigurationManager.playerConfigurations[i]);
 		}
 		else
-		{
-			for (int i = 0; i < playerList.Length; ++i)
-				SetOwnerState (playerList[i], i == 0);
-		}
+			InitPlayerObject (playerList[0], playerConfigurationManager.playerConfigurations[0]);
     }
 
 	private void Update()
 	{
 		for (int i = 0; i < playerList.Length; ++i)
 			playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
+	}
+
+	private void InitPlayerObject (GameObject player, PlayerConfiguration playerConfiguration)
+	{
+		SetOwnerState (player, playerConfiguration.Owner);
+
+		PlayerTeam playerTeam = player.GetComponent<PlayerTeam>();
+		playerTeam.playerConfiguration = playerConfiguration;
 	}
 
 	private void SetOwnerState (GameObject obj, bool val)
