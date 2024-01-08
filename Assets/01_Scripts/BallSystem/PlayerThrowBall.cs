@@ -9,8 +9,8 @@ public class PlayerThrowBall : NetworkBehaviour
 
 	[Header ("Lara Values")]
 	[SerializeField] GameObject ballGhost;
-	[SerializeField] PlayerOxygen playerOxygen;
-	[SerializeField] PlayerStatus playerStatus;
+	PlayerOxygen playerOxygen;
+	PlayerBallStatus playerBallStatus;
 
 	//Private
 	Ball ball;
@@ -18,13 +18,15 @@ public class PlayerThrowBall : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		playerBallStatus = transform.parent.GetComponentInChildren<PlayerBallStatus>();
+		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
         ball = Ball.Me;
     }
 
     // Update is called once per frame
     void Update()
     {
-		bool hasBall = playerStatus.CheckStatusTyp(PlayerStatus.StatusTyp.HAS_BALL);
+		bool hasBall = playerBallStatus.HasBall();
 
 		if (ballGhost.activeInHierarchy != hasBall)
 			ballGhost.SetActive (hasBall);

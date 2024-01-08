@@ -73,6 +73,7 @@ public class Ball : NetworkBehaviour
 		}
 	}
 
+	//ToDo Move to PlayerCollision
 	private void OnTriggerEnter(Collider other)
 	{
 		if (Owner)
@@ -81,12 +82,13 @@ public class Ball : NetworkBehaviour
 			
 			if (playerCollision)
 			{
-				PlayerID playerID = other.gameObject.GetComponentInParent<PlayerID>();
+				PlayerConfigurationContainer playerConfigurationContainer = playerCollision.PlayerSettingSystem.GetComponent<PlayerConfigurationContainer>();
 				PlayerOxygen playerOxygen = playerCollision.PlayerOxygenSystem.GetComponent<PlayerOxygen>();
 
-				if (playerID && playerOxygen && !playerOxygen.OxygenEmpty)
+				if (playerOxygen && !playerOxygen.OxygenEmpty
+					&& playerConfigurationContainer)
 				{
-					CurrentPlayerId = playerID.PlayerId;
+					CurrentPlayerId = playerConfigurationContainer.PlayerID;
 					ball.SetActive(false);
 					InvokeRPC("DespawnBall");
 				}

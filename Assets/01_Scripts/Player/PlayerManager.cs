@@ -42,9 +42,8 @@ public class PlayerManager : MonoBehaviour
 	private void InitPlayerObject (GameObject player, PlayerConfiguration playerConfiguration)
 	{
 		SetOwnerState (player, playerConfiguration.Owner);
-
-		PlayerTeam playerTeam = player.GetComponent<PlayerTeam>();
-		playerTeam.playerConfiguration = playerConfiguration;
+		PlayerConfigurationContainer playerConfigurationContainer = player.GetComponentInChildren <PlayerConfigurationContainer>();
+		playerConfigurationContainer.playerConfiguration = playerConfiguration;
 	}
 
 	private void SetOwnerState (GameObject obj, bool val)

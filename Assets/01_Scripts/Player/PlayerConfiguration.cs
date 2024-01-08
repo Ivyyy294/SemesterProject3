@@ -14,6 +14,9 @@ public class PlayerConfiguration :NetworkBehaviour
 	public IPAddress iPAddress = null;
 	public int teamNr = 0;
 
+	//Not synced
+	public short playerId = 0;
+
 	public void ReadPackageData()
 	{
 		ready = networkPackage.Value(0).GetBool();

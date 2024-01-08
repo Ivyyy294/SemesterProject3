@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[RequireComponent(typeof(PlayerTeam))]
 public class TeamColor : MonoBehaviour
 {
     private MaterialPropertyBlock _mpb;
@@ -19,11 +17,11 @@ public class TeamColor : MonoBehaviour
     [SerializeField] private Renderer targetRenderer;
     [SerializeField] private List<Color> teamColors;
 
-    private PlayerTeam _playerTeam;
+    private PlayerConfigurationContainer _playerConfigurationContainer;
 
     private void OnEnable()
     {
-        _playerTeam = GetComponent<PlayerTeam>();
+        _playerConfigurationContainer = GetComponentInChildren<PlayerConfigurationContainer>();
     }
 
     public void SetTeam(int teamIndex)
@@ -34,6 +32,6 @@ public class TeamColor : MonoBehaviour
 
     void Update()
     {
-        SetTeam(_playerTeam.TeamIndex);
+		SetTeam(_playerConfigurationContainer.TeamIndex);
     }
 }
