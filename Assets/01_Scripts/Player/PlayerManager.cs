@@ -20,14 +20,23 @@ public class PlayerManager : MonoBehaviour
 			for (int i = 0; i < playerList.Length; ++i)
 				InitPlayerObject (playerList[i], playerConfigurationManager.playerConfigurations[i]);
 		}
+		//Debug Mode
 		else
-			InitPlayerObject (playerList[0], playerConfigurationManager.playerConfigurations[0]);
+		{
+			SetOwnerState (playerList[0], true);
+
+			for (int i = 0; i < playerList.Length; ++i)
+				playerList[i].SetActive (i == 0);
+		}
     }
 
 	private void Update()
 	{
-		for (int i = 0; i < playerList.Length; ++i)
-			playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
+		if (networkManager)
+		{
+			for (int i = 0; i < playerList.Length; ++i)
+				playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
+		}
 	}
 
 	private void InitPlayerObject (GameObject player, PlayerConfiguration playerConfiguration)
