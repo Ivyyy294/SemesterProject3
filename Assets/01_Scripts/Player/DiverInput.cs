@@ -21,19 +21,21 @@ public class DiverInput : NetworkBehaviour
 	[Header ("Key Bindings")]
 	KeyCode forwardKey = KeyCode.Space;
     
-	Rigidbody _rigidbody;
+	[Header ("Lara Values")]
+	[SerializeField] Transform targetTransform;
+
 	int packageNr = 0;
 
 	protected override void SetPackageData()
 	{
-		networkPackage.AddValue (new NetworkPackageValue (_pitch));				//0
-		networkPackage.AddValue (new NetworkPackageValue (_pitchSway));			//1
-		networkPackage.AddValue (new NetworkPackageValue (_yaw));				//2
-		networkPackage.AddValue (new NetworkPackageValue (_yawSway));			//3
-		networkPackage.AddValue (new NetworkPackageValue (transform.position));	//4
-		networkPackage.AddValue (new NetworkPackageValue (transform.rotation));	//5
-		networkPackage.AddValue (new NetworkPackageValue (forwardPressed));		//6
-		networkPackage.AddValue (new NetworkPackageValue (packageNr));			//7
+		networkPackage.AddValue (new NetworkPackageValue (_pitch));						//0
+		networkPackage.AddValue (new NetworkPackageValue (_pitchSway));					//1
+		networkPackage.AddValue (new NetworkPackageValue (_yaw));						//2
+		networkPackage.AddValue (new NetworkPackageValue (_yawSway));					//3
+		networkPackage.AddValue (new NetworkPackageValue (targetTransform.position));	//4
+		networkPackage.AddValue (new NetworkPackageValue (targetTransform.rotation));	//5
+		networkPackage.AddValue (new NetworkPackageValue (forwardPressed));				//6
+		networkPackage.AddValue (new NetworkPackageValue (packageNr));					//7
 
 		if (Owner)
 			packageNr++;
@@ -42,7 +44,6 @@ public class DiverInput : NetworkBehaviour
 	void Start()
 	{
 		if (NetworkManager.Me is null) Owner = true;
-		_rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void Update()
@@ -57,8 +58,8 @@ public class DiverInput : NetworkBehaviour
 				_pitchSway = networkPackage.Value(2).GetFloat();
 				_yaw = networkPackage.Value(2).GetFloat();
 				_yawSway = networkPackage.Value(3).GetFloat();
-				transform.position = networkPackage.Value(4).GetVector3();
-				transform.rotation = networkPackage.Value(5).GetQuaternion();
+				targetTransform.position = networkPackage.Value(4).GetVector3();
+				targetTransform.rotation = networkPackage.Value(5).GetQuaternion();
 				forwardPressed = networkPackage.Value(6).GetBool();
 				packageNr = newNr;
 			}

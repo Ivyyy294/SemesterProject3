@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-[RequireComponent(typeof(DiverInput), typeof (Rigidbody), typeof (PlayerOxygen))]
+[RequireComponent(typeof(DiverInput))]
 public class DiverMovement : MonoBehaviour
 {
 	[Range (0f, 5f)]
@@ -18,37 +19,44 @@ public class DiverMovement : MonoBehaviour
 	[Range (0.3f, 1f)]
 	[SerializeField] private float movementSmoothTime = 0.3f;
 
+	[Header ("Lara Values")]
+	[SerializeField] PlayerOxygen playerOxygen;
+	[SerializeField] Transform targetTransform;
+
 	//Private values
+	Rigidbody m_rigidbody;	
 	float refSpeed = 0f;
 	float currentSpeed = 0f;
-	Rigidbody m_rigidbody;
-	PlayerOxygen playerOxygen;
 
     private DiverInput diverInput;
 
     private void Awake()
     {
         diverInput = GetComponent<DiverInput>();
-		m_rigidbody = GetComponent <Rigidbody>();
-		playerOxygen = GetComponent <PlayerOxygen>();
+
+		//Checking references
+		Assert.IsNotNull (playerOxygen);
+		Assert.IsNotNull (targetTransform);
+
+		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-		transform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * diverInput.Pitch);
-		transform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * diverInput.Yaw);
+		targetTransform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * diverInput.Pitch);
+		targetTransform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * diverInput.Yaw);
 
 		// how horizontal the diver is, is needed to ONLY auto-correct when the diver a little horizontal
-		float levelness = 1 - Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up));
+		float levelness = 1 - Mathf.Abs(Vector3.Dot(targetTransform.forward, Vector3.up));
 		// how vertical the diver's local RIGHT axis is, is needed to allow loopings
-		float twist = Mathf.Abs(Vector3.Dot(transform.right, Vector3.up));
+		float twist = Mathf.Abs(Vector3.Dot(targetTransform.right, Vector3.up));
 
 		if (levelness > 0.2f && twist > 0.1f)
 		{
 			// gradually roll the diver until their local RIGHT axis is horizontal again (their hip-line is horizontal)
-			var relativeRotation = Quaternion.FromToRotation(transform.right, GetIdealRightVector());
-			var targetRotation = relativeRotation * transform.rotation;
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * turnSpeedDegrees * 0.5f);
+			var relativeRotation = Quaternion.FromToRotation(targetTransform.right, GetIdealRightVector());
+			var targetRotation = relativeRotation * targetTransform.rotation;
+			targetTransform.rotation = Quaternion.RotateTowards(targetTransform.rotation, targetRotation, Time.deltaTime * turnSpeedDegrees * 0.5f);
 		}
 	}
 
@@ -61,21 +69,21 @@ public class DiverMovement : MonoBehaviour
 	{
 		float targetSpeed = (playerOxygen.OxygenEmpty? movementSpeedOxygenEmpty : movementSpeedNormal) * (diverInput.ForwardPressed ? 1f : 0f);
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, movementSmoothTime);
-		Vector3 newPos = transform.position + (transform.forward * currentSpeed * Time.fixedDeltaTime);
+		Vector3 newPos = targetTransform.position + (targetTransform.forward * currentSpeed * Time.fixedDeltaTime);
 		//m_rigidbody.velocity = Vector3.zero;
 		m_rigidbody.MovePosition (newPos);
 	}
 
 	Vector3 GetIdealRightVector()
     {
-        return Vector3.Cross(Vector3.up, transform.forward).normalized;
+        return Vector3.Cross(Vector3.up, targetTransform.forward).normalized;
     }
     
     #if UNITY_EDITOR
     private void OnDrawGizmos()
     {   
         // visualize the target orientation for the hips of the diver
-        Gizmos.DrawLine(transform.position, transform.position + GetIdealRightVector());
+        Gizmos.DrawLine(targetTransform.position, targetTransform.position + GetIdealRightVector());
     }
     #endif
 }

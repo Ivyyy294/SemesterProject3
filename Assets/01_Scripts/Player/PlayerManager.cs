@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
 	{
 		if (obj)
 		{
-			DiverInput diverInput = obj.GetComponent <DiverInput>();
+			DiverInput diverInput = obj.GetComponentInChildren <DiverInput>();
 			diverInput.Owner = val;
 
 			PlayerThrowBall playerThrowBall = obj.GetComponent <PlayerThrowBall>();
