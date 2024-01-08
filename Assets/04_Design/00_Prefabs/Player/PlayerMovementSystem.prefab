@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4657059588473084461}
   - component: {fileID: 638388559071660622}
   - component: {fileID: 8292151498587371480}
+  - component: {fileID: 2670331080833483652}
   m_Layer: 0
   m_Name: PlayerMovementSystem
   m_TagString: Untagged
@@ -59,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 7a189991-80fe-40b4-940b-9bd219b03e93
+  targetTransform: {fileID: 0}
 --- !u!114 &8292151498587371480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,3 +77,18 @@ MonoBehaviour:
   movementSpeedOxygenEmpty: 0.5
   turnSpeedDegrees: 90
   movementSmoothTime: 1
+  playerOxygen: {fileID: 0}
+  targetTransform: {fileID: 0}
+--- !u!114 &2670331080833483652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440998815140474730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1582da56fb5ee46a4f8ac7f13888fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPivot: {fileID: 0}
