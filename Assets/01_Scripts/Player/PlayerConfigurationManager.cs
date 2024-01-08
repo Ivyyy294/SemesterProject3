@@ -86,8 +86,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 		{
 			LocalPlayerId = tmpId;
 			Debug.Log ("LocalPlayerId: " + LocalPlayerId);
-			playerConfigurations[LocalPlayerId].Owner = true;
-			playerConfigurations[LocalPlayerId].connected = true;
 		}
 		else
 			Debug.Log("Time out getting LocalPlayerId!");
@@ -97,6 +95,21 @@ public class PlayerConfigurationManager : MonoBehaviour
 		maxPlayers = BitConverter.ToInt32(buffer, 0);
 		Debug.Log("MaxPlayerCount: " + maxPlayers);
 
+		//Get PlayerConfigData
+		buffer = new byte[512];
+		int length = socket.Receive (buffer);
+		byte[] data = new byte[length];
+		Buffer.BlockCopy (buffer, 0, data, 0, length);
+
+		if (LocalPlayerId != -1)
+		{
+			playerConfigurations[LocalPlayerId].DeserializeData (data);
+			playerConfigurations[LocalPlayerId].ReadPackageData();
+			playerConfigurations[LocalPlayerId].Owner = true;
+			playerConfigurations[LocalPlayerId].connected = true;
+		}
+
+		Debug.Log("PlayerConfigData received!");
 	}
 
 	public void OnClientConnected (Socket socket)
@@ -114,6 +127,10 @@ public class PlayerConfigurationManager : MonoBehaviour
 		//Send max player count to player
 		socket.Send(BitConverter.GetBytes(maxPlayers));
 		Debug.Log("Max Players send!");
+
+		//Send PlayerConfigData to client
+		socket.Send (playerConfigurations[newPlayerIndex].GetSerializedData());
+		Debug.Log("PlayerConfigData send!");
 	}
 
 	//Private Methods
@@ -156,12 +173,13 @@ public class PlayerConfigurationManager : MonoBehaviour
 		//Player 0 is always host
 		for (int i = 1; i < playerConfigurations.Length && i < maxPlayers; ++i)
 		{
+			PlayerConfiguration playerConfiguration = playerConfigurations[i];
 			//New player
-			if (playerConfigurations[i].iPAddress == null)
+			if (playerConfiguration.iPAddress == null)
 				return i;
-			////Returning player
-			//else if (playerConfigurations[i].iPAddress.Equals (iPAddress))
-			//	return i;
+			//Returning player
+			else if (/*!playerConfiguration.connected && */playerConfiguration.iPAddress.Equals(iPAddress))
+				return i;
 		}
 
 		return -1;
