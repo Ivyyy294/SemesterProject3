@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (PlayerStatus))]
 public class PlayerBallStatus : MonoBehaviour
 {
-	PlayerStatus playerStatus;
+	[Header("Lara Values")]
+	[SerializeField] PlayerStatus playerStatus;
+	[SerializeField] PlayerID playerIDObj;
+
 	short playerID;
 	Ball ball;
 
@@ -13,9 +15,8 @@ public class PlayerBallStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-		playerStatus = GetComponent <PlayerStatus>();
 		ball = Ball.Me;
-		playerID = GetComponent <PlayerID>().PlayerId;
+		playerID = playerIDObj.PlayerId;
     }
 
 	private void Update()

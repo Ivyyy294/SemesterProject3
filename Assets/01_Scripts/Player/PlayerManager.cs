@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
 			DiverInput diverInput = obj.GetComponentInChildren <DiverInput>();
 			diverInput.Owner = val;
 
-			PlayerThrowBall playerThrowBall = obj.GetComponent <PlayerThrowBall>();
+			PlayerThrowBall playerThrowBall = obj.GetComponentInChildren <PlayerThrowBall>();
 			playerThrowBall.Owner = val;
 
 			//Disable camera on remote player

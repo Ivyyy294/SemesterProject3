@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 
-[RequireComponent (typeof (PlayerStatus), typeof (PlayerOxygen))]
 public class PlayerThrowBall : NetworkBehaviour
 {
 	[SerializeField] float throwForce = 10f;
 
 	[Header ("Lara Values")]
 	[SerializeField] GameObject ballGhost;
+	[SerializeField] PlayerOxygen playerOxygen;
+	[SerializeField] PlayerStatus playerStatus;
 
 	//Private
 	Ball ball;
-	PlayerStatus playerStatus;
-	PlayerOxygen playerOxygen;
 
     // Start is called before the first frame update
     void Start()
     {
         ball = Ball.Me;
-		playerStatus = GetComponent<PlayerStatus>();
-		playerOxygen = GetComponent <PlayerOxygen>();
     }
 
     // Update is called once per frame

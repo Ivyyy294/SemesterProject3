@@ -77,14 +77,19 @@ public class Ball : NetworkBehaviour
 	{
 		if (Owner)
 		{
-			PlayerID playerID = other.gameObject.GetComponentInParent <PlayerID>();
-			PlayerOxygen playerOxygen = other.gameObject.GetComponentInParent<PlayerOxygen>();
-
-			if (playerID && playerOxygen && !playerOxygen.OxygenEmpty)
+			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
+			
+			if (playerCollision)
 			{
-				CurrentPlayerId = playerID.PlayerId;
-				ball.SetActive (false);
-				InvokeRPC ("DespawnBall");
+				PlayerID playerID = other.gameObject.GetComponentInParent<PlayerID>();
+				PlayerOxygen playerOxygen = playerCollision.PlayerOxygenSystem.GetComponent<PlayerOxygen>();
+
+				if (playerID && playerOxygen && !playerOxygen.OxygenEmpty)
+				{
+					CurrentPlayerId = playerID.PlayerId;
+					ball.SetActive(false);
+					InvokeRPC("DespawnBall");
+				}
 			}
 		}
 	}
