@@ -21,8 +21,7 @@ public class DiverInput : NetworkBehaviour
 	[Header ("Key Bindings")]
 	KeyCode forwardKey = KeyCode.Space;
     
-	[Header ("Lara Values")]
-	[SerializeField] Transform targetTransform;
+	Transform targetTransform;
 
 	int packageNr = 0;
 
@@ -44,6 +43,7 @@ public class DiverInput : NetworkBehaviour
 	void Start()
 	{
 		if (NetworkManager.Me is null) Owner = true;
+		targetTransform = transform.parent;
 	}
 
 	void Update()

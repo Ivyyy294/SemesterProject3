@@ -19,11 +19,10 @@ public class DiverMovement : MonoBehaviour
 	[Range (0.3f, 1f)]
 	[SerializeField] private float movementSmoothTime = 0.3f;
 
-	[Header ("Lara Values")]
-	[SerializeField] PlayerOxygen playerOxygen;
-	[SerializeField] Transform targetTransform;
 
 	//Private values
+	PlayerOxygen playerOxygen;
+	Transform targetTransform;
 	Rigidbody m_rigidbody;	
 	float refSpeed = 0f;
 	float currentSpeed = 0f;
@@ -33,11 +32,8 @@ public class DiverMovement : MonoBehaviour
     private void Awake()
     {
         diverInput = GetComponent<DiverInput>();
-
-		//Checking references
-		Assert.IsNotNull (playerOxygen);
-		Assert.IsNotNull (targetTransform);
-
+		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
+		targetTransform = transform.parent;
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
     }
 
