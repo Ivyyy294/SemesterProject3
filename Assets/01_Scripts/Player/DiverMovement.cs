@@ -33,8 +33,8 @@ public class DiverMovement : MonoBehaviour
     {
         diverInput = GetComponent<DiverInput>();
 		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
-		targetTransform = transform.parent;
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
+		InitTargetTransform();
     }
 
     void Update()
@@ -78,8 +78,16 @@ public class DiverMovement : MonoBehaviour
     #if UNITY_EDITOR
     private void OnDrawGizmos()
     {   
+		if (!targetTransform)
+			InitTargetTransform();
+
         // visualize the target orientation for the hips of the diver
-        Gizmos.DrawLine(targetTransform.position, targetTransform.position + GetIdealRightVector());
+        Gizmos.DrawLine(transform.parent.position, targetTransform.position + GetIdealRightVector());
     }
     #endif
+
+	void InitTargetTransform()
+	{
+		targetTransform = transform.parent ? transform.parent : transform;
+	}
 }
