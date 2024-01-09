@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 [RequireComponent(typeof(DiverInput))]
-public class DiverMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 	[Range (0f, 5f)]
     [SerializeField] private float movementSpeedNormal = 1f;
@@ -31,10 +31,10 @@ public class DiverMovement : MonoBehaviour
 
     private void Awake()
     {
+		InitTargetTransform();
         diverInput = GetComponent<DiverInput>();
 		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
-		InitTargetTransform();
     }
 
     void Update()
