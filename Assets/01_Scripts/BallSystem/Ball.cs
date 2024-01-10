@@ -80,20 +80,16 @@ public class Ball : NetworkBehaviour
 		{
 			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
 			
-			if (playerCollision)
-			{
-				PlayerConfigurationContainer playerConfigurationContainer = playerCollision.PlayerSettingSystem.GetComponent<PlayerConfigurationContainer>();
-				PlayerOxygen playerOxygen = playerCollision.PlayerOxygenSystem.GetComponent<PlayerOxygen>();
-
-				if (playerOxygen && !playerOxygen.OxygenEmpty
-					&& playerConfigurationContainer)
-				{
-					CurrentPlayerId = playerConfigurationContainer.PlayerID;
-					ball.SetActive(false);
-					InvokeRPC("DespawnBall");
-				}
-			}
+			if (playerCollision && playerCollision.CanCatchBall)
+				Catch (playerCollision.PlayerId);
 		}
+	}
+
+	private void Catch (short playerId)
+	{
+		CurrentPlayerId = playerId;
+		ball.SetActive(false);
+		InvokeRPC("DespawnBall");
 	}
 
 	protected override void SetPackageData()
@@ -104,13 +100,13 @@ public class Ball : NetworkBehaviour
 	}
 
 	[RPCAttribute]
-	public void DespawnBall()
+	protected void DespawnBall()
 	{
 		ball.SetActive (false);
 	}
 
 	[RPCAttribute]
-	public void SpawnBall()
+	protected void SpawnBall()
 	{
 		ball.SetActive (true);
 	}

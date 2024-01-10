@@ -14,20 +14,25 @@ public class PlayerMovement : MonoBehaviour
 
 	//Private values
 	PlayerOxygen playerOxygen;
+	PlayerMovementProfil currentMovementProfil;
+    DiverInput diverInput;
+	PlayerBallStatus playerBallStatus;
+
 	Transform targetTransform;
 	Rigidbody m_rigidbody;	
 	float refSpeed = 0f;
 	float currentSpeed = 0f;
-	PlayerMovementProfil currentMovementProfil;
 
-    private DiverInput diverInput;
 
     private void Awake()
     {
 		InitTargetTransform();
+
         diverInput = GetComponent<DiverInput>();
-		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
+		playerOxygen = targetTransform.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
+		playerBallStatus = targetTransform.GetComponentInChildren<PlayerBallStatus>();
+
 		currentMovementProfil = normalMovementProfil;
     }
 
@@ -94,7 +99,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (playerOxygen.OxygenEmpty)
 			currentMovementProfil = lowOxygenMovementProfil;
-		else if (diverInput.DashPressed)
+		//Allow Dash when player has not the ball
+		else if (diverInput.DashPressed && !playerBallStatus.HasBall())
 			currentMovementProfil = dashMovementProfil;
 		else
 			currentMovementProfil = normalMovementProfil;

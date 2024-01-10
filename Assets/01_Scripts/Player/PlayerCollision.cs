@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-	[SerializeField] GameObject playerOxygenSystem;
-	[SerializeField] GameObject playerSettingSystem;
-	public GameObject PlayerOxygenSystem => playerOxygenSystem;
-	public GameObject PlayerSettingSystem => playerSettingSystem;
+	PlayerOxygen playerOxygen;
+	PlayerConfigurationContainer playerConfigurationContainer;
+	DiverInput diverInput;
+
+	public short PlayerId => playerConfigurationContainer.PlayerID;
+	public bool CanCatchBall { get { return !playerOxygen.OxygenEmpty && !diverInput.DashPressed;} }
+
+	private void Start()
+	{
+		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
+		playerConfigurationContainer = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>();
+		diverInput = transform.parent.GetComponentInChildren <DiverInput>();
+	}
 }
