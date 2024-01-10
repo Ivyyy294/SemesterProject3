@@ -8,17 +8,9 @@ using UnityEngine.Assertions;
 [RequireComponent(typeof(DiverInput))]
 public class PlayerMovement : MonoBehaviour
 {
-	[Range (0f, 5f)]
-    [SerializeField] private float movementSpeedNormal = 1f;
-
-	[Range (0f, 5f)]
-    [SerializeField] private float movementSpeedOxygenEmpty = 0.5f;
-
-    [SerializeField] private float turnSpeedDegrees = 10f;
-
-	[Range (0.3f, 1f)]
-	[SerializeField] private float movementSmoothTime = 0.3f;
-
+    [SerializeField] PlayerMovementProfil normalMovementProfil;
+	[SerializeField] PlayerMovementProfil dashMovementProfil;
+	[SerializeField] PlayerMovementProfil lowOxygenMovementProfil;
 
 	//Private values
 	PlayerOxygen playerOxygen;
@@ -26,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 	Rigidbody m_rigidbody;	
 	float refSpeed = 0f;
 	float currentSpeed = 0f;
+	PlayerMovementProfil currentMovementProfil;
 
     private DiverInput diverInput;
 
@@ -35,10 +28,15 @@ public class PlayerMovement : MonoBehaviour
         diverInput = GetComponent<DiverInput>();
 		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
+		currentMovementProfil = normalMovementProfil;
     }
 
     void Update()
     {
+		SetCurrentMovementProfile();
+
+		float turnSpeedDegrees = currentMovementProfil.turnSpeedDegrees;
+
 		targetTransform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * diverInput.Pitch);
 		targetTransform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * diverInput.Yaw);
 
@@ -63,8 +61,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void ForwardMovement()
 	{
-		float targetSpeed = (playerOxygen.OxygenEmpty? movementSpeedOxygenEmpty : movementSpeedNormal) * (diverInput.ForwardPressed ? 1f : 0f);
-		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, movementSmoothTime);
+		float targetSpeed = currentMovementProfil.maxSpeed * (diverInput.ForwardPressed ? 1f : 0f);
+		Debug.Log ("TargetSpeed:" + targetSpeed);
+		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, currentMovementProfil.movementSmoothTime);
 		Vector3 newPos = targetTransform.position + (targetTransform.forward * currentSpeed * Time.fixedDeltaTime);
 		//m_rigidbody.velocity = Vector3.zero;
 		m_rigidbody.MovePosition (newPos);
@@ -89,5 +88,15 @@ public class PlayerMovement : MonoBehaviour
 	void InitTargetTransform()
 	{
 		targetTransform = transform.parent ? transform.parent : transform;
+	}
+
+	void SetCurrentMovementProfile()
+	{
+		if (playerOxygen.OxygenEmpty)
+			currentMovementProfil = lowOxygenMovementProfil;
+		else if (diverInput.DashPressed)
+			currentMovementProfil = dashMovementProfil;
+		else
+			currentMovementProfil = normalMovementProfil;
 	}
 }

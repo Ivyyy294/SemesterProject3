@@ -60,7 +60,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 7a189991-80fe-40b4-940b-9bd219b03e93
-  targetTransform: {fileID: 0}
 --- !u!114 &8292151498587371480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,12 +72,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5659af63b408c1445bbda7ac6021fdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeedNormal: 1.13
-  movementSpeedOxygenEmpty: 0.5
-  turnSpeedDegrees: 90
-  movementSmoothTime: 1
-  playerOxygen: {fileID: 0}
-  targetTransform: {fileID: 0}
+  normalMovementProfil: {fileID: 11400000, guid: 88e6c531faf2a1f40a4d73d65ee80583,
+    type: 2}
+  dashMovementProfil: {fileID: 11400000, guid: 9534760af88576841b9813eacd7e746f, type: 2}
+  lowOxygenMovementProfil: {fileID: 11400000, guid: d0a6d52389a143742b0772f9215105ea,
+    type: 2}
 --- !u!114 &2670331080833483652
 MonoBehaviour:
   m_ObjectHideFlags: 0
