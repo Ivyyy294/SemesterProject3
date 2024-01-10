@@ -26,6 +26,7 @@ public class DiverAnimation : MonoBehaviour
     private readonly int ID_IsHoldingBall = Animator.StringToHash("IsHoldingBall");
     private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
     private readonly int ID_BreastStroke = Animator.StringToHash("BreastStrokeUB");
+    private readonly int ID_CancelAnimEffects = Animator.StringToHash("CancelAnimEffects");
     #endregion
     
      private VelocityTracker _velocityTracker;
@@ -61,7 +62,7 @@ public class DiverAnimation : MonoBehaviour
          {
              breastStrokeCooldown.Update();
          }
-         else
+         else if(!_isHoldingBall)
          {
              if(breastStrokeCooldown.Trigger()) animator.SetTrigger(ID_BreastStroke);
              breastStrokeCooldown.Reset();
@@ -116,7 +117,7 @@ public class DiverAnimation : MonoBehaviour
             var vectorYaw = t.InverseTransformDirection(transform.up);
             var vectorPitch = t.InverseTransformDirection(transform.right);
             t.Rotate(vectorYaw, horizontalAngle * 0.5f);
-            t.Rotate(vectorPitch, verticalAngle * 0.5f);
+            t.Rotate(vectorPitch, verticalAngle * 0.7f);
         }
     }
 
@@ -129,6 +130,11 @@ public class DiverAnimation : MonoBehaviour
         if (!_isHoldingBall)
         {
             fastTravelTimer.Reset();
+        }
+
+        if (_isHoldingBall)
+        {
+            animator.SetTrigger(ID_CancelAnimEffects);
         }
     }
 
