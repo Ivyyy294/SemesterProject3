@@ -110,6 +110,33 @@ public class Timer
 }
 
 [Serializable]
+public class TimeCounter
+{
+    public float waitTime;
+    private float _timer;
+
+    public float Timer => _timer;
+    public float TimeRemaining => waitTime - _timer;
+    public float ProgressNormalized => waitTime == 0? 1 : _timer / waitTime;
+    public void Update()
+    {
+        _timer += Time.deltaTime;
+    }
+
+    public void Reset()
+    {
+        _timer = 0;
+    }
+
+    public bool Trigger()
+    {
+        if (_timer <= waitTime) return false;
+        Reset();
+        return true;
+    }
+}
+
+[Serializable]
 public class Gauge
 {
     public float fillRate;

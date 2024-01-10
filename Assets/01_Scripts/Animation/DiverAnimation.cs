@@ -18,83 +18,98 @@ public class DiverAnimation : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    [SerializeField] private float fastTravelSpeedThreshold;
+    
 
-     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
-     private readonly int ID_Levelness = Animator.StringToHash("Levelness");
-     private readonly int ID_IsHoldingBall = Animator.StringToHash("IsHoldingBall");
-     private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
+    #region AnimatorParameterIDs
+    private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
+    private readonly int ID_Levelness = Animator.StringToHash("Levelness");
+    private readonly int ID_IsHoldingBall = Animator.StringToHash("IsHoldingBall");
+    private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
+    private readonly int ID_BreastStroke = Animator.StringToHash("BreastStrokeUB");
+    #endregion
+    
+     private VelocityTracker _velocityTracker;
+     
+     [SerializeField] private TimeCounter fastTravelTimer;
+     [SerializeField] private float fastTravelSpeedThreshold;
 
-     private List<Vector3> _previousVelocities;
-     private Vector3 _previousPosition;
-     private int _positionBufferSize = 24; 
-     private Vector3 _velocity;
-     private float _fastTravelTimer;
+     [SerializeField] private Cooldown breastStrokeCooldown;
+     [SerializeField] private float lowSpeedThreshold;
 
      private AnimUtils.AngleTracker _angleTracker;
      private bool _isHoldingBall;
 
      private void OnEnable()
     {
-        _previousVelocities = new List<Vector3>();
-        for (int i = 0; i < _positionBufferSize; i++)
-        {
-            _previousVelocities.Add(transform.position);
-        }
-
+        animator.SetFloat(ID_SwimSpeed, 0);
+        _velocityTracker = new VelocityTracker(24);
         _isHoldingBall = false;
-        _fastTravelTimer = 0;
-
-		UpdatePreviosPositions();
+        breastStrokeCooldown.MakeReady();
     }
 
      void Update()
      {
+         // Debug.Log(_velocityTracker.SmoothSpeed);
+         _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
+
+         if (_velocityTracker.SmoothSpeed > fastTravelSpeedThreshold)
+         {
+             fastTravelTimer.Update();
+         } else fastTravelTimer.Reset();
+
+         if (_velocityTracker.SmoothSpeed < lowSpeedThreshold)
+         {
+             breastStrokeCooldown.Update();
+         }
+         else
+         {
+             if(breastStrokeCooldown.Trigger()) animator.SetTrigger(ID_BreastStroke);
+             breastStrokeCooldown.Reset();
+         }
+
+         animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
+         animator.SetBool(ID_IsMovingFastOverTime, fastTravelTimer.TimeRemaining < 0f && !_isHoldingBall);
+         // animator.SetFloat(ID_SwimSpeed, Mathf.Clamp01(_velocityTracker.SmoothSpeed));
+         animator.SetFloat(ID_SwimSpeed, Mathf.Max(0, _velocityTracker.SmoothSpeed));
+
          if (Input.GetKeyDown(KeyCode.E))
          {
-             _isHoldingBall = !_isHoldingBall;
-             animator.SetBool(ID_IsHoldingBall, _isHoldingBall);
+             ToggleHoldingBall();
          }
+         
      }
 
      void FixedUpdate()
     {
-        UpdatePreviosPositions(); // Always update first to validate the values
-
-        if (_velocity.magnitude > fastTravelSpeedThreshold)
-        {
-            _fastTravelTimer += Time.deltaTime;
-        }
-        else _fastTravelTimer = 0;
-        
-        animator.SetFloat(ID_SwimSpeed, Mathf.Clamp01(_velocity.magnitude));
-        animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
-        animator.SetBool(ID_IsMovingFastOverTime, _fastTravelTimer > 1f && !_isHoldingBall);
+        _velocityTracker.FixedUpdate(transform.position); // Always update first to validate the values
     }
 
     private void LateUpdate()
     {
-        UpdateTorsoTransforms();
-        UpdateTwistTransforms();
+        UpdateSimulatedLimbs();
     }
 
-    void UpdatePreviosPositions()
+    void UpdateSimulatedLimbs()
     {
-        float xSum = _previousVelocities.Sum(v => v.x);
-        float ySum = _previousVelocities.Sum(v => v.y);
-        float zSum = _previousVelocities.Sum(v => v.z);
-        _velocity = new Vector3(xSum, ySum, zSum) / _previousVelocities.Count;
-        _previousVelocities.RemoveAt(0);
-        _previousVelocities.Add((transform.position - _previousPosition) / Time.deltaTime);
-        _previousPosition = transform.position;
+        
+        float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.5f, 2.5f, 1, 0);
 
-        _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
-    }
-    
-    void UpdateTwistTransforms()
-    {
-        float verticalAngle = _angleTracker.Angle1;
-        float horizontalAngle = _angleTracker.Angle2;
+        // Update Torso Transforms
+        hipSpineChain.GetOriginal();
+        var root = hipSpineChain.RootInverse;
+        root.Rotate(Vector3.right, _angleTracker.Angle1 * 1f * speedMultiplier);
+        root.Rotate(Vector3.forward, -_angleTracker.Angle2 * speedMultiplier);
+        hipSpineChain.Apply();
+        foreach (var t in lowerLegs)
+        {
+            t.Rotate(Vector3.right, -_angleTracker.Angle1 * 1f * speedMultiplier);
+        }
+        
+        // Update Twist Transforms
+        
+        Debug.Log(speedMultiplier);
+        float verticalAngle = _angleTracker.Angle1 * speedMultiplier;
+        float horizontalAngle = _angleTracker.Angle2 * speedMultiplier;
         upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f);
         upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f);
         foreach (var t in arms)
@@ -106,23 +121,27 @@ public class DiverAnimation : MonoBehaviour
         }
     }
 
-    void UpdateTorsoTransforms()
+    public void SetHoldingBall(bool newValue)
     {
-        hipSpineChain.GetOriginal();
-        var root = hipSpineChain.RootInverse;
-        root.Rotate(Vector3.right, _angleTracker.Angle1 * 1f);
-        root.Rotate(Vector3.forward, -_angleTracker.Angle2);
-        hipSpineChain.Apply();
-        foreach (var t in lowerLegs)
+        if (_isHoldingBall == newValue) return;
+        _isHoldingBall = newValue;
+        animator.SetBool(ID_IsHoldingBall, _isHoldingBall);
+
+        if (!_isHoldingBall)
         {
-            t.Rotate(Vector3.right, -_angleTracker.Angle1 * 1f);
+            fastTravelTimer.Reset();
         }
     }
-    
-    #if UNITY_EDITOR
+
+    public void ToggleHoldingBall()
+    {
+        SetHoldingBall(!_isHoldingBall);
+    }
+
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        // if(_angleTracker is not null) _angleTracker.DrawDebug();
+        if(_angleTracker is not null) _angleTracker.DrawDebug();
     }
     #endif
 }

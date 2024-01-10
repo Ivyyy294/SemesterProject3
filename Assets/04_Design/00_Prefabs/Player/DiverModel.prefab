@@ -57,7 +57,12 @@ MonoBehaviour:
   - {fileID: 7917451540314168039}
   - {fileID: 6715961606634166166}
   animator: {fileID: 0}
+  fastTravelTimer:
+    waitTime: 1
   fastTravelSpeedThreshold: 1
+  breastStrokeCooldown:
+    cooldownTime: 0.5
+  lowSpeedThreshold: 0.4
 --- !u!114 &2496753735942581176
 MonoBehaviour:
   m_ObjectHideFlags: 0
