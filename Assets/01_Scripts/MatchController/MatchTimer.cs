@@ -11,6 +11,7 @@ public class MatchTimer : NetworkBehaviour
 	float timer;
 
 	public float TimeRemaining { get { return Mathf.Max (0f, matchLengthSeconds - timer);}}
+	public bool GameOver { get { return TimeRemaining == 0f;} }
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,9 @@ public class MatchTimer : NetworkBehaviour
 			timer = networkPackage.Value (0).GetFloat();
 		else if (timer <= matchLengthSeconds)
 			timer += Time.deltaTime;
+
+		if (GameOver)
+			Time.timeScale = 0f;
     }
 
 	protected override void SetPackageData()

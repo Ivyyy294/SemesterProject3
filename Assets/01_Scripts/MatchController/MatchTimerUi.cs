@@ -26,6 +26,10 @@ public class MatchTimerUi : MonoBehaviour
 		float remaining = matchTimer.TimeRemaining;
 		int minutes = (int) (remaining / 60f);
 		int seconds = (int) (remaining % 60f);
-		return minutes + ":" + seconds;
+
+		if (seconds > 9)
+			return minutes + ":" + seconds;
+		else
+			return minutes + ":0" + seconds;
 	}
 }
