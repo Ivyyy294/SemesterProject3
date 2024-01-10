@@ -5,7 +5,12 @@ using UnityEngine;
 public class Goal : MonoBehaviour
 {
 	[SerializeField] int teamIndex;
-	[SerializeField] ScoreController scoreController;
+	MatchScoreController scoreController;
+
+	private void Start()
+	{
+		scoreController = MatchController.Me.MatchScoreController;
+	}
 
 	private void OnCollisionEnter(Collision collision)
 	{

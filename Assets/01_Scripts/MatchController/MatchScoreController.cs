@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
-using TMPro;
 
-public class ScoreController : NetworkBehaviour
+public class MatchScoreController : NetworkBehaviour
 {
-	[SerializeField] TextMeshProUGUI labelPointsTeam1;
-	[SerializeField] TextMeshProUGUI labelPointsTeam2;
-	[SerializeField] AudioAsset audioScore;
-
 	private ushort pointsTeam1;
 	private ushort pointsTeam2;
+
+	public ushort PointsTeam1 => pointsTeam1;
+	public ushort PointsTeam2 => pointsTeam2;
 
 	public void AddScore (int teamIndex)
 	{
@@ -21,8 +19,6 @@ public class ScoreController : NetworkBehaviour
 				pointsTeam1++;
 			else
 				pointsTeam2++;
-
-			PlayAudioScore();
 		}
 	}
 
@@ -46,17 +42,5 @@ public class ScoreController : NetworkBehaviour
 			pointsTeam2 = networkPackage.Value(1).GetUShort();
 			networkPackage.Clear();
 		}
-
-		labelPointsTeam1.text = "Team1: " + pointsTeam1;
-		labelPointsTeam2.text = "Team2: " + pointsTeam2;
     }
-
-	[RPCAttribute]
-	void PlayAudioScore()
-	{
-		if (Host)
-			InvokeRPC("PlayAudioScore");
-
-		audioScore?.PlayOneShot();
-	}
 }

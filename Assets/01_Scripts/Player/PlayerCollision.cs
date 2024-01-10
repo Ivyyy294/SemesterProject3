@@ -10,6 +10,7 @@ public class PlayerCollision : MonoBehaviour
 
 	public short PlayerId => playerConfigurationContainer.PlayerID;
 	public bool CanCatchBall { get { return !playerOxygen.OxygenEmpty && !diverInput.DashPressed;} }
+	public PlayerOxygen PlayerOxygen => playerOxygen;
 
 	private void Start()
 	{

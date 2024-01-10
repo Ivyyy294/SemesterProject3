@@ -48,13 +48,18 @@ public class OxygenRefill : NetworkBehaviour
 		if (other.isTrigger || !Owner)
 			return;
 
-		PlayerOxygen playerOxygen = other.GetComponentInParent<PlayerOxygen>();
+		PlayerCollision playerCollision = other.transform.parent.GetComponent<PlayerCollision>();
 
-		if (playerOxygen && playerOxygen.Owner)
+		if (playerCollision)
 		{
-			float refill = Mathf.Min (refillRatePerSecond * Time.deltaTime, currentOxygen);
-			playerOxygen.Refill (refill);
-			currentOxygen -= refill;
+			PlayerOxygen playerOxygen = playerCollision.PlayerOxygen;
+
+			if (playerOxygen.Owner)
+			{
+				float refill = Mathf.Min (refillRatePerSecond * Time.deltaTime, currentOxygen);
+				playerOxygen.Refill (refill);
+				currentOxygen -= refill;
+			}
 		}
 
 		if (currentOxygen <= 0f)
