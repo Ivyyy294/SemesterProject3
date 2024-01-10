@@ -122,6 +122,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 		int byteSend = socket.Send(BitConverter.GetBytes (newPlayerIndex));
 		Debug.Log (socket.RemoteEndPoint);
 		playerConfigurations[newPlayerIndex].iPAddress = iPAddress;
+		playerConfigurations[newPlayerIndex].Owner = false;
 		Debug.Log ("ClientId send!: " + byteSend);
 
 		//Send max player count to player
@@ -131,6 +132,25 @@ public class PlayerConfigurationManager : MonoBehaviour
 		//Send PlayerConfigData to client
 		socket.Send (playerConfigurations[newPlayerIndex].GetSerializedData());
 		Debug.Log("PlayerConfigData send!");
+	}
+
+	public void OnClientDisconnected (Socket socket)
+	{
+		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
+		PlayerConfiguration pc = GetPlayerConfigurationForIp (iPAddress);
+
+		//Reset connected State
+		//Take Owner ship of PlayerConfiguration
+		pc.Owner = true;
+		pc.connected = false;
+
+		Debug.Log (pc.playerName + " disconnected!");
+	}
+
+	public void OnHostDisconnected (Socket socket)
+	{
+		Debug.Log("Lost connection to host!");
+		NetworkSceneController.Me.LoadScene (0);
 	}
 
 	//Private Methods
@@ -155,6 +175,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 			networkManager.acceptClient = OnAcceptClient;
 			networkManager.onConnectedToHost = OnConnectedToHost;
 			networkManager.onClientConnected = OnClientConnected;
+			networkManager.onClientDisonnected = OnClientDisconnected;
+			networkManager.onHostDisonnected = OnHostDisconnected;
 		}
 	}
 
@@ -168,6 +190,17 @@ public class PlayerConfigurationManager : MonoBehaviour
 		}
 	}
 
+	PlayerConfiguration GetPlayerConfigurationForIp (IPAddress iPAddress)
+	{
+		foreach (PlayerConfiguration i in playerConfigurations)
+		{
+			if (i.iPAddress != null && (i.iPAddress.ToString() == iPAddress.ToString()))
+				return i;
+		}
+
+		return null;
+	}
+
 	int GetNewPlayerIndex(IPAddress iPAddress)
 	{
 		//Player 0 is always host
@@ -178,7 +211,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 			if (playerConfiguration.iPAddress == null)
 				return i;
 			//Returning player
-			else if (/*!playerConfiguration.connected && */playerConfiguration.iPAddress.Equals(iPAddress))
+			else if (playerConfiguration.iPAddress.Equals(iPAddress))
 				return i;
 		}
 

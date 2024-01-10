@@ -16,10 +16,10 @@ public class DiverInput : NetworkBehaviour
 	public bool ForwardPressed {get{ return inputBuffer.Check (0);}}
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
 
-	[Header ("Key Bindings")]
 	Transform targetTransform;
 	int packageNr = 0;
 	BitSet inputBuffer = new BitSet (1);
+	PlayerConfigurationContainer playerConfigurationContainer;
 
 	protected override void SetPackageData()
 	{
@@ -38,6 +38,7 @@ public class DiverInput : NetworkBehaviour
 	{
 		if (NetworkManager.Me is null) Owner = true;
 		targetTransform = transform.parent;
+		playerConfigurationContainer = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>();
 	}
 
 	void Update()
@@ -65,4 +66,10 @@ public class DiverInput : NetworkBehaviour
 			_yaw = Input.GetAxisRaw("Horizontal");
 		}
     }
+
+	private void OnDisable()
+	{
+		packageNr = 0;
+		networkPackage.Clear();
+	}
 }

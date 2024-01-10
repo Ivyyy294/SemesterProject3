@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
 	void ForwardMovement()
 	{
 		float targetSpeed = currentMovementProfil.maxSpeed * (diverInput.ForwardPressed ? 1f : 0f);
-		Debug.Log ("TargetSpeed:" + targetSpeed);
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, currentMovementProfil.movementSmoothTime);
 		Vector3 newPos = targetTransform.position + (targetTransform.forward * currentSpeed * Time.fixedDeltaTime);
 		//m_rigidbody.velocity = Vector3.zero;
