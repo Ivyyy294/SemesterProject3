@@ -107,7 +107,6 @@ public class DiverAnimation : MonoBehaviour
         
         // Update Twist Transforms
         
-        Debug.Log(speedMultiplier);
         float verticalAngle = _angleTracker.Angle1 * speedMultiplier;
         float horizontalAngle = _angleTracker.Angle2 * speedMultiplier;
         upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f);
