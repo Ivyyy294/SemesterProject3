@@ -93,7 +93,7 @@ public class DiverAnimation : MonoBehaviour
     void UpdateSimulatedLimbs()
     {
         
-        float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.5f, 2.5f, 1, 0);
+        float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.2f, 3.5f, 1, .4f);
 
         // Update Torso Transforms
         hipSpineChain.GetOriginal();
