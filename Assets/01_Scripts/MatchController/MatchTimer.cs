@@ -17,6 +17,7 @@ public class MatchTimer : NetworkBehaviour
     void Start()
     {
 		//Convert to minutes to ms
+		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
         matchLengthSeconds = matchLengthMinutes * 60;
     }
 
@@ -24,7 +25,10 @@ public class MatchTimer : NetworkBehaviour
     void Update()
     {
 		if (!Owner && networkPackage.Available)
+		{
 			timer = networkPackage.Value (0).GetFloat();
+			networkPackage.Clear();
+		}
 		else if (timer <= matchLengthSeconds)
 			timer += Time.deltaTime;
 
