@@ -5,27 +5,32 @@ using Ivyyy.Network;
 
 public class MatchScoreController : NetworkBehaviour
 {
-	private ushort pointsTeam1;
-	private ushort pointsTeam2;
+	private ushort[] teamPoints = new ushort[2];
 
-	public ushort PointsTeam1 => pointsTeam1;
-	public ushort PointsTeam2 => pointsTeam2;
+	public ushort PointsTeam1 => teamPoints[0];
+	public ushort PointsTeam2 => teamPoints[1];
+
+	public bool Tie {get{return PointsTeam1 == PointsTeam2; } }
+
+	public bool HasTeamWon (int teamIndex)
+	{
+		if (teamIndex == 0)
+			return PointsTeam1 > PointsTeam2;
+		else
+			return PointsTeam2 > PointsTeam1;
+	}
 
 	public void AddScore (int teamIndex)
 	{
 		if (Owner)
-		{
-			if (teamIndex == 0)
-				pointsTeam1++;
-			else
-				pointsTeam2++;
-		}
+			teamPoints[teamIndex]++;
 	}
 
 	protected override void SetPackageData()
 	{
-		networkPackage.AddValue (new NetworkPackageValue (pointsTeam1));
-		networkPackage.AddValue (new NetworkPackageValue (pointsTeam2));
+		//ToDo send as one byte array
+		networkPackage.AddValue (new NetworkPackageValue (teamPoints[0]));
+		networkPackage.AddValue (new NetworkPackageValue (teamPoints[1]));
 	}
 
 	private void Start()
@@ -38,8 +43,8 @@ public class MatchScoreController : NetworkBehaviour
     {
 		if (networkPackage.Available)
 		{
-			pointsTeam1 = networkPackage.Value(0).GetUShort();
-			pointsTeam2 = networkPackage.Value(1).GetUShort();
+			teamPoints[0] = networkPackage.Value(0).GetUShort();
+			teamPoints[1] = networkPackage.Value(1).GetUShort();
 			networkPackage.Clear();
 		}
     }

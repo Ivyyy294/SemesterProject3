@@ -685,7 +685,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e47ebfb5a6cdd314d847ac8a5d4c12f3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -740,7 +740,7 @@ PrefabInstance:
     - target: {fileID: 2580676633261365798, guid: aa1e8908de6337a4989bd46cf07f4d9d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2909632039037487145, guid: aa1e8908de6337a4989bd46cf07f4d9d,
         type: 3}
@@ -815,6 +815,7 @@ GameObject:
   - component: {fileID: 1892201048}
   - component: {fileID: 1892201047}
   - component: {fileID: 1892201046}
+  - component: {fileID: 1892201051}
   m_Layer: 0
   m_Name: MatchController
   m_TagString: Untagged
@@ -888,6 +889,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1892201051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892201045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07343b7032ad3ee47af0da474c4506fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2053116904 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6083171365331811963, guid: f0288e4fd44678c4985c90c0da32256a,
@@ -2321,7 +2334,7 @@ PrefabInstance:
     - target: {fileID: 5997672072429139586, guid: d610f7664864c874db8ed3fcaec02e9e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6352181822803287508, guid: d610f7664864c874db8ed3fcaec02e9e,
         type: 3}

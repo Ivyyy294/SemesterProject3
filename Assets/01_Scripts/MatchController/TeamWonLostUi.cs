@@ -7,15 +7,15 @@ public class TeamWonLostUi : MonoBehaviour
 	[SerializeField] GameObject wonUi;
 	[SerializeField] GameObject lostUi;
 
+	MatchGameOver matchGameOver;
 	MatchScoreController scoreController;
-	MatchTimer matchTimer;
 	int localPlayerTeamIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        scoreController = MatchController.Me.MatchScoreController;
-		matchTimer = MatchController.Me.MatchTimer;
+        matchGameOver = MatchController.Me.MatchGameOver;
+		scoreController = MatchController.Me.MatchScoreController;
 
 		if (PlayerConfigurationManager.Me)
 		{
@@ -32,10 +32,9 @@ public class TeamWonLostUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (matchTimer.GameOver)
+        if (matchGameOver.GameOver())
 		{
-			bool won = (localPlayerTeamIndex == 0 && scoreController.PointsTeam1 > scoreController.PointsTeam2)
-				|| (localPlayerTeamIndex == 1 && scoreController.PointsTeam2 > scoreController.PointsTeam1);
+			bool won = scoreController.HasTeamWon (localPlayerTeamIndex);
 
 			wonUi.SetActive (won);
 			lostUi.SetActive (!won);
