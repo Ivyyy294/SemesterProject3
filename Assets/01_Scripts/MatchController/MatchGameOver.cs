@@ -6,6 +6,7 @@ public class MatchGameOver : MonoBehaviour
 {
 	MatchTimer matchTimer;
 	MatchScoreController scoreController;
+	MatchPauseController pauseController;
 
 	public bool GameOver()
 	{
@@ -20,5 +21,12 @@ public class MatchGameOver : MonoBehaviour
     {
         matchTimer = MatchController.Me.MatchTimer;
 		scoreController = MatchController.Me.MatchScoreController;
+		pauseController = MatchController.Me.MatchPauseController;
     }
+
+	private void Update()
+	{
+		if (GameOver() && !pauseController.IsMatchPaused)
+			pauseController.PauseMatch (true);
+	}
 }

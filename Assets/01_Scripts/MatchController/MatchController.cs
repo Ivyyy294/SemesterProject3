@@ -9,6 +9,7 @@ public class MatchController : MonoBehaviour
 	public MatchTimer MatchTimer {get; private set;}
 	public MatchScoreController MatchScoreController {get; private set;}
 	public MatchGameOver MatchGameOver { get; private set;}
+	public MatchPauseController MatchPauseController { get; private set;}
 
     // Start is called before the first frame update
     void Awake ()
@@ -19,8 +20,15 @@ public class MatchController : MonoBehaviour
 			MatchTimer = GetComponent<MatchTimer>();
 			MatchScoreController = GetComponent<MatchScoreController>();
 			MatchGameOver = GetComponent <MatchGameOver>();
+			MatchPauseController = GetComponent <MatchPauseController>();
 		}
 		else
 			Destroy (gameObject);
     }
+
+	private void OnDestroy()
+	{
+		if (Me == this)
+			Me = null;
+	}
 }

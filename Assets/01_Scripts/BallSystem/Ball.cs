@@ -102,12 +102,14 @@ public class Ball : NetworkBehaviour
 	[RPCAttribute]
 	protected void DespawnBall()
 	{
+		Debug.Log ("DespawnBall");
 		ball.SetActive (false);
 	}
 
 	[RPCAttribute]
 	protected void SpawnBall()
 	{
+		Debug.Log ("SpawnBall");
 		ball.SetActive (true);
 	}
 }

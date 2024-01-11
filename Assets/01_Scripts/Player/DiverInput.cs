@@ -9,7 +9,6 @@ public class DiverInput : NetworkBehaviour
 {
     private float _pitch;
     private float _yaw;
-	private bool forwardPressed = false;
 
     public float Pitch => _pitch;
     public float Yaw => _yaw;
