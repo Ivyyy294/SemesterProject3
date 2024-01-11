@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ivyyy.Network;
 
-public class MatchSoftReset : MonoBehaviour
+public class MatchSoftReset : NetworkBehaviour
 {
 	private MatchPauseController pauseController;
 	private MatchObjectSpawn objectSpawnController;
@@ -12,6 +13,18 @@ public class MatchSoftReset : MonoBehaviour
 
 	public float PauseTimeRemaining => Mathf.Max (0f, pauseTime - timer);
 
+	public void Invoke()
+	{
+		objectSpawnController.RespawnObjects();
+		pauseController.PauseMatch (true);
+		timer = 0f;
+	}
+
+	protected override void SetPackageData()
+	{
+		networkPackage.AddValue(new NetworkPackageValue (timer));
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -20,15 +33,14 @@ public class MatchSoftReset : MonoBehaviour
 		objectSpawnController = GetComponent<MatchObjectSpawn>();
     }
 
-	public void Invoke()
-	{
-		objectSpawnController.RespawnObjects();
-		pauseController.PauseMatch (true);
-		timer = 0f;
-	}
     // Update is called once per frame
     void Update()
     {
+		if (!Owner && networkPackage.Available)
+		{
+			timer = networkPackage.Value(0).GetFloat();
+			networkPackage.Clear();
+		}
         if (timer < pauseTime)
 			timer += Time.unscaledDeltaTime;
 		else if (pauseController.IsMatchPaused)
