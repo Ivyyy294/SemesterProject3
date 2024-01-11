@@ -13,9 +13,17 @@ struct ColliderData
 
 public class CurrentController : MonoBehaviour
 {
-	[SerializeField] float forceMultiplier = 1f;
+	[Header("Shape Settings")]
 	[SerializeField] List <Transform> pointList = new List<Transform>();
 	[SerializeField] float range;
+
+	[Header("Force Settings")]
+	[Range (0f, 500f)]
+	[SerializeField] float forcePlayer;
+	[Range (0f, 500f)]
+	[SerializeField] float forceBall;
+	[Range (0f, 500f)]
+	[SerializeField] float forceOxygen;
 
 	[HideInInspector]
 	[SerializeField] Mesh gizmoMesh;
@@ -84,11 +92,32 @@ public class CurrentController : MonoBehaviour
 
 			if (affectedByCurrent != null)
 			{
-				float forceDelta = affectedByCurrent.CurrentForce * forceMultiplier * Time.fixedDeltaTime;
+				float forceDelta = GetForce(_rigidbody) * Time.fixedDeltaTime;
 				_rigidbody.AddForce (colliderData.direction * forceDelta, ForceMode.Acceleration);
 				//_rigidbody.transform.forward = Vector3.MoveTowards (_rigidbody.transform.forward, colliderData.direction, forceDelta);
 			}
 		}
+	}
+
+	private float GetForce (Rigidbody rb)
+	{
+		AffectedByCurrent affectedByCurrent = rb.GetComponentInChildren<AffectedByCurrent>();
+
+		if (affectedByCurrent)
+		{
+			switch (affectedByCurrent.GetForceTyp)
+			{
+				case AffectedByCurrent.ForceTyp.PLAYER:
+					return forcePlayer;
+				case AffectedByCurrent.ForceTyp.BALL:
+					return forceBall;
+				case AffectedByCurrent.ForceTyp.OXYGEN:
+					return forceOxygen;
+			}
+
+		}
+
+		return 0f;
 	}
 
 	private void OnDrawGizmos()

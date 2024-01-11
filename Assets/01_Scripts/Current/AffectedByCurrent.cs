@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class AffectedByCurrent : MonoBehaviour
 {
-	[Range (0f, 500f)]
-	[SerializeField] float currentForce;
+	public enum ForceTyp
+	{
+		PLAYER,
+		BALL,
+		OXYGEN
+	}
 
-    public float CurrentForce => currentForce;
+	[SerializeField] ForceTyp forceTyp;
+
+    public ForceTyp GetForceTyp {get{return forceTyp; } }
 }
