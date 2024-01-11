@@ -58,7 +58,7 @@ public class PlayerThrowBall : NetworkBehaviour
 	public void DropBall()
 	{
 		if (Host)
-			ball.BallDrop (transform.position + transform.up * -1f);
+			ball.BallDrop (ballSpawn.position);
 		else
 			InvokeRPC("DropBall");
 	}

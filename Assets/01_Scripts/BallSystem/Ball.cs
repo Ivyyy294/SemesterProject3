@@ -15,7 +15,8 @@ public class Ball : NetworkBehaviour
 	
 	[Header("Ball Settings")]
 	[Range (0f, 10f)]
-	//[SerializeField] float drag = 1f;
+	[SerializeField] float drag = 1f;
+	[SerializeField] float gravity = 0f;
 	[SerializeField] float afterThrowCooldown = 0.5f;
 
 	[Header ("Lara Values")]
@@ -40,6 +41,30 @@ public class Ball : NetworkBehaviour
 		ball.SetActive (true);
 		InvokeRPC ("SpawnBall");
 	}
+
+	//Protected Methods
+	protected override void SetPackageData()
+	{
+		networkPackage.AddValue (new NetworkPackageValue (CurrentPlayerId));
+		networkPackage.AddValue (new NetworkPackageValue (transform.position));
+		networkPackage.AddValue (new NetworkPackageValue (m_rigidbody.velocity));
+	}
+
+	[RPCAttribute]
+	protected void DespawnBall()
+	{
+		Debug.Log ("DespawnBall");
+		ball.SetActive (false);
+	}
+
+	[RPCAttribute]
+	protected void SpawnBall()
+	{
+		Debug.Log ("SpawnBall");
+		ball.SetActive (true);
+	}
+
+	//Private Methods
 
 	// Start is called before the first frame update
 	private void Awake()
@@ -77,6 +102,7 @@ public class Ball : NetworkBehaviour
 		else if (timer < afterThrowCooldown)
 			timer += Time.deltaTime;
 
+		SetPhysicOptions();
 	}
 
 	//ToDo Move to PlayerCollision
@@ -99,24 +125,11 @@ public class Ball : NetworkBehaviour
 		InvokeRPC("DespawnBall");
 	}
 
-	protected override void SetPackageData()
+	private void SetPhysicOptions()
 	{
-		networkPackage.AddValue (new NetworkPackageValue (CurrentPlayerId));
-		networkPackage.AddValue (new NetworkPackageValue (transform.position));
-		networkPackage.AddValue (new NetworkPackageValue (m_rigidbody.velocity));
-	}
-
-	[RPCAttribute]
-	protected void DespawnBall()
-	{
-		Debug.Log ("DespawnBall");
-		ball.SetActive (false);
-	}
-
-	[RPCAttribute]
-	protected void SpawnBall()
-	{
-		Debug.Log ("SpawnBall");
-		ball.SetActive (true);
+		m_rigidbody.drag = drag;
+		m_rigidbody.angularDrag = drag;
+		m_rigidbody.useGravity = gravity!= 0f;
+		Physics.gravity = Vector3.down * gravity;
 	}
 }
