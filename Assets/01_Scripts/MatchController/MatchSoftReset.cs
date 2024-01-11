@@ -15,6 +15,7 @@ public class MatchSoftReset : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+		timer = pauseTime;
         pauseController = GetComponent<MatchPauseController>();
 		objectSpawnController = GetComponent<MatchObjectSpawn>();
     }
