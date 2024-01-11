@@ -9,7 +9,7 @@ public class VelocityTracker
 {
     private int _positionBufferSize; 
     
-    private List<Vector3> _previousVelocities;
+    private Queue<Vector3> _previousVelocities;
     private Vector3 _previousPosition;
     
     private Vector3 _velocity;
@@ -17,16 +17,10 @@ public class VelocityTracker
     public Vector3 SmoothVelocity => _velocity;
     public float SmoothSpeed => _velocity.magnitude;
 
-    public VelocityTracker(int positionBufferSize = 24)
+    public VelocityTracker(Vector3 position, int positionBufferSize = 24)
     {
         _positionBufferSize = positionBufferSize;
-        _previousVelocities = new List<Vector3>();
-        for (int i = 0; i < _positionBufferSize; i++)
-        {
-            _previousVelocities.Add(Vector3.zero);
-        }
-        
-        _velocity = Vector3.zero;
+        ResetVelocities(position);
     }
 
     public void FixedUpdate(Vector3 currentPosition)
@@ -37,8 +31,19 @@ public class VelocityTracker
             result += vel;
         }
         _velocity = result / _previousVelocities.Count;
-        _previousVelocities.RemoveAt(0);
-        _previousVelocities.Add((currentPosition - _previousPosition) / Time.deltaTime);
+        _previousVelocities.Dequeue();
+        _previousVelocities.Enqueue((currentPosition - _previousPosition) / Time.fixedDeltaTime);
         _previousPosition = currentPosition;
+    }
+
+    public void ResetVelocities(Vector3 position)
+    {
+        _velocity = Vector3.zero;
+        _previousPosition = position;
+        _previousVelocities = new Queue<Vector3>();
+        for (int i = 0; i < _positionBufferSize; i++)
+        {
+            _previousVelocities.Enqueue(Vector3.zero);
+        }
     }
 }
