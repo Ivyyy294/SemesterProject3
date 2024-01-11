@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7239724479903799635}
   - component: {fileID: 2674279571839285912}
   - component: {fileID: 2599001395422167855}
+  - component: {fileID: 8410748456272741004}
   m_Layer: 0
   m_Name: MatchController
   m_TagString: Untagged
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f30b9ed5dbd4b24782a37ae045e50ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 4a780f57-a7a1-496f-928b-1b9e4d03fba1
+  guid: b75e365a-2a36-4db5-a79e-8f74e0012d2c
   matchLengthMinutes: 0.5
 --- !u!114 &4328592375944585472
 MonoBehaviour:
@@ -88,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a0cf0f36ac7484db176c216ce59ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 8587037e-757b-4a1b-9f5f-053ca450ccb0
+  guid: fcf47f3c-abe7-4084-841e-a91349ed7a11
 --- !u!114 &7239724479903799635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cbff74f1a7ea54eae33bda7d4c2a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 6ce5adbe-ef19-4ea9-ac57-fa2c8625a841
+  guid: 0ab518a1-e2b0-4648-8609-f7a664896582
 --- !u!114 &2599001395422167855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,3 +132,16 @@ MonoBehaviour:
   ballSpawnPoint: {fileID: 0}
   team1SpawnPoint: []
   team2SpawnPoint: []
+--- !u!114 &8410748456272741004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9177401350745417803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6a45bbd55eee64db8d34a577611fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseTime: 0

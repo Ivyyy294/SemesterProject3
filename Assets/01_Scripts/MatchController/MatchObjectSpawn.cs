@@ -81,5 +81,17 @@ public class MatchObjectSpawn : MonoBehaviour
 	{
 		obj.transform.position = target.transform.position;
 		obj.transform.forward = target.transform.forward;
+
+		//Null Velocity
+		Rigidbody rb = obj.GetComponentInChildren<Rigidbody>();
+
+		if (rb != null)
+			rb.velocity = Vector3.zero;
+
+		//Null Player RefSpeed
+		PlayerMovement playerMovement = obj.GetComponentInChildren<PlayerMovement>();
+
+		if (playerMovement != null)
+			playerMovement.ResetRefSpeed();
 	}
 }

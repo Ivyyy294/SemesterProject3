@@ -6,8 +6,7 @@ using Ivyyy.Network;
 public class MatchScoreController : NetworkBehaviour
 {
 	private ushort[] teamPoints = new ushort[2];
-	private MatchPauseController pauseController;
-	private MatchObjectSpawn objectSpawnController;
+	private MatchSoftReset matchSoftReset;
 
 	//Public Methods
 	public ushort PointsTeam1 => teamPoints[0];
@@ -27,7 +26,7 @@ public class MatchScoreController : NetworkBehaviour
 		if (Owner)
 		{
 			teamPoints[teamIndex]++;
-			AfterScoreSoftReset();
+			matchSoftReset.Invoke();
 		}
 	}
 
@@ -43,8 +42,7 @@ public class MatchScoreController : NetworkBehaviour
 	private void Start()
 	{
 		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
-		pauseController = GetComponent<MatchPauseController>();
-		objectSpawnController = GetComponent<MatchObjectSpawn>();
+		matchSoftReset = GetComponent<MatchSoftReset>();
 	}
 
 	// Update is called once per frame
@@ -57,16 +55,11 @@ public class MatchScoreController : NetworkBehaviour
 
 			if (newPointsTeam1 > teamPoints[0]
 				|| newPointsTeam2 > teamPoints[1])
-				AfterScoreSoftReset();
+				matchSoftReset.Invoke();
 
 			teamPoints[0] = newPointsTeam1;
 			teamPoints[1] = newPointsTeam2;
 			networkPackage.Clear();
 		}
     }
-
-	void AfterScoreSoftReset()
-	{
-		objectSpawnController.RespawnObjects();
-	}
 }

@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
 	float refSpeed = 0f;
 	float currentSpeed = 0f;
 
+	public void ResetRefSpeed()
+	{
+		refSpeed = 0f;
+		currentSpeed = 0f;
+	}
 
     private void Awake()
     {
