@@ -43,6 +43,12 @@ public class TransformDelay : MonoBehaviour
             _direction = delta.normalized;
         }
     }
+
+    public void ResetTransform()
+    {
+        _delayPosition = Position;
+        _delayRotation = Rotation;
+    }
     
     #if UNITY_EDITOR
     private void OnDrawGizmos()

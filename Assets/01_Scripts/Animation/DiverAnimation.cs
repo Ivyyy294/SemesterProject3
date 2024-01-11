@@ -43,7 +43,7 @@ public class DiverAnimation : MonoBehaviour
      private void OnEnable()
     {
         animator.SetFloat(ID_SwimSpeed, 0);
-        _velocityTracker = new VelocityTracker(24);
+        _velocityTracker = new VelocityTracker(transform.position, 24);
         _isHoldingBall = false;
         breastStrokeCooldown.MakeReady();
     }
@@ -141,6 +141,14 @@ public class DiverAnimation : MonoBehaviour
     public void ToggleHoldingBall()
     {
         SetHoldingBall(!_isHoldingBall);
+    }
+
+    public void ResetSimulations()
+    {
+        legDelay.ResetTransform();
+        _velocityTracker.ResetVelocities(transform.position);
+        animator.SetTrigger(ID_CancelAnimEffects);
+        animator.SetBool(ID_IsMovingFastOverTime, false);
     }
 
 #if UNITY_EDITOR
