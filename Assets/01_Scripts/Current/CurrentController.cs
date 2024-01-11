@@ -13,6 +13,7 @@ struct ColliderData
 
 public class CurrentController : MonoBehaviour
 {
+	[SerializeField] float forceMultiplier = 1f;
 	[SerializeField] List <Transform> pointList = new List<Transform>();
 	[SerializeField] float range;
 
@@ -83,7 +84,7 @@ public class CurrentController : MonoBehaviour
 
 			if (affectedByCurrent != null)
 			{
-				float forceDelta = affectedByCurrent.CurrentForce * Time.fixedDeltaTime;
+				float forceDelta = affectedByCurrent.CurrentForce * forceMultiplier * Time.fixedDeltaTime;
 				_rigidbody.AddForce (colliderData.direction * forceDelta, ForceMode.Acceleration);
 				//_rigidbody.transform.forward = Vector3.MoveTowards (_rigidbody.transform.forward, colliderData.direction, forceDelta);
 			}
