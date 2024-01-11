@@ -22,7 +22,7 @@ public class TransformDelay : MonoBehaviour
     public Quaternion DelayRotation => _delayRotation;
     public Vector3 Direction => _direction;
 
-    void OnEnable()
+	void OnEnable()
     {
         _delayPosition = Position;
         Application.targetFrameRate = -1;

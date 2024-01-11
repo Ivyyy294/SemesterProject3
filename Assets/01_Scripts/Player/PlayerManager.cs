@@ -8,11 +8,13 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField] GameObject[] playerList = new GameObject[2];
 	PlayerConfigurationManager playerConfigurationManager;
 	NetworkManager networkManager;
+	GameObject localPlayer;
 
 	public GameObject[] PlayerList => playerList;
+	public GameObject LocalPlayer => localPlayer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerConfigurationManager = PlayerConfigurationManager.Me;
 		networkManager = NetworkManager.Me;
@@ -64,6 +66,8 @@ public class PlayerManager : MonoBehaviour
 				Camera camera = obj.GetComponentInChildren<Camera>();
 				camera.gameObject.SetActive (false);
 			}
+			else
+				localPlayer = obj;
 		}
 	}
 }

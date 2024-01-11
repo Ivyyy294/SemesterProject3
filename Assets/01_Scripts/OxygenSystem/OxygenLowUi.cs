@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-public class OxygenMeterUi : MonoBehaviour
+public class OxygenLowUi : MonoBehaviour
 {
-	[SerializeField] TextMeshProUGUI oxygenLabel;
+    [SerializeField] GameObject uiObj;
 	[SerializeField] PlayerManager playerManager;
 	PlayerOxygen playerOxygen;
 
@@ -19,7 +18,7 @@ public class OxygenMeterUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (oxygenLabel && playerOxygen)
-			oxygenLabel.text = ((int)playerOxygen.CurrentOxygenPercent).ToString();
+        if (uiObj && playerOxygen)
+			uiObj.SetActive (playerOxygen.OxygenEmpty);
     }
 }
