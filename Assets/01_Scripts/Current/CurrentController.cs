@@ -54,9 +54,18 @@ public class CurrentController : MonoBehaviour
 				{
 					ColliderData pendingColliderData;
 					pendingColliderData.rigidbody = _rigidbody;
-					pendingColliderData.direction = (end - _rigidbody.position).normalized;
 					pendingColliderData.distanz = Vector3.Distance (end, collider.transform.position);
 
+					Vector3 forwardBase = (end - start).normalized;
+					Vector3 forwardObj = (end - _rigidbody.position).normalized;
+					float angle = Vector3.Angle(forwardBase, forwardObj);
+
+					//Prevents objects from getting trapped near end
+					if (angle >= 90f)
+						pendingColliderData.direction = (end-start).normalized;
+					else
+						pendingColliderData.direction = (end - _rigidbody.position).normalized;
+					
 					bool included = false;
 					//Check if the rigidbody is already in list
 					for (int j = 0; j < affectedColliderDataList.Count; ++j)
