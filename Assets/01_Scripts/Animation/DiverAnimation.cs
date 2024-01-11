@@ -10,15 +10,15 @@ using Vector3 = UnityEngine.Vector3;
 [RequireComponent(typeof(InverseChain))]
 public class DiverAnimation : MonoBehaviour
 {
+    [Header("Dependencies")]
+    [SerializeField] private Animator animator;
     [SerializeField] private TransformDelay legDelay;
+    
+    [Header("Joints References")]
     [SerializeField] private InverseChain hipSpineChain;
     [SerializeField] private Transform upperSpine;
     [SerializeField] private List<Transform> lowerLegs;
     [SerializeField] private List<Transform> arms;
-
-    [SerializeField] private Animator animator;
-
-    
 
     #region AnimatorParameterIDs
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
@@ -31,6 +31,7 @@ public class DiverAnimation : MonoBehaviour
     
      private VelocityTracker _velocityTracker;
      
+     [Header("Animation Timing")]
      [SerializeField] private TimeCounter fastTravelTimer;
      [SerializeField] private float fastTravelSpeedThreshold;
 

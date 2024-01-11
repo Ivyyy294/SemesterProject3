@@ -57,7 +57,7 @@ MonoBehaviour:
   arms:
   - {fileID: 7917451540314168039}
   - {fileID: 6715961606634166166}
-  animator: {fileID: 0}
+  animator: {fileID: 4138326872443692229}
   fastTravelTimer:
     waitTime: 1
   fastTravelSpeedThreshold: 1
@@ -243,6 +243,12 @@ Transform:
 --- !u!4 &4012926721602374782 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8954161277474453687, guid: 56fd4282183ed6543aecf79a5fe6e306,
+    type: 3}
+  m_PrefabInstance: {fileID: 5472812161281848521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4138326872443692229 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8258792438589673484, guid: 56fd4282183ed6543aecf79a5fe6e306,
     type: 3}
   m_PrefabInstance: {fileID: 5472812161281848521}
   m_PrefabAsset: {fileID: 0}
