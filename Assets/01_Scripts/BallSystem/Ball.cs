@@ -9,15 +9,24 @@ public class Ball : NetworkBehaviour
 	public static Ball Me { get; private set;}
 	public short CurrentPlayerId {get; private set;}
 
-	[SerializeField] GameObject ball;
 	Rigidbody m_rigidbody;
 	Vector3 velocity;
+	float timer = 0f;
+	
+	[Header("Ball Settings")]
+	[Range (0f, 10f)]
+	//[SerializeField] float drag = 1f;
+	[SerializeField] float afterThrowCooldown = 0.5f;
+
+	[Header ("Lara Values")]
+	[SerializeField] GameObject ball;
 
 	//Public Methods
 	public void Throw (Vector3 startPos, Vector3 force)
 	{
 		if (Host)
 		{
+			timer = 0f;
 			BallDrop (startPos);
 			m_rigidbody.AddForce (force);
 		}
@@ -25,19 +34,11 @@ public class Ball : NetworkBehaviour
 
 	public void BallDrop (Vector3 spawnPos)
 	{
+		timer = 0f;
 		CurrentPlayerId = -1;
 		transform.position = spawnPos;
 		ball.SetActive (true);
 		InvokeRPC ("SpawnBall");
-	}
-
-	public void RespawnBall()
-	{
-		if (Host)
-		{
-			transform.position = Vector3.zero;
-			m_rigidbody.velocity = Vector3.zero;
-		}
 	}
 
 	// Start is called before the first frame update
@@ -55,6 +56,8 @@ public class Ball : NetworkBehaviour
 		CurrentPlayerId = -1;
 		m_rigidbody = GetComponent <Rigidbody>();
 		m_rigidbody.isKinematic = !Owner;
+
+		//m_rigidbody.drag = drag;
     }
 
 	private void Update()
@@ -71,12 +74,16 @@ public class Ball : NetworkBehaviour
 			else
 				transform.position += velocity * Time.deltaTime;
 		}
+		else if (timer < afterThrowCooldown)
+			timer += Time.deltaTime;
+
 	}
 
 	//ToDo Move to PlayerCollision
 	private void OnTriggerEnter(Collider other)
 	{
-		if (Owner)
+		//Prevent ball from being catch during cooldown
+		if (Owner && timer >= afterThrowCooldown)
 		{
 			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
 			

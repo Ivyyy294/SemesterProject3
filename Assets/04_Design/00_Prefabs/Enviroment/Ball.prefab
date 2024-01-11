@@ -75,6 +75,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 97487b6e-9f17-46bb-b0e7-54b10dfe7801
+  drag: 0
+  afterThrowCooldown: 0.25
   ball: {fileID: 3884246718100162049}
 --- !u!114 &2326839230546655940
 MonoBehaviour:

@@ -6,6 +6,7 @@ using Ivyyy.Network;
 public class PlayerThrowBall : NetworkBehaviour
 {
 	[SerializeField] float throwForce = 10f;
+	[SerializeField] Transform ballSpawn;
 
 	[Header ("Lara Values")]
 	[SerializeField] GameObject ballGhost;
@@ -48,7 +49,7 @@ public class PlayerThrowBall : NetworkBehaviour
 	public void ThrowBall()
 	{
 		if (Host)
-			ball.Throw (transform.position + transform.forward * 2f, transform.forward * throwForce);
+			ball.Throw (ballSpawn.position, transform.forward * throwForce);
 		else
 			InvokeRPC ("ThrowBall");
 	}

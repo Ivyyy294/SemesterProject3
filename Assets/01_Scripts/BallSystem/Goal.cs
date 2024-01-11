@@ -17,9 +17,6 @@ public class Goal : MonoBehaviour
 		Ball ball = collision.gameObject.GetComponent<Ball>();
 
 		if (ball && ball.Owner)
-		{
-			ball.RespawnBall();
 			scoreController.AddScore (teamIndex);
-		}
 	}
 }

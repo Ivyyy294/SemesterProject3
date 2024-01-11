@@ -598,6 +598,11 @@ PrefabInstance:
       objectReference: {fileID: 3114943873556074804}
     - target: {fileID: 4204484461061604603, guid: 48ac5d5e375cad24787cea683e72d401,
         type: 3}
+      propertyPath: ballSpawn
+      value: 
+      objectReference: {fileID: 1498228670197801102}
+    - target: {fileID: 4204484461061604603, guid: 48ac5d5e375cad24787cea683e72d401,
+        type: 3}
       propertyPath: playerOxygen
       value: 
       objectReference: {fileID: 2346642503218768759}
@@ -612,6 +617,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48ac5d5e375cad24787cea683e72d401, type: 3}
+--- !u!4 &1498228670197801102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2802661896907252464, guid: 48ac5d5e375cad24787cea683e72d401,
+    type: 3}
+  m_PrefabInstance: {fileID: 3616330220809732734}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2489644510067209916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1198862748022305986, guid: 48ac5d5e375cad24787cea683e72d401,
