@@ -9,6 +9,8 @@ public class PlayerManager : MonoBehaviour
 	PlayerConfigurationManager playerConfigurationManager;
 	NetworkManager networkManager;
 
+	public GameObject[] PlayerList => playerList;
+
     // Start is called before the first frame update
     void Start()
     {

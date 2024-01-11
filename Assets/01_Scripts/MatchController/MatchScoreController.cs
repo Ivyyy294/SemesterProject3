@@ -6,10 +6,12 @@ using Ivyyy.Network;
 public class MatchScoreController : NetworkBehaviour
 {
 	private ushort[] teamPoints = new ushort[2];
+	private MatchPauseController pauseController;
+	private MatchObjectSpawn objectSpawnController;
 
+	//Public Methods
 	public ushort PointsTeam1 => teamPoints[0];
 	public ushort PointsTeam2 => teamPoints[1];
-
 	public bool Tie {get{return PointsTeam1 == PointsTeam2; } }
 
 	public bool HasTeamWon (int teamIndex)
@@ -23,9 +25,13 @@ public class MatchScoreController : NetworkBehaviour
 	public void AddScore (int teamIndex)
 	{
 		if (Owner)
+		{
 			teamPoints[teamIndex]++;
+			AfterScoreSoftReset();
+		}
 	}
 
+	//Protected Methods
 	protected override void SetPackageData()
 	{
 		//ToDo send as one byte array
@@ -33,9 +39,12 @@ public class MatchScoreController : NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (teamPoints[1]));
 	}
 
+	//Private Methods
 	private void Start()
 	{
 		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
+		pauseController = GetComponent<MatchPauseController>();
+		objectSpawnController = GetComponent<MatchObjectSpawn>();
 	}
 
 	// Update is called once per frame
@@ -43,9 +52,21 @@ public class MatchScoreController : NetworkBehaviour
     {
 		if (networkPackage.Available)
 		{
-			teamPoints[0] = networkPackage.Value(0).GetUShort();
-			teamPoints[1] = networkPackage.Value(1).GetUShort();
+			ushort newPointsTeam1 = networkPackage.Value(0).GetUShort();
+			ushort newPointsTeam2 = networkPackage.Value(1).GetUShort();
+
+			if (newPointsTeam1 > teamPoints[0]
+				|| newPointsTeam2 > teamPoints[1])
+				AfterScoreSoftReset();
+
+			teamPoints[0] = newPointsTeam1;
+			teamPoints[1] = newPointsTeam2;
 			networkPackage.Clear();
 		}
     }
+
+	void AfterScoreSoftReset()
+	{
+		objectSpawnController.RespawnObjects();
+	}
 }
