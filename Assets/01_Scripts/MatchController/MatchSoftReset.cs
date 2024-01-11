@@ -2,22 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
+using Ivyyy.GameEvent;
 
 public class MatchSoftReset : NetworkBehaviour
 {
+	private MatchTimer matchTimer;
 	private MatchPauseController pauseController;
 	private MatchObjectSpawn objectSpawnController;
 	float timer = 0f;
 
 	[SerializeField] float pauseTime;
+	[SerializeField] GameEvent resetEvent;
 
 	public float PauseTimeRemaining => Mathf.Max (0f, pauseTime - timer);
 
 	public void Invoke()
 	{
-		objectSpawnController.RespawnObjects();
-		pauseController.PauseMatch (true);
-		timer = 0f;
+		if (matchTimer.TimeRemaining > 0f)
+		{
+			objectSpawnController.RespawnObjects();
+			pauseController.PauseMatch (true);
+			timer = 0f;
+			resetEvent?.Raise();
+		}
 	}
 
 	protected override void SetPackageData()
@@ -31,6 +38,7 @@ public class MatchSoftReset : NetworkBehaviour
 		timer = pauseTime;
         pauseController = GetComponent<MatchPauseController>();
 		objectSpawnController = GetComponent<MatchObjectSpawn>();
+		matchTimer = GetComponent <MatchTimer>();
     }
 
     // Update is called once per frame

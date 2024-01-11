@@ -1972,6 +1972,12 @@ PrefabInstance:
       propertyPath: pauseTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8410748456272741004, guid: 2cf4059befc76164d935716975a22c31,
+        type: 3}
+      propertyPath: resetEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a15554f8d296394a9645335d6e6574f,
+        type: 2}
     - target: {fileID: 9177401350745417803, guid: 2cf4059befc76164d935716975a22c31,
         type: 3}
       propertyPath: m_Name
