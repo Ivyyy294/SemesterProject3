@@ -54,6 +54,6 @@ public class OxygenMovement : NetworkBehaviour
 
 	private void FixedUpdate()
 	{
-		m_rigidbody.MovePosition (transform.position + (Vector3.up * buoyancy * Time.fixedDeltaTime));
+		m_rigidbody.AddForce (Vector3.up * buoyancy);
 	}
 }

@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 6619612925605246573}
   - component: {fileID: 5121845000149691810}
   - component: {fileID: 593373981641342889}
+  - component: {fileID: 8678776969626362643}
   m_Layer: 0
   m_Name: OxygenBubble
   m_TagString: Untagged
@@ -100,7 +101,7 @@ Rigidbody:
   m_GameObject: {fileID: 5848548415988282309}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -173,6 +174,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8678776969626362643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848548415988282309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c984a9c3e7d68f14b81ed37733ffb16d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentForce: 48
 --- !u!1 &6230910325485644007
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6349792056373224415}
   - component: {fileID: 2306132816744719767}
+  - component: {fileID: 1923111158589455104}
   m_Layer: 8
   m_Name: PlayerCollisionSystem
   m_TagString: Untagged
@@ -46,6 +47,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53946b3d6adbd54e9f44e7c518f5411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1923111158589455104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757494842803065615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c984a9c3e7d68f14b81ed37733ffb16d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentForce: 200
 --- !u!1 &3072804750113749174
 GameObject:
   m_ObjectHideFlags: 0

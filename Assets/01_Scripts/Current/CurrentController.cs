@@ -15,8 +15,6 @@ public class CurrentController : MonoBehaviour
 {
 	[SerializeField] List <Transform> pointList = new List<Transform>();
 	[SerializeField] float range;
-	[Range (0, 1000)]
-	[SerializeField] float force;
 
 	[HideInInspector]
 	[SerializeField] Mesh gizmoMesh;
@@ -81,9 +79,14 @@ public class CurrentController : MonoBehaviour
 		foreach (ColliderData colliderData in colliderDataList)
 		{
 			Rigidbody _rigidbody = colliderData.rigidbody;
-			float forceDelta = force * Time.fixedDeltaTime;
-			_rigidbody.AddForce (colliderData.direction * forceDelta, ForceMode.Acceleration);
-			//_rigidbody.transform.forward = Vector3.MoveTowards (_rigidbody.transform.forward, colliderData.direction, forceDelta);
+			AffectedByCurrent affectedByCurrent = _rigidbody.GetComponentInChildren<AffectedByCurrent>();
+
+			if (affectedByCurrent != null)
+			{
+				float forceDelta = affectedByCurrent.CurrentForce * Time.fixedDeltaTime;
+				_rigidbody.AddForce (colliderData.direction * forceDelta, ForceMode.Acceleration);
+				//_rigidbody.transform.forward = Vector3.MoveTowards (_rigidbody.transform.forward, colliderData.direction, forceDelta);
+			}
 		}
 	}
 
