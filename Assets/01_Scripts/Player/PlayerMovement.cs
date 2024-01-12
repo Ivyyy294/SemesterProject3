@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 	PlayerMovementProfil currentMovementProfil;
     PlayerInput playerInput;
 	PlayerBallStatus playerBallStatus;
+	PlayerBlock playerBlock;
 
 	Transform targetTransform;
 	Rigidbody m_rigidbody;	
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 		playerOxygen = targetTransform.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
 		playerBallStatus = targetTransform.GetComponentInChildren<PlayerBallStatus>();
+		playerBlock = targetTransform.GetComponentInChildren<PlayerBlock>();
 
 		currentMovementProfil = normalMovementProfil;
     }
@@ -104,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (playerOxygen.OxygenEmpty)
 			currentMovementProfil = lowOxygenMovementProfil;
-		else if (playerInput.BlockPressed)
+		else if (playerBlock.IsBlocking)
 			currentMovementProfil = blockMovementProfil;
 		//Allow Dash when player has not the ball
 		else if (playerInput.DashPressed && !playerBallStatus.HasBall())

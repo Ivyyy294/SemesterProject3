@@ -2038,6 +2038,11 @@ PrefabInstance:
       propertyPath: id
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8415322513739998139, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: easeTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8970486549670735397, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
       propertyPath: guid
