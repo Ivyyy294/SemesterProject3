@@ -630,6 +630,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3616330220809732734}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7254484810212895460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6233776089314568346, guid: 48ac5d5e375cad24787cea683e72d401,
+    type: 3}
+  m_PrefabInstance: {fileID: 3616330220809732734}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2882ce8170982ea468a313ed541da55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5764005635930473833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -767,6 +779,11 @@ PrefabInstance:
       propertyPath: shoulders
       value: 
       objectReference: {fileID: 6617956268465818330}
+    - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
+      propertyPath: playerBallStatus
+      value: 
+      objectReference: {fileID: 7254484810212895460}
     - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
       propertyPath: lowerLegs.Array.size

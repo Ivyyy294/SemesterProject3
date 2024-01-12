@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 [RequireComponent(typeof(InverseChain))]
@@ -13,6 +9,7 @@ public class DiverAnimation : MonoBehaviour
     [Header("Dependencies")]
     [SerializeField] private Animator animator;
     [SerializeField] private TransformDelay legDelay;
+    [SerializeField] private PlayerBallStatus playerBallStatus;
     
     [Header("Joints References")]
     [SerializeField] private InverseChain hipSpineChain;
@@ -41,17 +38,21 @@ public class DiverAnimation : MonoBehaviour
      private AnimUtils.AngleTracker _angleTracker;
      private bool _isHoldingBall;
 
+     private StateListener<PlayerBallStatus, bool> _hasBallListener;
+
      private void OnEnable()
     {
         animator.SetFloat(ID_SwimSpeed, 0);
         _velocityTracker = new VelocityTracker(transform.position, 24);
         _isHoldingBall = false;
         breastStrokeCooldown.MakeReady();
+        _hasBallListener = new(playerBallStatus, x => x.HasBall(), false, SetHoldingBall);
     }
 
      void Update()
      {
-         // Debug.Log(_velocityTracker.SmoothSpeed);
+         _hasBallListener.Update();
+         
          _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
 
          if (_velocityTracker.SmoothSpeed > fastTravelSpeedThreshold)
@@ -70,8 +71,8 @@ public class DiverAnimation : MonoBehaviour
          }
 
          animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
-         animator.SetBool(ID_IsMovingFastOverTime, fastTravelTimer.TimeRemaining < 0f && !_isHoldingBall);
-         // animator.SetFloat(ID_SwimSpeed, Mathf.Clamp01(_velocityTracker.SmoothSpeed));
+         // animator.SetBool(ID_IsMovingFastOverTime, fastTravelTimer.TimeRemaining < 0f && !_isHoldingBall);
+         
          animator.SetFloat(ID_SwimSpeed, Mathf.Max(0, _velocityTracker.SmoothSpeed));
 
          if (Input.GetKeyDown(KeyCode.E))
