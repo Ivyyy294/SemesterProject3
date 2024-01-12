@@ -19,6 +19,7 @@ public class PlayerInput : NetworkBehaviour
     public float Yaw => _yaw;
 	public bool ForwardPressed {get{ return inputBuffer.Check (0);}}
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
+	public bool BlockPressed { get { return inputBuffer.Check(2);} }
 
 	Transform targetTransform;
 	int packageNr = 0;
