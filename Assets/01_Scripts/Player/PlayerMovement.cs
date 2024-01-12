@@ -11,11 +11,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] PlayerMovementProfil normalMovementProfil;
 	[SerializeField] PlayerMovementProfil dashMovementProfil;
 	[SerializeField] PlayerMovementProfil lowOxygenMovementProfil;
+	[SerializeField] PlayerMovementProfil blockMovementProfil;
 
 	//Private values
 	PlayerOxygen playerOxygen;
 	PlayerMovementProfil currentMovementProfil;
-    PlayerInput diverInput;
+    PlayerInput playerInput;
 	PlayerBallStatus playerBallStatus;
 
 	Transform targetTransform;
@@ -33,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
 		InitTargetTransform();
 
-        diverInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
 		playerOxygen = targetTransform.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
 		playerBallStatus = targetTransform.GetComponentInChildren<PlayerBallStatus>();
@@ -47,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
 
 		float turnSpeedDegrees = currentMovementProfil.turnSpeedDegrees;
 
-		targetTransform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * diverInput.Pitch);
-		targetTransform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * diverInput.Yaw);
+		targetTransform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * playerInput.Pitch);
+		targetTransform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * playerInput.Yaw);
 
 		// how horizontal the diver is, is needed to ONLY auto-correct when the diver a little horizontal
 		float levelness = 1 - Mathf.Abs(Vector3.Dot(targetTransform.forward, Vector3.up));
@@ -71,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void ForwardMovement()
 	{
-		float targetSpeed = currentMovementProfil.maxSpeed * (diverInput.ForwardPressed ? 1f : 0f);
+		float targetSpeed = currentMovementProfil.maxSpeed * (playerInput.ForwardPressed ? 1f : 0f);
 		currentSpeed = Mathf.SmoothDamp (currentSpeed, targetSpeed, ref refSpeed, currentMovementProfil.movementSmoothTime);
 		Vector3 newPos = targetTransform.position + (targetTransform.forward * currentSpeed * Time.fixedDeltaTime);
 		//m_rigidbody.velocity = Vector3.zero;
@@ -103,8 +104,10 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (playerOxygen.OxygenEmpty)
 			currentMovementProfil = lowOxygenMovementProfil;
+		else if (playerInput.BlockPressed)
+			currentMovementProfil = blockMovementProfil;
 		//Allow Dash when player has not the ball
-		else if (diverInput.DashPressed && !playerBallStatus.HasBall())
+		else if (playerInput.DashPressed && !playerBallStatus.HasBall())
 			currentMovementProfil = dashMovementProfil;
 		else
 			currentMovementProfil = normalMovementProfil;
