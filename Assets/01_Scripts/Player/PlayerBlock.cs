@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerBlock : MonoBehaviour
 {
 	[SerializeField] GameObject playerBlockCollider;
+	[SerializeField] GameObject playerBlockTrigger;
 
 	PlayerInput playerInput;
 	PlayerBallStatus playerBallStatus;
 	PlayerOxygen playerOxygen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,9 @@ public class PlayerBlock : MonoBehaviour
 		bool block = playerInput.BlockPressed && !playerBallStatus.HasBall() && !playerOxygen.OxygenEmpty;
 
 		if (playerBlockCollider.activeInHierarchy != block)
+		{
 			playerBlockCollider.SetActive (block);
+			playerBlockTrigger.SetActive (block);
+		}
     }
 }
