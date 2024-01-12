@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-[RequireComponent(typeof(DiverInput))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] PlayerMovementProfil normalMovementProfil;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 	//Private values
 	PlayerOxygen playerOxygen;
 	PlayerMovementProfil currentMovementProfil;
-    DiverInput diverInput;
+    PlayerInput diverInput;
 	PlayerBallStatus playerBallStatus;
 
 	Transform targetTransform;
@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
 		InitTargetTransform();
 
-        diverInput = GetComponent<DiverInput>();
+        diverInput = GetComponent<PlayerInput>();
 		playerOxygen = targetTransform.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
 		playerBallStatus = targetTransform.GetComponentInChildren<PlayerBallStatus>();
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 			InitTargetTransform();
 
         // visualize the target orientation for the hips of the diver
-        Gizmos.DrawLine(transform.parent.position, targetTransform.position + GetIdealRightVector());
+        Gizmos.DrawLine(targetTransform.position, targetTransform.position + GetIdealRightVector());
     }
     #endif
 

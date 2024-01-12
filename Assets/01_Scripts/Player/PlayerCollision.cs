@@ -6,7 +6,7 @@ public class PlayerCollision : MonoBehaviour
 {
 	PlayerOxygen playerOxygen;
 	PlayerConfigurationContainer playerConfigurationContainer;
-	DiverInput diverInput;
+	PlayerInput diverInput;
 
 	public short PlayerId => playerConfigurationContainer.PlayerID;
 	public bool CanCatchBall { get { return !playerOxygen.OxygenEmpty && !diverInput.DashPressed;} }
@@ -16,6 +16,6 @@ public class PlayerCollision : MonoBehaviour
 	{
 		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
 		playerConfigurationContainer = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>();
-		diverInput = transform.parent.GetComponentInChildren <DiverInput>();
+		diverInput = transform.parent.GetComponentInChildren <PlayerInput>();
 	}
 }

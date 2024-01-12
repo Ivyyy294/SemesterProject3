@@ -5,8 +5,13 @@ using UnityEngine.Events;
 using Ivyyy.Network;
 using Ivyyy.Utils;
 
-public class DiverInput : NetworkBehaviour
+public class PlayerInput : NetworkBehaviour
 {
+	[Header("Key bindings")]
+	[SerializeField] KeyCode forwardKey = KeyCode.Space;
+	[SerializeField] KeyCode dashKey = KeyCode.Mouse1;
+	[SerializeField] KeyCode blockKey = KeyCode.B;
+
     private float _pitch;
     private float _yaw;
 
@@ -18,7 +23,6 @@ public class DiverInput : NetworkBehaviour
 	Transform targetTransform;
 	int packageNr = 0;
 	BitSet inputBuffer = new BitSet (1);
-	PlayerConfigurationContainer playerConfigurationContainer;
 
 	protected override void SetPackageData()
 	{
@@ -37,7 +41,6 @@ public class DiverInput : NetworkBehaviour
 	{
 		if (NetworkManager.Me is null) Owner = true;
 		targetTransform = transform.parent;
-		playerConfigurationContainer = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>();
 	}
 
 	void Update()
@@ -59,8 +62,9 @@ public class DiverInput : NetworkBehaviour
 
 		if (Owner)
 		{
-			inputBuffer.SetBit (0, Input.GetKey(KeyCode.Space));
-			inputBuffer.SetBit (1, Input.GetMouseButton (1));
+			inputBuffer.SetBit (0, Input.GetKey(forwardKey));
+			inputBuffer.SetBit (1, Input.GetKey (dashKey));
+			inputBuffer.SetBit (2, Input.GetKey (blockKey));
 			_pitch = Input.GetAxisRaw("Vertical");
 			_yaw = Input.GetAxisRaw("Horizontal");
 		}
