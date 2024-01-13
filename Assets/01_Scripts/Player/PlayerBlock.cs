@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBlock : MonoBehaviour
 {
-	[SerializeField] float easeStepSize = 1f;
+	[SerializeField] private Gauge colliderInflateGauge;
 	[SerializeField] GameObject playerBlockCollider;
 
 	PlayerInput playerInput;
@@ -36,10 +36,11 @@ public class PlayerBlock : MonoBehaviour
 		bool colliderActive = playerBlockCollider.activeInHierarchy;
 
 		Vector3 currentScale = playerBlockCollider.transform.localScale;
-
-		Vector3 targetScale = block ? originalScale : Vector3.zero;
-		targetScale = Vector3.MoveTowards (playerBlockCollider.transform.localScale, targetScale, easeStepSize * Time.deltaTime);
-
+		
+		if(block) colliderInflateGauge.Fill();
+		else colliderInflateGauge.Deplete();
+		Vector3 targetScale = colliderInflateGauge.FillAmount * originalScale;
+		
 		if (!colliderActive && block)
 			playerBlockCollider.SetActive (true);
 		else if (colliderActive && !block && currentScale == Vector3.zero)

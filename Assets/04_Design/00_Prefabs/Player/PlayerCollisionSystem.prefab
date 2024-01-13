@@ -76,7 +76,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   easeStepSize: 10
   playerBlockCollider: {fileID: 4478825223472743110}
-  playerBlockTrigger: {fileID: 3457665062703959825}
+  colliderInflateGauge:
+    fillRate: 3
+    depletionRate: 3
 --- !u!1 &3072804750113749174
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.018292684, y: 0.0051124743, z: 0.018181818}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4637093532099035283}
@@ -194,7 +196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4637093532099035283}
-  - component: {fileID: 3751170336901037652}
+  - component: {fileID: 8052333542419151601}
   m_Layer: 11
   m_Name: BlockCollider
   m_TagString: Untagged
@@ -212,14 +214,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.05, z: 0.1}
-  m_LocalScale: {x: 1.5, y: 0.5, z: 1.5}
+  m_LocalScale: {x: 82, y: 97.8, z: 82.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5044174367828535880}
   m_Father: {fileID: 6349792056373224415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3751170336901037652
-BoxCollider:
+--- !u!64 &8052333542419151601
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -236,9 +238,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4048618975973004816, guid: ba18a350244870f4e83e54ecc5c46921, type: 3}
 --- !u!1 &8109872994112919335
 GameObject:
   m_ObjectHideFlags: 0
