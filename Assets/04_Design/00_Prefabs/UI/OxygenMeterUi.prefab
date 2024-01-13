@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8540393021930788379}
-  - component: {fileID: 6166867995341704068}
   - component: {fileID: 1991683346575329001}
   m_Layer: 0
   m_Name: OxygenMeterUi
@@ -38,20 +37,6 @@ RectTransform:
   m_AnchoredPosition: {x: -128, y: -32}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &6166867995341704068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711015243744795319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325c131b1fee715489a808e7065631cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oxygenLabel: {fileID: 0}
-  playerManager: {fileID: 0}
 --- !u!114 &1991683346575329001
 MonoBehaviour:
   m_ObjectHideFlags: 0
