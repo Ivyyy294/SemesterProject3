@@ -465,6 +465,11 @@ PrefabInstance:
       propertyPath: guid
       value: c20c89ed-145e-4e1f-9109-a691ff1089ab
       objectReference: {fileID: 0}
+    - target: {fileID: 99092787885325531, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: passiveOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 231479478213010325, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
       propertyPath: guid
@@ -615,6 +620,11 @@ PrefabInstance:
       propertyPath: guid
       value: d89479d5-d336-4123-b74b-111c23043f8c
       objectReference: {fileID: 0}
+    - target: {fileID: 2080884160400258520, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: passiveOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2084882074061861141, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
       propertyPath: movementSmoothing
@@ -730,10 +740,20 @@ PrefabInstance:
       propertyPath: guid
       value: a418a711-d8ea-44a2-a56d-4a0ef44f28c1
       objectReference: {fileID: 0}
+    - target: {fileID: 6096746255963046871, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: passiveOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6128927770814013201, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
       propertyPath: guid
       value: f3fea4af-2798-4fec-b29f-52ff6f120e1b
+      objectReference: {fileID: 0}
+    - target: {fileID: 6128927770814013201, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: passiveOxygenConsumption
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6254817551873088665, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
