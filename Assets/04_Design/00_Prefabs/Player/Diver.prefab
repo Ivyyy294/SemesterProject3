@@ -731,6 +731,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5764005635930473833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6141156774320075799 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1928694142962545022, guid: fba2dcf687ff6cb44b63d6451da680cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 5764005635930473833}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f9b1f7c53e62a47886427787fcac8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5945342678992820220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -779,6 +791,11 @@ PrefabInstance:
       propertyPath: shoulders
       value: 
       objectReference: {fileID: 6617956268465818330}
+    - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
+      propertyPath: playerBlock
+      value: 
+      objectReference: {fileID: 6141156774320075799}
     - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
       propertyPath: playerBallStatus

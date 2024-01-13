@@ -10,6 +10,7 @@ public class DiverAnimation : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private TransformDelay legDelay;
     [SerializeField] private PlayerBallStatus playerBallStatus;
+    [SerializeField] private PlayerBlock playerBlock;
     
     [Header("Joints References")]
     [SerializeField] private InverseChain hipSpineChain;
@@ -24,6 +25,7 @@ public class DiverAnimation : MonoBehaviour
     private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
     private readonly int ID_BreastStroke = Animator.StringToHash("BreastStrokeUB");
     private readonly int ID_CancelAnimEffects = Animator.StringToHash("CancelAnimEffects");
+    private readonly int ID_IsBlocking = Animator.StringToHash("IsBlocking");
     #endregion
     
      private VelocityTracker _velocityTracker;
@@ -39,6 +41,7 @@ public class DiverAnimation : MonoBehaviour
      private bool _isHoldingBall;
 
      private StateListener<PlayerBallStatus, bool> _hasBallListener;
+     private StateListener<PlayerBlock, bool> _isBlockingListener;
 
      private void OnEnable()
     {
@@ -47,11 +50,13 @@ public class DiverAnimation : MonoBehaviour
         _isHoldingBall = false;
         breastStrokeCooldown.MakeReady();
         _hasBallListener = new(playerBallStatus, x => x.HasBall(), false, SetHoldingBall);
+        _isBlockingListener = new(playerBlock, x => x.IsBlocking, false, SetBlocking);
     }
 
      void Update()
      {
          _hasBallListener.Update();
+         _isBlockingListener.Update();
          
          _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
 
@@ -143,6 +148,13 @@ public class DiverAnimation : MonoBehaviour
     public void ToggleHoldingBall()
     {
         SetHoldingBall(!_isHoldingBall);
+    }
+
+    public void SetBlocking(bool isBlocking)
+    {
+        if (isBlocking == animator.GetBool(ID_IsBlocking)) return;
+        animator.SetBool(ID_IsBlocking, isBlocking);
+        animator.SetTrigger(ID_CancelAnimEffects);
     }
 
     public void ResetSimulations()
