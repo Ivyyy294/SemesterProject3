@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 97487b6e-9f17-46bb-b0e7-54b10dfe7801
+  drag: 1
+  gravity: 0
   afterThrowCooldown: 0.25
   ball: {fileID: 3884246718100162049}
 --- !u!114 &2326839230546655940
@@ -132,8 +134,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2909632039037487145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
