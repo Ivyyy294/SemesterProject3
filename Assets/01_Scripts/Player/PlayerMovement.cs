@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] PlayerMovementProfil lowOxygenMovementProfil;
 	[SerializeField] PlayerMovementProfil blockMovementProfil;
 
+	public bool IsDashing => currentMovementProfil == dashMovementProfil; 
+	
 	//Private values
 	PlayerOxygen playerOxygen;
 	PlayerMovementProfil currentMovementProfil;

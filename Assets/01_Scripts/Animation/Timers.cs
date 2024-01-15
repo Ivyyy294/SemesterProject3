@@ -118,6 +118,12 @@ public class TimeCounter
     public float Timer => _timer;
     public float TimeRemaining => waitTime - _timer;
     public float ProgressNormalized => waitTime == 0? 1 : _timer / waitTime;
+
+    public TimeCounter(float waitTime)
+    {
+        this.waitTime = waitTime;
+    }
+    
     public void Update()
     {
         _timer += Time.deltaTime;
@@ -141,16 +147,22 @@ public class Gauge
 {
     public float fillRate;
     public float depletionRate;
-
+    
     public float FillAmount => _fillAmount;
     public float OverflowAmount => _overflowGauge;
     public bool IsFull => _fillAmount >= 1 && !IsOverflowing;
     public bool IsEmpty => _fillAmount <= 0;
-    
+
     public bool IsOverflowing => _overflowGauge > 0;
     
     private float _fillAmount;
     private float _overflowGauge;
+
+    public Gauge(float fillRate, float depletionRate)
+    {
+        this.fillRate = fillRate;
+        this.depletionRate = depletionRate;
+    }
 
     public void Fill()
     {
@@ -167,6 +179,12 @@ public class Gauge
             _overflowGauge = 0;
         }
         ClampFill();
+    }
+
+    public void Update(bool state)
+    {
+        if(state) Fill();
+        else Deplete();
     }
 
     public void SetFillAmount(float amount, bool overflow = false)

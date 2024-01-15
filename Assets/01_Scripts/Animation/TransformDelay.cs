@@ -21,6 +21,7 @@ public class TransformDelay : MonoBehaviour
     public Vector3 DelayPosition => _delayPosition;
     public Quaternion DelayRotation => _delayRotation;
     public Vector3 Direction => _direction;
+    public float DelayDistance => (transform.position - _delayPosition).magnitude;
 
 	void OnEnable()
     {

@@ -998,6 +998,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UnderwaterPostProcessing
       objectReference: {fileID: 0}
+    - target: {fileID: 6718498304791935004, guid: 95d62d93e13367d44980c520a9159414,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7869307756285028193, guid: 95d62d93e13367d44980c520a9159414,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1421,6 +1426,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 609847954196776581, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: 7179bb9c-f70f-4375-a839-6b10e1e7206b
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346642503218768759, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: 6734cce5-2b1f-4e56-b70f-2dcbbef01949
+      objectReference: {fileID: 0}
     - target: {fileID: 2505866070068884537, guid: dbb5dfd481c1355418068109b88c06b5,
         type: 3}
       propertyPath: guid
@@ -1495,6 +1510,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861826180381799535, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: guid
+      value: 6d92189c-8cee-4831-8d7c-864cf6c839cb
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
