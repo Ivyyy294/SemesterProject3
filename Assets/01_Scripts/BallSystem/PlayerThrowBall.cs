@@ -12,6 +12,7 @@ public class PlayerThrowBall : NetworkBehaviour
 	[SerializeField] GameObject ballGhost;
 	PlayerOxygen playerOxygen;
 	PlayerBallStatus playerBallStatus;
+	PlayerInput playerInput;
 
 	//Private
 	Ball ball;
@@ -21,6 +22,7 @@ public class PlayerThrowBall : NetworkBehaviour
     {
 		playerBallStatus = transform.parent.GetComponentInChildren<PlayerBallStatus>();
 		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
+		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
         ball = Ball.Me;
     }
 
@@ -36,7 +38,7 @@ public class PlayerThrowBall : NetworkBehaviour
 		{
 			if (playerOxygen.OxygenEmpty)
 				DropBall();
-			else if (Input.GetMouseButtonDown (0))
+			else if (playerInput.ThrowPressed)
 				ThrowBall();
 		}
     }

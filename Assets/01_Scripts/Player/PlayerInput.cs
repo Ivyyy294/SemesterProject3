@@ -10,6 +10,7 @@ public class PlayerInput : NetworkBehaviour
 	[Header("Key bindings")]
 	[SerializeField] KeyCode forwardKey = KeyCode.Space;
 	[SerializeField] KeyCode dashKey = KeyCode.Mouse1;
+	[SerializeField] KeyCode throwKey = KeyCode.Mouse0;
 	[SerializeField] KeyCode blockKey = KeyCode.B;
 
     private float _pitch;
@@ -20,6 +21,7 @@ public class PlayerInput : NetworkBehaviour
 	public bool ForwardPressed {get{ return inputBuffer.Check (0);}}
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
 	public bool BlockPressed { get { return inputBuffer.Check(2);} }
+	public bool ThrowPressed { get { return Input.GetKeyDown (throwKey);} }
 
 	Transform targetTransform;
 	int packageNr = 0;
