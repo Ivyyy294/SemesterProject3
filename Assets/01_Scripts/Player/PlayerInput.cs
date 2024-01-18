@@ -23,7 +23,7 @@ public class PlayerInput : NetworkBehaviour
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
 	public bool BlockPressed { get { return inputBuffer.Check(2);} }
 	public bool ThrowPressed { get { return Input.GetKeyDown (throwKey);} }
-	public bool StealPressed { get { return Input.GetKeyDown (stealKey);} }
+	public bool StealPressed { get { return inputBuffer.Check(3);} }
 
 	Transform targetTransform;
 	int packageNr = 0;

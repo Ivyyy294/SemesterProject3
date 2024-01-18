@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 
-public class PlayerStealBall : NetworkBehaviour
+public class PlayerStealBall : MonoBehaviour
 {
 	[Range (0.1f, 1f)]
 	[SerializeField] float stealRange = 0.5f;
-	[SerializeField] float coolDown = 0.1f;
+	[SerializeField] float stealDuration = 0.25f;
 	[SerializeField] LayerMask mask = -1;
 	[SerializeField] Transform checkPosition;
 
@@ -16,31 +16,33 @@ public class PlayerStealBall : NetworkBehaviour
 	Ball ball;
 	short playerId;
 	float timer = 0f;
-
-	protected override void SetPackageData() { }
+	bool host = false;
 
 	[RPCAttribute]
 	protected void StealBall()
 	{
 		//Execute Steal only on host session
-		if (Host)
+		if (ballStatus.HasBall())
+			return;
+
+		//Layer ball collider
+		Collider[] colliders = Physics.OverlapSphere (checkPosition.position, stealRange, mask.value);
+
+		if (colliders.Length > 0)
 		{
-			if (ballStatus.HasBall())
-				return;
-
-			//Layer ball collider
-			Collider[] colliders = Physics.OverlapSphere (checkPosition.position, stealRange, mask.value);
-
 			foreach (Collider i in colliders)
 			{
 				PlayerCollision playerCollision = i.GetComponentInParent <PlayerCollision>();
 
 				if (playerCollision && playerCollision.PlayerBallStatus.HasBall())
-					ball.StealBall (playerId);
+					timer += Time.deltaTime;
 			}
 		}
-		else if (!Host)
-			InvokeRPC("StealBall");
+		else
+			timer = 0f;
+
+		if (timer >= stealDuration)
+			ball.StealBall (playerId);
 	}
 
     // Start is called before the first frame update
@@ -51,19 +53,18 @@ public class PlayerStealBall : NetworkBehaviour
 		playerId = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>().PlayerID;
 		ball = Ball.Me;
 
-		Owner = PlayerConfigurationManager.LocalPlayerId == playerId;
+		host = !NetworkManager.Me || NetworkManager.Me.Host;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Owner && !ballStatus.HasBall()
-			&& playerInput.StealPressed
-			&& timer >= coolDown)
+        if (host && !ballStatus.HasBall()
+			&& playerInput.StealPressed)
 			StealBall();
 		
-		if (timer < coolDown)
-			timer += Time.deltaTime;
+		if (!playerInput.StealPressed && timer > 0f)
+			timer = 0f;
     }
 
 	private void OnDrawGizmos()
