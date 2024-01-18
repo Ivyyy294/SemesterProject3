@@ -10,12 +10,14 @@ public class PlayerThrowBall : NetworkBehaviour
 
 	[Header ("Lara Values")]
 	[SerializeField] GameObject ballGhost;
+	[SerializeField] float initalCooldown = 0.1f;
 	PlayerOxygen playerOxygen;
 	PlayerBallStatus playerBallStatus;
 	PlayerInput playerInput;
 
 	//Private
 	Ball ball;
+	float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,13 @@ public class PlayerThrowBall : NetworkBehaviour
 		if (ballGhost.activeInHierarchy != hasBall)
 			ballGhost.SetActive (hasBall);
 
-        if (Owner && hasBall)
+		//Prevent ball from being thrown instantly
+		if (!hasBall)
+			timer = 0f;
+		else if (timer < initalCooldown)
+			timer += Time.deltaTime;
+
+        if (Owner && hasBall && timer > initalCooldown)
 		{
 			if (playerOxygen.OxygenEmpty)
 				DropBall();

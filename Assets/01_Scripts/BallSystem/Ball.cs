@@ -42,6 +42,11 @@ public class Ball : NetworkBehaviour
 		InvokeRPC ("SpawnBall");
 	}
 
+	public void StealBall (short playerId)
+	{
+		CurrentPlayerId = playerId;
+	}
+
 	//Protected Methods
 	protected override void SetPackageData()
 	{

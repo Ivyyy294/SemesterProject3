@@ -19,7 +19,7 @@ public class TeamWonLostUi : MonoBehaviour
 
 		if (PlayerConfigurationManager.Me)
 		{
-			int localPlayerId = PlayerConfigurationManager.Me.LocalPlayerId;
+			int localPlayerId = PlayerConfigurationManager.LocalPlayerId;
 			localPlayerTeamIndex = PlayerConfigurationManager.Me.playerConfigurations[localPlayerId].teamNr;
 		}
 		else

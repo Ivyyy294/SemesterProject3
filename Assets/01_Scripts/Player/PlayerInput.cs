@@ -12,6 +12,7 @@ public class PlayerInput : NetworkBehaviour
 	[SerializeField] KeyCode dashKey = KeyCode.Mouse1;
 	[SerializeField] KeyCode throwKey = KeyCode.Mouse0;
 	[SerializeField] KeyCode blockKey = KeyCode.B;
+	[SerializeField] KeyCode stealKey = KeyCode.Mouse0;
 
     private float _pitch;
     private float _yaw;
@@ -22,6 +23,7 @@ public class PlayerInput : NetworkBehaviour
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
 	public bool BlockPressed { get { return inputBuffer.Check(2);} }
 	public bool ThrowPressed { get { return Input.GetKeyDown (throwKey);} }
+	public bool StealPressed { get { return Input.GetKeyDown (stealKey);} }
 
 	Transform targetTransform;
 	int packageNr = 0;
@@ -68,6 +70,7 @@ public class PlayerInput : NetworkBehaviour
 			inputBuffer.SetBit (0, Input.GetKey(forwardKey));
 			inputBuffer.SetBit (1, Input.GetKey (dashKey));
 			inputBuffer.SetBit (2, Input.GetKey (blockKey));
+			inputBuffer.SetBit (3, Input.GetKey (stealKey));
 			_pitch = Input.GetAxisRaw("Vertical");
 			_yaw = Input.GetAxisRaw("Horizontal");
 		}

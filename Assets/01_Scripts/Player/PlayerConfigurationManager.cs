@@ -18,7 +18,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 	//Public Methods
 	//ToDo Remove
-	public int LocalPlayerId { get; set;}
+	public static int LocalPlayerId { get; set;}
+
 	public int MaxPlayerCount { get { return maxPlayers;} }
 
 	public bool IsClientConnected (int indexPlayer)
