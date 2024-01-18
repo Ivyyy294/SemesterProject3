@@ -11,15 +11,22 @@ public class SelectPlayMode : MonoBehaviour
 	[SerializeField] TMP_InputField ip;
 	[SerializeField] TMP_InputField port;
 
+	public void Start()
+	{
+		NetworkManager.Me.ShutDown();
+		NetworkSceneController.Me.Owner = false;
+	}
+
 	public void OnHostPressed()
 	{
-		NetworkManager.Me.StartHost (23000);
 		NetworkSceneController.Me.Owner = true;
+		NetworkManager.Me.StartHost (23000);
 		NetworkSceneController.Me.LoadScene (1);
 	}
 
 	public void OnJoinPressed()
 	{
+		NetworkSceneController.Me.Owner = false;
 		string ip_string = ip.text;
 
 		IPAddress iPAddress = null;
@@ -32,6 +39,7 @@ public class SelectPlayMode : MonoBehaviour
 		}
 		catch (Exception excp)
 		{
+			NetworkManager.Me.ShutDown();
 			Debug.LogError ("Can't reach server: " + ip);
 			return;
 		}
