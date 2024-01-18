@@ -68,12 +68,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 	}
 
 	//NetworkManagerCallbacks
-	public bool OnAcceptClient (Socket socket)
-	{
-		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
-
-		return GetNewPlayerIndex (iPAddress) != -1;
-	}
 
 	public void OnConnectedToHost (Socket socket)
 	{
@@ -158,6 +152,22 @@ public class PlayerConfigurationManager : MonoBehaviour
 		NetworkSceneController.Me.LoadScene (0);
 	}
 
+	public int GetNewPlayerIndex(IPAddress iPAddress)
+	{
+		//Player 0 is always host
+		for (int i = 1; i < playerConfigurations.Length && i < maxPlayers; ++i)
+		{
+			PlayerConfiguration playerConfiguration = playerConfigurations[i];
+			//New player
+			if (playerConfiguration.iPAddress == null)
+				return i;
+			//Returning player
+			else if (playerConfiguration.iPAddress.Equals(iPAddress))
+				return i;
+		}
+
+		return -1;
+	}
 	//Private Methods
 	private void Awake()
 	{
@@ -177,7 +187,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 		if (networkManager)
 		{
-			networkManager.acceptClient = OnAcceptClient;
 			networkManager.onConnectedToHost = OnConnectedToHost;
 			networkManager.onClientConnected = OnClientConnected;
 			networkManager.onClientDisonnected = OnClientDisconnected;
@@ -204,22 +213,5 @@ public class PlayerConfigurationManager : MonoBehaviour
 		}
 
 		return null;
-	}
-
-	int GetNewPlayerIndex(IPAddress iPAddress)
-	{
-		//Player 0 is always host
-		for (int i = 1; i < playerConfigurations.Length && i < maxPlayers; ++i)
-		{
-			PlayerConfiguration playerConfiguration = playerConfigurations[i];
-			//New player
-			if (playerConfiguration.iPAddress == null)
-				return i;
-			//Returning player
-			else if (playerConfiguration.iPAddress.Equals(iPAddress))
-				return i;
-		}
-
-		return -1;
 	}
 }
