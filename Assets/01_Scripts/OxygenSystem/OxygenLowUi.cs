@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class OxygenLowUi : MonoBehaviour
 {
+	[Range (0, 100)]
+	[SerializeField] float oxygenLowThresholdPercent; 
     [SerializeField] GameObject uiObj;
-	[SerializeField] PlayerManager playerManager;
 	PlayerOxygen playerOxygen;
+	MatchGameOver gameOver;
 
     // Start is called before the first frame update
     void Start()
     {
-		if (playerManager)
-			playerOxygen = playerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
+		playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
+		gameOver = MatchController.Me.MatchGameOver;
     }
 
     // Update is called once per frame
     void Update()
     {
+		if (gameOver.GameOver())
+		{
+			uiObj.SetActive (false);
+			return;
+		}
+
         if (uiObj && playerOxygen)
-			uiObj.SetActive (playerOxygen.OxygenEmpty);
+		{
+			bool showWarning = playerOxygen.CurrentOxygenPercent <= oxygenLowThresholdPercent;
+			uiObj.SetActive (showWarning);
+		}
     }
 }

@@ -13,7 +13,7 @@ public class OxygenMeterUi : MonoBehaviour
     void Start()
     {
 		if (playerManager)
-			playerOxygen = playerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
+			playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
     }
 
     // Update is called once per frame

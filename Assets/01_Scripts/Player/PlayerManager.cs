@@ -8,10 +8,10 @@ public class PlayerManager : MonoBehaviour
 	[SerializeField] GameObject[] playerList = new GameObject[2];
 	PlayerConfigurationManager playerConfigurationManager;
 	NetworkManager networkManager;
-	GameObject localPlayer;
+	static GameObject localPlayer;
 
 	public GameObject[] PlayerList => playerList;
-	public GameObject LocalPlayer => localPlayer;
+	public static GameObject LocalPlayer => localPlayer;
 
     // Start is called before the first frame update
     void Awake()
