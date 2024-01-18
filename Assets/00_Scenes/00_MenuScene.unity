@@ -490,6 +490,7 @@ MonoBehaviour:
   - {fileID: 1984760931}
   - {fileID: 1038674162}
   maxPlayers: 4
+  networkManagerUi: {fileID: 1900868010}
 --- !u!114 &1394660847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1570,6 +1571,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1791983183}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1900868010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 943321399011127856, guid: ca3ae5b061f5c1b439e3631648afca41,
+    type: 3}
+  m_PrefabInstance: {fileID: 8711689752307579213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97af551371a6a2041bc4fa5ab9bdcdd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1950407616
 GameObject:
   m_ObjectHideFlags: 0

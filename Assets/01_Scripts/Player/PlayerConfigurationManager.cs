@@ -14,6 +14,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 	//Private Values
 	[SerializeField] int maxPlayers = 4;
+	[SerializeField] NetworkManagerUi networkManagerUi;
 	NetworkManager networkManager;
 
 	//Public Methods
@@ -133,6 +134,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 		//Send PlayerConfigData to client
 		socket.Send (playerConfigurations[newPlayerIndex].GetSerializedData());
 		Debug.Log("PlayerConfigData send!");
+
+		networkManagerUi.ShowNotification (playerConfigurations[newPlayerIndex].playerName + " joined!");
 	}
 
 	public void OnClientDisconnected (Socket socket)
@@ -145,12 +148,13 @@ public class PlayerConfigurationManager : MonoBehaviour
 		pc.Owner = true;
 		pc.connected = false;
 
-		Debug.Log (pc.playerName + " disconnected!");
+		networkManagerUi.ShowError (pc.playerName + " disconnected!");
 	}
 
 	public void OnHostDisconnected (Socket socket)
 	{
-		Debug.Log("Lost connection to host!");
+		networkManagerUi.ShowError ("Lost connection to host!");
+		NetworkSceneController.Me.Owner = true;
 		NetworkSceneController.Me.LoadScene (0);
 	}
 
@@ -163,7 +167,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 			DontDestroyOnLoad (this);
 		}
 		else
-			Destroy (this);
+			Destroy (gameObject);
 	}
 
 	private void Start()
