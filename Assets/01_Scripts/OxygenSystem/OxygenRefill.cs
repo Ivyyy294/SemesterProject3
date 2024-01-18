@@ -6,10 +6,20 @@ using Ivyyy.Network;
 public class OxygenRefill : NetworkBehaviour
 {
 	[Range (1, 1000)]
-	[SerializeField] float refillRatePerSecond = 20f;
 	[SerializeField] float capacityOxygen = 0f;
+	[SerializeField] float refillRatePerSecond = 20f;
 	[SerializeField] float currentOxygen = 0f;
 
+	[Header ("Oxygen loss settings")]
+	[Min (0)]
+	[SerializeField] float oxygenLossDelay;
+	[Min (0)]
+	[SerializeField] float oxygenLossPerSecond;
+	
+	//Private values
+	float oxygenLossTimer = 0f;
+
+	//Public Methods
 	public float CapacityOxygen => capacityOxygen;
 	public float CurrentOxygen => currentOxygen;
 
@@ -24,11 +34,13 @@ public class OxygenRefill : NetworkBehaviour
 		gameObject.SetActive(false);
 	}
 
+	//Protected Methods
 	protected override void SetPackageData()
 	{
 		networkPackage.AddValue (new NetworkPackageValue (currentOxygen));
 	}
 
+	//Private Methods
 	private void Start()
 	{
 		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
@@ -40,6 +52,17 @@ public class OxygenRefill : NetworkBehaviour
 		{
 			currentOxygen = networkPackage.Value (0).GetFloat();
 			networkPackage.Clear();
+		}
+		else if (Owner)
+		{
+			OxygenLoss();
+
+			//Despawn if oxygen is empty
+			if (currentOxygen <= 0f)
+			{
+				InvokeRPC ("Despawn");
+				gameObject.SetActive (false);
+			}
 		}
 	}
 
@@ -61,11 +84,21 @@ public class OxygenRefill : NetworkBehaviour
 				currentOxygen -= refill;
 			}
 		}
+	}
 
-		if (currentOxygen <= 0f)
-		{
-			InvokeRPC ("Despawn");
-			gameObject.SetActive (false);
-		}
+	private void OnEnable()
+	{
+		oxygenLossTimer = 0f;
+	}
+
+	private void OxygenLoss()
+	{
+		if (oxygenLossDelay <= 0f)
+			return;
+
+		if (oxygenLossTimer < oxygenLossDelay)
+			oxygenLossTimer += Time.deltaTime;
+		else
+			currentOxygen -= oxygenLossPerSecond * Time.deltaTime;
 	}
 }

@@ -146,9 +146,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 999b01ae-1ea7-4fc3-a927-15ab9f33ab5a
-  refillRatePerSecond: 50
   capacityOxygen: 100
+  refillRatePerSecond: 50
   currentOxygen: 100
+  oxygenLossDelay: 10
+  oxygenLossPerSecond: 5
 --- !u!114 &5121845000149691810
 MonoBehaviour:
   m_ObjectHideFlags: 0
