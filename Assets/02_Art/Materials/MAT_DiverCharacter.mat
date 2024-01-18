@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_DiverCharacter
-  m_Shader: {fileID: -6465566751694194690, guid: af95417e0469d3f428c7050e73f36403,
+  m_Shader: {fileID: -6465566751694194690, guid: 4b3608074bad9b341894d8de6b86d433,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 978bdac8ea40a0340af48fc42567068b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 32934f130c50eb047a1044bec64bf752, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MRA:
-        m_Texture: {fileID: 2800000, guid: 09c95ae84d2eec148967899132834f17, type: 3}
+        m_Texture: {fileID: 2800000, guid: ad6bcb4ae60279441ad750db7ccbbb5f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 356068ae81de6d64887e0ca7818719ac, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5e2a6043efb98d245b4ae95c4486d59b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -113,6 +113,7 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _OxygenLevel: 0.5
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -129,7 +130,9 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OxygenColor: {r: 2.670157, g: 0.1733868, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _UVTiling: {r: 1, g: 1, b: 0, a: 0}
     - _UV_Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &9000302804486355893
