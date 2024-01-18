@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vector3 = UnityEngine.Vector3;
 
 [RequireComponent(typeof(InverseChain))]
@@ -13,6 +14,7 @@ public class DiverAnimation : MonoBehaviour
     [SerializeField] private PlayerBallStatus playerBallStatus;
     [SerializeField] private PlayerBlock playerBlock;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private Transform ball;
     
     [Header("Joints References")]
     [SerializeField] private InverseChain hipSpineChain;
@@ -23,11 +25,13 @@ public class DiverAnimation : MonoBehaviour
     #region AnimatorParameterIDs
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
     private readonly int ID_Levelness = Animator.StringToHash("Levelness");
-    private readonly int ID_IsHoldingBall = Animator.StringToHash("IsHoldingBall");
     private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
     private readonly int ID_BreastStroke = Animator.StringToHash("BreastStrokeUB");
     private readonly int ID_CancelAnimEffects = Animator.StringToHash("CancelAnimEffects");
     private readonly int ID_IsBlocking = Animator.StringToHash("IsBlocking");
+    private readonly int ID_BallState = Animator.StringToHash("BallState");
+    private readonly int ID_BallAnglePitch = Animator.StringToHash("BallAnglePitch");
+    private readonly int ID_BallAngleYaw = Animator.StringToHash("BallAngleYaw");
     #endregion
     
      private VelocityTracker _velocityTracker;
@@ -40,6 +44,7 @@ public class DiverAnimation : MonoBehaviour
      [SerializeField] private float lowSpeedThreshold;
 
      private AnimUtils.AngleTracker _angleTracker;
+     private AnimUtils.AngleTracker _ballTracker;
      private bool _isHoldingBall;
 
      private StateListener<PlayerBallStatus, bool> _hasBallListener;
@@ -62,11 +67,11 @@ public class DiverAnimation : MonoBehaviour
          _hasBallListener.Update();
          _isBlockingListener.Update();
          _dashingGauge.Update(playerMovement.IsDashing && _velocityTracker.SmoothSpeed > 2f);
-         
-         Debug.Log(_dashingGauge.FillAmount);
 
          _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
          
+         _ballTracker = new(upperSpine.position, GetBallTargetPosition(), transform.up, transform.right, transform.forward);
+
          float velocityDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
          
 
@@ -79,7 +84,7 @@ public class DiverAnimation : MonoBehaviour
          {
              breastStrokeCooldown.Update();
          }
-         else if(!_isHoldingBall && velocityDot > 0.3f)
+         else if(!_isHoldingBall && _isBlockingListener.CurrentValue && velocityDot > 0.3f)
          {
              if(breastStrokeCooldown.Trigger()) animator.SetTrigger(ID_BreastStroke);
              breastStrokeCooldown.Reset();
@@ -95,7 +100,25 @@ public class DiverAnimation : MonoBehaviour
          {
              ToggleHoldingBall();
          }
-         
+
+         if (Input.GetKeyDown(KeyCode.Alpha0))
+         {
+             animator.SetInteger(ID_BallState, 0);
+         }
+
+         if (Input.GetKeyDown(KeyCode.Alpha1))
+         {
+             animator.SetInteger(ID_BallState, 1);
+         }
+
+         if (Input.GetKeyDown(KeyCode.Alpha2))
+         {
+             animator.SetInteger(ID_BallState, 2);
+         }
+
+         Debug.Log(_ballTracker.Angle1);
+         animator.SetFloat(ID_BallAnglePitch, _ballTracker.Angle1 / 90f);
+
      }
 
      void FixedUpdate()
@@ -146,7 +169,7 @@ public class DiverAnimation : MonoBehaviour
     {
         if (_isHoldingBall == newValue) return;
         _isHoldingBall = newValue;
-        animator.SetBool(ID_IsHoldingBall, _isHoldingBall);
+        animator.SetInteger(ID_BallState, _isHoldingBall? 2 : 0);
 
         if (!_isHoldingBall)
         {
@@ -179,10 +202,21 @@ public class DiverAnimation : MonoBehaviour
         animator.SetBool(ID_IsMovingFastOverTime, false);
     }
 
+    private Vector3 GetBallTargetPosition()
+    {
+        // TODO: Stable reference to ball through outside script
+        if (ball == null)
+        {
+            return transform.position + transform.forward * 3;
+        }
+        return ball.position;
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if(_angleTracker is not null) _angleTracker.DrawDebug();
+        // if(_angleTracker is not null) _angleTracker.DrawDebug();
+        if(_ballTracker is not null) _ballTracker.DrawDebug();
     }
     #endif
 }
