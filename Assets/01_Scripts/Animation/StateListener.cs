@@ -13,6 +13,8 @@ public class StateListener<Target, Result> where Result : IEquatable<Result>
     
     private Result _resultCache;
 
+    public Result CurrentValue;
+
     public StateListener(Target target, Func<Target, Result> selector, Result initialValue, params UnityAction<Result>[] actions)
     {
         _target = target;
