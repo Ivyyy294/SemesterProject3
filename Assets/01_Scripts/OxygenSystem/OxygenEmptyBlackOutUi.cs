@@ -36,7 +36,10 @@ public class OxygenEmptyBlackOutUi : MonoBehaviour
 			}
 		}
 		else if (timer > 0f)
+		{
 			timer = 0f;
+			ChangeAlpha (0f);
+		}
     }
 
 	private void ChangeAlpha (float alpha)
