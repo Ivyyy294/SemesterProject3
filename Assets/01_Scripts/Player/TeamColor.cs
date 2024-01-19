@@ -5,16 +5,9 @@ using UnityEngine;
 
 public class TeamColor : MonoBehaviour
 {
-    private MaterialPropertyBlock _mpb;
-    public MaterialPropertyBlock Mpb
-    { get
-        {
-            if (_mpb is null) _mpb = new MaterialPropertyBlock();
-            return _mpb;
-        }
-    }
+    public Color Color => _teamColor;
+    private Color _teamColor;
     
-    [SerializeField] private Renderer targetRenderer;
     [SerializeField] private List<Color> teamColors;
 
     private PlayerConfigurationContainer _playerConfigurationContainer;
@@ -26,10 +19,8 @@ public class TeamColor : MonoBehaviour
 
     public void SetTeam(int teamIndex)
     {
-        Mpb.SetColor("_BaseColor", teamColors[teamIndex]);
-        targetRenderer.SetPropertyBlock(Mpb);
+        _teamColor = teamColors[teamIndex];
     }
-
     void Update()
     {
 		SetTeam(_playerConfigurationContainer.TeamIndex);

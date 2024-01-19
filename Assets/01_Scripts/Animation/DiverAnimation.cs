@@ -10,6 +10,7 @@ public class DiverAnimation : MonoBehaviour
     [Header("Local Dependencies")]
     [SerializeField] private Animator animator;
     [SerializeField] private TransformDelay legDelay;
+
     [Header("External Dependencies")]
     [SerializeField] private PlayerBallStatus playerBallStatus;
     [SerializeField] private PlayerBlock playerBlock;
@@ -91,9 +92,6 @@ public class DiverAnimation : MonoBehaviour
          }
 
          animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
-         // temporarily disabled because we are still on the fence with the hands on the back thing
-         // animator.SetBool(ID_IsMovingFastOverTime, fastTravelTimer.TimeRemaining < 0f && !_isHoldingBall);
-         
          animator.SetFloat(ID_SwimSpeed, (Mathf.Clamp01(_velocityTracker.SmoothSpeed) + _dashingGauge.FillAmount) * velocityDot);
 
          if (Input.GetKeyDown(KeyCode.E))
@@ -133,7 +131,7 @@ public class DiverAnimation : MonoBehaviour
     void UpdateSimulatedLimbs()
     {
         
-        float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.2f, 3.5f, 1, .4f);
+        float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.2f, 3.5f, 1, .5f);
         float directionDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
         float directionMultiplier = MathfUtils.RemapClamped(directionDot, -.4f, 0, 0, 1);
         float multiplier = speedMultiplier * directionMultiplier;
@@ -146,7 +144,8 @@ public class DiverAnimation : MonoBehaviour
         hipSpineChain.Apply();
         foreach (var t in lowerLegs)
         {
-            t.Rotate(Vector3.right, -_angleTracker.Angle1 * 1f * multiplier);
+            var vectorPitch = t.InverseTransformDirection(transform.right);
+            t.Rotate(vectorPitch, _angleTracker.Angle1 * 0.7f * multiplier);
         }
         
         // Update Twist Transforms

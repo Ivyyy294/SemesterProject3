@@ -8,7 +8,7 @@ using UnityEngine;
 public class DiverVisuals : MonoBehaviour
 {
     [SerializeField] private GameObject rig;
-    public Gradient oxygenColorGradient;
+    public Color emissiveColor;
     [Range(0, 1)] public float oxygenLevel = 0.5f;
 
     private Renderer[] _renderers;
@@ -41,9 +41,7 @@ public class DiverVisuals : MonoBehaviour
 
     private void UpdateMaterial()
     {
-        Color sample = oxygenColorGradient.Evaluate(oxygenLevel);
-        sample *= sample.a * 2;
-        Mpb.SetColor(ID_OxygenColor, sample);
+        Mpb.SetColor(ID_OxygenColor, emissiveColor);
         Mpb.SetFloat(ID_OxygenLevel, oxygenLevel);
         UpdateProperties();
     }
@@ -56,12 +54,5 @@ public class DiverVisuals : MonoBehaviour
             r.SetPropertyBlock(_mpb);
         }
     }
-    
-    #if UNITY_EDITOR
-    private void OnValidate()
-    {
-        UpdateMaterial();
-    }
-    #endif
 }
 
