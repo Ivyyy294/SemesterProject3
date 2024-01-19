@@ -74,11 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49f9b1f7c53e62a47886427787fcac8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  easeStepSize: 10
-  playerBlockCollider: {fileID: 4478825223472743110}
   colliderInflateGauge:
     fillRate: 3
     depletionRate: 3
+  playerBlockCollider: {fileID: 4478825223472743110}
 --- !u!1 &3072804750113749174
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,8 +213,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0.05, z: 0.1}
-  m_LocalScale: {x: 82, y: 97.8, z: 82.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 128, y: 152.66342, z: 128.7805}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5044174367828535880}
   m_Father: {fileID: 6349792056373224415}
