@@ -27,6 +27,11 @@ public class PlayerOxygen : NetworkBehaviour
 		if (currentOxygen < maxOxygen)
 			currentOxygen = Mathf.Min (currentOxygen + val, maxOxygen);
 	}
+	
+	public void RefillMax()
+	{
+		currentOxygen = maxOxygen;
+	}
 
 	//Protected
 	protected override void SetPackageData()
