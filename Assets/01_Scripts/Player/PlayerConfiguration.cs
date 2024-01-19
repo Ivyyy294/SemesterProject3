@@ -24,6 +24,7 @@ public class PlayerConfiguration :NetworkBehaviour
 		connected = networkPackage.Value(2).GetBool();
 		playerName = networkPackage.Value(3).GetString();
 		teamNr = networkPackage.Value(4).GetInt32();
+		networkPackage.Clear();
 	}
 
 	protected override void SetPackageData()
