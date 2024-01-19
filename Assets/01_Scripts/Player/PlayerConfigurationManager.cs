@@ -152,6 +152,16 @@ public class PlayerConfigurationManager : MonoBehaviour
 		NetworkSceneController.Me.LoadScene (0);
 	}
 
+	public bool OnAcceptClient (Socket socket)
+	{
+		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
+
+		int index = GetNewPlayerIndex (iPAddress);
+		playerConfigurations[index].iPAddress = iPAddress;
+
+		return index != -1;
+	}
+
 	public int GetNewPlayerIndex(IPAddress iPAddress)
 	{
 		//Player 0 is always host
@@ -187,6 +197,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 		if (networkManager)
 		{
+			networkManager.acceptClient = OnAcceptClient;
 			networkManager.onConnectedToHost = OnConnectedToHost;
 			networkManager.onClientConnected = OnClientConnected;
 			networkManager.onClientDisonnected = OnClientDisconnected;

@@ -25,7 +25,7 @@ public class NetworkManagerCallback : MonoBehaviour
 		
 		if (networkManager)
 		{
-			networkManager.acceptClient = OnAcceptClient;
+			//networkManager.acceptClient = OnAcceptClient;
 		}
     }
 }

@@ -65,6 +65,7 @@ MonoBehaviour:
   throwForce: 400
   ballSpawn: {fileID: 2802661896907252464}
   ballGhost: {fileID: 0}
+  initalCooldown: 0.1
 --- !u!114 &6233776089314568346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,9 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704a9ec96c0d2e140971ae45613f7b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 8534239b-2f67-463d-b6e2-14afcaad0f63
-  stealRange: 0.3
-  coolDown: 0.5
+  stealRange: 0.5
+  stealDuration: 0.25
   mask:
     serializedVersion: 2
     m_Bits: 128
