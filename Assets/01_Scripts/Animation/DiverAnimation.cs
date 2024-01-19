@@ -115,8 +115,7 @@ public class DiverAnimation : MonoBehaviour
          {
              animator.SetInteger(ID_BallState, 2);
          }
-
-         Debug.Log(_ballTracker.Angle1);
+         
          animator.SetFloat(ID_BallAnglePitch, _ballTracker.Angle1 / 90f);
 
      }
