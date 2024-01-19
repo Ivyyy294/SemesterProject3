@@ -19,16 +19,14 @@ public class OxygenEmptyBlackOutUi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
-		emergencyRefill = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygenEmergencyRefill>();
-
 		animationLength = alphaAnimation.keys[alphaAnimation.keys.Length - 1].time;
+        playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerOxygen.OxygenEmpty)
+		if (playerOxygen.OxygenEmpty)
 		{
 			if (timer <= animationLength)
 			{
@@ -36,8 +34,6 @@ public class OxygenEmptyBlackOutUi : MonoBehaviour
 				ChangeAlpha (alpha);
 				timer += Time.deltaTime;
 			}
-			else
-				emergencyRefill.Refill();
 		}
 		else if (timer > 0f)
 			timer = 0f;

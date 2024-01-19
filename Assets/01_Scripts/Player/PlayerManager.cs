@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
 			for (int i = 0; i < playerList.Length; ++i)
 				playerList[i].SetActive (i == 0);
 		}
+
+		localPlayer = playerList[PlayerConfigurationManager.LocalPlayerId];
     }
 
 	private void Update()
@@ -40,7 +42,7 @@ public class PlayerManager : MonoBehaviour
 		{
 			for (int i = 0; i < playerList.Length; ++i)
 				playerList[i].SetActive (playerConfigurationManager.playerConfigurations[i].connected);
-		}
+		}		
 	}
 
 	private void InitPlayerObject (GameObject player, PlayerConfiguration playerConfiguration)
