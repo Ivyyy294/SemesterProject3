@@ -14,7 +14,7 @@ public class PlayerCollision : MonoBehaviour
 	public PlayerOxygen PlayerOxygen => playerOxygen;
 	public PlayerBallStatus PlayerBallStatus => playerBallStatus;
 
-	public bool CanCatchBall { get { return !playerOxygen.OxygenEmpty && (playerBlock.IsBlocking || !diverInput.DashPressed);} }
+	public bool CanCatchBall { get { return !playerOxygen.OxygenEmpty/* && (playerBlock.IsBlocking || !diverInput.DashPressed)*/;} }
 
 	private void Start()
 	{
