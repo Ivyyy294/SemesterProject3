@@ -21,20 +21,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 	public int MaxPlayerCount { get { return maxPlayers;} }
 
-	//public bool IsClientConnected (int indexPlayer)
-	//{
-	//	if (indexPlayer < playerConfigurations.Length)
-	//	{
-	//		//Player 0 is always host
-	//		if (indexPlayer == LocalPlayerId)
-	//			return true;
-	//		else
-	//			return playerConfigurations[indexPlayer].connected;
-	//	}
-	//	else
-	//		return false;
-	//}
-
 	public bool PlayersReady()
 	{
 		for (int i = 0; i < MaxPlayerCount; ++i)
@@ -46,16 +32,21 @@ public class PlayerConfigurationManager : MonoBehaviour
 		return true;
 	}
 
-	//public bool PlayersLoadedScene()
-	//{
-	//	for (int i = 0; i < playerConfigurations.Length; ++i)
-	//	{
-	//		if (!playerConfigurations[i].sceneLoaded)
-	//			return false;
-	//	}
+	public bool EqualTeamSize()
+	{
+		int sizeTeam1 = 0;
+		int sizeTeam2 = 0;
 
-	//	return true;
-	//}
+		for (int i = 0; i < MaxPlayerCount; ++i)
+		{
+			if (playerConfigurations[i].teamNr == 0)
+				sizeTeam1++;
+			else
+				sizeTeam2++;
+		}
+
+		return sizeTeam1 == sizeTeam2;
+	}
 
 	public void ResetPlayers()
 	{

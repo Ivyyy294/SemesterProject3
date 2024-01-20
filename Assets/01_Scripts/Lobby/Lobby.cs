@@ -20,7 +20,12 @@ public class Lobby : MonoBehaviour
 
 	private void Update()
 	{
-		if (configurationManager && configurationManager.PlayersReady())
+		if (StartMatch())
 			networkSceneController.LoadScene(2);
+	}
+
+	private bool StartMatch()
+	{
+		return configurationManager && configurationManager.PlayersReady() && configurationManager.EqualTeamSize();
 	}
 }
