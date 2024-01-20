@@ -17,6 +17,18 @@ public class PlayerConfiguration :NetworkBehaviour
 	//Not synced
 	public short playerId = 0;
 
+	private string defaultName = null;
+
+	public void ResetConfiguration ()
+	{
+		name = defaultName;
+		ready = false;
+		sceneLoaded = false;
+		connected = false;
+		iPAddress = null;
+		teamNr = 0;
+	}
+
 	public void ReadPackageData()
 	{
 		ready = networkPackage.Value(0).GetBool();
@@ -40,5 +52,11 @@ public class PlayerConfiguration :NetworkBehaviour
 	{
 		if (!Owner && networkPackage.Available)
 			ReadPackageData();
+	}
+
+	private void Awake()
+	{
+		if (defaultName == null)
+			defaultName = name;
 	}
 }
