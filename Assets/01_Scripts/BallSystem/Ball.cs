@@ -38,11 +38,9 @@ public class Ball : NetworkBehaviour
 		timer = 0f;
 		CurrentPlayerId = -1;
 		transform.position = spawnPos;
-		ball.SetActive (true);
-		InvokeRPC ("SpawnBall");
 	}
 
-	public void StealBall (short playerId)
+	public void SetPlayerId (short playerId)
 	{
 		CurrentPlayerId = playerId;
 	}
@@ -53,20 +51,6 @@ public class Ball : NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (CurrentPlayerId));
 		networkPackage.AddValue (new NetworkPackageValue (transform.position));
 		networkPackage.AddValue (new NetworkPackageValue (m_rigidbody.velocity));
-	}
-
-	[RPCAttribute]
-	protected void DespawnBall()
-	{
-		Debug.Log ("DespawnBall");
-		ball.SetActive (false);
-	}
-
-	[RPCAttribute]
-	protected void SpawnBall()
-	{
-		Debug.Log ("SpawnBall");
-		ball.SetActive (true);
 	}
 
 	//Private Methods
@@ -108,6 +92,7 @@ public class Ball : NetworkBehaviour
 			timer += Time.deltaTime;
 
 		SetPhysicOptions();
+		SetVisibility();
 	}
 
 	//ToDo Move to PlayerCollision
@@ -119,15 +104,8 @@ public class Ball : NetworkBehaviour
 			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
 			
 			if (playerCollision && playerCollision.CanCatchBall)
-				Catch (playerCollision.PlayerId);
+				SetPlayerId (playerCollision.PlayerId);
 		}
-	}
-
-	private void Catch (short playerId)
-	{
-		CurrentPlayerId = playerId;
-		ball.SetActive(false);
-		InvokeRPC("DespawnBall");
 	}
 
 	private void SetPhysicOptions()
@@ -136,5 +114,13 @@ public class Ball : NetworkBehaviour
 		m_rigidbody.angularDrag = drag;
 		m_rigidbody.useGravity = gravity!= 0f;
 		Physics.gravity = Vector3.down * gravity;
+	}
+
+	private void SetVisibility()
+	{
+		bool visible = CurrentPlayerId == -1;
+
+		if (ball.gameObject.activeInHierarchy != visible)
+			ball.gameObject.SetActive (visible);
 	}
 }

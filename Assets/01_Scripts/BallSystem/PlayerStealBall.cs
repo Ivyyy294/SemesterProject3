@@ -42,7 +42,7 @@ public class PlayerStealBall : MonoBehaviour
 			timer = 0f;
 
 		if (timer >= stealDuration)
-			ball.StealBall (playerId);
+			ball.SetPlayerId (playerId);
 	}
 
     // Start is called before the first frame update
