@@ -135,7 +135,6 @@ Transform:
   - {fileID: 8519902152017796577}
   - {fileID: 6937753623313979202}
   - {fileID: 7195928992549707848}
-  - {fileID: 6221480805110371988}
   m_Father: {fileID: 7007039968728102446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &293632705150702944
@@ -1847,6 +1846,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6221480805110371988}
   - {fileID: 7007039968728102446}
   - {fileID: 5069584049584820867}
   - {fileID: 9066197258179911222}
@@ -2689,22 +2689,32 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4972990934263951778}
+    m_TransformParent: {fileID: 3684702947042030528}
     m_Modifications:
+    - target: {fileID: 219589342413587339, guid: 118794f107bde4c5eb657836f467f125,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.y
+      value: 1.8899994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499010087950745374, guid: 118794f107bde4c5eb657836f467f125,
+        type: 3}
+      propertyPath: m_Name
+      value: CurrentBubbleStreamVFX_A
+      objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.2669325
       objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 12.551336
       objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -6.497083
       objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
@@ -2714,17 +2724,17 @@ PrefabInstance:
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6285491574091875913, guid: 118794f107bde4c5eb657836f467f125,
         type: 3}
