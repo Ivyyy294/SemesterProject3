@@ -7,11 +7,18 @@ public class PlayerBlock : MonoBehaviour
 	[SerializeField] private Gauge colliderInflateGauge;
 	[SerializeField] GameObject playerBlockCollider;
 
+	[Header ("Physic Settings")]
+	[SerializeField] float blockMass = 1f;
+	[SerializeField] float blockDrag = 1f;
+
 	PlayerInput playerInput;
 	PlayerBallStatus playerBallStatus;
 	PlayerOxygen playerOxygen;
-
+	Rigidbody mrigidbody;
 	Vector3 originalScale;
+
+	float originalMass;
+	float originalDrag;
 
 	public bool IsBlocking => playerBlockCollider.activeInHierarchy;
 
@@ -26,6 +33,10 @@ public class PlayerBlock : MonoBehaviour
 		originalScale = playerBlockCollider.transform.localScale;
 
 		playerBlockCollider.SetActive (false);
+
+		mrigidbody = GetComponentInParent<Rigidbody>();
+		originalMass = mrigidbody.mass;
+		originalDrag = mrigidbody.drag;
     }
 
     // Update is called once per frame
@@ -33,19 +44,41 @@ public class PlayerBlock : MonoBehaviour
     {
 		//Allow block when player dont has ball and oxygen is not empty
 		bool block = playerInput.BlockPressed && !playerBallStatus.HasBall() && !playerOxygen.OxygenEmpty;
+		
+		if (block)
+			colliderInflateGauge.Fill();
+		else
+			colliderInflateGauge.Deplete();
+
+		ScaleBlockCollider (block);
+		ApplyPhysicSettings (block);
+    }
+
+	void ApplyPhysicSettings (bool block)
+	{
+		if (block)
+		{
+			mrigidbody.mass = blockMass;
+			mrigidbody.drag = blockDrag;
+		}
+		else if (mrigidbody.mass == blockMass)
+		{
+			mrigidbody.mass = originalMass;
+			mrigidbody.drag = originalDrag;
+		}
+	}
+
+	void ScaleBlockCollider (bool block)
+	{
+		Vector3 currentScale = playerBlockCollider.transform.localScale;
+		Vector3 targetScale = colliderInflateGauge.FillAmount * originalScale;
 		bool colliderActive = playerBlockCollider.activeInHierarchy;
 
-		Vector3 currentScale = playerBlockCollider.transform.localScale;
-		
-		if(block) colliderInflateGauge.Fill();
-		else colliderInflateGauge.Deplete();
-		Vector3 targetScale = colliderInflateGauge.FillAmount * originalScale;
-		
 		if (!colliderActive && block)
 			playerBlockCollider.SetActive (true);
 		else if (colliderActive && !block && currentScale == Vector3.zero)
 			playerBlockCollider.SetActive (false);
 		else
 			playerBlockCollider.transform.localScale = targetScale;
-    }
+	}
 }
