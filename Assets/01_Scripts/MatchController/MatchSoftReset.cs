@@ -18,11 +18,16 @@ public class MatchSoftReset : NetworkBehaviour
 
 	public void Invoke()
 	{
-		if (matchTimer.TimeRemaining > 0f)
+		if (!MatchController.Me.MatchGameOver.GameOver())
 		{
 			objectSpawnController.RespawnObjects();
-			pauseController.PauseMatch (true);
-			timer = 0f;
+
+			if (pauseTime > 0f)
+			{
+				pauseController.PauseMatch (true);
+				timer = 0f;
+			}
+
 			resetEvent?.Raise();
 		}
 	}
@@ -44,14 +49,17 @@ public class MatchSoftReset : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (!Owner && networkPackage.Available)
+		if (!MatchController.Me.MatchGameOver.GameOver())
 		{
-			timer = networkPackage.Value(0).GetFloat();
-			networkPackage.Clear();
+			if (!Owner && networkPackage.Available)
+			{
+				timer = networkPackage.Value(0).GetFloat();
+				networkPackage.Clear();
+			}
+			if (timer < pauseTime)
+				timer += Time.unscaledDeltaTime;
+			else if (pauseController.IsMatchPaused)
+				pauseController.PauseMatch (false);
 		}
-        if (timer < pauseTime)
-			timer += Time.unscaledDeltaTime;
-		else if (pauseController.IsMatchPaused)
-			pauseController.PauseMatch (false);
     }
 }
