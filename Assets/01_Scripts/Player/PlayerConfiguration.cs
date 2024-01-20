@@ -12,21 +12,37 @@ public class PlayerConfiguration :NetworkBehaviour
 	public bool sceneLoaded = false;
 	public bool connected = false;
 	public IPAddress iPAddress = null;
+	public int port = 0;
 	public int teamNr = 0;
 
 	//Not synced
 	public short playerId = 0;
 
-	private string defaultName = null;
-
-	public void ResetConfiguration ()
+	public void SetConnectionData (IPEndPoint iPEndPoint)
 	{
-		name = defaultName;
+		iPAddress = iPEndPoint.Address;
+		port = iPEndPoint.Port;
+	}
+
+	public void ResetConfiguration (string defaultName)
+	{
+		Owner = false;
+		playerName = defaultName;
 		ready = false;
 		sceneLoaded = false;
 		connected = false;
 		iPAddress = null;
+		port = 0;
 		teamNr = 0;
+	}
+
+	public void SoftResetConfiguration ()
+	{
+		Owner = false;
+		ready = false;
+		sceneLoaded = false;
+		connected = false;
+		port = 0;
 	}
 
 	public void ReadPackageData()
@@ -52,11 +68,5 @@ public class PlayerConfiguration :NetworkBehaviour
 	{
 		if (!Owner && networkPackage.Available)
 			ReadPackageData();
-	}
-
-	private void Awake()
-	{
-		if (defaultName == null)
-			defaultName = name;
 	}
 }

@@ -67,14 +67,14 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 	public void ResetConfigurations()
 	{
-		for (int i = 1; i < playerConfigurations.Length; ++i)
-			playerConfigurations[i].ResetConfiguration();
+		for (int i = 0; i < playerConfigurations.Length; ++i)
+			playerConfigurations[i].ResetConfiguration(GetDefaultName (i));
 	}
 
-	public void ResetConfiguration (int index)
+	public void SoftResetConfiguration (int index)
 	{
 		if (index < playerConfigurations.Length)
-			playerConfigurations[index].ResetConfiguration();
+			playerConfigurations[index].SoftResetConfiguration();
 		else
 			Debug.LogError("Invalid playerConfigurations index!");
 	}
@@ -88,26 +88,30 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 			//Returning player or New player
 			if (playerConfiguration.iPAddress == null
-				|| playerConfiguration.iPAddress.Equals(iPAddress))
+				||  (!playerConfiguration.connected && playerConfiguration.iPAddress.Equals(iPAddress)))
 				return i;
 		}
 
 		return -1;
 	}
 
-	public void SetConfigurationIpAddress (int index, IPAddress iPAddress)
+	public void SetConfigurationConnectionData (int index, IPEndPoint iPEndPoint)
 	{
 		if (index < playerConfigurations.Length)
-			playerConfigurations[index].iPAddress = iPAddress;
+		{
+			playerConfigurations[index].SetConnectionData (iPEndPoint);
+			playerConfigurations[index].connected = true;
+		}
 		else
 			Debug.LogError ("Invalid playerConfigurations index!");
 	}
 
-	public PlayerConfiguration GetPlayerConfigurationForIp (IPAddress iPAddress)
+	public PlayerConfiguration GetConfigurationForIpEndpoint (IPEndPoint iPEndPoint)
 	{
 		foreach (PlayerConfiguration i in playerConfigurations)
 		{
-			if (i.iPAddress != null && (i.iPAddress.Equals(iPAddress)))
+			if (i.iPAddress != null && (i.iPAddress.Equals(iPEndPoint.Address))
+				&& i.port == iPEndPoint.Port)
 				return i;
 		}
 
@@ -147,5 +151,19 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 		for (short i = 0; i < playerConfigurations.Length; ++i)
 			playerConfigurations[i].playerId = i;
+	}
+
+	private string GetDefaultName (int index)
+	{
+		string defaultName = "KingCrab";
+
+		if (index == 1)
+			defaultName = "Lobster";
+		else if (index == 2)
+			defaultName = "RainbowTrout";
+		else if (index == 2)
+			defaultName = "ClownFish";
+
+		return defaultName;
 	}
 }

@@ -1,3 +1,5 @@
+#define LOCAL_DEBUG
+
 using Ivyyy.Network;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,28 +17,27 @@ public class NetworkManagerCallback : MonoBehaviour
 
 	public bool OnAcceptClient (Socket socket)
 	{
-		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
+		IPEndPoint iPEndPoint = (IPEndPoint) socket.RemoteEndPoint;
 
-		int index = playerConfigurationManager.GetNewPlayerIndex (iPAddress);
+		int index = playerConfigurationManager.GetNewPlayerIndex (iPEndPoint.Address);
 
 		bool accepted = index != -1;
-
-		if (accepted)
-			playerConfigurationManager.SetConfigurationIpAddress (index, iPAddress);
 		
+		if (accepted)
+			playerConfigurationManager.SetConfigurationConnectionData (index, iPEndPoint);
+
 		return accepted;
 	}
 
 	public void OnClientConnected (Socket socket)
 	{
-		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
+		IPEndPoint iPEndPoint = (IPEndPoint) socket.RemoteEndPoint;
+		PlayerConfiguration playerConfiguration = playerConfigurationManager.GetConfigurationForIpEndpoint (iPEndPoint);
 
-		int newPlayerIndex = playerConfigurationManager.GetNewPlayerIndex (iPAddress);
-		PlayerConfiguration playerConfiguration = playerConfigurationManager.GetPlayerConfigurationForIp (iPAddress);
 		byte[] lastData = playerConfiguration.GetSerializedData();
 
 		networkPackage.Clear();
-		networkPackage.AddValue (new NetworkPackageValue (newPlayerIndex));
+		networkPackage.AddValue (new NetworkPackageValue (playerConfiguration.playerId));
 		networkPackage.AddValue (new NetworkPackageValue (playerConfigurationManager.MaxPlayerCount));
 		networkPackage.AddValue (new NetworkPackageValue (lastData));
 
@@ -48,18 +49,17 @@ public class NetworkManagerCallback : MonoBehaviour
 
 	public void OnClientDisconnected (Socket socket)
 	{
-		IPAddress iPAddress = ((IPEndPoint) socket.RemoteEndPoint).Address;
-		PlayerConfiguration pc = playerConfigurationManager.GetPlayerConfigurationForIp (iPAddress);
+		IPEndPoint iPEndPoint = (IPEndPoint) socket.RemoteEndPoint;
+		PlayerConfiguration playerConfiguration = playerConfigurationManager.GetConfigurationForIpEndpoint (iPEndPoint);
 
-		playerConfigurationManager.ResetConfiguration (pc.playerId);
+		playerConfigurationManager.SoftResetConfiguration (playerConfiguration.playerId);
 
-		networkManagerUi.ShowError (pc.playerName + " disconnected!");
+		networkManagerUi.ShowError (playerConfiguration.playerName + " disconnected!");
 	}
 
 	public void OnHostDisconnected (Socket socket)
 	{
 		networkManagerUi.ShowError ("Lost connection to host!");
-		playerConfigurationManager.ResetConfigurations();
 		NetworkSceneController.Me.Owner = true;
 		NetworkSceneController.Me.LoadScene (0);
 	}
@@ -74,7 +74,7 @@ public class NetworkManagerCallback : MonoBehaviour
 		Buffer.BlockCopy (buffer, 0, data, 0, data.Length);
 		networkPackage.DeserializeData (data);
 
-		int LocalPlayerId = networkPackage.Value (0).GetInt32();
+		int LocalPlayerId = networkPackage.Value (0).GetShort();
 		int maxPlayers = networkPackage.Value (1).GetInt32();
 		data = networkPackage.Value (2).GetBytes();
 
@@ -87,8 +87,12 @@ public class NetworkManagerCallback : MonoBehaviour
 
 	public void OnHostStarted()
 	{
+		PlayerConfigurationManager.Me.ResetConfigurations();
 		NetworkSceneController.Me.Owner = true;
 		NetworkManager.Me.StartHost (23000);
+
+		if (!playerConfigurationManager)
+			playerConfigurationManager = PlayerConfigurationManager.Me;
 
 		playerConfigurationManager.InitHostConfiguration();
 		
@@ -99,6 +103,7 @@ public class NetworkManagerCallback : MonoBehaviour
 	public void OnClientStarted (string ip_string)
 	{
 		NetworkSceneController.Me.Owner = false;
+		PlayerConfigurationManager.Me.ResetConfigurations();
 
 		try
 		{
