@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 public class NetworkManagerCallback : MonoBehaviour
 {
@@ -105,18 +106,23 @@ public class NetworkManagerCallback : MonoBehaviour
 		NetworkSceneController.Me.Owner = false;
 		PlayerConfigurationManager.Me.ResetConfigurations();
 
-		try
+		networkManagerUi.ShowNotification ("Connecting to server: " + ip_string + "...");
+
+		Task.Run(()=>
 		{
-			//Cast input to IPAddress
-			IPAddress iPAddress = IPAddress.Parse (ip_string);
-			NetworkManager.Me.StartClient (iPAddress.ToString() , 23000);
-		}
-		catch (Exception excp)
-		{
-			NetworkManager.Me.ShutDown();
-			Debug.LogError ("Can't reach server: " + ip_string);
-			return;
-		}
+			try
+			{
+				//Cast input to IPAddress
+				IPAddress iPAddress = IPAddress.Parse (ip_string);
+				bool ok = NetworkManager.Me.StartClient (iPAddress.ToString() , 23000);
+			}
+			catch (Exception excp)
+			{
+				NetworkManager.Me.ShutDown();
+				networkManagerUi.ShowError ("Can't reach server: " + ip_string);
+				return;
+			}
+		});
 	}
 
 	public void ResetNetworkObjects()
