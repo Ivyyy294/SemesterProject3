@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-[RequireComponent(typeof(InverseChain))]
 public class DiverAnimation : MonoBehaviour
 {
     [Header("Local Dependencies")]
     [SerializeField] private Animator animator;
-    [SerializeField] private TransformDelay legDelay;
+    [SerializeField] private DiverVerletBehavior verletBehavior;
 
     [Header("External Dependencies")]
     [SerializeField] private PlayerBallStatus playerBallStatus;
@@ -18,7 +20,7 @@ public class DiverAnimation : MonoBehaviour
     [SerializeField] private Transform ball;
     
     [Header("Joints References")]
-    [SerializeField] private InverseChain hipSpineChain;
+    [SerializeField] private MultiInverseChain spineChain;
     [SerializeField] private Transform upperSpine;
     [SerializeField] private List<Transform> lowerLegs;
     [SerializeField] private List<Transform> arms;
@@ -44,23 +46,28 @@ public class DiverAnimation : MonoBehaviour
      [SerializeField] private Cooldown breastStrokeCooldown;
      [SerializeField] private float lowSpeedThreshold;
 
-     private AnimUtils.AngleTracker _angleTracker;
+     private AnimUtils.AngleTracker _inertiaTracker;
      private AnimUtils.AngleTracker _ballTracker;
      private bool _isHoldingBall;
 
      private StateListener<PlayerBallStatus, bool> _hasBallListener;
      private StateListener<PlayerBlock, bool> _isBlockingListener;
      private Gauge _dashingGauge;
+     
 
      private void OnEnable()
     {
-        animator.SetFloat(ID_SwimSpeed, 0);
-        _velocityTracker = new VelocityTracker(transform.position, 24);
+        verletBehavior.ResetSimulation();
+        
         _isHoldingBall = false;
-        breastStrokeCooldown.MakeReady();
-        _hasBallListener = new(playerBallStatus, x => x.HasBall(), false, SetHoldingBall);
+        _hasBallListener = new(playerBallStatus, x => x.HasBall(), _isHoldingBall, SetHoldingBall);
         _isBlockingListener = new(playerBlock, x => x.IsBlocking, false, SetBlocking);
+        _velocityTracker = new VelocityTracker(transform.position, 24);
+        
+        breastStrokeCooldown.MakeReady();
         _dashingGauge = new Gauge(fillRate: 2, depletionRate: 3);
+        
+        animator.SetFloat(ID_SwimSpeed, 0);
     }
 
      void Update()
@@ -68,9 +75,13 @@ public class DiverAnimation : MonoBehaviour
          _hasBallListener.Update();
          _isBlockingListener.Update();
          _dashingGauge.Update(playerMovement.IsDashing && _velocityTracker.SmoothSpeed > 2f);
-
-         _angleTracker = new(transform.position, legDelay.DelayPosition, -transform.forward, transform.right, transform.up);
          
+         _inertiaTracker = new(
+             transform.position, 
+             verletBehavior.SmoothTarget, 
+             -transform.forward, 
+             transform.right,
+             transform.up);
          _ballTracker = new(upperSpine.position, GetBallTargetPosition(), transform.up, transform.right, transform.forward);
 
          float velocityDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
@@ -93,7 +104,8 @@ public class DiverAnimation : MonoBehaviour
 
          animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
          animator.SetFloat(ID_SwimSpeed, (Mathf.Clamp01(_velocityTracker.SmoothSpeed) + _dashingGauge.FillAmount) * velocityDot);
-
+         
+         #region TESTING
          if (Input.GetKeyDown(KeyCode.E))
          {
              ToggleHoldingBall();
@@ -113,6 +125,7 @@ public class DiverAnimation : MonoBehaviour
          {
              animator.SetInteger(ID_BallState, 2);
          }
+         #endregion
          
          animator.SetFloat(ID_BallAnglePitch, _ballTracker.Angle1 / 90f);
 
@@ -128,38 +141,46 @@ public class DiverAnimation : MonoBehaviour
         UpdateSimulatedLimbs();
     }
 
-    void UpdateSimulatedLimbs()
+    public void UpdateSimulatedLimbs()
     {
-        
-        float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.2f, 3.5f, 1, .5f);
-        float directionDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
-        float directionMultiplier = MathfUtils.RemapClamped(directionDot, -.4f, 0, 0, 1);
-        float multiplier = speedMultiplier * directionMultiplier;
+        // float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.2f, 3.5f, 1, .5f);
+        // float directionDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
+        // float directionMultiplier = MathfUtils.RemapClamped(directionDot, -.4f, 0, 0, 1);
+        // float multiplier = speedMultiplier * directionMultiplier;
+        float multiplier = 1.5f;
 
         // Update Torso Transforms
-        hipSpineChain.GetOriginal();
-        var root = hipSpineChain.RootInverse;
-        root.Rotate(Vector3.right, _angleTracker.Angle1 * 1f * multiplier);
-        root.Rotate(Vector3.forward, -_angleTracker.Angle2 * multiplier);
-        hipSpineChain.Apply();
+
+        if (Input.GetKey(KeyCode.T)) return;
+        spineChain.GetOriginal();
+        for (int i = 0; i < spineChain.ChainLength - 1; i++)
+        {
+            var t = spineChain.GetInverse(i);
+            t.Rotate(Vector3.right, _inertiaTracker.Angle1 * 0.3f * multiplier);
+            t.Rotate(Vector3.forward, -_inertiaTracker.Angle2 * 0.3f * multiplier);
+        }
+        
+        spineChain.Apply();
+        
+
         foreach (var t in lowerLegs)
         {
             var vectorPitch = t.InverseTransformDirection(transform.right);
-            t.Rotate(vectorPitch, _angleTracker.Angle1 * 0.7f * multiplier);
+            t.Rotate(vectorPitch, _inertiaTracker.Angle1 * 0.7f * multiplier);
         }
         
         // Update Twist Transforms
         
-        float verticalAngle = _angleTracker.Angle1 * multiplier;
-        float horizontalAngle = _angleTracker.Angle2 * multiplier;
-        upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f);
-        upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f);
+        float verticalAngle = _inertiaTracker.Angle1 * multiplier;
+        float horizontalAngle = _inertiaTracker.Angle2 * multiplier;
+        upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f * multiplier);
+        upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f * multiplier);
         foreach (var t in arms)
         {
             var vectorYaw = t.InverseTransformDirection(transform.up);
             var vectorPitch = t.InverseTransformDirection(transform.right);
-            t.Rotate(vectorYaw, horizontalAngle * 0.5f);
-            t.Rotate(vectorPitch, verticalAngle * 0.7f);
+            t.Rotate(vectorYaw, horizontalAngle * 0.5f * multiplier);
+            t.Rotate(vectorPitch, verticalAngle * 0.7f * multiplier);
         }
     }
 
@@ -194,10 +215,10 @@ public class DiverAnimation : MonoBehaviour
 
     public void ResetSimulations()
     {
-        legDelay.ResetTransform();
         _velocityTracker.ResetVelocities(transform.position);
         animator.SetTrigger(ID_CancelAnimEffects);
         animator.SetBool(ID_IsMovingFastOverTime, false);
+        verletBehavior.ResetSimulation();
     }
 
     private Vector3 GetBallTargetPosition()
@@ -214,7 +235,8 @@ public class DiverAnimation : MonoBehaviour
     private void OnDrawGizmos()
     {
         // if(_angleTracker is not null) _angleTracker.DrawDebug();
-        if(_ballTracker is not null) _ballTracker.DrawDebug();
+        // if(_ballTracker is not null) _ballTracker.DrawDebug();
+        // spineChain.DrawGizmos(0.05f);
     }
     #endif
 }

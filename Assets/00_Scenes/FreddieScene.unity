@@ -1541,6 +1541,21 @@ PrefabInstance:
       propertyPath: guid
       value: 6734cce5-2b1f-4e56-b70f-2dcbbef01949
       objectReference: {fileID: 0}
+    - target: {fileID: 2346642503218768759, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: maxOxygen
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346642503218768759, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: emergencyRefillDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2346642503218768759, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: passiveOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2505866070068884537, guid: dbb5dfd481c1355418068109b88c06b5,
         type: 3}
       propertyPath: guid
@@ -1620,6 +1635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034870613535990945, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: _count
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8861826180381799535, guid: dbb5dfd481c1355418068109b88c06b5,
         type: 3}

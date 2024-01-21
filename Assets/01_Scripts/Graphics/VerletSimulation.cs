@@ -18,10 +18,10 @@ namespace Verlet
             _edges = new();
         }
 
-        public void Step()
+        public void Step(float damping)
         {
             var velocity = position - _prev;
-            var next = position + velocity;
+            var next = position + velocity * (1 - damping);
             _prev = position;
             position = next;
         }
@@ -43,7 +43,7 @@ namespace Verlet
         {
             this.a = a;
             this.b = b;
-            this.length = (a.position - b.position).magnitude;
+            length = (a.position - b.position).magnitude;
         }
 
         public Edge(Node a, Node b, float length)
@@ -68,33 +68,25 @@ namespace Verlet
     
     public class VerletSimulation
     {
-        private Node[] _nodes;
-        private Color _nodeColor = Color.yellow;
-        private Color _edgeColor = Color.white;
+        private readonly Node[] _nodes;
 
         public VerletSimulation(Node[] nodes)
         {
-            this._nodes = nodes;
+            _nodes = nodes;
         }
 
-        public void SetDebugColors(Color nodeColor, Color edgeColor)
+        public void Simulate(int iterations, float damping = 0f)
         {
-            _nodeColor = nodeColor;
-            _edgeColor = edgeColor;
+            Step(damping);
+            Solve(iterations);
         }
 
-        public void Simulate(int iterations, float deltaTime)
+        void Step(float damping)
         {
-            Step();
-            Solve(iterations, deltaTime);
+            foreach (var node in _nodes) node.Step(damping);
         }
 
-        void Step()
-        {
-            foreach (var node in _nodes) node.Step();
-        }
-
-        void Solve(int iterations, float deltaTime)
+        void Solve(int iterations)
         {
             for (int i = 0; i < iterations; i++)
             {
@@ -107,28 +99,29 @@ namespace Verlet
             node.Edges.ForEach(e =>
             {
                 var other = e.Other(node);
-                SolveNodes(node, other, e.Length);
+                
+                // Move them together to restore their edge length
+                var delta = node.position - other.position;
+                var distance = delta.magnitude;
+                var halfMoveDistance = ((distance - e.Length) / distance) * 0.5f;
+                node.position -= halfMoveDistance * delta;
+                other.position += halfMoveDistance * delta;
             });
         }
 
-        void SolveNodes(Node a, Node b, float rest)
+        public void DrawGizmos(float radius = 0.2f, params Color[] colors)
         {
-            var delta = a.position - b.position;
-            var distance = delta.magnitude;
-            var f = (distance - rest) / distance;
-            a.position -= f * 0.5f * delta;
-            b.position += f * 0.5f * delta;
-        }
-
-        public void DrawGizmos()
-        {
+            if (colors.Length < 2)
+            {
+                colors = new[] { Color.yellow, Color.white };
+            }
             for (int i = 0; i < _nodes.Length; i++)
             {
                 var node = _nodes[i];
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(node.position, 0.2f);
+                Gizmos.color = colors[0];
+                Gizmos.DrawSphere(node.position, radius);
 
-                Gizmos.color = Color.white;
+                Gizmos.color = colors[1];
                 node.Edges.ForEach(e =>
                 {
                     var other = e.Other(node);

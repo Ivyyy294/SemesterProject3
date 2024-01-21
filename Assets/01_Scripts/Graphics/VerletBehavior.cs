@@ -10,6 +10,7 @@ public class VerletBehavior : MonoBehaviour
     [SerializeField] private int iterations = 12;
     [SerializeField] private bool useGravity = true;
     [SerializeField] private float gravity = 1f;
+    [Range(0,1)][SerializeField] private float damping = 0f;
 
     private VerletSimulation _simulation;
     private Node[] _nodes;
@@ -45,14 +46,14 @@ public class VerletBehavior : MonoBehaviour
                 node.position += dt * g;
             }
         }
-        _simulation.Simulate(iterations, dt);
+        _simulation.Simulate(iterations, damping);
         _nodes[0].position = transform.position;
     }
     
     #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if(_simulation is not null) _simulation.DrawGizmos();
+        if(_simulation is not null) _simulation.DrawGizmos(0.2f,Color.red, Color.green);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position, 0.5f);
     }
