@@ -6,8 +6,6 @@ using Ivyyy.Network;
 
 public class SelectPlayMode : MonoBehaviour
 {
-	[SerializeField] TMP_InputField ip;
-	[SerializeField] TMP_InputField port;
 	[SerializeField] NetworkManagerCallback networkManagerCallback;
 
 	public void Start()
@@ -22,8 +20,15 @@ public class SelectPlayMode : MonoBehaviour
 
 	public void OnJoinPressed()
 	{
-		networkManagerCallback.OnClientStarted (ip.text);
-	}
+		NetworkManagerHostSessionExplorer searchHostSession = new NetworkManagerHostSessionExplorer();
+		searchHostSession.StartSearchHostSession();
+			
+		while (searchHostSession.HostSessionList.Count <= 0)
+			;
+		searchHostSession.ShutDownSearchHostSession();
 
-	
+		string ip_string = searchHostSession.HostSessionList[0].ip;
+
+		networkManagerCallback.OnClientStarted (ip_string);
+	}
 }

@@ -16,6 +16,8 @@ public class NetworkManagerCallback : MonoBehaviour
 	NetworkManager networkManager;
 	NetworkPackage networkPackage = new NetworkPackage();
 
+	NetworkManagerHostSessionBroadcast hostSessionBroadcast;
+
 	public bool OnAcceptClient (Socket socket)
 	{
 		IPEndPoint iPEndPoint = (IPEndPoint) socket.RemoteEndPoint;
@@ -92,6 +94,9 @@ public class NetworkManagerCallback : MonoBehaviour
 		NetworkSceneController.Me.Owner = true;
 		NetworkManager.Me.StartHost (23000);
 
+		hostSessionBroadcast = new NetworkManagerHostSessionBroadcast();
+		hostSessionBroadcast.StartHostSessionBroadcast ("ScubaFun");
+
 		if (!playerConfigurationManager)
 			playerConfigurationManager = PlayerConfigurationManager.Me;
 
@@ -105,8 +110,6 @@ public class NetworkManagerCallback : MonoBehaviour
 	{
 		NetworkSceneController.Me.Owner = false;
 		PlayerConfigurationManager.Me.ResetConfigurations();
-
-		networkManagerUi.ShowNotification ("Connecting to server: " + ip_string + "...");
 
 		Task.Run(()=>
 		{
@@ -127,11 +130,19 @@ public class NetworkManagerCallback : MonoBehaviour
 
 	public void ResetNetworkObjects()
 	{
+		if (hostSessionBroadcast != null)
+		{
+			hostSessionBroadcast.ShutDownHostSessionBroadcast();
+			hostSessionBroadcast = null;
+		}
+
 		NetworkManager.Me.ShutDown();
 		NetworkSceneController.Me.Owner = false;
 		PlayerConfigurationManager.Me.ResetConfigurations();
+
 	}
 
+	//Private Methods
 	// Start is called before the first frame update
     void Start()
     {
