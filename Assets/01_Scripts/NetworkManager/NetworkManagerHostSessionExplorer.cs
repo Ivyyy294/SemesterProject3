@@ -67,19 +67,19 @@ public class NetworkManagerHostSessionExplorer
 					string lobbyName = networkPackage.Value(0).GetString();
 					string hostName = networkPackage.Value(1).GetString();
 					string ipString = iPEndPoint.Address.ToString();
-					AddHostSession(lobbyName, ipString);
+					AddHostSession(lobbyName, hostName);
 				}
 			}
 		}
 	}
 
-	void AddHostSession (string lobbyName, string ipString)
+	void AddHostSession (string lobbyName, string hostName)
 	{
 		try
 		{
 			HostSessionData hostSession = new HostSessionData();
 			hostSession.lobbyName = lobbyName;
-			hostSession.ip = ipString;
+			hostSession.ip = hostSession.ip = ResolveHostNameToIp (hostName);
 
 			if (!hostSessionList.Contains (hostSession))
 				hostSessionList.Add (hostSession);
@@ -88,5 +88,22 @@ public class NetworkManagerHostSessionExplorer
 		{
 			Debug.LogError("Couldn't resolve Host IP!");
 		}
+	}
+
+	string ResolveHostNameToIp (string hostName)
+	{
+		var host = Dns.GetHostEntry(hostName);
+		string ipString = "";
+
+		foreach (var ip in host.AddressList)
+		{
+			if (ip.AddressFamily == AddressFamily.InterNetwork)
+			{
+				ipString = ip.ToString();
+				break;
+			}
+		}
+
+		return ipString;
 	}
 }
