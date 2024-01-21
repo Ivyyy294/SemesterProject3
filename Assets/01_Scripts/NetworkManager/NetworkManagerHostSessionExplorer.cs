@@ -34,7 +34,9 @@ public class NetworkManagerHostSessionExplorer
 		exitSearch = true;
 		findhostSessionTask.Wait();
 		findhostSessionTask = null;
-		udpClient = null;
+		udpClient.Close();
+		udpClient.Dispose();
+		HostSessionList.Clear();
 	}
 
 	public void StartSearchHostSession()
@@ -44,6 +46,7 @@ public class NetworkManagerHostSessionExplorer
 
 		exitSearch = false;
 		port = NetworkManager.Me.Port + 1;
+		udpClient = new UdpClient();
 		udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, port));
 		findhostSessionTask = Task.Run(()=> {SearchHostSession();});
 	}
@@ -63,19 +66,20 @@ public class NetworkManagerHostSessionExplorer
 				{
 					string lobbyName = networkPackage.Value(0).GetString();
 					string hostName = networkPackage.Value(1).GetString();
-					AddHostSession(lobbyName, hostName);
+					string ipString = iPEndPoint.Address.ToString();
+					AddHostSession(lobbyName, ipString);
 				}
 			}
 		}
 	}
 
-	void AddHostSession (string lobbyName, string hostName)
+	void AddHostSession (string lobbyName, string ipString)
 	{
 		try
 		{
 			HostSessionData hostSession = new HostSessionData();
 			hostSession.lobbyName = lobbyName;
-			hostSession.ip = ResolveHostNameToIp (hostName);
+			hostSession.ip = ipString;
 
 			if (!hostSessionList.Contains (hostSession))
 				hostSessionList.Add (hostSession);
@@ -84,22 +88,5 @@ public class NetworkManagerHostSessionExplorer
 		{
 			Debug.LogError("Couldn't resolve Host IP!");
 		}
-	}
-
-	string ResolveHostNameToIp (string hostName)
-	{
-		var host = Dns.GetHostEntry(hostName);
-		string ipString = "";
-
-		foreach (var ip in host.AddressList)
-		{
-			if (ip.AddressFamily == AddressFamily.InterNetwork)
-			{
-				ipString = ip.ToString();
-				break;
-			}
-		}
-
-		return ipString;
 	}
 }

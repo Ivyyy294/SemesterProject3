@@ -139,7 +139,6 @@ public class NetworkManagerCallback : MonoBehaviour
 		NetworkManager.Me.ShutDown();
 		NetworkSceneController.Me.Owner = false;
 		PlayerConfigurationManager.Me.ResetConfigurations();
-
 	}
 
 	//Private Methods
@@ -158,4 +157,9 @@ public class NetworkManagerCallback : MonoBehaviour
 			networkManager.onHostDisonnected = OnHostDisconnected;
 		}
     }
+
+	private void OnDestroy()
+	{
+		ResetNetworkObjects();
+	}
 }

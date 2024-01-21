@@ -13,6 +13,7 @@ public class SelectPlayMode : MonoBehaviour
 	public void Start()
 	{
 		networkManagerCallback.ResetNetworkObjects();
+		selectHostSessionObj.GetComponent<SelectHostSession>().backButton.onClick.AddListener (()=>{ShowPlayModeSelection();});
 	}
 
 	public void OnHostPressed()
@@ -24,5 +25,11 @@ public class SelectPlayMode : MonoBehaviour
 	{
 		selectHostSessionObj.SetActive (true);
 		selectPlaymodeObj.SetActive (false);
+	}
+
+	void ShowPlayModeSelection()
+	{
+		selectHostSessionObj.SetActive (false);
+		selectPlaymodeObj.SetActive (true);
 	}
 }
