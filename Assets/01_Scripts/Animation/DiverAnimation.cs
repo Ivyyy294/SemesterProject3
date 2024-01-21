@@ -28,8 +28,7 @@ public class DiverAnimation : MonoBehaviour
     #region AnimatorParameterIDs
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
     private readonly int ID_Levelness = Animator.StringToHash("Levelness");
-    private readonly int ID_IsMovingFastOverTime = Animator.StringToHash("IsMovingFastOverTime");
-    private readonly int ID_BreastStroke = Animator.StringToHash("BreastStrokeUB");
+    private readonly int ID_BreastStrokeUB = Animator.StringToHash("BreastStrokeUB");
     private readonly int ID_CancelAnimEffects = Animator.StringToHash("CancelAnimEffects");
     private readonly int ID_IsBlocking = Animator.StringToHash("IsBlocking");
     private readonly int ID_BallState = Animator.StringToHash("BallState");
@@ -40,8 +39,6 @@ public class DiverAnimation : MonoBehaviour
      private VelocityTracker _velocityTracker;
      
      [Header("Animation Timing")]
-     [SerializeField] private TimeCounter fastTravelTimer;
-     [SerializeField] private float fastTravelSpeedThreshold;
 
      [SerializeField] private Cooldown breastStrokeCooldown;
      [SerializeField] private float lowSpeedThreshold;
@@ -86,26 +83,28 @@ public class DiverAnimation : MonoBehaviour
 
          float velocityDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
          
+         Debug.Log($"{_isHoldingBall}  {_isBlockingListener.CurrentValue}   {velocityDot}");
 
-         if (_velocityTracker.SmoothSpeed > fastTravelSpeedThreshold && velocityDot > 0)
-         {
-             fastTravelTimer.Update();
-         } else fastTravelTimer.Reset();
-
-         if (_velocityTracker.SmoothSpeed < lowSpeedThreshold)
+         var goingSlow = _velocityTracker.SmoothSpeed < lowSpeedThreshold;
+         var isBlocking = _isBlockingListener.CurrentValue;
+         if (goingSlow)
          {
              breastStrokeCooldown.Update();
          }
-         else if(!_isHoldingBall && _isBlockingListener.CurrentValue && velocityDot > 0.3f)
+
+         if (!goingSlow && !_isHoldingBall && !isBlocking && velocityDot > 0.3f)
          {
-             if(breastStrokeCooldown.Trigger()) animator.SetTrigger(ID_BreastStroke);
-             breastStrokeCooldown.Reset();
+             Debug.Log("Can Do Breast Stroke");
+             if(breastStrokeCooldown.Trigger()) animator.SetTrigger(ID_BreastStrokeUB);
+             else breastStrokeCooldown.Reset();
          }
 
          animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
          animator.SetFloat(ID_SwimSpeed, (Mathf.Clamp01(_velocityTracker.SmoothSpeed) + _dashingGauge.FillAmount) * velocityDot);
+         animator.SetFloat(ID_BallAnglePitch, _ballTracker.Angle1 / 90f);
+         animator.SetFloat(ID_BallAngleYaw, _ballTracker.Angle2 / 90f);
          
-         #region TESTING
+         #region TESTING_INPUTS
          if (Input.GetKeyDown(KeyCode.E))
          {
              ToggleHoldingBall();
@@ -127,8 +126,6 @@ public class DiverAnimation : MonoBehaviour
          }
          #endregion
          
-         animator.SetFloat(ID_BallAnglePitch, _ballTracker.Angle1 / 90f);
-
      }
 
      void FixedUpdate()
@@ -188,17 +185,9 @@ public class DiverAnimation : MonoBehaviour
     {
         if (_isHoldingBall == newValue) return;
         _isHoldingBall = newValue;
+        
         animator.SetInteger(ID_BallState, _isHoldingBall? 2 : 0);
-
-        if (!_isHoldingBall)
-        {
-            fastTravelTimer.Reset();
-        }
-
-        if (_isHoldingBall)
-        {
-            animator.SetTrigger(ID_CancelAnimEffects);
-        }
+        animator.SetTrigger(ID_CancelAnimEffects);
     }
 
     public void ToggleHoldingBall()
@@ -217,7 +206,6 @@ public class DiverAnimation : MonoBehaviour
     {
         _velocityTracker.ResetVelocities(transform.position);
         animator.SetTrigger(ID_CancelAnimEffects);
-        animator.SetBool(ID_IsMovingFastOverTime, false);
         verletBehavior.ResetSimulation();
     }
 
