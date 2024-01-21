@@ -44,7 +44,11 @@ public class PlayerInput : NetworkBehaviour
 
 	void Start()
 	{
-		if (NetworkManager.Me is null) Owner = true;
+		if (NetworkManager.Me is null)
+			Owner = true;
+		else
+			Owner = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>().IsLocalPlayer();
+
 		targetTransform = transform.parent;
 	}
 

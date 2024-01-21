@@ -26,6 +26,8 @@ public class PlayerThrowBall : NetworkBehaviour
 		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
 		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
         ball = Ball.Me;
+
+		Owner = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>().IsLocalPlayer();
     }
 
     // Update is called once per frame

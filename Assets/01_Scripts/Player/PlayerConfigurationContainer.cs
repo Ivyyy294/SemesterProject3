@@ -8,4 +8,9 @@ public class PlayerConfigurationContainer : MonoBehaviour
 
 	public int TeamIndex { get {return playerConfiguration ? playerConfiguration.teamNr : 0;}}
 	public short PlayerID { get {return playerConfiguration ? playerConfiguration.playerId : (short)0;}}
+
+	public bool IsLocalPlayer()
+	{
+		return PlayerConfigurationManager.LocalPlayerId == playerConfiguration.playerId;
+	}
 }

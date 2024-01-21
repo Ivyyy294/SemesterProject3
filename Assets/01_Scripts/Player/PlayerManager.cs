@@ -27,8 +27,6 @@ public class PlayerManager : MonoBehaviour
 		//Debug Mode
 		else
 		{
-			SetOwnerState (playerList[0], true);
-
 			for (int i = 0; i < playerList.Length; ++i)
 				playerList[i].SetActive (i == 0);
 		}
@@ -47,29 +45,7 @@ public class PlayerManager : MonoBehaviour
 
 	private void InitPlayerObject (GameObject player, PlayerConfiguration playerConfiguration)
 	{
-		SetOwnerState (player, playerConfiguration.Owner);
 		PlayerConfigurationContainer playerConfigurationContainer = player.GetComponentInChildren <PlayerConfigurationContainer>();
 		playerConfigurationContainer.playerConfiguration = playerConfiguration;
-	}
-
-	private void SetOwnerState (GameObject obj, bool val)
-	{
-		if (obj)
-		{
-			PlayerInput diverInput = obj.GetComponentInChildren <PlayerInput>();
-			diverInput.Owner = val;
-
-			PlayerThrowBall playerThrowBall = obj.GetComponentInChildren <PlayerThrowBall>();
-			playerThrowBall.Owner = val;
-
-			//Disable camera on remote player
-			if (!val)
-			{
-				Camera camera = obj.GetComponentInChildren<Camera>();
-				camera.gameObject.SetActive (false);
-			}
-			else
-				localPlayer = obj;
-		}
 	}
 }

@@ -6,8 +6,16 @@ public class PlayerCamera : MonoBehaviour
 {
 	[SerializeField] private Transform cameraPivot;
 
-    // Update is called once per frame
-    void Update()
+	private void Start()
+	{
+		bool Owner = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>().IsLocalPlayer();
+
+		if (!Owner)
+			cameraPivot.gameObject.SetActive (false);
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         UpdateCameraTransforms();
     }
