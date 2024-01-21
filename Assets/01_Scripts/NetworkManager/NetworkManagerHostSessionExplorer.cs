@@ -26,9 +26,7 @@ public class NetworkManagerHostSessionExplorer
 
 	public NetworkManagerHostSessionExplorer()
 	{
-		port = NetworkManager.Me.Port + 1;
 		udpClient = new UdpClient();
-		udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, port));
 	}
 
 	public void ShutDownSearchHostSession()
@@ -36,6 +34,7 @@ public class NetworkManagerHostSessionExplorer
 		exitSearch = true;
 		findhostSessionTask.Wait();
 		findhostSessionTask = null;
+		udpClient = null;
 	}
 
 	public void StartSearchHostSession()
@@ -44,6 +43,8 @@ public class NetworkManagerHostSessionExplorer
 			return;
 
 		exitSearch = false;
+		port = NetworkManager.Me.Port + 1;
+		udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, port));
 		findhostSessionTask = Task.Run(()=> {SearchHostSession();});
 	}
 

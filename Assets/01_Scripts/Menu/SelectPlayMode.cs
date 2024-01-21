@@ -7,6 +7,8 @@ using Ivyyy.Network;
 public class SelectPlayMode : MonoBehaviour
 {
 	[SerializeField] NetworkManagerCallback networkManagerCallback;
+	[SerializeField] GameObject selectHostSessionObj;
+	[SerializeField] GameObject selectPlaymodeObj;
 
 	public void Start()
 	{
@@ -20,15 +22,7 @@ public class SelectPlayMode : MonoBehaviour
 
 	public void OnJoinPressed()
 	{
-		NetworkManagerHostSessionExplorer searchHostSession = new NetworkManagerHostSessionExplorer();
-		searchHostSession.StartSearchHostSession();
-			
-		while (searchHostSession.HostSessionList.Count <= 0)
-			;
-		searchHostSession.ShutDownSearchHostSession();
-
-		string ip_string = searchHostSession.HostSessionList[0].ip;
-
-		networkManagerCallback.OnClientStarted (ip_string);
+		selectHostSessionObj.SetActive (true);
+		selectPlaymodeObj.SetActive (false);
 	}
 }
