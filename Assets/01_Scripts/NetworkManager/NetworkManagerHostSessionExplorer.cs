@@ -67,19 +67,20 @@ public class NetworkManagerHostSessionExplorer
 					string lobbyName = networkPackage.Value(0).GetString();
 					string hostName = networkPackage.Value(1).GetString();
 					string ipString = iPEndPoint.Address.ToString();
-					AddHostSession(lobbyName, hostName);
+					string ipString2 = ResolveHostNameToIp (hostName);
+					AddHostSession(lobbyName, ipString);
 				}
 			}
 		}
 	}
 
-	void AddHostSession (string lobbyName, string hostName)
+	void AddHostSession (string lobbyName, string ipString)
 	{
 		try
 		{
 			HostSessionData hostSession = new HostSessionData();
 			hostSession.lobbyName = lobbyName;
-			hostSession.ip = hostSession.ip = ResolveHostNameToIp (hostName);
+			hostSession.ip = ipString;
 
 			if (!hostSessionList.Contains (hostSession))
 				hostSessionList.Add (hostSession);

@@ -122,6 +122,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 	{
 		playerConfigurations[0].Owner = true;
 		playerConfigurations[0].connected = true;
+		LocalPlayerId = 0;
 	}
 
 	//Private Methods
