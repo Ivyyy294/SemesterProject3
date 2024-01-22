@@ -8,12 +8,12 @@ public class SelectPlayMode : MonoBehaviour
 {
 	[SerializeField] NetworkManagerCallback networkManagerCallback;
 	[SerializeField] GameObject selectHostSessionObj;
+	[SerializeField] GameObject enterHostAdddressObj;
 	[SerializeField] GameObject selectPlaymodeObj;
 
 	public void Start()
 	{
 		networkManagerCallback.ResetNetworkObjects();
-		selectHostSessionObj.GetComponent<SelectHostSession>().backButton.onClick.AddListener (()=>{ShowPlayModeSelection();});
 	}
 
 	public void OnHostPressed()
@@ -27,8 +27,15 @@ public class SelectPlayMode : MonoBehaviour
 		selectPlaymodeObj.SetActive (false);
 	}
 
-	void ShowPlayModeSelection()
+	public void OnEnterIpPressed()
 	{
+		enterHostAdddressObj.SetActive (true);
+		selectPlaymodeObj.SetActive (false);
+	}
+
+	public void ShowPlayModeSelection()
+	{
+		enterHostAdddressObj.SetActive (false);
 		selectHostSessionObj.SetActive (false);
 		selectPlaymodeObj.SetActive (true);
 	}
