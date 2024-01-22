@@ -5,6 +5,8 @@ using Ivyyy.Network;
 
 public class MatchScoreController : NetworkBehaviour
 {
+	[SerializeField] AudioAsset audioScorePoint;
+
 	private ushort[] teamPoints = new ushort[2];
 	private MatchSoftReset matchSoftReset;
 
@@ -25,6 +27,7 @@ public class MatchScoreController : NetworkBehaviour
 	{
 		if (Owner)
 		{
+			PlayerAudioScorePoint();
 			teamPoints[teamIndex]++;
 			matchSoftReset.Invoke();
 		}
@@ -55,11 +58,22 @@ public class MatchScoreController : NetworkBehaviour
 
 			if (newPointsTeam1 > teamPoints[0]
 				|| newPointsTeam2 > teamPoints[1])
+			{
 				matchSoftReset.Invoke();
+			}
 
 			teamPoints[0] = newPointsTeam1;
 			teamPoints[1] = newPointsTeam2;
 			networkPackage.Clear();
 		}
     }
+
+	[RPCAttribute]
+	void PlayerAudioScorePoint()
+	{
+		if (Owner)
+			InvokeRPC("PlayerAudioScorePoint");
+
+		audioScorePoint?.PlayOneShot();
+	}
 }

@@ -52,6 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wonUi: {fileID: 4242974622530812647}
   lostUi: {fileID: 224006128036415822}
+  audioWon: {fileID: 11400000, guid: e2a8371832f504f429db3a1980852fc9, type: 2}
+  audioLost: {fileID: 11400000, guid: 984805c56d5cb3348b0fa51a591f323b, type: 2}
 --- !u!1001 &2101088123752560272
 PrefabInstance:
   m_ObjectHideFlags: 0

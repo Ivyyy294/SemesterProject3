@@ -9,12 +9,14 @@ public class OxygenLowUi : MonoBehaviour
     [SerializeField] GameObject uiObj;
 	PlayerOxygen playerOxygen;
 	MatchGameOver gameOver;
+	AudioPlayer audioPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
 		playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
 		gameOver = MatchController.Me.MatchGameOver;
+		audioPlayer = GetComponent <AudioPlayer>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,9 @@ public class OxygenLowUi : MonoBehaviour
 		{
 			bool showWarning = playerOxygen.CurrentOxygenPercent <= oxygenLowThresholdPercent;
 			uiObj.SetActive (showWarning);
+
+			if (showWarning && !audioPlayer.IsPlaying())
+				audioPlayer.Play();
 		}
     }
 }

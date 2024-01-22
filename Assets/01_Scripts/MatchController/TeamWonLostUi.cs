@@ -7,6 +7,10 @@ public class TeamWonLostUi : MonoBehaviour
 	[SerializeField] GameObject wonUi;
 	[SerializeField] GameObject lostUi;
 
+	[Header ("Audio")]
+	[SerializeField] AudioAsset audioWon;
+	[SerializeField] AudioAsset audioLost;
+
 	MatchGameOver matchGameOver;
 	MatchScoreController scoreController;
 	int localPlayerTeamIndex;
@@ -36,8 +40,17 @@ public class TeamWonLostUi : MonoBehaviour
 		{
 			bool won = scoreController.HasTeamWon (localPlayerTeamIndex);
 
-			wonUi.SetActive (won);
-			lostUi.SetActive (!won);
+			if (won && !wonUi.activeInHierarchy)
+			{
+				wonUi.SetActive (true);
+				audioWon?.PlayOneShot();
+
+			}
+			else if (!won && !lostUi.activeInHierarchy)
+			{
+				lostUi.SetActive (!won);
+				audioLost?.PlayOneShot();
+			}
 		}
     }
 }
