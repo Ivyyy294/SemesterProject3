@@ -44,6 +44,11 @@ public class AudioAssetEditor : Editor
 
 	void SFXEditor (AudioAsset audioAsset)
 	{
+		//Loop
+		EditorGUILayout.Space();
+		SerializedProperty yourBoolVariable = serializedObject.FindProperty("loop");
+		EditorGUILayout.PropertyField(yourBoolVariable, new GUIContent("loop"));
+
 		//Volume
 		EditorGUILayout.Space();
 		string labelVolume = ("Volume \t[" + audioAsset.volume.x.ToString("0.00") + " - " + audioAsset.volume.y.ToString("0.00") + "]");
@@ -58,6 +63,7 @@ public class AudioAssetEditor : Editor
 
 	void MusicEditor (AudioAsset audioAsset)
 	{
+		//Loop
 		EditorGUILayout.Space();
 		SerializedProperty yourBoolVariable = serializedObject.FindProperty("loop");
 		EditorGUILayout.PropertyField(yourBoolVariable, new GUIContent("loop"));

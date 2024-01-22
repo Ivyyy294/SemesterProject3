@@ -35,6 +35,8 @@ public class OxygenLowUi : MonoBehaviour
 
 			if (showWarning && !audioPlayer.IsPlaying())
 				audioPlayer.Play();
+			else if (!showWarning && audioPlayer.IsPlaying())
+				audioPlayer.FadeOut (0.5f);
 		}
     }
 }
