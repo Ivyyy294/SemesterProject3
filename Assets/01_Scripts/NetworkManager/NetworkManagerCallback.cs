@@ -12,11 +12,19 @@ using System.Threading.Tasks;
 public class NetworkManagerCallback : MonoBehaviour
 {
 	[SerializeField] NetworkManagerUi networkManagerUi;
+
+	[Header ("Audio")]
+	[SerializeField] AudioAsset audioSuccessfullyJoined;
+	[SerializeField] AudioAsset audioPlayerDisconnected;
+	[SerializeField] AudioAsset audioHostDisconnected;
+
 	PlayerConfigurationManager playerConfigurationManager;
 	NetworkManager networkManager;
 	NetworkPackage networkPackage = new NetworkPackage();
 
 	NetworkManagerHostSessionBroadcast hostSessionBroadcast;
+
+	Queue <AudioAsset> audioBuffer = new Queue<AudioAsset>();
 
 	public bool OnAcceptClient (Socket socket)
 	{
@@ -57,11 +65,13 @@ public class NetworkManagerCallback : MonoBehaviour
 
 		playerConfigurationManager.SoftResetConfiguration (playerConfiguration.playerId);
 
+		audioBuffer.Enqueue (audioPlayerDisconnected);
 		networkManagerUi.ShowError (playerConfiguration.playerName + " disconnected!");
 	}
 
 	public void OnHostDisconnected (Socket socket)
 	{
+		audioBuffer.Enqueue (audioHostDisconnected);
 		networkManagerUi.ShowError ("Lost connection to host!");
 		NetworkSceneController.Me.Owner = true;
 		NetworkSceneController.Me.LoadScene (0);
@@ -110,6 +120,7 @@ public class NetworkManagerCallback : MonoBehaviour
 	{
 		NetworkSceneController.Me.Owner = false;
 		PlayerConfigurationManager.Me.ResetConfigurations();
+		bool ok = false;
 
 		Task.Run(()=>
 		{
@@ -117,7 +128,9 @@ public class NetworkManagerCallback : MonoBehaviour
 			{
 				//Cast input to IPAddress
 				IPAddress iPAddress = IPAddress.Parse (ip_string);
-				bool ok = NetworkManager.Me.StartClient (iPAddress.ToString() , 23000);
+
+				if (NetworkManager.Me.StartClient (iPAddress.ToString() , 23000))
+					audioBuffer.Enqueue (audioSuccessfullyJoined);
 			}
 			catch (Exception excp)
 			{
@@ -161,5 +174,11 @@ public class NetworkManagerCallback : MonoBehaviour
 	private void OnDestroy()
 	{
 		ResetNetworkObjects();
+	}
+
+	private void Update()
+	{
+		while (audioBuffer.Count > 0)
+			audioBuffer.Dequeue().PlayOneShot();
 	}
 }

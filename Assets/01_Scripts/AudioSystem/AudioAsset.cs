@@ -157,7 +157,7 @@ public class AudioAsset : ScriptableObject
 		{
 			while (clipBuffer.Count < clipData.Length)
 			{
-				int index = Random.Range (0, clipData.Length);
+				int index = clipData.Length > 1 ? Random.Range (0, clipData.Length) : 0;
 
 				if (!clipBuffer.Contains (clipData[index]))
 					clipBuffer.Push (clipData[index]);

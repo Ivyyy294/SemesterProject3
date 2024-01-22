@@ -537,6 +537,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkManagerUi: {fileID: 1900868010}
+  audioSuccessfullyJoined: {fileID: 11400000, guid: c962edfb6e156f9439b152fa72ae54f1,
+    type: 2}
+  audioPlayerDisconnected: {fileID: 11400000, guid: 39cbbc467b5c3b744b5c6242c41da475,
+    type: 2}
+  audioHostDisconnected: {fileID: 11400000, guid: 59972dc0831a98244a2dd7a60b4a67c1,
+    type: 2}
 --- !u!1 &1431687365
 GameObject:
   m_ObjectHideFlags: 0
