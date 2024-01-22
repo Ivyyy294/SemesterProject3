@@ -9,7 +9,7 @@ Shader "Custom/SH_DoubleSided"
     }
     SubShader
     {
-        Culling = Off
+        Cull off
 
         Tags { "RenderType"="Opaque" }
         LOD 200
