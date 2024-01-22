@@ -88,14 +88,14 @@ public class NetworkManagerCallback : MonoBehaviour
 		playerConfigurationManager.InitClientConfiguration (LocalPlayerId, data);
 	}
 
-	public void OnHostStarted()
+	public void OnHostStarted (string name)
 	{
 		PlayerConfigurationManager.Me.ResetConfigurations();
 		NetworkSceneController.Me.Owner = true;
 		NetworkManager.Me.StartHost (23000);
 
 		hostSessionBroadcast = new NetworkManagerHostSessionBroadcast();
-		hostSessionBroadcast.StartHostSessionBroadcast ("ScubaFun");
+		hostSessionBroadcast.StartHostSessionBroadcast (name);
 
 		if (!playerConfigurationManager)
 			playerConfigurationManager = PlayerConfigurationManager.Me;
