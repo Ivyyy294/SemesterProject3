@@ -79,11 +79,14 @@ public class DiverAnimation : MonoBehaviour
              -transform.forward, 
              transform.right,
              transform.up);
-         _ballTracker = new(upperSpine.position, GetBallTargetPosition(), transform.up, transform.right, transform.forward);
+         _ballTracker = new(
+             upperSpine.position, 
+             GetBallTargetPosition(), 
+             transform.up, 
+             transform.right, 
+             transform.forward);
 
          float velocityDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
-         
-         Debug.Log($"{_isHoldingBall}  {_isBlockingListener.CurrentValue}   {velocityDot}");
 
          var goingSlow = _velocityTracker.SmoothSpeed < lowSpeedThreshold;
          var isBlocking = _isBlockingListener.CurrentValue;
@@ -94,7 +97,6 @@ public class DiverAnimation : MonoBehaviour
 
          if (!goingSlow && !_isHoldingBall && !isBlocking && velocityDot > 0.3f)
          {
-             Debug.Log("Can Do Breast Stroke");
              if(breastStrokeCooldown.Trigger()) animator.SetTrigger(ID_BreastStrokeUB);
              else breastStrokeCooldown.Reset();
          }
