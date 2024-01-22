@@ -79,7 +79,12 @@ public class DiverAnimation : MonoBehaviour
              -transform.forward, 
              transform.right,
              transform.up);
-         _ballTracker = new(upperSpine.position, GetBallTargetPosition(), transform.up, transform.right, transform.forward);
+         _ballTracker = new(
+             upperSpine.position, 
+             GetBallTargetPosition(), 
+             transform.up, 
+             transform.right, 
+             transform.forward);
 
          float velocityDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
          
