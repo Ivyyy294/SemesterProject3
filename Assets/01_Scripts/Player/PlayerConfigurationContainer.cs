@@ -11,6 +11,6 @@ public class PlayerConfigurationContainer : MonoBehaviour
 
 	public bool IsLocalPlayer()
 	{
-		return PlayerConfigurationManager.LocalPlayerId == playerConfiguration.playerId;
+		return !playerConfiguration || PlayerConfigurationManager.LocalPlayerId == playerConfiguration.playerId;
 	}
 }

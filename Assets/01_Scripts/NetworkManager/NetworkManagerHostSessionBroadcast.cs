@@ -19,6 +19,7 @@ public class NetworkManagerHostSessionBroadcast
 	{
 		port = NetworkManager.Me.Port + 1;
 		udpClient = new UdpClient();
+		udpClient.EnableBroadcast = true;
 		//udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, port));
 	}
 

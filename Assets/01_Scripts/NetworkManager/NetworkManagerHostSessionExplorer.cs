@@ -47,6 +47,7 @@ public class NetworkManagerHostSessionExplorer
 		exitSearch = false;
 		port = NetworkManager.Me.Port + 1;
 		udpClient = new UdpClient();
+		udpClient.EnableBroadcast = true;
 		udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, port));
 		findhostSessionTask = Task.Run(()=> {SearchHostSession();});
 	}
