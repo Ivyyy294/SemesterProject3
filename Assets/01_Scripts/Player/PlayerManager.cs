@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Ivyyy.Network;
 
@@ -11,6 +12,7 @@ public class PlayerManager : MonoBehaviour
 	static GameObject localPlayer;
 
 	public GameObject[] PlayerList => playerList;
+	public IEnumerable<PlayerNetworkInfo> PlayerNetworkInfos => playerList.Select(x => x.GetComponent<PlayerNetworkInfo>());
 	public static GameObject LocalPlayer => localPlayer;
 
     // Start is called before the first frame update

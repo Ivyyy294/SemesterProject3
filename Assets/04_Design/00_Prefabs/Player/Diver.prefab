@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 7341406990156325916}
   - component: {fileID: 3815084793452285855}
   - component: {fileID: 6420756037186270600}
+  - component: {fileID: 6084894444655363807}
   m_Layer: 8
   m_Name: Diver
   m_TagString: Untagged
@@ -392,6 +393,18 @@ MonoBehaviour:
   teamColors:
   - {r: 0.67844427, g: 0.40450338, b: 0.8490566, a: 1}
   - {r: 0.28248486, g: 0.6266152, b: 0.8679245, a: 1}
+--- !u!114 &6084894444655363807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6723070870191324833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7222000fccc87474eb7acaa2da3a2418, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8540205835892990177
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,11 +798,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
-        type: 3}
-      propertyPath: shoulders
-      value: 
-      objectReference: {fileID: 6617956268465818330}
     - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
       propertyPath: playerBlock
@@ -1225,12 +1233,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eef044af6a3269e47a44d90594077447, type: 3}
---- !u!4 &6617956268465818330 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 672634497945017638, guid: eef044af6a3269e47a44d90594077447,
-    type: 3}
-  m_PrefabInstance: {fileID: 5945342678992820220}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7791935655558837067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4512780116998153399, guid: eef044af6a3269e47a44d90594077447,

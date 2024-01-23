@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AnimUtils;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ public class CrawlyAnimation : MonoBehaviour
 
     #endregion
 
+    private bool _playerManagerFound = false;
+    private PlayerNetworkInfo[] _playerNetworkInfos;
+    
     private VelocityTracker _velocityTracker;
     private Vector3 _movementVector;
     
@@ -38,6 +42,12 @@ public class CrawlyAnimation : MonoBehaviour
         verletBehavior.ResetSimulation();
         _wiggleFactorGauge = new Gauge(4, 4);
         _wiggleFactorGauge.SetFillAmount(1);
+
+        var playerManager = FindObjectOfType<PlayerManager>();
+        _playerManagerFound = playerManager != null;
+        if (_playerManagerFound) 
+            _playerNetworkInfos = FindObjectOfType<PlayerManager>().PlayerNetworkInfos.ToArray();
+        else Debug.LogWarning($"CrawlyAnimation: No PlayerManager found. Some functionality is restricted!");
     }
 
     private void Update()
@@ -70,6 +80,30 @@ public class CrawlyAnimation : MonoBehaviour
         }
 
         animator.SetFloat(ID_SwimSpeed, _velocityTracker.SmoothSpeed);
+        
+        // test with multiple players
+        
+        if (_playerManagerFound)
+        {
+            PlayerNetworkInfo nearestPlayer = _playerNetworkInfos[0];
+            float playerMinDistanceSqr = (nearestPlayer.transform.position - transform.position).sqrMagnitude;
+            int nearestPlayerIndex = 0;
+            for (int i = 1; i < _playerNetworkInfos.Length; i++)
+            {
+                var info = _playerNetworkInfos[i];
+                var currentDistanceSqr = (info.transform.position - transform.position).sqrMagnitude;
+                if (currentDistanceSqr < playerMinDistanceSqr)
+                {
+                    nearestPlayer = info;
+                    playerMinDistanceSqr = currentDistanceSqr;
+                    nearestPlayerIndex = i;
+                }
+            }
+            
+            var nearestDistance = Mathf.Sqrt(playerMinDistanceSqr);
+            var newScale = MathfUtils.RemapClamped(nearestDistance, 4, 13, 1, 1.7f);
+            transform.localScale = Vector3.one * newScale;
+        }
     }
 
     private void FixedUpdate()
