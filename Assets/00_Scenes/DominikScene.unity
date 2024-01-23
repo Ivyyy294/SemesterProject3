@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.06266575, g: 0.42631307, b: 0.85636866, a: 1}
+  m_IndirectSpecularColor: {r: 0.06276148, g: 0.42629337, b: 0.8563692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 209944869812957881, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.23
+      value: -5.33
       objectReference: {fileID: 0}
     - target: {fileID: 1708427392046443996, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -3534,7 +3534,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forceBall
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -3544,7 +3544,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forcePlayer
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -9685,7 +9685,7 @@ PrefabInstance:
     - target: {fileID: 8148025705344617858, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.23
+      value: -5.33
       objectReference: {fileID: 0}
     - target: {fileID: 8177662861455874599, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -9699,8 +9699,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8184105153096531224, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
+      propertyPath: forceBall
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8184105153096531224, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
       propertyPath: forcePlayer
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 8184105153096531224, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -10142,7 +10147,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forceBall
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -10152,7 +10157,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forcePlayer
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -10853,7 +10858,7 @@ Transform:
   m_GameObject: {fileID: 1046711081}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.308, y: 0, z: -2.56}
+  m_LocalPosition: {x: -11.308, y: 1.32, z: -2.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11656,7 +11661,7 @@ Transform:
   m_GameObject: {fileID: 1277886640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.308, y: 0, z: -2.56}
+  m_LocalPosition: {x: -11.308, y: -1.32, z: -2.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11687,7 +11692,7 @@ Transform:
   m_GameObject: {fileID: 1319556122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.308, y: 0, z: -2.56}
+  m_LocalPosition: {x: -11.308, y: 1.32, z: -2.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11718,7 +11723,7 @@ Transform:
   m_GameObject: {fileID: 1360761362}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.308, y: 0, z: -2.56}
+  m_LocalPosition: {x: -11.308, y: -1.32, z: -2.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13240,7 +13245,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forceBall
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -13250,7 +13255,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forcePlayer
-      value: 70
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
