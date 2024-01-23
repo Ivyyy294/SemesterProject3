@@ -25,7 +25,6 @@ public class DiverOxygenAnimation : MonoBehaviour
         if (_oxygen < newOxygen)
         {
             oxygenIncreased = true;
-            Debug.Log("Oxygen Increased");
         }
         _oxygen = newOxygen;
         _oxygenGainGauge.Update(oxygenIncreased);
