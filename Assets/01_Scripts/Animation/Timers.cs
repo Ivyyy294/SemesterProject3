@@ -67,6 +67,7 @@ public class Timer
 
     private float _timer;
     private bool _isActive;
+    private Action _onTimeOverAction;
 
     public Timer(float waitTime = 1f)
     {
@@ -76,12 +77,23 @@ public class Timer
     public void Update()
     {
         if (_isActive) _timer += Time.deltaTime;
+        if (TimeRemaining <= 0 && _onTimeOverAction != null)
+        {
+            _onTimeOverAction();
+            _onTimeOverAction = null;
+        }
     }
 
     public void Start()
     {
         _timer = 0f;
         Continue();
+    }
+
+    public void Start(Action onTimeOverAction)
+    {
+        _onTimeOverAction = onTimeOverAction;
+        Start();
     }
 
     public void Stop()
@@ -114,6 +126,7 @@ public class TimeCounter
 {
     public float waitTime;
     private float _timer;
+    private Action _onTimeOverAction;
 
     public float Timer => _timer;
     public float TimeRemaining => waitTime - _timer;
@@ -127,6 +140,11 @@ public class TimeCounter
     public void Update()
     {
         _timer += Time.deltaTime;
+        if (TimeRemaining <= 0 && _onTimeOverAction != null)
+        {
+            _onTimeOverAction();
+            _onTimeOverAction = null;
+        }
     }
 
     public void Reset()
@@ -134,11 +152,22 @@ public class TimeCounter
         _timer = 0;
     }
 
+    public void Reset(Action onTimeOverAction)
+    {
+        _onTimeOverAction = onTimeOverAction;
+        Reset();
+    }
+
     public bool Trigger()
     {
         if (_timer <= waitTime) return false;
         Reset();
         return true;
+    }
+
+    public void MakeReady()
+    {
+        _timer = waitTime;
     }
 }
 
