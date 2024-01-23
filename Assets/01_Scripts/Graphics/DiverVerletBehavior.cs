@@ -15,11 +15,27 @@ public class DiverVerletBehavior : MonoBehaviour
 
     private VerletSimulation _simulation;
     private Node[] _nodes;
-    private ValueSmoother _lastNodeSmoother;
+    private ValueSmoother<Vector3> _lastNodeSmoother;
 
     public Vector3 GetNode(int i) => _nodes[i].position;
     public Vector3 GetLastNode() => _nodes[count - 1].position;
     public Vector3 SmoothTarget => _lastNodeSmoother.SmoothTarget;
+    
+    public void ResetSimulation()
+    {
+        _nodes = new Node[count];
+        for (int i = 0; i < count; i++)
+        {
+            _nodes[i] = new Node(transform.position - nodeDistance * i * transform.forward);
+        }
+
+        for (int i = 0; i < count - 1; i++)
+        {
+            Edge.Connect(_nodes[i], _nodes[i+1]);
+        }
+        _simulation = new(_nodes);
+        _lastNodeSmoother = ValueSmoother<Vector3>.Vector3Smoother(GetLastNode());
+    }
 
     void FixedUpdate()
     {
@@ -41,23 +57,7 @@ public class DiverVerletBehavior : MonoBehaviour
         _lastNodeSmoother.Update();
     }
 
-    public void ResetSimulation()
-    {
-        _nodes = new Node[count];
-        for (int i = 0; i < count; i++)
-        {
-            _nodes[i] = new Node(transform.position - nodeDistance * i * transform.forward);
-        }
-
-        for (int i = 0; i < count - 1; i++)
-        {
-            Edge.Connect(_nodes[i], _nodes[i+1]);
-        }
-        _simulation = new(_nodes);
-        _lastNodeSmoother = new ValueSmoother(GetLastNode());
-    }
-    
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if(_simulation is not null) _simulation.DrawGizmos(0.05f, Color.red, Color.green);
