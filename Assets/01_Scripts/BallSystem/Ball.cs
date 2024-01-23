@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [RequireComponent (typeof (Rigidbody))]
 public class Ball : NetworkBehaviour
@@ -13,6 +16,9 @@ public class Ball : NetworkBehaviour
 	Vector3 velocity;
 	float timer = 0f;
 	
+	[HideInInspector] public UnityEvent<Vector3> onBallThrown;
+	[HideInInspector] public UnityEvent<Collision> onBallCollided;
+
 	[Header("Ball Settings")]
 	[Range (0f, 10f)]
 	[SerializeField] float drag = 1f;
@@ -30,6 +36,7 @@ public class Ball : NetworkBehaviour
 			timer = 0f;
 			BallDrop (startPos);
 			m_rigidbody.AddForce (force);
+			onBallThrown.Invoke(force);
 		}
 	}
 
@@ -106,6 +113,11 @@ public class Ball : NetworkBehaviour
 			if (playerCollision && playerCollision.CanCatchBall)
 				SetPlayerId (playerCollision.PlayerId);
 		}
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		onBallCollided.Invoke(collision);
 	}
 
 	private void SetPhysicOptions()

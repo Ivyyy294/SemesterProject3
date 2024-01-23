@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class CrawlyAnimation : MonoBehaviour
 {
+    [Header("External References")] 
+    [SerializeField] private Ball ballLogic;
+    
     [Header("Local References")]
     [SerializeField] private Animator animator;
     [SerializeField] private DiverVerletBehavior verletBehavior;
@@ -21,6 +24,8 @@ public class CrawlyAnimation : MonoBehaviour
     #region AnimatorParameterIDs
 
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
+    private readonly int ID_IsDashing = Animator.StringToHash("IsDashing");
+    private readonly int ID_IsCurledUp = Animator.StringToHash("IsCurledUp");
 
     #endregion
 
@@ -32,11 +37,22 @@ public class CrawlyAnimation : MonoBehaviour
     
     private Gauge _wiggleFactorGauge;
     private bool _wiggleActive = true;
+
+    private TimeCounter _dashingTimer = new (2f);
+    private TimeCounter _hurtTimer = new(2f);
     
     private AngleTracker _inertiaTracker;
 
+    private void Awake()
+    {
+        _dashingTimer.MakeReady();
+    }
+
     private void OnEnable()
     {
+        // Currently OnEnable is being called a lot / whenever the ball is thrown. This will be fixed later
+        // KEEP IN MIND THE IMPLICATIONS FOR NOW THOUGH
+        
         _velocityTracker = new VelocityTracker(transform.position, 8);
         _movementVector = transform.forward;
         verletBehavior.ResetSimulation();
@@ -48,6 +64,17 @@ public class CrawlyAnimation : MonoBehaviour
         if (_playerManagerFound) 
             _playerNetworkInfos = FindObjectOfType<PlayerManager>().PlayerNetworkInfos.ToArray();
         else Debug.LogWarning($"CrawlyAnimation: No PlayerManager found. Some functionality is restricted!");
+
+        if (ballLogic != null)
+        {
+            ballLogic.onBallThrown.AddListener(OnThrown);
+            ballLogic.onBallCollided.AddListener(OnCollision);
+        }
+    }
+
+    private void OnDisable()
+    {
+        animator.SetFloat(ID_SwimSpeed, 0);
     }
 
     private void Update()
@@ -60,7 +87,20 @@ public class CrawlyAnimation : MonoBehaviour
             transform.up);
         
         _wiggleFactorGauge.Update(_wiggleActive);
+        _dashingTimer.Update();
+        _hurtTimer.Update();
 
+        var dashAmount = Mathf.Clamp01(1 - _dashingTimer.ProgressNormalized);
+        var clampedSpeed = Mathf.Clamp01(_velocityTracker.SmoothSpeed);
+        // usually will be 1 when swimming. While dashing the swimspeed will be 2 and decreasing to 1 again
+        animator.SetFloat(ID_SwimSpeed, clampedSpeed + clampedSpeed * dashAmount);
+
+        HandleRotation();
+        HandleScale();
+    }
+
+    private void HandleRotation()
+    {
         float levelness = 1 - Mathf.Abs(Vector3.Dot(transform.forward, Vector3.up));
         float twist = Mathf.Abs(Vector3.Dot(transform.right, Vector3.up));
 
@@ -78,9 +118,9 @@ public class CrawlyAnimation : MonoBehaviour
         {
             FromToRotateTowards(transform.forward, _movementVector, turnSpeedDegrees);
         }
-
-        animator.SetFloat(ID_SwimSpeed, _velocityTracker.SmoothSpeed);
-        
+    }
+    private void HandleScale()
+    {
         // test with multiple players
         
         if (_playerManagerFound)
@@ -146,5 +186,25 @@ public class CrawlyAnimation : MonoBehaviour
                 transform.rotation, 
                 targetRotation, 
                 Time.deltaTime * speed);
+    }
+
+    private void OnThrown(Vector3 force)
+    {
+        
+        transform.forward = force.normalized;
+        verletBehavior.ResetSimulation();
+        _wiggleActive = true;
+        _dashingTimer.Reset();
+        Debug.Log($"Ball Thrown");
+    }
+
+    private void OnCollision(Collision collision)
+    {
+        var force = collision.impulse.magnitude;
+        if (force < 0.3f) return;
+        
+        Debug.Log($"Ouch {force}");
+        animator.SetBool(ID_IsCurledUp, true);
+        _hurtTimer.Reset(()=>animator.SetBool(ID_IsCurledUp, false));
     }
 }
