@@ -419,12 +419,12 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forceBall
-      value: 300
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forcePlayer
-      value: 300
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -8544,6 +8544,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3173286097569486608, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
+      propertyPath: forceBall
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173286097569486608, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: forcePlayer
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173286097569486608, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
       propertyPath: pointList.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -8766,6 +8776,11 @@ PrefabInstance:
         type: 3}
       propertyPath: range
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865629710922829044, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: forcePlayer
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4865629710922829044, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -9031,6 +9046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: range
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7420080446382201145, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: forceOxygen
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7420080446382201145, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -10188,7 +10208,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forcePlayer
-      value: 20
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -12312,7 +12332,7 @@ PrefabInstance:
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
       propertyPath: forceOxygen
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6914014364770773035, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -13213,7 +13233,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 9c96cc07a62cb4a1980acb007e658621, type: 2}
+      objectReference: {fileID: 2100000, guid: c41547eafe60e4a619b2cf457c4fff65, type: 2}
     - target: {fileID: 1913237554452253274, guid: 9c803d7fd294c41b39760e4965a93504,
         type: 3}
       propertyPath: m_LocalPosition.x
