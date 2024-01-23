@@ -8,8 +8,6 @@ public class PlayerOxygen : NetworkBehaviour
 {
 	[Range (1f, 1000f)]
 	[SerializeField] float maxOxygen = 100f;
-	[SerializeField] float emergencyRefillAmount = 50f;
-	[SerializeField] float emergencyRefillDelay = 5f;
 
 	[Range (0f, 100f)]
 	[SerializeField] float passiveOxygenConsumption = 10f;

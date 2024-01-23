@@ -120,7 +120,6 @@ public class NetworkManagerCallback : MonoBehaviour
 	{
 		NetworkSceneController.Me.Owner = false;
 		PlayerConfigurationManager.Me.ResetConfigurations();
-		bool ok = false;
 
 		Task.Run(()=>
 		{
@@ -178,6 +177,7 @@ public class NetworkManagerCallback : MonoBehaviour
 
 	private void Update()
 	{
+		//PlayOneShot can only be called from main thread
 		while (audioBuffer.Count > 0)
 			audioBuffer.Dequeue().PlayOneShot();
 	}
