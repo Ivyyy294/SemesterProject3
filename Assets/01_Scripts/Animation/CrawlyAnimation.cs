@@ -37,16 +37,10 @@ public class CrawlyAnimation : MonoBehaviour
     
     private Gauge _wiggleFactorGauge;
     private bool _wiggleActive = true;
-
-    private TimeCounter _dashingTimer = new (2f);
+    
     private TimeCounter _hurtTimer = new(2f);
     
     private AngleTracker _inertiaTracker;
-
-    private void Awake()
-    {
-        _dashingTimer.MakeReady();
-    }
 
     private void OnEnable()
     {
@@ -87,16 +81,12 @@ public class CrawlyAnimation : MonoBehaviour
             transform.up);
         
         _wiggleFactorGauge.Update(_wiggleActive);
-        _dashingTimer.Update();
         _hurtTimer.Update();
-
-        var dashAmount = Mathf.Clamp01(1 - _dashingTimer.ProgressNormalized);
-        var clampedSpeed = Mathf.Clamp01(_velocityTracker.SmoothSpeed);
-        // usually will be 1 when swimming. While dashing the swimspeed will be 2 and decreasing to 1 again
-        animator.SetFloat(ID_SwimSpeed, clampedSpeed + clampedSpeed * dashAmount);
-
-        HandleRotation();
-        HandleScale();
+        
+        animator.SetFloat(ID_SwimSpeed, _velocityTracker.SmoothSpeed);
+        
+        HandleRotation(); // auto rotate into the direction of travel and reduce "twist"
+        HandleScale(); // auto scale up when far away
     }
 
     private void HandleRotation()
@@ -194,8 +184,6 @@ public class CrawlyAnimation : MonoBehaviour
         transform.forward = force.normalized;
         verletBehavior.ResetSimulation();
         _wiggleActive = true;
-        _dashingTimer.Reset();
-        Debug.Log($"Ball Thrown");
     }
 
     private void OnCollision(Collision collision)
@@ -203,7 +191,6 @@ public class CrawlyAnimation : MonoBehaviour
         var force = collision.impulse.magnitude;
         if (force < 0.3f) return;
         
-        Debug.Log($"Ouch {force}");
         animator.SetBool(ID_IsCurledUp, true);
         _hurtTimer.Reset(()=>animator.SetBool(ID_IsCurledUp, false));
     }

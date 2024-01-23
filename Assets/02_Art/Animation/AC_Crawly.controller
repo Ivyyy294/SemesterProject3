@@ -169,19 +169,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsDashing
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsCurledUp
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -293,7 +293,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 4646445964041636071, guid: 42a1517fc1401ba4cbf27cf0e02fdca8,
       type: 3}
-    m_Threshold: 0
+    m_Threshold: 0.2
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -302,7 +302,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -5164510574928916616, guid: 42a1517fc1401ba4cbf27cf0e02fdca8,
       type: 3}
-    m_Threshold: 1
+    m_Threshold: 2.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -311,7 +311,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -3369077584292440872, guid: 42a1517fc1401ba4cbf27cf0e02fdca8,
       type: 3}
-    m_Threshold: 2
+    m_Threshold: 4
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -319,8 +319,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: SwimSpeed
   m_BlendParameterY: SwimSpeed
-  m_MinThreshold: 0
-  m_MaxThreshold: 2
+  m_MinThreshold: 0.2
+  m_MaxThreshold: 4
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
