@@ -29,6 +29,8 @@ public class Ball : NetworkBehaviour
 	[SerializeField] GameObject ball;
 
 	//Public Methods
+	public Vector3 Velocity => velocity;
+
 	public void Throw (Vector3 startPos, Vector3 force)
 	{
 		if (Host)
@@ -77,7 +79,6 @@ public class Ball : NetworkBehaviour
 		CurrentPlayerId = -1;
 		m_rigidbody = GetComponent <Rigidbody>();
 		m_rigidbody.isKinematic = !Owner;
-
 		//m_rigidbody.drag = drag;
     }
 
@@ -97,6 +98,9 @@ public class Ball : NetworkBehaviour
 		}
 		else if (timer < afterThrowCooldown)
 			timer += Time.deltaTime;
+
+		if (Owner)
+			velocity = m_rigidbody.velocity;
 
 		SetPhysicOptions();
 		SetVisibility();
