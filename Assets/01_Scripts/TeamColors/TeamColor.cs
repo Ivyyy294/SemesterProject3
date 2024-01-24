@@ -8,7 +8,7 @@ public class TeamColor : MonoBehaviour
     public Color Color => _teamColor;
     private Color _teamColor;
     
-    [SerializeField] private List<Color> teamColors;
+    [SerializeField] private TeamColorSettings teamColors;
 
     private PlayerConfigurationContainer _playerConfigurationContainer;
 
@@ -19,7 +19,7 @@ public class TeamColor : MonoBehaviour
 
     public void SetTeam(int teamIndex)
     {
-        _teamColor = teamColors[teamIndex];
+        _teamColor = teamColors.GetTeamColor(teamIndex);
     }
     void Update()
     {

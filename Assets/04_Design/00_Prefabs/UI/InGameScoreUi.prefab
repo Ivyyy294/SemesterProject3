@@ -165,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3571762629659307677}
   - component: {fileID: 3067566333346156050}
+  - component: {fileID: 6705005174714429982}
   m_Layer: 0
   m_Name: InGameScoreUi
   m_TagString: Untagged
@@ -207,6 +208,21 @@ MonoBehaviour:
   labelPointsTeam1: {fileID: 988988208189100465}
   labelPointsTeam2: {fileID: 5362538832353566600}
   audioScore: {fileID: 0}
+--- !u!114 &6705005174714429982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853821941022705109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3b3262019b565499a8d09e5f337e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamColorSettings: {fileID: 11400000, guid: 583a9e2cfd334364fbdad5544bc0f54d, type: 2}
+  team1: {fileID: 6001227063604395170}
+  team2: {fileID: 9202149325663470572}
 --- !u!1 &5044121348592677168
 GameObject:
   m_ObjectHideFlags: 0

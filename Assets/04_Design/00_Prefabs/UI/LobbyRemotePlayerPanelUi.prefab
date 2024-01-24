@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 6700056777125236562}
   - component: {fileID: 7580629338965696909}
   - component: {fileID: 4000973084742293863}
+  - component: {fileID: 3781505704522188457}
   m_Layer: 5
   m_Name: LobbyRemotePlayerPanelUi
   m_TagString: Untagged
@@ -513,6 +514,21 @@ MonoBehaviour:
   labelReady: {fileID: 3636426781972471503}
   colorTeam1: {fileID: 1355418893964183068}
   colorTeam2: {fileID: 2469637121484662650}
+--- !u!114 &3781505704522188457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3279614130594377695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3b3262019b565499a8d09e5f337e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamColorSettings: {fileID: 11400000, guid: 583a9e2cfd334364fbdad5544bc0f54d, type: 2}
+  team1: {fileID: 8520241547697137774}
+  team2: {fileID: 4629354111884843446}
 --- !u!1 &3919958967563901783
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +646,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &306231411273672548

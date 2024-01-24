@@ -390,9 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c10fe8c6ac307444b08d750bc678bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamColors:
-  - {r: 0.67844427, g: 0.40450338, b: 0.8490566, a: 1}
-  - {r: 0.28248486, g: 0.6266152, b: 0.8679245, a: 1}
+  teamColors: {fileID: 11400000, guid: 583a9e2cfd334364fbdad5544bc0f54d, type: 2}
 --- !u!114 &6084894444655363807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669359725624041693, guid: aa1e8908de6337a4989bd46cf07f4d9d,
+        type: 3}
+      propertyPath: ballLogic
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7686709135027899847, guid: aa1e8908de6337a4989bd46cf07f4d9d, type: 3}
