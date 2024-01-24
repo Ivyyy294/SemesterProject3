@@ -49,28 +49,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 		SetCurrentMovementProfile();
-
-		float turnSpeedDegrees = currentMovementProfil.turnSpeedDegrees;
-
-		targetTransform.Rotate(Vector3.right, Time.deltaTime * turnSpeedDegrees * playerInput.Pitch);
-		targetTransform.Rotate(Vector3.up, Time.deltaTime * turnSpeedDegrees * playerInput.Yaw);
-
-		// how horizontal the diver is, is needed to ONLY auto-correct when the diver a little horizontal
-		float levelness = 1 - Mathf.Abs(Vector3.Dot(targetTransform.forward, Vector3.up));
-		// how vertical the diver's local RIGHT axis is, is needed to allow loopings
-		float twist = Mathf.Abs(Vector3.Dot(targetTransform.right, Vector3.up));
-
-		if (levelness > 0.2f && twist > 0.1f)
-		{
-			// gradually roll the diver until their local RIGHT axis is horizontal again (their hip-line is horizontal)
-			var relativeRotation = Quaternion.FromToRotation(targetTransform.right, GetIdealRightVector());
-			var targetRotation = relativeRotation * targetTransform.rotation;
-			targetTransform.rotation = Quaternion.RotateTowards(targetTransform.rotation, targetRotation, Time.deltaTime * turnSpeedDegrees * 0.5f);
-		}
 	}
 
 	private void FixedUpdate()
 	{
+		Rotation();
 		ForwardMovement();
 	}
 
@@ -81,6 +64,30 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 newPos = targetTransform.position + (targetTransform.forward * currentSpeed * Time.fixedDeltaTime);
 		//m_rigidbody.velocity = Vector3.zero;
 		m_rigidbody.MovePosition (newPos);
+	}
+
+	void Rotation()
+	{
+		float turnSpeedDegrees = currentMovementProfil.turnSpeedDegrees;
+
+		Quaternion deltaRotationPitch = Quaternion.Euler(Vector3.right * Time.fixedDeltaTime * turnSpeedDegrees * playerInput.Pitch);
+		Quaternion deltaRotationYaw = Quaternion.Euler(Vector3.up * Time.fixedDeltaTime * turnSpeedDegrees * playerInput.Yaw);
+
+		m_rigidbody.MoveRotation (m_rigidbody.rotation * deltaRotationPitch * deltaRotationYaw);
+
+		// how horizontal the diver is, is needed to ONLY auto-correct when the diver a little horizontal
+		float levelness = 1 - Mathf.Abs(Vector3.Dot(targetTransform.forward, Vector3.up));
+		// how vertical the diver's local RIGHT axis is, is needed to allow loopings
+		float twist = Mathf.Abs(Vector3.Dot(targetTransform.right, Vector3.up));
+
+		if (levelness > 0.2f && twist > 0.1f)
+		{
+			// gradually roll the diver until their local RIGHT axis is horizontal again (their hip-line is horizontal)
+			var relativeRotation = Quaternion.FromToRotation(targetTransform.right, GetIdealRightVector());
+			var targetRotation = relativeRotation * m_rigidbody.rotation;
+
+			m_rigidbody.MoveRotation (Quaternion.RotateTowards(m_rigidbody.rotation, targetRotation, Time.fixedDeltaTime * turnSpeedDegrees * 0.5f));
+		}
 	}
 
 	Vector3 GetIdealRightVector()
