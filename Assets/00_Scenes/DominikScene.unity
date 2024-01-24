@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.06266575, g: 0.42631307, b: 0.85636866, a: 1}
+  m_IndirectSpecularColor: {r: 0.06276148, g: 0.42629337, b: 0.8563692, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8699,6 +8699,11 @@ PrefabInstance:
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[3].m_Value.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 188358622383544749, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: spawnIntervall
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 415728895565501627, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -8769,15 +8774,60 @@ PrefabInstance:
       propertyPath: guid
       value: 18eb5d80-01cd-426f-8770-cda5f173c783
       objectReference: {fileID: 0}
+    - target: {fileID: 942465349723730057, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: matchLengthMinutes
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 993678935462306027, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       propertyPath: guid
       value: 56556fdb-01d8-4dde-8eab-671a80a2ff5a
       objectReference: {fileID: 0}
+    - target: {fileID: 993678935462306027, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: currentOxygen
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 993678935462306027, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 993678935462306027, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossPerSecond
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 993678935462306027, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: refillRatePerSecond
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1010443189448516150, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       propertyPath: guid
       value: 3c66dca3-7eb5-4054-bc64-bfd6f835f030
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010443189448516150, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: currentOxygen
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010443189448516150, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010443189448516150, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossPerSecond
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010443189448516150, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: refillRatePerSecond
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1133317347937771327, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -8828,6 +8878,26 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: bb4cd19e-1505-4028-8122-ec87fc290e1a
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277206142002579523, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: currentOxygen
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277206142002579523, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277206142002579523, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossPerSecond
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277206142002579523, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: refillRatePerSecond
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1506718548848969094, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -8889,6 +8959,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -3.07
       objectReference: {fileID: 0}
+    - target: {fileID: 2099086073069433816, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: spawnIntervall
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2165675724621172499, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -8913,6 +8988,11 @@ PrefabInstance:
         type: 3}
       propertyPath: teamIndex
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228968083077968133, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: spawnIntervall
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2315155379662975152, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -9429,6 +9509,26 @@ PrefabInstance:
       propertyPath: guid
       value: 3b0719b2-432d-429a-bc9e-2a82c81653c7
       objectReference: {fileID: 0}
+    - target: {fileID: 5553955556596018650, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: currentOxygen
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553955556596018650, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553955556596018650, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: oxygenLossPerSecond
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553955556596018650, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: refillRatePerSecond
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5785019780671662137, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -9543,6 +9643,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: 8a67c733-178b-4689-9d7e-8ef4811615ba
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788963357546855476, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      propertyPath: spawnIntervall
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6818798866215246005, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
@@ -10718,6 +10823,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UnderwaterPostProcessing
+      objectReference: {fileID: 0}
+    - target: {fileID: 6718498304791935004, guid: 95d62d93e13367d44980c520a9159414,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7869307756285028193, guid: 95d62d93e13367d44980c520a9159414,
         type: 3}
@@ -14407,6 +14517,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107050062716346339, guid: d1d6ebd8072b44c49911a4494076a734,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
