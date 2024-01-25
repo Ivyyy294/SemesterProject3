@@ -13,8 +13,6 @@ public class MatchObjectSpawn : MonoBehaviour
 	[SerializeField] Transform[] team1SpawnPoint;
 	[SerializeField] Transform[] team2SpawnPoint;
 
-	bool initialSpawnDone = false;
-
 	public void RespawnObjects()
 	{
 		if (ball && ballSpawnPoint)
@@ -24,7 +22,13 @@ public class MatchObjectSpawn : MonoBehaviour
 		{
 			//Local Debug
 			if (PlayerConfigurationManager.Me == null)
+			{
+				CameraSystem.Me.EnableVCam (false);
 				RespawnObject (playerManager.PlayerList[0], team1SpawnPoint[0]);
+				Vector3 posOffset = team1SpawnPoint[0].position - playerManager.PlayerList[0].transform.position;
+				CameraSystem.Me.OnTargetObjectWarped (playerManager.PlayerList[0].transform, posOffset);
+				CameraSystem.Me.EnableVCam (true);
+			}
 			else
 			{
 				int indexTeam1 = 0;
@@ -32,16 +36,23 @@ public class MatchObjectSpawn : MonoBehaviour
 
 				foreach (GameObject i in playerManager.PlayerList)
 				{
-					PlayerConfiguration playerConfiguration = i.GetComponentInChildren<PlayerConfigurationContainer>().playerConfiguration;
+					PlayerConfigurationContainer playerConfigurationContainer = i.GetComponentInChildren<PlayerConfigurationContainer>();
+					PlayerConfiguration playerConfiguration = playerConfigurationContainer.playerConfiguration;
 
 					if (playerConfiguration.connected)
 					{
+						if (playerConfigurationContainer.IsLocalPlayer())
+							CameraSystem.Me.EnableVCam (false);
+
 						int playerTeamIndex = playerConfiguration.teamNr;
 
 						if (playerTeamIndex == 0)
 							RespawnObject (i, team1SpawnPoint[indexTeam1++]);
 						else
 							RespawnObject (i, team2SpawnPoint[indexTeam2++]);
+
+						if (playerConfigurationContainer.IsLocalPlayer())
+							CameraSystem.Me.EnableVCam (true);
 					}
 				}
 			}
@@ -65,16 +76,6 @@ public class MatchObjectSpawn : MonoBehaviour
 
 		if (team2SpawnPoint == null)
 			Debug.LogError("Missing team2SpawnPoint Reference!");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!initialSpawnDone)
-		{
-			RespawnObjects();
-			initialSpawnDone = true;
-		}
     }
 
 	void RespawnObject (GameObject obj, Transform target)

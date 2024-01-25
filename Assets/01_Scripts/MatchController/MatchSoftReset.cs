@@ -19,17 +19,7 @@ public class MatchSoftReset : NetworkBehaviour
 	public void Invoke()
 	{
 		if (!MatchController.Me.MatchGameOver.GameOver())
-		{
-			objectSpawnController.RespawnObjects();
-
-			if (pauseTime > 0f)
-			{
-				pauseController.PauseMatch (true);
-				timer = 0f;
-			}
-
-			resetEvent?.Raise();
-		}
+			SoftReset();
 	}
 
 	protected override void SetPackageData()
@@ -44,6 +34,8 @@ public class MatchSoftReset : NetworkBehaviour
         pauseController = GetComponent<MatchPauseController>();
 		objectSpawnController = GetComponent<MatchObjectSpawn>();
 		matchTimer = GetComponent <MatchTimer>();
+
+		SoftReset();
     }
 
     // Update is called once per frame
@@ -62,4 +54,17 @@ public class MatchSoftReset : NetworkBehaviour
 				pauseController.PauseMatch (false);
 		}
     }
+
+	void SoftReset()
+	{
+		objectSpawnController.RespawnObjects();
+
+		if (pauseTime > 0f)
+		{
+			pauseController.PauseMatch (true);
+			timer = 0f;
+		}
+
+		resetEvent?.Raise();
+	}
 }
