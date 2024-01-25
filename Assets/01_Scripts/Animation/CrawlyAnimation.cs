@@ -187,11 +187,9 @@ public class CrawlyAnimation : MonoBehaviour
         _wiggleActive = true;
     }
 
-    private void OnCollision(Collision collision)
+    private void OnCollision()
     {
-        var force = collision.impulse.magnitude;
-        if (force < 0.3f) return;
-        
+      
         animator.SetBool(ID_IsCurledUp, true);
         _hurtTimer.Reset(()=>
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
+using Ivyyy.Utils;
 
 [RequireComponent (typeof (Rigidbody))]
 public class Ball : NetworkBehaviour
@@ -17,7 +17,7 @@ public class Ball : NetworkBehaviour
 	float timer = 0f;
 	
 	[HideInInspector] public UnityEvent<Vector3> onBallThrown;
-	[HideInInspector] public UnityEvent<Collision> onBallCollided;
+	[HideInInspector] public UnityEvent onBallCollided;
 
 	//ToDo OnBallcaught
 
@@ -40,7 +40,7 @@ public class Ball : NetworkBehaviour
 			BallDrop (startPos);
 			timer = 0f;
 			m_rigidbody.AddForce (force);
-			onBallThrown.Invoke(force);
+			OnBallThrown (SerializationHelper.Vector3ToBytes(force));
 		}
 	}
 
@@ -57,6 +57,25 @@ public class Ball : NetworkBehaviour
 		CurrentPlayerId = playerId;
 	}
 
+	//RPC
+	[RPCAttribute]
+	public void OnBallThrown(byte[] data)
+	{
+		if (Host)
+			InvokeRPC("OnBallThrown", data);
+
+		onBallThrown.Invoke(SerializationHelper.BytesToVector3 (data));
+	}
+
+	[RPCAttribute]
+	public void OnBallCollided()
+	{
+		if (Host)
+			InvokeRPC("OnBallCollided");
+
+		onBallCollided.Invoke();
+	}
+
 	//Protected Methods
 	protected override void SetPackageData()
 	{
@@ -66,7 +85,6 @@ public class Ball : NetworkBehaviour
 	}
 
 	//Private Methods
-
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -95,7 +113,6 @@ public class Ball : NetworkBehaviour
 		SetPhysicOptions();
 	}
 
-	//ToDo Move to PlayerCollision
 	private void OnTriggerEnter(Collider other)
 	{
 		//Prevent ball from being catch during cooldown
@@ -110,7 +127,12 @@ public class Ball : NetworkBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		onBallCollided.Invoke(collision);
+		var force = collision.impulse.magnitude;
+
+		if (force < 0.3)
+			return;
+
+		OnBallCollided();
 	}
 
 	private void SetPhysicOptions()
