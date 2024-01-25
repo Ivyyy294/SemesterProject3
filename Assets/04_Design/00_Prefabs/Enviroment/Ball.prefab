@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7686709135027899847}
   - component: {fileID: 2326839230546655940}
   - component: {fileID: 1625156900715611849}
+  - component: {fileID: 7206943314398000296}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -108,7 +109,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93ee55744a8e8d4f9a01421ecf65365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 97487b6e-9f17-46bb-b0e7-54b10dfe7801
+  guid: c9fdf57b-6b43-44a5-9bf3-032c21176a70
+  onBallThrown:
+    m_PersistentCalls:
+      m_Calls: []
+  onBallCollided:
+    m_PersistentCalls:
+      m_Calls: []
   drag: 1
   gravity: 0
   afterThrowCooldown: 0.25
@@ -138,6 +145,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceTyp: 1
+--- !u!114 &7206943314398000296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580676633261365798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089bb04ae192bdf4e85819733e22a5eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3884246718100162049
 GameObject:
   m_ObjectHideFlags: 0

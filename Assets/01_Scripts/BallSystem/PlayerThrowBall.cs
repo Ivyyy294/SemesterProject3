@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
+using System.Text;
 
 public class PlayerThrowBall : NetworkBehaviour
 {
@@ -9,7 +10,6 @@ public class PlayerThrowBall : NetworkBehaviour
 	[SerializeField] Transform ballSpawn;
 
 	[Header ("Lara Values")]
-	[SerializeField] GameObject ballGhost;
 	[SerializeField] float initalCooldown = 0.1f;
 	PlayerOxygen playerOxygen;
 	PlayerBallStatus playerBallStatus;
@@ -35,9 +35,6 @@ public class PlayerThrowBall : NetworkBehaviour
     {
 		bool hasBall = playerBallStatus.HasBall();
 
-		if (ballGhost.activeInHierarchy != hasBall)
-			ballGhost.SetActive (hasBall);
-
 		//Prevent ball from being thrown instantly
 		if (!hasBall)
 			timer = 0f;
@@ -47,9 +44,9 @@ public class PlayerThrowBall : NetworkBehaviour
         if (Owner && hasBall && timer > initalCooldown)
 		{
 			if (playerOxygen.OxygenEmpty)
-				DropBall();
+				DropBall ();
 			else if (playerInput.ThrowPressed)
-				ThrowBall();
+				ThrowBall ();
 		}
     }
 

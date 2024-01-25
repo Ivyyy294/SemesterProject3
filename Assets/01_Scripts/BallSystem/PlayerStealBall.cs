@@ -19,7 +19,7 @@ public class PlayerStealBall : MonoBehaviour
 	bool host = false;
 
 	[RPCAttribute]
-	protected void StealBall()
+	protected void StealBall ()
 	{
 		//Execute Steal only on host session
 		if (ballStatus.HasBall())
@@ -61,7 +61,7 @@ public class PlayerStealBall : MonoBehaviour
     {
         if (host && !ballStatus.HasBall()
 			&& playerInput.StealPressed)
-			StealBall();
+			StealBall ();
 		
 		if (!playerInput.StealPressed && timer > 0f)
 			timer = 0f;

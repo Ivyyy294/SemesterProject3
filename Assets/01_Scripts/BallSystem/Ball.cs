@@ -19,6 +19,8 @@ public class Ball : NetworkBehaviour
 	[HideInInspector] public UnityEvent<Vector3> onBallThrown;
 	[HideInInspector] public UnityEvent<Collision> onBallCollided;
 
+	//ToDo OnBallcaught
+
 	[Header("Ball Settings")]
 	[Range (0f, 10f)]
 	[SerializeField] float drag = 1f;
@@ -35,8 +37,8 @@ public class Ball : NetworkBehaviour
 	{
 		if (Host)
 		{
-			timer = 0f;
 			BallDrop (startPos);
+			timer = 0f;
 			m_rigidbody.AddForce (force);
 			onBallThrown.Invoke(force);
 		}
@@ -47,6 +49,7 @@ public class Ball : NetworkBehaviour
 		timer = 0f;
 		CurrentPlayerId = -1;
 		transform.position = spawnPos;
+		m_rigidbody.isKinematic = !Owner;
 	}
 
 	public void SetPlayerId (short playerId)
@@ -85,25 +88,11 @@ public class Ball : NetworkBehaviour
 	private void Update()
 	{
 		if (!Owner)
-		{
-			if (networkPackage.Available)
-			{
-				CurrentPlayerId = networkPackage.Value(0).GetShort();
-				transform.position = networkPackage.Value (1).GetVector3();
-				velocity = networkPackage.Value(2).GetVector3();
-				networkPackage.Clear();
-			}
-			else
-				transform.position += velocity * Time.deltaTime;
-		}
-		else if (timer < afterThrowCooldown)
-			timer += Time.deltaTime;
-
-		if (Owner)
-			velocity = m_rigidbody.velocity;
+			UpdateClient();
+		else
+			UpdateHost();
 
 		SetPhysicOptions();
-		SetVisibility();
 	}
 
 	//ToDo Move to PlayerCollision
@@ -132,11 +121,37 @@ public class Ball : NetworkBehaviour
 		Physics.gravity = Vector3.down * gravity;
 	}
 
-	private void SetVisibility()
+	private void UpdateClient()
 	{
-		bool visible = CurrentPlayerId == -1;
+		if (networkPackage.Available)
+		{
+			CurrentPlayerId = networkPackage.Value(0).GetShort();
 
-		if (ball.gameObject.activeInHierarchy != visible)
-			ball.gameObject.SetActive (visible);
+			if (CurrentPlayerId == -1)
+			{
+				transform.position = networkPackage.Value (1).GetVector3();
+				velocity = networkPackage.Value(2).GetVector3();
+			}
+			
+			networkPackage.Clear();
+		}
+		else if (CurrentPlayerId != -1)
+			transform.localPosition = Vector3.zero;
+		else
+			transform.position += velocity * Time.deltaTime;
+	}
+
+	private void UpdateHost()
+	{
+		bool isHolded = CurrentPlayerId != -1;
+		m_rigidbody.isKinematic = isHolded;
+
+		if (isHolded)
+			transform.localPosition = Vector3.zero;
+
+		if (timer < afterThrowCooldown)
+			timer += Time.deltaTime;
+
+		velocity = m_rigidbody.velocity;
 	}
 }
