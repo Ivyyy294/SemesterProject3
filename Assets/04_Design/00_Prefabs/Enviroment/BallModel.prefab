@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e54b84b2fd5dc4f8515ac8f5fa5073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballLogic: {fileID: 0}
   animator: {fileID: 5061926883694367548}
   verletBehavior: {fileID: 1507154256327743563}
+  crawlyVisuals: {fileID: 0}
   turnSpeedDegrees: 60
   wiggleStrength: 2
   lowerBodyChain:
@@ -160,7 +162,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8447696743632819723, guid: ed68388b07a848d4f9574ce99223a5f1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1926580368565552493}
   m_SourcePrefab: {fileID: 100100000, guid: ed68388b07a848d4f9574ce99223a5f1, type: 3}
 --- !u!4 &1215900959161944390 stripped
 Transform:
@@ -168,6 +174,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7973711893009434103}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1987336302275056636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8447696743632819723, guid: ed68388b07a848d4f9574ce99223a5f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7973711893009434103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1926580368565552493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987336302275056636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bafdd6cc8b90d4f8247529425de0df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spherize: 0
 --- !u!95 &5061926883694367548 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2925020982957102795, guid: ed68388b07a848d4f9574ce99223a5f1,

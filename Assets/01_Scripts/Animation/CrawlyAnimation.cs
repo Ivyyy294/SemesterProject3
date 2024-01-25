@@ -13,6 +13,7 @@ public class CrawlyAnimation : MonoBehaviour
     [Header("Local References")]
     [SerializeField] private Animator animator;
     [SerializeField] private DiverVerletBehavior verletBehavior;
+    [SerializeField] private CrawlyVisuals crawlyVisuals;
 
     [Header("Parameters")] 
     [SerializeField] private float turnSpeedDegrees = 30f;
@@ -192,6 +193,10 @@ public class CrawlyAnimation : MonoBehaviour
         if (force < 0.3f) return;
         
         animator.SetBool(ID_IsCurledUp, true);
-        _hurtTimer.Reset(()=>animator.SetBool(ID_IsCurledUp, false));
+        _hurtTimer.Reset(()=>
+        {
+            animator.SetBool(ID_IsCurledUp, false);
+            crawlyVisuals.spherize = 0; // this is redundancy for when the AnimatorBehavior should fail
+        });
     }
 }
