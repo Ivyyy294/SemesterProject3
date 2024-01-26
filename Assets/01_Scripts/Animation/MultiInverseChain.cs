@@ -95,7 +95,9 @@ public class MultiInverseChain : MonoBehaviour
     {
         if (!_isSetup)
         {
+            #if UNITY_EDITOR
             Debug.LogError($"Inverse Chain {this} not set up before attempting to apply");
+            #endif
             return;
         }
 
