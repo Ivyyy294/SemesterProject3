@@ -12,8 +12,12 @@ public class PlayerOxygen : NetworkBehaviour
 	[Range (0f, 100f)]
 	[SerializeField] float passiveOxygenConsumption = 10f;
 
+	[Range (0f, 100f)]
+	[SerializeField] float dashOxygenConsumption = 10f;
+
 	float currentOxygen;
 	float timer;
+	PlayerInput playerInput;
 
 	//Public
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
@@ -42,7 +46,7 @@ public class PlayerOxygen : NetworkBehaviour
 	void Start()
 	{
 		currentOxygen = maxOxygen;
-		//playerBallStatus = GetComponent<PlayerBallStatus>();
+		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
 	}
 
 	// Update is called once per frame
@@ -52,7 +56,11 @@ public class PlayerOxygen : NetworkBehaviour
 
 		if (!Owner && networkPackage.Available)
 			currentOxygen = networkPackage.Value(0).GetFloat();
-		else if (currentOxygen > 0f)
+
+		if (currentOxygen > 0f)
 			currentOxygen -= passiveOxygenConsumption * Time.deltaTime;
+
+		if (playerInput.DashPressed)
+			currentOxygen -= dashOxygenConsumption * Time.deltaTime;
     }
 }

@@ -62,9 +62,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3f5ee7b3-dab7-4768-8df0-9ab33dd960e3
   maxOxygen: 100
-  emergencyRefillAmount: 50
-  emergencyRefillDelay: 5
   passiveOxygenConsumption: 2
+  dashOxygenConsumption: 10
 --- !u!114 &4317747097344515715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +114,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3069174752044436928}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a154ec870e566f48a9c0173d4b6d901, type: 3}
   m_Name: 
@@ -129,7 +128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3069174752044436928}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
   m_Name: 

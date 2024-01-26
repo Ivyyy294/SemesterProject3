@@ -1241,6 +1241,11 @@ PrefabInstance:
       propertyPath: guid
       value: ec1233a9-6999-45a3-8ba0-9c2a6eaee43e
       objectReference: {fileID: 0}
+    - target: {fileID: 2346642503218768759, guid: dbb5dfd481c1355418068109b88c06b5,
+        type: 3}
+      propertyPath: dashOxygenConsumption
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6723070870191324833, guid: dbb5dfd481c1355418068109b88c06b5,
         type: 3}
       propertyPath: m_Name

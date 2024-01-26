@@ -856,6 +856,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3559609130937104279, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
+      propertyPath: dashOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559609130937104279, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
       propertyPath: passiveOxygenConsumption
       value: 0
       objectReference: {fileID: 0}
@@ -876,6 +881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3804426081470511474, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
+      propertyPath: dashOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804426081470511474, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
       propertyPath: passiveOxygenConsumption
       value: 0
       objectReference: {fileID: 0}
@@ -887,7 +897,7 @@ PrefabInstance:
     - target: {fileID: 4027571128571085909, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
       propertyPath: m_Name
-      value: PlayerManager
+      value: ---Player---
       objectReference: {fileID: 0}
     - target: {fileID: 4606819720334445489, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
@@ -928,6 +938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: 42012881-ba29-4b65-87bd-87a0d5bdc3e4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5621889835759457968, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: dashOxygenConsumption
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5621889835759457968, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}
@@ -1033,6 +1048,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: a4b14536-e420-403f-97ef-563f391fe21f
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454619195048756327, guid: 322cbc2204a2fd545a382c0e1c59fb86,
+        type: 3}
+      propertyPath: dashOxygenConsumption
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6454619195048756327, guid: 322cbc2204a2fd545a382c0e1c59fb86,
         type: 3}

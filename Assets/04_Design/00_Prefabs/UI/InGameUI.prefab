@@ -1427,6 +1427,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackOutUi
       objectReference: {fileID: 0}
+    - target: {fileID: 6739712722611017048, guid: eb20b86d02ef935449d614dc24731f59,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7425711322035861792, guid: eb20b86d02ef935449d614dc24731f59,
         type: 3}
       propertyPath: m_Pivot.x

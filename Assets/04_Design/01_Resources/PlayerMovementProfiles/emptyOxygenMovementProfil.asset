@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2108067764356f947816167523b96b2a, type: 3}
   m_Name: emptyOxygenMovementProfil
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  turnSpeedDegrees: 0
+  maxSpeed: 0.9
+  turnSpeedDegrees: 90
   movementSmoothTime: 1
