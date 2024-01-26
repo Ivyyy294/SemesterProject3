@@ -10,6 +10,7 @@ public class ButtonTeamColor : MonoBehaviour
 	[SerializeField] Button team2;
 
     // Start is called before the first frame update
+	[ExecuteInEditMode]
     void Start()
     {
 		ColorBlock colorBlock = team1.colors;
