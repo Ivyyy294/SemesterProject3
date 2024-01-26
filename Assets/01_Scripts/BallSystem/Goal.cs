@@ -5,20 +5,13 @@ using Ivyyy.GameEvent;
 
 public class Goal : MonoBehaviour
 {
-	[SerializeField] int teamIndex;
-	[SerializeField] GameEvent team1Scored;
-	[SerializeField] GameEvent team2Scored;
+	[SerializeField] GameEvent teamScoredEvent;
 
 	private void OnCollisionEnter(Collision collision)
 	{
 		Ball ball = collision.gameObject.GetComponent<Ball>();
 
 		if (ball && ball.Owner)
-		{
-			if (teamIndex == 0)
-				team1Scored.Raise();
-			else
-				team2Scored.Raise();
-		}
+			teamScoredEvent.Raise();
 	}
 }

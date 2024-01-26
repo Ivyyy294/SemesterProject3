@@ -46,9 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd157201bad7344468bfd21a92592c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamIndex: 0
-  team1Scored: {fileID: 11400000, guid: 7197fad9c5cc0b14885cd257003afa51, type: 2}
-  team2Scored: {fileID: 11400000, guid: 54cb15302791ff94dba4b561137f1203, type: 2}
+  teamScoredEvent: {fileID: 0}
 --- !u!65 &8489619656484222904
 BoxCollider:
   m_ObjectHideFlags: 0

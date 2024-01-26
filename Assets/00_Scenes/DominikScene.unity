@@ -3080,9 +3080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd157201bad7344468bfd21a92592c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamIndex: 0
-  team1Scored: {fileID: 11400000, guid: 7197fad9c5cc0b14885cd257003afa51, type: 2}
-  team2Scored: {fileID: 11400000, guid: 54cb15302791ff94dba4b561137f1203, type: 2}
+  teamScoredEvent: {fileID: 0}
 --- !u!114 &498528147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3095,9 +3093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd157201bad7344468bfd21a92592c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamIndex: 1
-  team1Scored: {fileID: 11400000, guid: 7197fad9c5cc0b14885cd257003afa51, type: 2}
-  team2Scored: {fileID: 11400000, guid: 54cb15302791ff94dba4b561137f1203, type: 2}
+  teamScoredEvent: {fileID: 0}
 --- !u!64 &498528151
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14559,6 +14555,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 704133441015552352, guid: d1d6ebd8072b44c49911a4494076a734,
+        type: 3}
+      propertyPath: teamScoredEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 54cb15302791ff94dba4b561137f1203,
+        type: 2}
+    - target: {fileID: 2376274975066404521, guid: d1d6ebd8072b44c49911a4494076a734,
+        type: 3}
+      propertyPath: teamScoredEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 7197fad9c5cc0b14885cd257003afa51,
+        type: 2}
     - target: {fileID: 5849036605130932017, guid: d1d6ebd8072b44c49911a4494076a734,
         type: 3}
       propertyPath: m_Name
