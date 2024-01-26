@@ -23,6 +23,7 @@ public class PlayerOxygen : NetworkBehaviour
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
 	public float CurrentOxygen => currentOxygen;
 	public float CurrentOxygenPercent {get{return (currentOxygen / maxOxygen) * 100;} }
+	public float MissingOxygen { get {return maxOxygen - currentOxygen;} }
 
 	public void Refill (float val)
 	{

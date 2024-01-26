@@ -2549,12 +2549,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!4 &486360963 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5196722136161868452, guid: e2c5304c6f6b1044682c9121ec46bd99,
-    type: 3}
-  m_PrefabInstance: {fileID: 666811595}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &497955498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10040,6 +10034,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 525175668}
+    - targetCorrespondingSourceObject: {fileID: 3684702947042030528, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2116880362}
+    - targetCorrespondingSourceObject: {fileID: 3684702947042030528, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 901123674}
+    - targetCorrespondingSourceObject: {fileID: 3684702947042030528, guid: e2c5304c6f6b1044682c9121ec46bd99,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1976425983}
     - targetCorrespondingSourceObject: {fileID: 3622901975023209929, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       insertIndex: -1
@@ -10092,22 +10098,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 556312171}
-    - targetCorrespondingSourceObject: {fileID: 8767365293992054390, guid: e2c5304c6f6b1044682c9121ec46bd99,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1035399706}
-    - targetCorrespondingSourceObject: {fileID: 5196722136161868452, guid: e2c5304c6f6b1044682c9121ec46bd99,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2116880362}
-    - targetCorrespondingSourceObject: {fileID: 5196722136161868452, guid: e2c5304c6f6b1044682c9121ec46bd99,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 901123674}
-    - targetCorrespondingSourceObject: {fileID: 5196722136161868452, guid: e2c5304c6f6b1044682c9121ec46bd99,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1976425983}
     - targetCorrespondingSourceObject: {fileID: 3978515550454540525, guid: e2c5304c6f6b1044682c9121ec46bd99,
         type: 3}
       insertIndex: -1
@@ -10378,12 +10368,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6083171365331811963, guid: f0288e4fd44678c4985c90c0da32256a,
     type: 3}
   m_PrefabInstance: {fileID: 685883858}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &695767268 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8767365293992054390, guid: e2c5304c6f6b1044682c9121ec46bd99,
-    type: 3}
-  m_PrefabInstance: {fileID: 666811595}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &748275842
 PrefabInstance:
@@ -10797,7 +10781,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 486360963}
+  m_Father: {fileID: 1381624956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936068259
 GameObject:
@@ -10914,7 +10898,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 695767268}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 209944869812957881, guid: f0288e4fd44678c4985c90c0da32256a,
         type: 3}
@@ -14035,7 +14019,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 486360963}
+  m_Father: {fileID: 1381624956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2014065117
 GameObject:
@@ -14264,7 +14248,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 486360963}
+  m_Father: {fileID: 1381624956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3823138405989838224
 PrefabInstance:
@@ -14653,3 +14637,4 @@ SceneRoots:
   - {fileID: 598239678}
   - {fileID: 7703401614591867307}
   - {fileID: 1426152125}
+  - {fileID: 1035399705}

@@ -7,8 +7,8 @@ public class OxygenRefill : NetworkBehaviour
 {
 	[Range (1, 1000)]
 	[SerializeField] float capacityOxygen = 0f;
+	[Range (1, 1000)]
 	[SerializeField] float refillRatePerSecond = 20f;
-	[SerializeField] float currentOxygen = 0f;
 
 	[Header ("Oxygen loss settings")]
 	[Min (0)]
@@ -18,6 +18,7 @@ public class OxygenRefill : NetworkBehaviour
 	
 	//Private values
 	float oxygenLossTimer = 0f;
+	float currentOxygen = 0f;
 
 	//Public Methods
 	public float CapacityOxygen => capacityOxygen;
@@ -26,6 +27,12 @@ public class OxygenRefill : NetworkBehaviour
 	public void SetCurrentOxygen (float val)
 	{
 		currentOxygen = val;
+
+		if (currentOxygen > capacityOxygen)
+		{
+			Debug.LogError("CurrentOxygen is greater as capacityOxygen!");
+			currentOxygen = capacityOxygen;
+		}
 	}
 
 	[RPCAttribute]
@@ -44,6 +51,7 @@ public class OxygenRefill : NetworkBehaviour
 	private void Start()
 	{
 		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
+		currentOxygen = capacityOxygen;
 	}
 
 	private void Update()
@@ -79,7 +87,7 @@ public class OxygenRefill : NetworkBehaviour
 
 			if (playerOxygen.Owner)
 			{
-				float refill = Mathf.Min (refillRatePerSecond * Time.deltaTime, currentOxygen);
+				float refill = Mathf.Min (refillRatePerSecond * Time.deltaTime, currentOxygen, playerOxygen.MissingOxygen);
 				playerOxygen.Refill (refill);
 				currentOxygen -= refill;
 			}
