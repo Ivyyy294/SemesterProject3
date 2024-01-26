@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 2326839230546655940}
   - component: {fileID: 1625156900715611849}
   - component: {fileID: 7206943314398000296}
+  - component: {fileID: 790279916248952534}
+  - component: {fileID: 9192129778126300123}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -157,6 +159,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089bb04ae192bdf4e85819733e22a5eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &790279916248952534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580676633261365798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f11994ba3ebc04b83d4c048ac975dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleTime:
+    waitTime: 2
+  directionRandomization: 10
+  chaosSpeed: 20
+  randomBurstFrequencySeconds: 1
+  randomBurstForce: 10
+  randomBurstTime:
+    waitTime: 1
+  randomBurstDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 6.706213
+      outSlope: 6.706213
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.14771709
+      value: 0.9906223
+      inSlope: 0.11839265
+      outSlope: 0.11839265
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.104303166
+    - serializedVersion: 3
+      time: 0.27646565
+      value: 0.99512124
+      inSlope: 0.07384166
+      outSlope: 0.07384166
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.112359054
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9991455
+      value: 0.0020920634
+      inSlope: -0.182499
+      outSlope: -0.182499
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13393249
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  wallEvadeStrength: 5
+  ballModel: {fileID: 2140476024316906545}
+--- !u!114 &9192129778126300123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580676633261365798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7a15554f8d296394a9645335d6e6574f, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 790279916248952534}
+        m_TargetAssemblyTypeName: CrawlyBrain, Assembly-CSharp
+        m_MethodName: ResetBrain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3884246718100162049
 GameObject:
   m_ObjectHideFlags: 0
