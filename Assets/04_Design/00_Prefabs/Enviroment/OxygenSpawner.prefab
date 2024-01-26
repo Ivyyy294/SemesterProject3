@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b664bb0571780e748a7bbf7dbe715343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIntervall: 5
+  minSpawnTime: 1
+  maxSpawnTime: 10
   spawnOxygen: 100
   oxygenBubble: {fileID: 3576959958831500452}
   spawnPos: {fileID: 1892680660103858862}
@@ -200,7 +201,7 @@ PrefabInstance:
     - target: {fileID: 5483662475098149662, guid: e97042747067a7a49b17c1371b1c6c1c,
         type: 3}
       propertyPath: guid
-      value: 6c64b886-8b32-427d-8dd9-d435cb7a0e09
+      value: c40cba13-cd69-41e2-904a-2c00f057d3ec
       objectReference: {fileID: 0}
     - target: {fileID: 5848548415988282309, guid: e97042747067a7a49b17c1371b1c6c1c,
         type: 3}
@@ -215,7 +216,7 @@ PrefabInstance:
     - target: {fileID: 6619612925605246573, guid: e97042747067a7a49b17c1371b1c6c1c,
         type: 3}
       propertyPath: guid
-      value: eeff16c2-5742-4976-a3f0-ea0a6729082b
+      value: 93dd56d5-0b67-4cb9-b767-e77d769302f5
       objectReference: {fileID: 0}
     - target: {fileID: 7221435729330241550, guid: e97042747067a7a49b17c1371b1c6c1c,
         type: 3}

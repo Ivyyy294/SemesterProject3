@@ -5,8 +5,10 @@ using Ivyyy.Network;
 
 public class OxygenSpawner : MonoBehaviour
 {
+	[Range (0f, 120f)]
+	[SerializeField] float minSpawnTime = 1f;
 	[Range (1f, 120f)]
-	[SerializeField] float spawnIntervall;
+	[SerializeField] float maxSpawnTime = 10f;
 
 	[Min (1f)]
 	[SerializeField] float spawnOxygen;
@@ -16,6 +18,8 @@ public class OxygenSpawner : MonoBehaviour
 	[SerializeField] GameObject spawnPos;
 
 	float internTimer;
+	float spawnTime = -1;
+
 	OxygenMovement oxygenMovement;
 	OxygenRefill oxygenRefill;
 
@@ -27,21 +31,37 @@ public class OxygenSpawner : MonoBehaviour
 
 		//Only enable when local instance is owner of oxygenMovement
 		enabled = oxygenMovement && oxygenRefill && spawnPos && (!NetworkManager.Me || NetworkManager.Me.Host);
+
+		GetRandomSpawnTime();
 	}
 
 	// Update is called once per frame
 	void Update()
     {
-        if (!oxygenMovement.gameObject.activeInHierarchy)
+		if (spawnTime == -1f)
+			GetRandomSpawnTime();
+
+		if (!oxygenMovement.gameObject.activeInHierarchy)
 		{
-			if (internTimer <= spawnIntervall)
+			if (internTimer <= spawnTime)
 				internTimer += Time.deltaTime;
 			else
-			{
-				internTimer = 0f;
-				oxygenMovement.SpawnAt (spawnPos.transform.position);
-				oxygenRefill.SetCurrentOxygen (spawnOxygen);
-			}
+				SpawnOxygenBubble();
 		}
     }
+
+	void SpawnOxygenBubble()
+	{
+		internTimer = 0f;
+		spawnTime = -1f;
+		oxygenMovement.SpawnAt (spawnPos.transform.position);
+		oxygenRefill.SetCurrentOxygen (spawnOxygen);
+	}
+
+	void GetRandomSpawnTime()
+	{
+		spawnTime = Random.Range (minSpawnTime, maxSpawnTime);
+		Debug.Log (spawnTime);
+	}
+	
 }
