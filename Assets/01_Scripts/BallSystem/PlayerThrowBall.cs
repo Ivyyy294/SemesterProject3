@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 using System.Text;
+using UnityEngine.Events;
 
 public class PlayerThrowBall : NetworkBehaviour
 {
 	[SerializeField] float throwForce = 10f;
 	[SerializeField] Transform ballSpawn;
+
+	[HideInInspector] public UnityEvent onBallThrow;
 
 	[Header ("Lara Values")]
 	[SerializeField] float initalCooldown = 0.1f;
@@ -61,6 +64,7 @@ public class PlayerThrowBall : NetworkBehaviour
 			ball.Throw (ballSpawn.position, transform.forward * throwForce);
 		else
 			InvokeRPC ("ThrowBall");
+		onBallThrow.Invoke();
 	}
 
 	[RPCAttribute]

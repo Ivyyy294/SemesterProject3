@@ -481,6 +481,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48ac5d5e375cad24787cea683e72d401, type: 3}
+--- !u!114 &609847954196776581 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4204484461061604603, guid: 48ac5d5e375cad24787cea683e72d401,
+    type: 3}
+  m_PrefabInstance: {fileID: 3616330220809732734}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a298b2e11a89b243a31140efd9c8722, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1498228670197801102 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2802661896907252464, guid: 48ac5d5e375cad24787cea683e72d401,
@@ -654,6 +666,11 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 86737363493964281}
+    - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
+      propertyPath: playerThrowBall
+      value: 
+      objectReference: {fileID: 609847954196776581}
     - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
       propertyPath: playerBallStatus
