@@ -8,12 +8,15 @@ using System.Net;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
+	[SerializeField] int maxPlayers = 4;
+
 	//Public Values
 	static public PlayerConfigurationManager Me {get; private set;}
+	
+	[Header ("Lara values")]
 	public PlayerConfiguration[] playerConfigurations = new PlayerConfiguration[2];
 
 	//Private Values
-	[SerializeField] int maxPlayers = 4;
 
 	//Public Methods
 	//ToDo Remove

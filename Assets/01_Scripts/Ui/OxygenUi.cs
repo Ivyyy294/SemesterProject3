@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+
+#if UNITY_EDITOR
+	using UnityEditor;
+#endif
+
 using TMPro;
 
 
@@ -23,6 +27,7 @@ public class OxygenUi : MonoBehaviour
         playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
     }
 
+	#if UNITY_EDITOR
     void OnGUI()
     {
         int CurrentBarWidth = 0;
@@ -39,6 +44,7 @@ public class OxygenUi : MonoBehaviour
         int b2 = BarY + MaximumBarWidth;
         EditorGUI.DrawRect(new Rect(a1, a2, b1, b2), Color.green);
     }
+	#endif
 }
 
 /*
