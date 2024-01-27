@@ -12,7 +12,7 @@ public class Compass_Rotation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.LookAt(objectToFollow);
     }

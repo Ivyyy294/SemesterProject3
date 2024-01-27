@@ -12,7 +12,7 @@ public class Compass_Location : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.position = objectToFollow.position;
         transform.rotation = objectToFollow.rotation;
