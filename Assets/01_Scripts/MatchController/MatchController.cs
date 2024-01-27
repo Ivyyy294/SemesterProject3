@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ivyyy.GameEvent;
 
 public class MatchController : MonoBehaviour
 {
+	[SerializeField] GameEvent gameStartEvent;
+
 	public static MatchController Me { get; private set;}
 
 	public MatchTimer MatchTimer {get; private set;}
@@ -32,5 +35,10 @@ public class MatchController : MonoBehaviour
 	{
 		if (Me == this)
 			Me = null;
+	}
+
+	private void Start()
+	{
+		gameStartEvent?.Raise();
 	}
 }
