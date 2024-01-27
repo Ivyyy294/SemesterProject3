@@ -25,6 +25,7 @@ public class OxygenLowUi : MonoBehaviour
 		if (gameOver.GameOver())
 		{
 			uiObj.SetActive (false);
+			audioPlayer.FadeOut (0.5f);
 			return;
 		}
 
