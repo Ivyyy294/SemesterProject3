@@ -39,8 +39,11 @@ public class AudioPlayer : MonoBehaviour
 
 	public void FadeOut (float time)
 	{
-		fadeTime = time;
-		fadeOut = true;
+		if (!fadeOut)
+		{
+			fadeTime = time;
+			fadeOut = true;
+		}
 	}
 	
 	public bool IsPlaying () {return audioSource.isPlaying;}
@@ -64,7 +67,7 @@ public class AudioPlayer : MonoBehaviour
 		if (fadeOut && audioSource.isPlaying)
 		{
 			if (audioSource.volume > 0f)
-				audioSource.volume -= baseVolume * Time.deltaTime / fadeTime;
+				audioSource.volume -= baseVolume * Time.unscaledDeltaTime / fadeTime;
 			else
 			{
 				audioSource.Stop();
