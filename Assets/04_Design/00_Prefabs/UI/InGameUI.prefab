@@ -836,10 +836,40 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6001227063604395170, guid: fd9996fe1a316864c8a2de5425b139a3,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001227063604395170, guid: fd9996fe1a316864c8a2de5425b139a3,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6001227063604395170, guid: fd9996fe1a316864c8a2de5425b139a3,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.627451
+      objectReference: {fileID: 0}
     - target: {fileID: 6418906998677207825, guid: fd9996fe1a316864c8a2de5425b139a3,
         type: 3}
       propertyPath: guid
       value: 44203479-4be8-47d3-8b0b-b35761ca4cb5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202149325663470572, guid: fd9996fe1a316864c8a2de5425b139a3,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202149325663470572, guid: fd9996fe1a316864c8a2de5425b139a3,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.050980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 9202149325663470572, guid: fd9996fe1a316864c8a2de5425b139a3,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -860,6 +890,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4291531827096005495}
     m_Modifications:
+    - target: {fileID: 2921843103472730606, guid: 91f2ab236ddc98a44a47b1ad764794ac,
+        type: 3}
+      propertyPath: audioAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: df79a249081c4b74d94339875baa8889,
+        type: 2}
     - target: {fileID: 3268340994265132820, guid: 91f2ab236ddc98a44a47b1ad764794ac,
         type: 3}
       propertyPath: guid

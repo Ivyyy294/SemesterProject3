@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Ivyyy.Utils;
 
 public class MatchTimerUi : MonoBehaviour
 {
+	[Header ("Audio")]
+	[SerializeField] AudioAsset audioAsset;
+
+	[Header ("Lara values")]
 	[SerializeField] TextMeshProUGUI labelTimer;
 	MatchTimer matchTimer;
+	BitSet audioMemory = new BitSet (1);
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +25,8 @@ public class MatchTimerUi : MonoBehaviour
     void Update()
     {
         labelTimer.text = GetRemainingTimeAsString();
+
+		HandleAudio();
     }
 
 	private string GetRemainingTimeAsString()
@@ -31,5 +39,32 @@ public class MatchTimerUi : MonoBehaviour
 			return minutes + ":" + seconds;
 		else
 			return minutes + ":0" + seconds;
+	}
+
+	private void HandleAudio()
+	{
+		float timeLeft = matchTimer.TimeRemaining;
+
+		if (timeLeft <= 1f)
+			PlayAudio (5);
+		else if (timeLeft <= 2f)
+			PlayAudio (4);
+		else if (timeLeft <= 3f)
+			PlayAudio (3);
+		else if (timeLeft <= 10f)
+			PlayAudio (2);
+		else if (timeLeft <= 30f)
+			PlayAudio (1);
+		else if (timeLeft <= 60f)
+			PlayAudio (0);
+	}
+
+	private void PlayAudio (int memNr)
+	{
+		if (!audioMemory.Check (memNr))
+		{
+			audioAsset.Play ();
+			audioMemory.SetBit (memNr, true);
+		}
 	}
 }
