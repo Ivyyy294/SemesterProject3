@@ -131,7 +131,7 @@ public class NetworkManagerCallback : MonoBehaviour
 				if (NetworkManager.Me.StartClient (iPAddress.ToString() , 23000))
 					audioBuffer.Enqueue (audioSuccessfullyJoined);
 			}
-			catch (Exception excp)
+			catch
 			{
 				NetworkManager.Me.ShutDown();
 				networkManagerUi.ShowError ("Can't reach server: " + ip_string);
