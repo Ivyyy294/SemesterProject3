@@ -6,16 +6,10 @@ using Ivyyy.Network;
 
 public class SelectPlayMode : MonoBehaviour
 {
-	[SerializeField] NetworkManagerCallback networkManagerCallback;
 	[SerializeField] GameObject selectHostSessionObj;
 	[SerializeField] GameObject enterHostAdddressObj;
 	[SerializeField] GameObject selectPlaymodeObj;
 	[SerializeField] GameObject enterLobbyNameObj;
-
-	public void Start()
-	{
-		networkManagerCallback.ResetNetworkObjects();
-	}
 
 	public void OnHostPressed()
 	{

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class MeshTeamColor : MonoBehaviour
 {
 	[SerializeField] TeamColorSettings teamColorSettings;
@@ -13,11 +12,11 @@ public class MeshTeamColor : MonoBehaviour
     void Start()
     {
         mRenderer = GetComponent<Renderer>();
-		mRenderer.sharedMaterial.EnableKeyword("_EMISSION");
+		mRenderer.material.EnableKeyword("_EMISSION");
 
 		Color color = teamColorSettings.GetTeamColor (teamIndex);
 
-		mRenderer.sharedMaterial.color = color;
-		mRenderer.sharedMaterial.SetColor("_EmissionColor", color);
+		mRenderer.material.color = color;
+		mRenderer.material.SetColor("_EmissionColor", color);
     }
 }

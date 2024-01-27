@@ -145,11 +145,13 @@ public class Ball : NetworkBehaviour
 
 	private void UpdateClient()
 	{
+		bool isHolded = CurrentPlayerId != -1;
+
 		if (networkPackage.Available)
 		{
 			CurrentPlayerId = networkPackage.Value(0).GetShort();
 
-			if (CurrentPlayerId == -1)
+			if (!isHolded)
 			{
 				transform.position = networkPackage.Value (1).GetVector3();
 				velocity = networkPackage.Value(2).GetVector3();
@@ -157,7 +159,7 @@ public class Ball : NetworkBehaviour
 			
 			networkPackage.Clear();
 		}
-		else if (CurrentPlayerId != -1)
+		else if (isHolded)
 			transform.localPosition = Vector3.zero;
 		else
 			transform.position += velocity * Time.deltaTime;
