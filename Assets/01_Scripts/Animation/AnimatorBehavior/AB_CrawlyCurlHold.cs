@@ -17,7 +17,6 @@ public class AB_CrawlyCurlHold : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _spherizeTimer.Update();
-        Debug.Log(_spherizeTimer.ProgressNormalized);
         _visuals.spherize = Mathf.Clamp01(_spherizeTimer.ProgressNormalized);
     }
 
