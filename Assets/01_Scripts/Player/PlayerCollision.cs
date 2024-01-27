@@ -5,23 +5,17 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
 	PlayerOxygen playerOxygen;
-	PlayerConfigurationContainer playerConfigurationContainer;
-	PlayerInput diverInput;
-	PlayerBlock playerBlock;
 	PlayerBallStatus playerBallStatus;
+	PlayerCatch playerCatch;
 
-	public short PlayerId => playerConfigurationContainer.PlayerID;
 	public PlayerOxygen PlayerOxygen => playerOxygen;
 	public PlayerBallStatus PlayerBallStatus => playerBallStatus;
-
-	public bool CanCatchBall { get { return !playerOxygen.OxygenEmpty/* && (playerBlock.IsBlocking || !diverInput.DashPressed)*/;} }
+	public PlayerCatch PlayerCatch => playerCatch;
 
 	private void Start()
 	{
 		playerOxygen = transform.parent.GetComponentInChildren<PlayerOxygen>();
-		playerConfigurationContainer = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>();
-		diverInput = transform.parent.GetComponentInChildren <PlayerInput>();
-		playerBlock = GetComponent<PlayerBlock>();
+		playerCatch = transform.parent.GetComponentInChildren <PlayerCatch>();
 		playerBallStatus = transform.parent.GetComponentInChildren <PlayerBallStatus>();
 	}
 }

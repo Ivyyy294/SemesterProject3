@@ -17,6 +17,7 @@ public class PlayerThrowBall : NetworkBehaviour
 	PlayerOxygen playerOxygen;
 	PlayerBallStatus playerBallStatus;
 	PlayerInput playerInput;
+	PlayerAudio playerAudio;
 
 	//Private
 	Ball ball;
@@ -28,6 +29,7 @@ public class PlayerThrowBall : NetworkBehaviour
 		playerBallStatus = transform.parent.GetComponentInChildren<PlayerBallStatus>();
 		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
 		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
         ball = Ball.Me;
 
 		Owner = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>().IsLocalPlayer();
@@ -61,9 +63,13 @@ public class PlayerThrowBall : NetworkBehaviour
 	public void ThrowBall()
 	{
 		if (Host)
+		{
 			ball.Throw (ballSpawn.position, transform.forward * throwForce);
+			playerAudio.PlayAudioThrow();
+		}
 		else
 			InvokeRPC ("ThrowBall");
+
 		onBallThrow.Invoke();
 	}
 

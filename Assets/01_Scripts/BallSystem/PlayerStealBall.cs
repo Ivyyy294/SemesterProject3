@@ -14,6 +14,7 @@ public class PlayerStealBall : MonoBehaviour
 	PlayerBallStatus ballStatus;
 	PlayerInput playerInput;
 	Ball ball;
+	PlayerAudio playerAudio;
 	short playerId;
 	float timer = 0f;
 	bool host = false;
@@ -42,7 +43,10 @@ public class PlayerStealBall : MonoBehaviour
 			timer = 0f;
 
 		if (timer >= stealDuration)
+		{
 			ball.SetPlayerId (playerId);
+			playerAudio.PlayAudioSteal();
+		}
 	}
 
     // Start is called before the first frame update
@@ -50,6 +54,7 @@ public class PlayerStealBall : MonoBehaviour
     {
         ballStatus = GetComponent <PlayerBallStatus>();
 		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
 		playerId = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>().PlayerID;
 		ball = Ball.Me;
 

@@ -120,8 +120,8 @@ public class Ball : NetworkBehaviour
 		{
 			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
 			
-			if (playerCollision && playerCollision.CanCatchBall)
-				SetPlayerId (playerCollision.PlayerId);
+			if (playerCollision && playerCollision.PlayerCatch.CanCatchBall)
+				playerCollision.PlayerCatch.Catch();
 		}
 	}
 

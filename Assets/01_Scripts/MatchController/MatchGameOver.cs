@@ -7,6 +7,7 @@ public class MatchGameOver : MonoBehaviour
 	MatchTimer matchTimer;
 	MatchScoreController scoreController;
 	MatchPauseController pauseController;
+	[SerializeField] AudioAsset audioGameOver;
 
 	public bool GameOver()
 	{
@@ -27,6 +28,9 @@ public class MatchGameOver : MonoBehaviour
 	private void Update()
 	{
 		if (GameOver() && !pauseController.IsMatchPaused)
+		{
 			pauseController.PauseMatch (true);
+			audioGameOver.PlayOneShot();
+		}
 	}
 }

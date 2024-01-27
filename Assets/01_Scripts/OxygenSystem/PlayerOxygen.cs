@@ -18,6 +18,7 @@ public class PlayerOxygen : NetworkBehaviour
 	float currentOxygen;
 	float timer;
 	PlayerInput playerInput;
+	PlayerAudio playerAudio;
 
 	//Public
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
@@ -36,6 +37,11 @@ public class PlayerOxygen : NetworkBehaviour
 		currentOxygen = maxOxygen;
 	}
 
+	public void PlayerAudioInhale()
+	{
+		playerAudio.PlayAudioInhale();
+	}
+
 	//Protected
 	protected override void SetPackageData()
 	{
@@ -48,6 +54,7 @@ public class PlayerOxygen : NetworkBehaviour
 	{
 		currentOxygen = maxOxygen;
 		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
 	}
 
 	// Update is called once per frame

@@ -74,6 +74,20 @@ public class OxygenRefill : NetworkBehaviour
 		}
 	}
 
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.isTrigger || !Owner)
+			return;
+
+		PlayerCollision playerCollision = other.transform.parent.GetComponent<PlayerCollision>();
+
+		if (playerCollision)
+		{
+			PlayerOxygen playerOxygen = playerCollision.PlayerOxygen;
+			playerOxygen.PlayerAudioInhale();
+		}
+	}
+
 	private void OnTriggerStay(Collider other)
 	{
 		if (other.isTrigger || !Owner)
