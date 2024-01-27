@@ -14,13 +14,19 @@ public class OxygenMeterUi : MonoBehaviour
 	[Header ("Lara Values")]
 	[SerializeField] TextMeshProUGUI oxygenLabel;
 	PlayerOxygen playerOxygen;
+
+	[Header("Mushroom Values")]
+	[SerializeField] RectTransform oxygenBar;
 	
-	BitSet audioMemory = new BitSet (1);	
+	BitSet audioMemory = new BitSet (1);
+	private int OxygenBarWidth;
 
     // Start is called before the first frame update
     void Start()
     {
 		playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
+		OxygenBarWidth = 100;
+		//OxygenMeterE = GameObject.Find("OxygenMeterEmpty");
     }
 
     // Update is called once per frame
@@ -29,7 +35,10 @@ public class OxygenMeterUi : MonoBehaviour
         if (oxygenLabel && playerOxygen)
 			oxygenLabel.text = ((int)playerOxygen.CurrentOxygenPercent).ToString();
 
-		UpdateAudioMemory();
+		OxygenBarWidth = 100 - ((int)playerOxygen.CurrentOxygenPercent);
+		oxygenBar.sizeDelta = new Vector2(OxygenBarWidth,64);
+
+        UpdateAudioMemory();
 		PlayAudio();
     }
 
