@@ -26,7 +26,6 @@ public class OxygenMeterUi : MonoBehaviour
     {
 		playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
 		OxygenBarWidth = 100;
-		//OxygenMeterE = GameObject.Find("OxygenMeterEmpty");
     }
 
     // Update is called once per frame
