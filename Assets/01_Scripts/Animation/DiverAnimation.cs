@@ -12,13 +12,13 @@ public class DiverAnimation : MonoBehaviour
     [Header("Local Dependencies")]
     [SerializeField] private Animator animator;
     [SerializeField] private DiverVerletBehavior verletBehavior;
-    [SerializeField] private DiverIKController ikController;
 
     [Header("External Dependencies")]
     [SerializeField] private PlayerBallStatus playerBallStatus;
     [SerializeField] private PlayerThrowBall playerThrowBall;
     [SerializeField] private PlayerBlock playerBlock;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerOxygen playerOxygen;
 
     [Header("Joints References")]
     [SerializeField] private MultiInverseChain spineChain;
@@ -33,7 +33,14 @@ public class DiverAnimation : MonoBehaviour
     private readonly int ID_BreastStrokeUB = Animator.StringToHash("BreastStrokeUB");
     private readonly int ID_CancelAnimEffects = Animator.StringToHash("CancelAnimEffects");
     private readonly int ID_IsBlocking = Animator.StringToHash("IsBlocking");
-    private readonly int ID_BallState = Animator.StringToHash("BallState");
+    
+    private readonly int ID_BallFront = Animator.StringToHash("BallFront");
+    private readonly int ID_BallUp = Animator.StringToHash("BallUp");
+    private readonly int ID_BallDown = Animator.StringToHash("BallDown");
+    private readonly int ID_BallSide = Animator.StringToHash("BallSide");
+    private readonly int ID_IsBallHolding = Animator.StringToHash("IsBallHolding");
+    private readonly int ID_IsReaching = Animator.StringToHash("IsReaching");
+    private readonly int ID_IsBallLeft = Animator.StringToHash("IsBallLeft");
     #endregion
     
      private VelocityTracker _velocityTracker;
@@ -44,16 +51,16 @@ public class DiverAnimation : MonoBehaviour
      [SerializeField] private float lowSpeedThreshold;
 
      private AnimUtils.AngleTracker _inertiaTracker;
-     private bool _isHoldingBall;
-
+     
      private StateListener<PlayerBallStatus, bool> _hasBallListener;
+     private bool _isHoldingBall;
      private StateListener<PlayerBlock, bool> _isBlockingListener;
+     private StateListener<PlayerOxygen, bool> _hasOxygenListener;
+     private bool _oxygenEmpty;
      private Gauge _dashingGauge;
 
-     private Gauge _ikStrengthGauge = new (2, 2);
      private Cooldown _throwCooldown = new(0.5f);
-     private Gauge _ikArmSwitcher = new(2, 2);
-     
+
 
      private void OnEnable()
     {
@@ -62,13 +69,16 @@ public class DiverAnimation : MonoBehaviour
         _isHoldingBall = false;
         _hasBallListener = new(playerBallStatus, x => x.HasBall(), _isHoldingBall, SetHoldingBall);
         _isBlockingListener = new(playerBlock, x => x.IsBlocking, false, SetBlocking);
+        _hasOxygenListener = new(playerOxygen, x => x.OxygenEmpty, false, OnOxygenChanged);
         _velocityTracker = new VelocityTracker(transform.position, 24);
         
         breastStrokeCooldown.MakeReady();
         _dashingGauge = new Gauge(fillRate: 2, depletionRate: 3);
         
         animator.SetFloat(ID_SwimSpeed, 0);
-        
+        animator.SetBool(ID_IsBallHolding, false);
+        animator.SetBool(ID_IsReaching, false);
+
         playerThrowBall.onBallThrow.AddListener(OnThrowBall);
     }
 
@@ -76,8 +86,8 @@ public class DiverAnimation : MonoBehaviour
      {
          _hasBallListener.Update();
          _isBlockingListener.Update();
+         _hasOxygenListener.Update();
          _dashingGauge.Update(playerMovement.IsDashing && _velocityTracker.SmoothSpeed > 2f);
-         _ikStrengthGauge.Update(BallInRange() && _throwCooldown.IsReady);
          _throwCooldown.Update();
 
          _inertiaTracker = new(
@@ -104,9 +114,22 @@ public class DiverAnimation : MonoBehaviour
 
          animator.SetFloat(ID_Levelness, Mathf.Abs(Vector3.Dot(transform.up, Vector3.up)));
          animator.SetFloat(ID_SwimSpeed, (Mathf.Clamp01(_velocityTracker.SmoothSpeed) + _dashingGauge.FillAmount) * velocityDot);
+         
+         if (!_isHoldingBall && !_oxygenEmpty && _throwCooldown.IsReady && BallInRange())
+         {
+             animator.SetBool(ID_IsReaching, true);
+             animator.SetTrigger(ID_CancelAnimEffects);
+         }
+         else animator.SetBool(ID_IsReaching, false);
+         
 
-         HandleIK(false);
-
+         var ballVector = (GetBallGrabPosition(chest.position) - chest.position).normalized;
+         var sideDot = Vector3.Dot(ballVector, -transform.right);
+         animator.SetBool(ID_IsBallLeft, sideDot > 0);
+         animator.SetFloat(ID_BallFront, Mathf.Clamp01(Vector3.Dot(ballVector, transform.forward)));
+         animator.SetFloat(ID_BallUp, Mathf.Clamp01(Vector3.Dot(ballVector, transform.up)));
+         animator.SetFloat(ID_BallSide, Mathf.Abs(sideDot));
+         animator.SetFloat(ID_BallDown, Mathf.Clamp01(Vector3.Dot(ballVector, -transform.up)));
      }
 
      void FixedUpdate()
@@ -117,89 +140,10 @@ public class DiverAnimation : MonoBehaviour
     private void LateUpdate()
     {
         UpdateSimulatedLimbs();
-        
-        // if (_ikEnabled)
-        // {
-        //     ikController.Apply();
-        //     ikController.leftArm.lowerArm.original.Rotate(0, 90, 0);
-        //     ikController.leftArm.hand.original.localEulerAngles = new Vector3(-11f, -6.4f, -39.21f);
-        // }
-    }
-
-    private void HandleIK(bool ikEnabled)
-    {
-        if (_ikStrengthGauge.IsEmpty || !ikEnabled)
-        {
-            foreach (var r in ikController.Rigs)
-            {
-                r.weight = 0;
-            }
-
-            return;
-        }
-
-        var ikStrength = _ikStrengthGauge.FillAmount;
-
-        var ballPos = GetBallTargetPosition();
-
-        var twistRollAngle = AnimUtils.AngleTracker.GetAngleOnProjectedPlane(transform.position, ballPos, transform.forward,
-            -transform.up);
-        var twistPitchAngle = AnimUtils.AngleTracker.GetAngleOnProjectedPlane(transform.position, ballPos,
-            transform.right, transform.forward);
-        ikController.leftArm.twistRig.weight = -(twistRollAngle / 360) * ikStrength;
-        ikController.rightArm.twistRig.weight = (twistRollAngle / 360) * ikStrength;
-        ikController.chestTwistDown.weight = (twistPitchAngle / 360) * ikStrength;
-        ikController.chestTwistUp.weight = -(twistPitchAngle / 360) * ikStrength;
-
-        var leftSide = twistRollAngle < 0;
-        _ikArmSwitcher.Update(leftSide);
-        var armBias = _ikArmSwitcher.FillAmount * 2 - 1;
-
-        SolveArmIK(ikController.leftArm, ikStrength * Mathf.Clamp01(armBias), transform.right);
-        SolveArmIK(ikController.rightArm, ikStrength * Mathf.Clamp01(-armBias), -transform.right);
-    }
-
-    public void SolveArmIK(RigArm arm, float weight, Vector3 sideVector)
-    {
-        arm.ikRig.weight = weight;
-        var ballPos = GetBallTargetPosition();
-        var chestPos = chest.position;
-        var ballGrabPos = GetBallGrabPosition(chestPos);
-        var ballVector = ballPos - chestPos;
-        arm.target.position = ballGrabPos;
-
-        // position the pole target
-        var ballHeightDot = Vector3.Dot(ballVector.normalized, transform.up);
-        var ballForwardDot = Vector3.Dot(ballVector.normalized, transform.forward);
-        var ballRightDot = Vector3.Dot(ballVector, -sideVector);
-
-        var shoulderEndPos = arm.root.position;
-        var shoulderToGrab = (ballGrabPos - shoulderEndPos);
-        
-        var initialHintPos = Vector3.Lerp(shoulderEndPos, ballGrabPos, 0.5f);
-        var hintPos = Vector3.Cross(shoulderToGrab, transform.up).normalized;
-        hintPos += transform.up * MathfUtils.RemapClamped(ballHeightDot, 0.3f, -1, 0, 3);
-        hintPos += transform.up * MathfUtils.RemapClamped(ballForwardDot, 0, 1, 0, 1);
-        var outwards = MathfUtils.RemapClamped(ballRightDot, 0.1f, 0.4f, 1, 0);
-        hintPos += sideVector * outwards;
-        hintPos = Vector3.Lerp(hintPos, initialHintPos + Vector3.up,
-            MathfUtils.RemapClamped(ballForwardDot, 0.1f, -0.4f, 0, 1));
-        
-        // Limit hint Pos
-        if(Vector3.Dot(hintPos - shoulderEndPos, sideVector) > 0)
-            hintPos = AnimUtils.AngleTracker.GetProjectedPoint(shoulderEndPos, hintPos, sideVector);
-        arm.hint.position = hintPos;
-
-        var localArmUp = Vector3.Cross(shoulderToGrab, (ballGrabPos - hintPos)).normalized;
-        arm.target.rotation = Quaternion.LookRotation(localArmUp, ballVector);
     }
 
     public void UpdateSimulatedLimbs()
     {
-        // float speedMultiplier = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 1.2f, 3.5f, 1, .5f);
-        // float directionDot = Vector3.Dot(transform.forward, _velocityTracker.SmoothVelocity.normalized);
-        // float directionMultiplier = MathfUtils.RemapClamped(directionDot, -.4f, 0, 0, 1);
-        // float multiplier = speedMultiplier * directionMultiplier;
         float multiplier = 1.5f;
 
         // Update Lower Body Transforms
@@ -241,6 +185,7 @@ public class DiverAnimation : MonoBehaviour
     {
         Debug.Log("Throwing Ball");
         _throwCooldown.Reset();
+        animator.SetBool(ID_IsBallHolding, false);
     }
 
     public void SetHoldingBall(bool newValue)
@@ -248,7 +193,8 @@ public class DiverAnimation : MonoBehaviour
         if (_isHoldingBall == newValue) return;
         _isHoldingBall = newValue;
         
-        animator.SetInteger(ID_BallState, _isHoldingBall? 2 : 0);
+        animator.SetBool(ID_IsBallHolding, newValue);
+        animator.SetBool(ID_IsReaching, false);
         animator.SetTrigger(ID_CancelAnimEffects);
     }
 
@@ -282,12 +228,31 @@ public class DiverAnimation : MonoBehaviour
         var delta = ball - origin;
         return origin + delta.normalized * Mathf.Min(0.656f, delta.magnitude - 0.22f);
     }
-
+    
     private bool BallInRange()
     {
         var ball = Ball.Me;
         if (ball.CurrentPlayerId != -1) return false;
-        return (ball.transform.position - chest.position).magnitude < 3;
+        var ballPos = ball.transform.position;
+        float armReach = 2;
+        if ((ballPos - chest.position).magnitude < armReach) return true;
+        var transitionTime = 0.2f;
+        var projectedBallPosition = ballPos + ball.Velocity * transitionTime;
+        var projectedPlayerPosition = chest.position + _velocityTracker.SmoothVelocity * transitionTime;
+        if ((projectedBallPosition - projectedPlayerPosition).magnitude < armReach) return true;
+        return false;
+    }
+
+    private void OnOxygenChanged(bool isEmpty)
+    {
+        if (_oxygenEmpty == isEmpty) return;
+        _oxygenEmpty = isEmpty;
+        if (isEmpty)
+        {
+            animator.SetBool(ID_IsBallHolding, false);
+            animator.SetBool(ID_IsReaching, false);
+            animator.SetTrigger(ID_CancelAnimEffects);
+        }
     }
 
 #if UNITY_EDITOR

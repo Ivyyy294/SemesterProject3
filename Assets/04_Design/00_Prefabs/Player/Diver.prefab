@@ -664,6 +664,11 @@ PrefabInstance:
       objectReference: {fileID: 6141156774320075799}
     - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
+      propertyPath: playerOxygen
+      value: 
+      objectReference: {fileID: 2346642503218768759}
+    - target: {fileID: 387367796693882788, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 86737363493964281}
@@ -1111,6 +1116,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7341406990156325916}
     m_Modifications:
+    - target: {fileID: 244084619510433038, guid: 54fe1ab94d7c3234fb288a89517d22bc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 244084619510433038, guid: 54fe1ab94d7c3234fb288a89517d22bc,
         type: 3}
       propertyPath: refillDelay
