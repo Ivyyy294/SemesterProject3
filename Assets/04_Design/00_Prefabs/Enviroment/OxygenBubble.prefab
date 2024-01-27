@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 5121845000149691810}
   - component: {fileID: 593373981641342889}
   - component: {fileID: 8678776969626362643}
+  - component: {fileID: 5125315951363170971}
   m_Layer: 0
   m_Name: OxygenBubble
   m_TagString: Untagged
@@ -188,6 +189,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceTyp: 2
+--- !u!114 &5125315951363170971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5848548415988282309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0668c38364f0e04f921b60b31452cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioAsset: {fileID: 11400000, guid: e661e88052ceae1498e9eca1f1c51a53, type: 2}
+  playOnAwake: 0
 --- !u!1 &6230910325485644007
 GameObject:
   m_ObjectHideFlags: 0

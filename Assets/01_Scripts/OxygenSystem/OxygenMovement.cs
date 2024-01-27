@@ -9,6 +9,8 @@ public class OxygenMovement : NetworkBehaviour
 	[Range (0f, 1f)]
 	[SerializeField] float buoyancy = 1f;
 	
+	AudioPlayer audioPlayerSpawnBubble;
+	
 	Rigidbody m_rigidbody;
     //Vector3 velocity;
 	
@@ -27,6 +29,7 @@ public class OxygenMovement : NetworkBehaviour
 		if (Owner)
 			InvokeRPC ("Spawn");
 
+		audioPlayerSpawnBubble.Play();
 		gameObject.SetActive(true);
 	}
 
