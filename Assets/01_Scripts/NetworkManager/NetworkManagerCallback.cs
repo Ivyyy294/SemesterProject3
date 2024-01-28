@@ -149,7 +149,7 @@ public class NetworkManagerCallback : MonoBehaviour
 		}
 
 		NetworkManager.Me.ShutDown();
-		NetworkSceneController.Me.Owner = false;
+		NetworkSceneController.Me.Owner = true;
 		PlayerConfigurationManager.Me.ResetConfigurations();
 	}
 
