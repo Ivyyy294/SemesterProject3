@@ -15,6 +15,7 @@ public class Ball : NetworkBehaviour
 	Rigidbody m_rigidbody;
 	Vector3 velocity;
 	float timer = 0f;
+	CrawlyBrain crawlyBrain;
 	
 	[HideInInspector] public UnityEvent<Vector3> onBallThrown;
 	[HideInInspector] public UnityEvent onBallCollided;
@@ -100,6 +101,7 @@ public class Ball : NetworkBehaviour
 		CurrentPlayerId = -1;
 		m_rigidbody = GetComponent <Rigidbody>();
 		m_rigidbody.isKinematic = !Owner;
+		crawlyBrain = GetComponent<CrawlyBrain>();
 		//m_rigidbody.drag = drag;
     }
 
@@ -121,7 +123,12 @@ public class Ball : NetworkBehaviour
 			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
 			
 			if (playerCollision && playerCollision.PlayerCatch.CanCatchBall)
+			{
+				if (crawlyBrain.IsSleeping)
+					crawlyBrain.WakeUp();
+
 				playerCollision.PlayerCatch.Catch();
+			}
 		}
 	}
 

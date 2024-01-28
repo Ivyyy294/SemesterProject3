@@ -36,6 +36,8 @@ public class CrawlyBrain : MonoBehaviour
 
     public bool BrainActive => !_isSleeping && _networkBehaviour.Owner && _ball.CurrentPlayerId == -1;
     public bool CanMove => BrainActive && idleTime.TimeRemaining < 0;
+	public bool IsSleeping => _isSleeping;
+
     void Start()
     {
         _networkBehaviour = GetComponent<NetworkBehaviour>();
