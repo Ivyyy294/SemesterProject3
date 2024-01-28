@@ -6,34 +6,66 @@ using Cinemachine;
 public class CameraSystem : MonoBehaviour
 {
 	[SerializeField] Camera mainCamera;
-	[SerializeField] CinemachineVirtualCamera virtualCamera;
+	[SerializeField] CinemachineVirtualCamera virtualCameraDefault;
+
+	[Header ("Up Camera")]
+	[Range (0, 1)]
+	[SerializeField] float angleThresholdUp;
+	[SerializeField] CinemachineVirtualCamera virtualCameraUp;
+
+	[Header ("Down Camera")]
+	[Range (0, -1)]
+	[SerializeField] float angleThresholdDown;
+	[SerializeField] CinemachineVirtualCamera virtualCameraDown;
+
+	CinemachineVirtualCamera activeVirtualCamera = null;
+	CameraTarget cameraTarget;
+
+	//Public Methods
 
 	public Camera MainCamera => mainCamera;
 	public static CameraSystem Me {get; private set;}
 
-	public void SetCameraTarget (Transform target)
+	public void InitCameraTarget (CameraTarget target)
 	{
+		cameraTarget = target;
+
 		if (target != null)
 		{
-			virtualCamera.Follow = target;
-			virtualCamera.LookAt = target;
-			virtualCamera.gameObject.SetActive (true);
-
-			Vector3 posOffset = virtualCamera.transform.position - target.position;
-			virtualCamera.OnTargetObjectWarped (target, posOffset);
-			
-			mainCamera.gameObject.SetActive (true);
+			SetCameraTarget(virtualCameraDefault, cameraTarget.transform);
+			SetCameraTarget(virtualCameraUp, cameraTarget.transform);
+			SetCameraTarget(virtualCameraDown, cameraTarget.transform);
 		}
 	}
 
 	public void OnTargetObjectWarped (Transform target, Vector3 posOffset)
 	{
-		virtualCamera.OnTargetObjectWarped (target, posOffset);
+		activeVirtualCamera.OnTargetObjectWarped (target, posOffset);
 	}
 
 	public void EnableVCam (bool val)
 	{
-		virtualCamera.gameObject.SetActive (val);
+		activeVirtualCamera.gameObject.SetActive (val);
+	}
+
+	//Private Methods
+
+	private void Update()
+	{
+		if (cameraTarget != null)
+		{
+			CinemachineVirtualCamera targetCamera = virtualCameraDefault;
+
+			float currentAngle = cameraTarget.CurrentY;
+
+			if (currentAngle >= angleThresholdUp)
+				targetCamera = virtualCameraUp;
+			else if (currentAngle <= angleThresholdDown)
+				targetCamera = virtualCameraDown;
+
+			if (targetCamera != activeVirtualCamera)
+				SwitchCamera (targetCamera);
+		}
 	}
 
 	private void OnEnable()
@@ -42,7 +74,9 @@ public class CameraSystem : MonoBehaviour
 		{
 			Me = this;
 			mainCamera.gameObject.SetActive (false);
-			virtualCamera.gameObject.SetActive (false);
+			//virtualCameraDefault.gameObject.SetActive (true);
+			//activeVirtualCamera = virtualCameraDefault;
+			//activeVirtualCamera.gameObject.SetActive (false);
 		}
 		else
 			Destroy (this);
@@ -51,5 +85,29 @@ public class CameraSystem : MonoBehaviour
 	void OnDestroy()
 	{
 		Me = null;
+	}
+
+	private void SetCameraTarget (CinemachineVirtualCamera vcam, Transform target)
+	{
+		if (target != null)
+		{
+			vcam.Follow = target;
+			vcam.LookAt = target;
+
+			Vector3 posOffset = vcam.transform.position - target.position;
+			vcam.OnTargetObjectWarped (target, posOffset);
+			
+			mainCamera.gameObject.SetActive (true);
+		}
+	}
+
+	private void SwitchCamera (CinemachineVirtualCamera newVcam)
+	{
+		newVcam.gameObject.SetActive (true);
+
+		if (activeVirtualCamera != null)
+			activeVirtualCamera.gameObject.SetActive(false);
+		
+		activeVirtualCamera = newVcam;
 	}
 }
