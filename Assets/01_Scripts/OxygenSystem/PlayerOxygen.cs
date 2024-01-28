@@ -65,6 +65,10 @@ public class PlayerOxygen : NetworkBehaviour
 		if (!Owner && networkPackage.Available)
 			currentOxygen = networkPackage.Value(0).GetFloat();
 
+		//Prevent oxygen loss while game is paused
+		if (MatchController.Me != null && MatchController.Me.MatchPauseController.IsMatchPaused)
+			return;
+
 		if (currentOxygen > 0f)
 			currentOxygen -= passiveOxygenConsumption * Time.deltaTime;
 

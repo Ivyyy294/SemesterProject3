@@ -38,6 +38,9 @@ public class PlayerThrowBall : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+		if (MatchController.Me != null && MatchController.Me.MatchPauseController.IsMatchPaused)
+			return;
+
 		bool hasBall = playerBallStatus.HasBall();
 
 		//Prevent ball from being thrown instantly

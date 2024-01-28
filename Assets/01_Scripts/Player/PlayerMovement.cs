@@ -53,6 +53,10 @@ public class PlayerMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		//Block player movement while match is paused
+		if (MatchController.Me != null && MatchController.Me.MatchPauseController.IsMatchPaused)
+			return;
+
 		Rotation();
 		ForwardMovement();
 	}
