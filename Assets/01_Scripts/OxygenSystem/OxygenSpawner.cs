@@ -61,7 +61,6 @@ public class OxygenSpawner : MonoBehaviour
 	void GetRandomSpawnTime()
 	{
 		spawnTime = Random.Range (minSpawnTime, maxSpawnTime);
-		Debug.Log (spawnTime);
 	}
 	
 }

@@ -36,10 +36,7 @@ public class PlayerAudio : NetworkBehaviour
 		bool isSwimming = playerInput.ForwardPressed && !playerInput.DashPressed;
 
 		if (isSwimming && !audioSwimming.IsPlaying())
-		{
-			Debug.Log("PlayAudioSwim");
 			audioSwimming.Play();
-		}
 		else if (!isSwimming && audioSwimming.IsPlaying())
 			audioSwimming.FadeOut(audiofadeTime);
 	}
@@ -49,10 +46,7 @@ public class PlayerAudio : NetworkBehaviour
 		bool isDashing = playerInput.ForwardPressed && playerInput.DashPressed;
 
 		if (isDashing && !audioDashing.IsPlaying())
-		{
-			Debug.Log("PlayAudioDash");
 			audioDashing.Play();
-		}
 		else if (!isDashing && audioDashing.IsPlaying())
 			audioDashing.FadeOut(audiofadeTime);
 	}

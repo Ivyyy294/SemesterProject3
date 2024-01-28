@@ -29,6 +29,9 @@ public class OxygenMovement : NetworkBehaviour
 		if (Owner)
 			InvokeRPC ("Spawn");
 
+		if (!audioPlayerSpawnBubble)
+			audioPlayerSpawnBubble = GetComponent<AudioPlayer>();
+
 		audioPlayerSpawnBubble.Play();
 		gameObject.SetActive(true);
 	}
@@ -44,6 +47,7 @@ public class OxygenMovement : NetworkBehaviour
     {
         m_rigidbody = GetComponent<Rigidbody>();
 		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
+		audioPlayerSpawnBubble = GetComponent<AudioPlayer>();
     }
 
 	private void Update()
