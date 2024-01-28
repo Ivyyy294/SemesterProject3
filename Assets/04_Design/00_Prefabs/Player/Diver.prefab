@@ -786,6 +786,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7149194846749162119, guid: eef044af6a3269e47a44d90594077447,
+        type: 3}
+      propertyPath: _networkPlayer
+      value: 
+      objectReference: {fileID: 8861826180381799535}
     - target: {fileID: 7349949655078208792, guid: eef044af6a3269e47a44d90594077447,
         type: 3}
       propertyPath: m_Layer
@@ -1202,6 +1207,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8225689439109266977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8861826180381799535 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 638388559071660622, guid: a7c741a235e2563458515416f5baa924,
+    type: 3}
+  m_PrefabInstance: {fileID: 8225689439109266977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acad4a3c31163b4ba0e082755bbb927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8908553848544215344
 PrefabInstance:
   m_ObjectHideFlags: 0
