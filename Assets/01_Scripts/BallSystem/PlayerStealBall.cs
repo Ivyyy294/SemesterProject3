@@ -74,6 +74,7 @@ public class PlayerStealBall : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (checkPosition.position, stealRange);
 	}
 }

@@ -33,6 +33,8 @@ public class Ball : NetworkBehaviour
 
 	//Public Methods
 	public Vector3 Velocity => velocity;
+	public bool IsCatchable => (Owner && timer >= afterThrowCooldown && !IsCatched);
+	public bool IsCatched => CurrentPlayerId != -1;
 
 	public void Throw (Vector3 startPos, Vector3 force)
 	{
@@ -56,6 +58,10 @@ public class Ball : NetworkBehaviour
 	public void SetPlayerId (short playerId)
 	{
 		CurrentPlayerId = playerId;
+
+		//Awake crawly after first catch
+		if (crawlyBrain.IsSleeping)
+			crawlyBrain.WakeUp();
 	}
 
 	//RPC
@@ -115,23 +121,6 @@ public class Ball : NetworkBehaviour
 		SetPhysicOptions();
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
-		//Prevent ball from being catch during cooldown
-		if (Owner && timer >= afterThrowCooldown)
-		{
-			PlayerCollision playerCollision = other.GetComponentInParent<PlayerCollision>();
-			
-			if (playerCollision && playerCollision.PlayerCatch.CanCatchBall)
-			{
-				if (crawlyBrain.IsSleeping)
-					crawlyBrain.WakeUp();
-
-				playerCollision.PlayerCatch.Catch();
-			}
-		}
-	}
-
 	private void OnCollisionEnter(Collision collision)
 	{
 		var force = collision.impulse.magnitude;
@@ -152,13 +141,11 @@ public class Ball : NetworkBehaviour
 
 	private void UpdateClient()
 	{
-		bool isHolded = CurrentPlayerId != -1;
-
 		if (networkPackage.Available)
 		{
 			CurrentPlayerId = networkPackage.Value(0).GetShort();
 
-			if (!isHolded)
+			if (!IsCatched)
 			{
 				transform.position = networkPackage.Value (1).GetVector3();
 				velocity = networkPackage.Value(2).GetVector3();
@@ -166,7 +153,7 @@ public class Ball : NetworkBehaviour
 			
 			networkPackage.Clear();
 		}
-		else if (isHolded)
+		else if (IsCatched)
 			transform.localPosition = Vector3.zero;
 		else
 			transform.position += velocity * Time.deltaTime;
@@ -174,10 +161,9 @@ public class Ball : NetworkBehaviour
 
 	private void UpdateHost()
 	{
-		bool isHolded = CurrentPlayerId != -1;
-		m_rigidbody.isKinematic = isHolded;
+		m_rigidbody.isKinematic = IsCatched;
 
-		if (isHolded)
+		if (IsCatched)
 			transform.localPosition = Vector3.zero;
 
 		if (timer < afterThrowCooldown)

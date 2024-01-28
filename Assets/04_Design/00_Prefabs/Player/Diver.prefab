@@ -226,6 +226,21 @@ PrefabInstance:
       propertyPath: playerOxygen
       value: 
       objectReference: {fileID: 2346642503218768759}
+    - target: {fileID: 4829771078199515062, guid: 48ac5d5e375cad24787cea683e72d401,
+        type: 3}
+      propertyPath: stealRange
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829771078199515062, guid: 48ac5d5e375cad24787cea683e72d401,
+        type: 3}
+      propertyPath: mask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4829771078199515062, guid: 48ac5d5e375cad24787cea683e72d401,
+        type: 3}
+      propertyPath: checkPosition
+      value: 
+      objectReference: {fileID: 8141807811707793886}
     - target: {fileID: 5579185344031146064, guid: 48ac5d5e375cad24787cea683e72d401,
         type: 3}
       propertyPath: guid
@@ -860,6 +875,12 @@ Transform:
 --- !u!4 &7791935655558837067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4512780116998153399, guid: eef044af6a3269e47a44d90594077447,
+    type: 3}
+  m_PrefabInstance: {fileID: 5945342678992820220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8141807811707793886 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2485875651559679522, guid: eef044af6a3269e47a44d90594077447,
     type: 3}
   m_PrefabInstance: {fileID: 5945342678992820220}
   m_PrefabAsset: {fileID: 0}
