@@ -59,6 +59,8 @@ public class CrawlyBrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_ball.CurrentPlayerId != -1) WakeUp();
+        
         if (BrainActive)
         {
             idleTime.Update();

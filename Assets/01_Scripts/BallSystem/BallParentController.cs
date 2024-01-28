@@ -25,7 +25,8 @@ public class BallParentController : MonoBehaviour
 		{
 			Transform newParent = GetParentTransform();
 			transform.SetParent (newParent);
-			transform.forward = newParent.forward;
+			// transform.forward = newParent.forward;
+			transform.localRotation = Quaternion.identity;
 			transform.localPosition = Vector3.zero;
 		}
     }
