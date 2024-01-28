@@ -32,6 +32,5 @@ public class MenuController : MonoBehaviour
 	void Start()
 	{
 		networkManagerCallback.ResetNetworkObjects();
-		NetworkSceneController.Me.Owner = true;
 	}   
 }

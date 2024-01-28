@@ -35,7 +35,7 @@ public class MatchSoftReset : NetworkBehaviour
 		objectSpawnController = GetComponent<MatchObjectSpawn>();
 		matchTimer = GetComponent <MatchTimer>();
 
-		SoftReset();
+		SoftReset (false);
     }
 
     // Update is called once per frame
@@ -55,11 +55,11 @@ public class MatchSoftReset : NetworkBehaviour
 		}
     }
 
-	void SoftReset()
+	void SoftReset(bool pauseGame = true)
 	{
 		objectSpawnController.RespawnObjects();
 
-		if (pauseTime > 0f)
+		if (pauseTime > 0f && pauseGame)
 		{
 			pauseController.PauseMatch (true);
 			timer = 0f;

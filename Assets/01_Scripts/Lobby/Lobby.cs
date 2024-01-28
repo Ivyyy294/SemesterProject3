@@ -6,8 +6,18 @@ using Ivyyy.Network;
 
 public class Lobby : MonoBehaviour
 {
+	[SerializeField] float matchStartDelay;
+
 	PlayerConfigurationManager configurationManager;
 	NetworkSceneController networkSceneController;
+	float timer = 0f;
+
+	public float TimeUntilStart => timer;
+
+	public bool AllPayersReady()
+	{
+		 return configurationManager && configurationManager.PlayersReady() && configurationManager.EqualTeamSize();
+	}
 
 	private void Start()
 	{
@@ -20,12 +30,14 @@ public class Lobby : MonoBehaviour
 
 	private void Update()
 	{
-		if (StartMatch())
-			networkSceneController.LoadScene(2);
-	}
+		bool playersReady = AllPayersReady();
 
-	private bool StartMatch()
-	{
-		return configurationManager && configurationManager.PlayersReady() && configurationManager.EqualTeamSize();
+		if (playersReady)
+			timer -= Time.deltaTime;
+		else
+			timer = matchStartDelay;
+
+		if (AllPayersReady() && timer <= 0f)
+			networkSceneController.LoadScene(2);
 	}
 }
