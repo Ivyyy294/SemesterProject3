@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7490679cbb0ec49b5d45a66e74b10e, type: 3}
   m_Name: StealBall
   m_EditorClassIdentifier: 
-  clipData: []
+  clipData:
+  - clip: {fileID: 8300000, guid: aeed163c3196ea84384c36eb1f808c27, type: 3}
+    subtitle: 
   playStyle: 0
   audioTyp: 0
   loop: 0

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7490679cbb0ec49b5d45a66e74b10e, type: 3}
   m_Name: CreatureSleeping
   m_EditorClassIdentifier: 
-  clipData: []
+  clipData:
+  - clip: {fileID: 8300000, guid: be8143ec2ebd5144cb7d3f4fe014a5bc, type: 3}
+    subtitle: 
   playStyle: 0
   audioTyp: 0
   loop: 1
   volume: {x: 0.5, y: 0.5}
   pitch: {x: 1, y: 1}
-  spatial: 0
+  spatial: 1
   minDistance: 0.5
   maxDistance: 500

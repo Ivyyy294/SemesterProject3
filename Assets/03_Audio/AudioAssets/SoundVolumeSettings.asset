@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7490679cbb0ec49b5d45a66e74b10e, type: 3}
   m_Name: SoundVolumeSettings
   m_EditorClassIdentifier: 
-  clipData: []
+  clipData:
+  - clip: {fileID: 8300000, guid: 2b7a1dbaccb35944cb5020ce4efee0cd, type: 3}
+    subtitle: 
   playStyle: 0
   audioTyp: 0
   loop: 0
