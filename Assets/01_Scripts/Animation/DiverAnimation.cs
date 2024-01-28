@@ -41,6 +41,7 @@ public class DiverAnimation : MonoBehaviour
     private readonly int ID_IsBallHolding = Animator.StringToHash("IsBallHolding");
     private readonly int ID_IsReaching = Animator.StringToHash("IsReaching");
     private readonly int ID_IsBallLeft = Animator.StringToHash("IsBallLeft");
+    private readonly int ID_Throw = Animator.StringToHash("Throw");
     #endregion
     
      private VelocityTracker _velocityTracker;
@@ -60,10 +61,9 @@ public class DiverAnimation : MonoBehaviour
      private Gauge _dashingGauge;
 
      private Cooldown _throwCooldown = new(0.5f);
-
-
+     
      private void OnEnable()
-    {
+     {
         verletBehavior.ResetSimulation();
         
         _isHoldingBall = false;
@@ -186,6 +186,7 @@ public class DiverAnimation : MonoBehaviour
         Debug.Log("Throwing Ball");
         _throwCooldown.Reset();
         animator.SetBool(ID_IsBallHolding, false);
+        animator.SetTrigger(ID_Throw);
     }
 
     public void SetHoldingBall(bool newValue)

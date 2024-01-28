@@ -15,7 +15,6 @@ public class Ball : NetworkBehaviour
 	Rigidbody m_rigidbody;
 	Vector3 velocity;
 	float timer = 0f;
-	CrawlyBrain crawlyBrain;
 	
 	[HideInInspector] public UnityEvent<Vector3> onBallThrown;
 	[HideInInspector] public UnityEvent onBallCollided;
@@ -58,10 +57,6 @@ public class Ball : NetworkBehaviour
 	public void SetPlayerId (short playerId)
 	{
 		CurrentPlayerId = playerId;
-
-		//Awake crawly after first catch
-		if (crawlyBrain.IsSleeping)
-			crawlyBrain.WakeUp();
 	}
 
 	//RPC
@@ -107,7 +102,6 @@ public class Ball : NetworkBehaviour
 		CurrentPlayerId = -1;
 		m_rigidbody = GetComponent <Rigidbody>();
 		m_rigidbody.isKinematic = !Owner;
-		crawlyBrain = GetComponent<CrawlyBrain>();
 		//m_rigidbody.drag = drag;
     }
 
@@ -153,18 +147,13 @@ public class Ball : NetworkBehaviour
 			
 			networkPackage.Clear();
 		}
-		else if (IsCatched)
-			transform.localPosition = Vector3.zero;
-		else
+		else if (!IsCatched)
 			transform.position += velocity * Time.deltaTime;
 	}
 
 	private void UpdateHost()
 	{
 		m_rigidbody.isKinematic = IsCatched;
-
-		if (IsCatched)
-			transform.localPosition = Vector3.zero;
 
 		if (timer < afterThrowCooldown)
 			timer += Time.deltaTime;

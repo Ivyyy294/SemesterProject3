@@ -40,12 +40,14 @@ public class CameraSystem : MonoBehaviour
 
 	public void OnTargetObjectWarped (Transform target, Vector3 posOffset)
 	{
-		activeVirtualCamera.OnTargetObjectWarped (target, posOffset);
+		if (activeVirtualCamera)
+			activeVirtualCamera.OnTargetObjectWarped (target, posOffset);
 	}
 
 	public void EnableVCam (bool val)
 	{
-		activeVirtualCamera.gameObject.SetActive (val);
+		if (activeVirtualCamera)
+			activeVirtualCamera.gameObject.SetActive (val);
 	}
 
 	//Private Methods
