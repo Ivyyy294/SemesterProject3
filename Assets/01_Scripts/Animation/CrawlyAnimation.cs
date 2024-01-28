@@ -25,8 +25,8 @@ public class CrawlyAnimation : MonoBehaviour
     #region AnimatorParameterIDs
 
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
-    private readonly int ID_IsDashing = Animator.StringToHash("IsDashing");
     private readonly int ID_IsCurledUp = Animator.StringToHash("IsCurledUp");
+    private readonly int ID_IsBeingHeld = Animator.StringToHash("IsBeingHeld");
 
     #endregion
 
@@ -42,6 +42,7 @@ public class CrawlyAnimation : MonoBehaviour
     private TimeCounter _hurtTimer = new(2f);
     
     private AngleTracker _inertiaTracker;
+    private StateListener<Ball, int> _playerIDListener;
 
     private void OnEnable()
     {
@@ -53,6 +54,7 @@ public class CrawlyAnimation : MonoBehaviour
         verletBehavior.ResetSimulation();
         _wiggleFactorGauge = new Gauge(4, 4);
         _wiggleFactorGauge.SetFillAmount(1);
+        _playerIDListener = new(ballLogic, x => x.CurrentPlayerId, -1, OnPlayerIDUpdate);
 
         var playerManager = FindObjectOfType<PlayerManager>();
         _playerManagerFound = playerManager != null;
@@ -83,11 +85,20 @@ public class CrawlyAnimation : MonoBehaviour
         
         _wiggleFactorGauge.Update(_wiggleActive);
         _hurtTimer.Update();
-        
+        _playerIDListener.Update();
+
         animator.SetFloat(ID_SwimSpeed, _velocityTracker.SmoothSpeed);
-        
-        HandleRotation(); // auto rotate into the direction of travel and reduce "twist"
-        HandleScale(); // auto scale up when far away
+
+        var beingHeld = _playerIDListener.CurrentValue != -1;
+        if (beingHeld)
+        {
+            transform.localEulerAngles = new Vector3(90, 0, 0);
+        }
+        else
+        {
+            HandleRotation(); // auto rotate into the direction of travel and reduce "twist"
+            HandleScale(); // auto scale up when far away
+        }
     }
 
     private void HandleRotation()
@@ -181,10 +192,10 @@ public class CrawlyAnimation : MonoBehaviour
 
     private void OnThrown(Vector3 force)
     {
-        
-        transform.forward = force.normalized;
+        // transform.forward = force.normalized;
         verletBehavior.ResetSimulation();
         _wiggleActive = true;
+        _wiggleFactorGauge.SetFillAmount(1);
     }
 
     private void OnCollision()
@@ -196,5 +207,17 @@ public class CrawlyAnimation : MonoBehaviour
             animator.SetBool(ID_IsCurledUp, false);
             crawlyVisuals.spherize = 0; // this is redundancy for when the AnimatorBehavior should fail
         });
+    }
+
+    private void OnPlayerIDUpdate(int newID)
+    {
+        var beingHeld = newID != -1;
+        _wiggleActive = !beingHeld;
+        animator.SetBool(ID_IsBeingHeld, beingHeld);
+
+        if (beingHeld)
+        {
+            animator.SetBool(ID_IsCurledUp, false);
+        }
     }
 }
