@@ -122,7 +122,8 @@ public class PlayerInputProcessing : NetworkBehaviour
 
 	public void OnThrow(InputAction.CallbackContext context)
 	{
-		_isThrowing = context.performed;
+		if (context.started) _isThrowing = true;
+		if (context.canceled) _isThrowing = false;
 	}
 
 	public void OnBlock(InputAction.CallbackContext context)
