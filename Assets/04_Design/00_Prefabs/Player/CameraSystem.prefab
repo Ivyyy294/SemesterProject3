@@ -814,9 +814,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 703089763343457783}
   virtualCameraDefault: {fileID: 4460181227617312206}
-  angleThresholdUp: 0.75
+  angleThresholdUp: 0.5
   virtualCameraUp: {fileID: 4937642385201793970}
-  angleThresholdDown: -0.75
+  angleThresholdDown: -0.5
   virtualCameraDown: {fileID: 7013217779981022434}
 --- !u!1 &8579557089279012352
 GameObject:
