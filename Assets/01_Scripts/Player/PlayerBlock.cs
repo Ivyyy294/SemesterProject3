@@ -11,7 +11,7 @@ public class PlayerBlock : MonoBehaviour
 	[SerializeField] float blockMass = 1f;
 	[SerializeField] float blockDrag = 1f;
 
-	PlayerInput playerInput;
+	PlayerInputProcessing playerInput;
 	PlayerBallStatus playerBallStatus;
 	PlayerOxygen playerOxygen;
 	Rigidbody mrigidbody;
@@ -25,7 +25,7 @@ public class PlayerBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+        playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
 		playerBallStatus = transform.parent.GetComponentInChildren<PlayerBallStatus>();
 		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
 

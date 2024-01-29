@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Ivyyy.Network;
 using Ivyyy.Utils;
 
-public class PlayerInput : NetworkBehaviour
+public class PlayerInputProcessing : NetworkBehaviour
 {
 	[Header("Key bindings")]
 	[SerializeField] KeyCode forwardKey = KeyCode.Space;

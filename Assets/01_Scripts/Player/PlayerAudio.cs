@@ -13,7 +13,7 @@ public class PlayerAudio : NetworkBehaviour
 	[SerializeField] AudioAsset audioInhale;
 	[SerializeField] AudioAsset audioSteal;
 
-	PlayerInput playerInput;
+	PlayerInputProcessing playerInput;
 
 	protected override void SetPackageData() {}
 
@@ -21,7 +21,7 @@ public class PlayerAudio : NetworkBehaviour
     void Start()
     {
         Owner = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>().IsLocalPlayer();
-		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
     }
 
     // Update is called once per frame

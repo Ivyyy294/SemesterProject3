@@ -16,7 +16,7 @@ public class PlayerThrowBall : NetworkBehaviour
 	[SerializeField] float initalCooldown = 0.1f;
 	PlayerOxygen playerOxygen;
 	PlayerBallStatus playerBallStatus;
-	PlayerInput playerInput;
+	PlayerInputProcessing playerInput;
 	PlayerAudio playerAudio;
 
 	//Private
@@ -28,7 +28,7 @@ public class PlayerThrowBall : NetworkBehaviour
     {
 		playerBallStatus = transform.parent.GetComponentInChildren<PlayerBallStatus>();
 		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
-		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
 		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
         ball = Ball.Me;
 
