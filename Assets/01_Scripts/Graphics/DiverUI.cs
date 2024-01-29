@@ -15,6 +15,9 @@ public class DiverUI : MonoBehaviour
     private Gauge _oxygenFillGauge = new(30, 1);
     private float _previousOxygen;
     
+    private Material _tempMaterial;
+    private Material _originalMaterial;
+    
     public static DiverUI Me { get; private set; }
 
     #region MaterialPropertyIDs
@@ -37,6 +40,17 @@ public class DiverUI : MonoBehaviour
         _image = GetComponent<Image>();
         _oxygenFillGauge.SetFillAmount(0);
         _previousOxygen = oxygen;
+        _originalMaterial = _image.material;
+        _tempMaterial = new Material(_originalMaterial);
+        _tempMaterial.hideFlags = HideFlags.HideAndDontSave;
+        _tempMaterial.name = $"{_originalMaterial.name}_Runtime";
+        _image.material = _tempMaterial;
+    }
+
+    private void OnDisable()
+    {
+        _image.material = _originalMaterial;
+        Destroy(_tempMaterial);
     }
 
     void Update()
@@ -44,11 +58,11 @@ public class DiverUI : MonoBehaviour
         _oxygenFillGauge.Update(_previousOxygen < oxygen);
         _previousOxygen = oxygen;
         
-        _image.material.SetColor(ID_Team1, teamColors.GetTeamColor(0));
-        _image.material.SetColor(ID_Team2, teamColors.GetTeamColor(1));
-        _image.material.SetFloat(ID_Slider, oxygen);
+        _tempMaterial.SetColor(ID_Team1, teamColors.GetTeamColor(0));
+        _tempMaterial.SetColor(ID_Team2, teamColors.GetTeamColor(1));
+        _tempMaterial.SetFloat(ID_Slider, oxygen);
         var finalColor = Color.Lerp(oxygenColor, Color.white, _oxygenFillGauge.FillAmount * 0.5f);
-        _image.material.SetColor(ID_OxygenColor, finalColor);
+        _tempMaterial.SetColor(ID_OxygenColor, finalColor);
 
     }
 }
