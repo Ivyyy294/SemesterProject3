@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7490679cbb0ec49b5d45a66e74b10e, type: 3}
   m_Name: SwimmingBoost
   m_EditorClassIdentifier: 
-  clipData: []
+  clipData:
+  - clip: {fileID: 8300000, guid: 35bb41c786b6e9349bb02e643b92551e, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: 7d08bc3583d35ca4594df8719d03c9ac, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: de73980adead0ac40a0908267add0464, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: 39e84f24532a4bb42adbd011f69b6893, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: db5a38af282b9f84db0dea26ad955b23, type: 3}
+    subtitle: 
   playStyle: 0
   audioTyp: 0
   loop: 0
-  volume: {x: 0.5, y: 0.5}
+  volume: {x: 0.15490195, y: 0.15490195}
   pitch: {x: 1, y: 1}
   spatial: 0
   minDistance: 0.5

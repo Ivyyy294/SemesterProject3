@@ -12,12 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7490679cbb0ec49b5d45a66e74b10e, type: 3}
   m_Name: Swimming
   m_EditorClassIdentifier: 
-  clipData: []
+  clipData:
+  - clip: {fileID: 8300000, guid: 5c15dadef3680c646af6dc94e9ca1968, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: 6bb0c064e3ae96e4ab293eb515a7d63c, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: 58e39275d97556a408b0528455c3e612, type: 3}
+    subtitle: 
+  - clip: {fileID: 8300000, guid: baafdb883727779469055829d167298c, type: 3}
+    subtitle: 
   playStyle: 0
   audioTyp: 0
-  loop: 1
-  volume: {x: 0.5, y: 0.5}
+  loop: 0
+  volume: {x: 0.14509806, y: 0.14509806}
   pitch: {x: 1, y: 1}
-  spatial: 1
+  spatial: 0
   minDistance: 0.5
   maxDistance: 500
