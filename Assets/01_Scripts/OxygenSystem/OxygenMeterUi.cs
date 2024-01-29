@@ -31,8 +31,8 @@ public class OxygenMeterUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (oxygenLabel && playerOxygen)
-			oxygenLabel.text = ((int)playerOxygen.CurrentOxygenPercent).ToString();
+        /*if (oxygenLabel && playerOxygen)
+			oxygenLabel.text = ((int)playerOxygen.CurrentOxygenPercent).ToString();*/
 
 		OxygenBarWidth = 100 - ((int)playerOxygen.CurrentOxygenPercent);
 		oxygenBar.sizeDelta = new Vector2(OxygenBarWidth,64);
