@@ -105,7 +105,6 @@ public class PlayerInputProcessing : NetworkBehaviour
 	public void OnTurn(InputAction.CallbackContext context)
 	{
 		var v = context.ReadValue<Vector2>();
-		Debug.Log(v);
 		_pitch = v.y;
 		_yaw = v.x;
 	}
