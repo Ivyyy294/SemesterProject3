@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4860930572745088531}
   - component: {fileID: 4657059588473084461}
   - component: {fileID: 638388559071660622}
+  - component: {fileID: 5801784206154430938}
   - component: {fileID: 8292151498587371480}
   m_Layer: 0
   m_Name: PlayerMovementSystem
@@ -64,6 +65,133 @@ MonoBehaviour:
   throwKey: 323
   blockKey: 324
   stealKey: 323
+--- !u!114 &5801784206154430938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440998815140474730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e193547a32141af4faa1dd73f16eba3b,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638388559071660622}
+        m_TargetAssemblyTypeName: PlayerInputProcessing, Assembly-CSharp
+        m_MethodName: OnTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ff2db72c-75be-4652-80f7-ffb63c8a5d47
+    m_ActionName: Diving/Swim[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638388559071660622}
+        m_TargetAssemblyTypeName: PlayerInputProcessing, Assembly-CSharp
+        m_MethodName: OnSwim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eba733e6-1443-445f-9b86-01ea236afca1
+    m_ActionName: Diving/Swim[/Keyboard/space,/DualShock4GamepadHID/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638388559071660622}
+        m_TargetAssemblyTypeName: PlayerInputProcessing, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 261bbb97-7770-4ec7-b1be-2dd76abef5f9
+    m_ActionName: Diving/Dash[/Mouse/middleButton,/DualShock4GamepadHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638388559071660622}
+        m_TargetAssemblyTypeName: PlayerInputProcessing, Assembly-CSharp
+        m_MethodName: OnThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7fe69e30-cd59-4fe1-a050-0d483edd6b50
+    m_ActionName: Diving/Throw[/Mouse/leftButton,/DualShock4GamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638388559071660622}
+        m_TargetAssemblyTypeName: PlayerInputProcessing, Assembly-CSharp
+        m_MethodName: OnBlock
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1a70ba84-0bdc-44bc-90c4-9b5eff956d98
+    m_ActionName: Diving/Block[/Mouse/rightButton,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638388559071660622}
+        m_TargetAssemblyTypeName: PlayerInputProcessing, Assembly-CSharp
+        m_MethodName: OnSteal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4a8f8bb8-4a83-427d-97a7-b5835b377236
+    m_ActionName: Diving/Steal[/Mouse/leftButton,/DualShock4GamepadHID/buttonSouth]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Diving
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &8292151498587371480
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using Ivyyy.Network;
 using Ivyyy.Utils;
+using UnityEngine.InputSystem;
 
-public class PlayerInput : NetworkBehaviour
+[RequireComponent(typeof(PlayerInput))]
+public class PlayerInputProcessing : NetworkBehaviour
 {
 	[Header("Key bindings")]
 	[SerializeField] KeyCode forwardKey = KeyCode.Space;
@@ -14,15 +14,21 @@ public class PlayerInput : NetworkBehaviour
 	[SerializeField] KeyCode blockKey = KeyCode.B;
 	[SerializeField] KeyCode stealKey = KeyCode.Mouse0;
 
-    private float _pitch;
+	private float _pitch;
     private float _yaw;
+    private bool _goingForward;
+    private bool _isDashing;
+    private bool _isThrowing;
+    private bool _isBlocking;
+    private bool _isStealing;
 
     public float Pitch => _pitch;
     public float Yaw => _yaw;
 	public bool ForwardPressed {get{ return inputBuffer.Check (0);}}
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
 	public bool BlockPressed { get { return inputBuffer.Check(2);} }
-	public bool ThrowPressed { get { return Input.GetKeyDown (throwKey);} }
+	// public bool ThrowPressed { get { return Input.GetKeyDown (throwKey);} }
+	public bool ThrowPressed => _isThrowing;
 	public bool StealPressed { get { return inputBuffer.Check(3);} }
 
 	Transform targetTransform;
@@ -45,15 +51,19 @@ public class PlayerInput : NetworkBehaviour
 	void Start()
 	{
 		if (NetworkManager.Me is null)
+		{
 			Owner = true;
+		}
 		else
 			Owner = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>().IsLocalPlayer();
 
 		targetTransform = transform.parent;
+		
+		GetComponent<PlayerInput>().enabled = Owner;
 	}
 
 	void Update()
-    {
+	{
 		if (!Owner && networkPackage.Available)
 		{
 			int newNr = networkPackage.Value (5).GetInt32();
@@ -71,12 +81,16 @@ public class PlayerInput : NetworkBehaviour
 
 		if (Owner)
 		{
-			inputBuffer.SetBit (0, Input.GetKey(forwardKey));
-			inputBuffer.SetBit (1, Input.GetKey (dashKey));
-			inputBuffer.SetBit (2, Input.GetKey (blockKey));
-			inputBuffer.SetBit (3, Input.GetKey (stealKey));
-			_pitch = Input.GetAxisRaw("Vertical");
-			_yaw = Input.GetAxisRaw("Horizontal");
+			// inputBuffer.SetBit (0, Input.GetKey(forwardKey));
+			inputBuffer.SetBit(0, _goingForward);
+			// inputBuffer.SetBit (1, Input.GetKey (dashKey));
+			inputBuffer.SetBit(1, _isDashing);
+			// inputBuffer.SetBit (2, Input.GetKey (blockKey));
+			inputBuffer.SetBit(2, _isBlocking);
+			// inputBuffer.SetBit (3, Input.GetKey (stealKey));
+			inputBuffer.SetBit(3, _isStealing);
+			// _pitch = Input.GetAxisRaw("Vertical");
+			// _yaw = Input.GetAxisRaw("Horizontal");
 		}
     }
 
@@ -85,4 +99,43 @@ public class PlayerInput : NetworkBehaviour
 		packageNr = 0;
 		networkPackage.Clear();
 	}
+	
+	#region InputCallbacks
+
+	public void OnTurn(InputAction.CallbackContext context)
+	{
+		var v = context.ReadValue<Vector2>();
+		Debug.Log(v);
+		_pitch = v.y;
+		_yaw = v.x;
+	}
+
+	public void OnSwim(InputAction.CallbackContext context)
+	{
+		_goingForward = context.ReadValue<float>() > 0.5;
+	}
+
+	public void OnDash(InputAction.CallbackContext context)
+	{
+		_isDashing = context.ReadValue<float>() > 0.5;
+	}
+
+	public void OnThrow(InputAction.CallbackContext context)
+	{
+		if (context.started) _isThrowing = true;
+		if (context.canceled) _isThrowing = false;
+	}
+
+	public void OnBlock(InputAction.CallbackContext context)
+	{
+		_isBlocking = context.performed;
+	}
+
+	public void OnSteal(InputAction.CallbackContext context)
+	{
+		_isStealing = context.performed;
+	}
+	
+	#endregion
+	
 }

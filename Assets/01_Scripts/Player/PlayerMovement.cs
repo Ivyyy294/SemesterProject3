@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerInputProcessing))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] PlayerMovementProfil normalMovementProfil;
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 	//Private values
 	PlayerOxygen playerOxygen;
 	PlayerMovementProfil currentMovementProfil;
-    PlayerInput playerInput;
+    PlayerInputProcessing playerInput;
 	PlayerBallStatus playerBallStatus;
 	PlayerBlock playerBlock;
 
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     {
 		InitTargetTransform();
 
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInputProcessing>();
 		playerOxygen = targetTransform.GetComponentInChildren<PlayerOxygen>();
 		m_rigidbody = targetTransform.GetComponent<Rigidbody>();
 		playerBallStatus = targetTransform.GetComponentInChildren<PlayerBallStatus>();

@@ -17,7 +17,7 @@ public class PlayerOxygen : NetworkBehaviour
 
 	float currentOxygen;
 	float timer;
-	PlayerInput playerInput;
+	PlayerInputProcessing playerInput;
 	PlayerAudio playerAudio;
 
 	//Public
@@ -53,7 +53,7 @@ public class PlayerOxygen : NetworkBehaviour
 	void Start()
 	{
 		currentOxygen = maxOxygen;
-		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
 		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
 	}
 

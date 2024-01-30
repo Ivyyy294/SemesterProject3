@@ -12,7 +12,7 @@ public class PlayerStealBall : MonoBehaviour
 	[SerializeField] Transform checkPosition;
 
 	PlayerBallStatus ballStatus;
-	PlayerInput playerInput;
+	PlayerInputProcessing playerInput;
 	Ball ball;
 	PlayerAudio playerAudio;
 	short playerId;
@@ -53,7 +53,7 @@ public class PlayerStealBall : MonoBehaviour
     void Start()
     {
         ballStatus = GetComponent <PlayerBallStatus>();
-		playerInput = transform.parent.GetComponentInChildren<PlayerInput>();
+		playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
 		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
 		playerId = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>().PlayerID;
 		ball = Ball.Me;
