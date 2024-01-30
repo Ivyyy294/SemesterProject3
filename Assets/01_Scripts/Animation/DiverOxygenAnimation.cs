@@ -28,8 +28,8 @@ public class DiverOxygenAnimation : MonoBehaviour
         }
         _oxygen = newOxygen;
         _oxygenGainGauge.Update(oxygenIncreased);
-        Color resultColor = Color.Lerp(teamColor.Color, _oxygenFillColor, _oxygenGainGauge.FillAmount * 0.75f);
-        diverVisuals.emissiveColor = resultColor;
+        // Color resultColor = Color.Lerp(teamColor.Color, _oxygenFillColor, _oxygenGainGauge.FillAmount * 0.75f);
+        diverVisuals.emissiveColor = teamColor.Color;
         diverVisuals.oxygenLevel = _oxygen;
     }
 
