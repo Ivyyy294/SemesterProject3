@@ -972,6 +972,21 @@ PrefabInstance:
       propertyPath: guid
       value: eca5be5a-91dd-429e-b88a-a7b5f5e72097
       objectReference: {fileID: 0}
+    - target: {fileID: 5164176500535183621, guid: 54fe1ab94d7c3234fb288a89517d22bc,
+        type: 3}
+      propertyPath: maxOxygen
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164176500535183621, guid: 54fe1ab94d7c3234fb288a89517d22bc,
+        type: 3}
+      propertyPath: dashOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5164176500535183621, guid: 54fe1ab94d7c3234fb288a89517d22bc,
+        type: 3}
+      propertyPath: passiveOxygenConsumption
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
