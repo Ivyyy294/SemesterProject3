@@ -185,8 +185,7 @@ public class DiverAnimation : MonoBehaviour
     {
         _throwCooldown.Reset();
         animator.SetBool(ID_IsBallHolding, false);
-        // TODO: fix the yeeting
-        // animator.SetTrigger(ID_Throw);
+        animator.SetTrigger(ID_Throw);
     }
 
     public void SetHoldingBall(bool newValue)
