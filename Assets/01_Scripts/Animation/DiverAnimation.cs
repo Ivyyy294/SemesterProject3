@@ -183,7 +183,6 @@ public class DiverAnimation : MonoBehaviour
 
     public void OnThrowBall()
     {
-        Debug.Log("Throwing Ball");
         _throwCooldown.Reset();
         animator.SetBool(ID_IsBallHolding, false);
         animator.SetTrigger(ID_Throw);
