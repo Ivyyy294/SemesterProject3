@@ -7,12 +7,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputProcessing : NetworkBehaviour
 {
-	[Header("Key bindings")]
-	[SerializeField] KeyCode forwardKey = KeyCode.Space;
-	[SerializeField] KeyCode dashKey = KeyCode.Mouse1;
-	[SerializeField] KeyCode throwKey = KeyCode.Mouse0;
-	[SerializeField] KeyCode blockKey = KeyCode.B;
-	[SerializeField] KeyCode stealKey = KeyCode.Mouse0;
+	// [Header("Key bindings")]
+	// [SerializeField] KeyCode forwardKey = KeyCode.Space;
+	// [SerializeField] KeyCode dashKey = KeyCode.Mouse1;
+	// [SerializeField] KeyCode throwKey = KeyCode.Mouse0;
+	// [SerializeField] KeyCode blockKey = KeyCode.B;
+	// [SerializeField] KeyCode stealKey = KeyCode.Mouse0;
 
 	private float _pitch;
     private float _yaw;
