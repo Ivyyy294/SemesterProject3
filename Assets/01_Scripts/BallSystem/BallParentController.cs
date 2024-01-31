@@ -21,13 +21,17 @@ public class BallParentController : MonoBehaviour
     {
         if (ball.CurrentPlayerId == -1 && transform.parent != defaultParent)
 			transform.SetParent (defaultParent);
-		else if (ball.CurrentPlayerId != -1 && transform.parent == defaultParent)
+		else if (ball.CurrentPlayerId != -1)
 		{
 			Transform newParent = GetParentTransform();
-			transform.SetParent (newParent);
-			// transform.forward = newParent.forward;
-			transform.localRotation = Quaternion.identity;
-			transform.localPosition = Vector3.zero;
+
+			if (transform.parent != newParent)
+			{
+				transform.SetParent (newParent);
+				// transform.forward = newParent.forward;
+				transform.localRotation = Quaternion.identity;
+				transform.localPosition = Vector3.zero;
+			}
 		}
     }
 
