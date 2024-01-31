@@ -124,6 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb22657599db1634596cba41beeb3c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stealRange: 0.5
+  mask:
+    serializedVersion: 2
+    m_Bits: 64
+  checkPosition: {fileID: 0}
+  catchCoolDown: 1
 --- !u!1 &8863458842665378861
 GameObject:
   m_ObjectHideFlags: 0

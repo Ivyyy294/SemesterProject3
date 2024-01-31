@@ -106,7 +106,7 @@ public class PlayerInputProcessing : NetworkBehaviour
 	
 	public void OnThrow(InputAction.CallbackContext context)
 	{
-		if (context.started)
+		if (context.started && Owner)
 			OnThrowPressed?.Invoke();
 	}
 	
