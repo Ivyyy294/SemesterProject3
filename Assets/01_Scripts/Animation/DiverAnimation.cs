@@ -167,17 +167,20 @@ public class DiverAnimation : MonoBehaviour
         }
         
         // Update Upper Body Twist Transforms
-        
-        float verticalAngle = _inertiaTracker.Angle1 * multiplier;
-        float horizontalAngle = _inertiaTracker.Angle2 * multiplier;
-        upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f * multiplier);
-        upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f * multiplier);
-        foreach (var t in arms)
+
+        if (!_isHoldingBall)
         {
-            var vectorYaw = t.InverseTransformDirection(transform.up);
-            var vectorPitch = t.InverseTransformDirection(transform.right);
-            t.Rotate(vectorYaw, horizontalAngle * 0.5f * multiplier);
-            t.Rotate(vectorPitch, verticalAngle * 0.7f * multiplier);
+            float verticalAngle = _inertiaTracker.Angle1 * multiplier;
+            float horizontalAngle = _inertiaTracker.Angle2 * multiplier;
+            upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f * multiplier);
+            upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f * multiplier);
+            foreach (var t in arms)
+            {
+                var vectorYaw = t.InverseTransformDirection(transform.up);
+                var vectorPitch = t.InverseTransformDirection(transform.right);
+                t.Rotate(vectorYaw, horizontalAngle * 0.5f * multiplier);
+                t.Rotate(vectorPitch, verticalAngle * 0.7f * multiplier);
+            }
         }
     }
 
