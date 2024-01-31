@@ -28,7 +28,10 @@ public class PlayerThrowBall : NetworkBehaviour
     {
 		playerBallStatus = transform.parent.GetComponentInChildren<PlayerBallStatus>();
 		playerOxygen = transform.parent.GetComponentInChildren <PlayerOxygen>();
+
 		playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
+		playerInput.OnThrowPressed = OnThrowPressed;
+
 		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
         ball = Ball.Me;
 
@@ -49,14 +52,16 @@ public class PlayerThrowBall : NetworkBehaviour
 		else if (timer < initalCooldown)
 			timer += Time.deltaTime;
 
-        if (Owner && hasBall && timer > initalCooldown)
-		{
-			if (playerOxygen.OxygenEmpty)
-				DropBall ();
-			else if (playerInput.ThrowPressed)
-				ThrowBall ();
-		}
+		//Drop ball if oxygen empty
+        if (Owner && hasBall && playerOxygen.OxygenEmpty)
+			DropBall ();
     }
+
+	public void OnThrowPressed()
+	{ 
+		if (Owner && playerBallStatus.HasBall() && timer > initalCooldown)
+			ThrowBall ();
+	}
 
 	protected override void SetPackageData()
 	{
@@ -65,7 +70,7 @@ public class PlayerThrowBall : NetworkBehaviour
 	[RPCAttribute]
 	public void ThrowBall()
 	{
-		if (Host)
+		if (Host && playerBallStatus.HasBall())
 		{
 			ball.Throw (ballSpawn.position, transform.forward * throwForce);
 			playerAudio.PlayAudioThrow();

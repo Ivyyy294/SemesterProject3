@@ -7,18 +7,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputProcessing : NetworkBehaviour
 {
-	// [Header("Key bindings")]
-	// [SerializeField] KeyCode forwardKey = KeyCode.Space;
-	// [SerializeField] KeyCode dashKey = KeyCode.Mouse1;
-	// [SerializeField] KeyCode throwKey = KeyCode.Mouse0;
-	// [SerializeField] KeyCode blockKey = KeyCode.B;
-	// [SerializeField] KeyCode stealKey = KeyCode.Mouse0;
-
 	private float _pitch;
     private float _yaw;
     private bool _goingForward;
     private bool _isDashing;
-    private bool _isThrowing;
     private bool _isBlocking;
     private bool _isStealing;
 
@@ -27,9 +19,9 @@ public class PlayerInputProcessing : NetworkBehaviour
 	public bool ForwardPressed {get{ return inputBuffer.Check (0);}}
 	public bool DashPressed {get{ return inputBuffer.Check (1);}}
 	public bool BlockPressed { get { return inputBuffer.Check(2);} }
-	// public bool ThrowPressed { get { return Input.GetKeyDown (throwKey);} }
-	public bool ThrowPressed => _isThrowing;
 	public bool StealPressed { get { return inputBuffer.Check(3);} }
+
+	public Action OnThrowPressed;
 
 	Transform targetTransform;
 	int packageNr = 0;
@@ -64,7 +56,14 @@ public class PlayerInputProcessing : NetworkBehaviour
 
 	void Update()
 	{
-		if (!Owner && networkPackage.Available)
+		if (Owner)
+		{
+			inputBuffer.SetBit(0, _goingForward);
+			inputBuffer.SetBit(1, _isDashing);
+			inputBuffer.SetBit(2, _isBlocking);
+			inputBuffer.SetBit(3, _isStealing);
+		}
+		else if (networkPackage.Available)
 		{
 			int newNr = networkPackage.Value (5).GetInt32();
 
@@ -77,20 +76,6 @@ public class PlayerInputProcessing : NetworkBehaviour
 				inputBuffer.SetRawData (networkPackage.Value(4).GetBytes());
 				packageNr = newNr;
 			}
-		}
-
-		if (Owner)
-		{
-			// inputBuffer.SetBit (0, Input.GetKey(forwardKey));
-			inputBuffer.SetBit(0, _goingForward);
-			// inputBuffer.SetBit (1, Input.GetKey (dashKey));
-			inputBuffer.SetBit(1, _isDashing);
-			// inputBuffer.SetBit (2, Input.GetKey (blockKey));
-			inputBuffer.SetBit(2, _isBlocking);
-			// inputBuffer.SetBit (3, Input.GetKey (stealKey));
-			inputBuffer.SetBit(3, _isStealing);
-			// _pitch = Input.GetAxisRaw("Vertical");
-			// _yaw = Input.GetAxisRaw("Horizontal");
 		}
     }
 
@@ -121,8 +106,8 @@ public class PlayerInputProcessing : NetworkBehaviour
 	
 	public void OnThrow(InputAction.CallbackContext context)
 	{
-		if (context.started) _isThrowing = true;
-		if (context.canceled) _isThrowing = false;
+		if (context.started)
+			OnThrowPressed?.Invoke();
 	}
 	
 	public void OnBlock(InputAction.CallbackContext context)
