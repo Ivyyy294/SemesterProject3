@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField] PlayerMovementProfil dashMovementProfil;
 	[SerializeField] PlayerMovementProfil lowOxygenMovementProfil;
 	[SerializeField] PlayerMovementProfil blockMovementProfil;
+	[SerializeField] PlayerMovementProfil hasBallMovementProfil;
 
 	public bool IsDashing => currentMovementProfil == dashMovementProfil; 
 	
@@ -124,6 +125,8 @@ public class PlayerMovement : MonoBehaviour
 		//Allow Dash when player has not the ball
 		else if (playerInput.DashPressed && !playerBallStatus.HasBall())
 			currentMovementProfil = dashMovementProfil;
+		else if (playerBallStatus.HasBall())
+			currentMovementProfil = hasBallMovementProfil;
 		else
 			currentMovementProfil = normalMovementProfil;
 	}
