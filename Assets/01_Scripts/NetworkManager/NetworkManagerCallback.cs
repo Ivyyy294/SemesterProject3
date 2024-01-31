@@ -123,19 +123,28 @@ public class NetworkManagerCallback : MonoBehaviour
 
 		Task.Run(()=>
 		{
+			//Cast input to IPAddress
+			bool ok = false;
+
 			try
 			{
-				//Cast input to IPAddress
 				IPAddress iPAddress = IPAddress.Parse (ip_string);
 
-				if (NetworkManager.Me.StartClient (iPAddress.ToString() , 23000))
-					audioBuffer.Enqueue (audioSuccessfullyJoined);
+				ok = NetworkManager.Me.StartClient (iPAddress.ToString() , 23000);
 			}
-			catch
+			catch (Exception excp)
+			{
+				Debug.Log (excp);
+				ok = false;
+			}
+
+			if (ok)
+				audioBuffer.Enqueue (audioSuccessfullyJoined);
+			else
 			{
 				NetworkManager.Me.ShutDown();
+				audioBuffer.Enqueue (audioHostDisconnected);
 				networkManagerUi.ShowError ("Can't reach server: " + ip_string);
-				return;
 			}
 		});
 	}
