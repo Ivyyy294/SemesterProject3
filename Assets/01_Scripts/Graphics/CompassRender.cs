@@ -54,7 +54,7 @@ public class CompassRender : MonoBehaviour
         {
             animSample = 1 - coverAnimation.Evaluate(1 - _coverOpenGauge.FillAmount);
         }
-        var angle = MathfUtils.RemapClamped(animSample, 0, 1, -90, 90);
+        var angle = MathfUtils.Remap(animSample, 0, 1, -90, 90);
         cover.localEulerAngles = new Vector3(angle, 0, 0);
         
         if (!_setupEnabled) return;
