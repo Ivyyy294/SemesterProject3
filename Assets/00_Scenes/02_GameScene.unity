@@ -168,6 +168,11 @@ PrefabInstance:
       propertyPath: objectToFollow
       value: 
       objectReference: {fileID: 757872016}
+    - target: {fileID: 1508721665782778639, guid: 75350fd7abad6e244901e1e184deeb3a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3065505791566261106, guid: 75350fd7abad6e244901e1e184deeb3a,
         type: 3}
       propertyPath: objectToFollow

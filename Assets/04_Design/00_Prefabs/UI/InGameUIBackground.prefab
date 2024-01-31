@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7558568972591210570}
   - component: {fileID: 4182158166942542002}
   - component: {fileID: 2039703064328412178}
-  - component: {fileID: 4496707595326304957}
   m_Layer: 5
   m_Name: Bottom
   m_TagString: Untagged
@@ -78,23 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4496707595326304957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669179802126045643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52280df0334d4ac49af1a6c5191886c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamColors: {fileID: 11400000, guid: 583a9e2cfd334364fbdad5544bc0f54d, type: 2}
-  topImage: {fileID: 0}
-  bottomImage: {fileID: 0}
-  oxygen: 0.5
-  oxygenColor: {r: 0.3, g: 0.6, b: 1, a: 1}
 --- !u!1 &1702376326753746017
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,8 +187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31.4, y: -32.9}
-  m_SizeDelta: {x: 24.5522, y: 24.5522}
+  m_AnchoredPosition: {x: 32.8, y: -32.05}
+  m_SizeDelta: {x: 35.9002, y: 35.9002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4558688963513040582
 CanvasRenderer:

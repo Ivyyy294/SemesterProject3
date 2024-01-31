@@ -31,6 +31,11 @@ public class DiverOxygenAnimation : MonoBehaviour
         // Color resultColor = Color.Lerp(teamColor.Color, _oxygenFillColor, _oxygenGainGauge.FillAmount * 0.75f);
         diverVisuals.emissiveColor = teamColor.Color;
         diverVisuals.oxygenLevel = _oxygen;
+
+        if (playerOxygen.Owner)
+        {
+            DiverUI.Me.oxygen = _oxygen;
+        }
     }
 
     private float GetOxygenState()
