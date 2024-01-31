@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class RuntimeMaterial
 {
@@ -14,9 +15,23 @@ public class RuntimeMaterial
         _runtimeMat.name = $"{_original.name}_Runtime";
     }
 
+    public RuntimeMaterial(Shader shader)
+    {
+        _original = null;
+        _runtimeMat = new Material(shader);
+        _runtimeMat.name = $"{shader.name}_Runtime";
+    }
+
     public Material Release()
     {
         Object.Destroy(_runtimeMat);
         return _original;
+    }
+
+    public static RuntimeMaterial FromImage(Image image)
+    {
+        var m = new RuntimeMaterial(image.material);
+        image.material = m.Mat;
+        return m;
     }
 }

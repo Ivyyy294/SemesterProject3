@@ -43,11 +43,8 @@ public class DiverUI : MonoBehaviour
         _oxygenFillGauge.SetFillAmount(0);
         _previousOxygen = oxygen;
         
-        _topOverride = new(topImage.material);
-        topImage.material = _topOverride.Mat;
-
-        _bottomOverride = new(bottomImage.material);
-        bottomImage.material = _bottomOverride.Mat;
+        _topOverride = RuntimeMaterial.FromImage(topImage);
+        _bottomOverride = RuntimeMaterial.FromImage(bottomImage);
     }
 
     private void OnDisable()
