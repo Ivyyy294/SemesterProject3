@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609352698e28c41479fc5151665d0018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 8d15ec20-e790-45c9-9b87-fe96e08aa392
+  guid: 4a448afb-8219-40ee-8820-583ca7b14356
   buoyancy: 0.4
 --- !u!114 &6619612925605246573
 MonoBehaviour:
@@ -146,9 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd24081fdfa4fc48988d67601ffd9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 999b01ae-1ea7-4fc3-a927-15ab9f33ab5a
+  guid: 15835e1a-5fd4-475d-976e-c9ea9c397353
   capacityOxygen: 200
   refillRatePerSecond: 75
+  depletableByPlayers: 1
   oxygenLossDelay: 15
   oxygenLossPerSecond: 5
 --- !u!114 &5121845000149691810

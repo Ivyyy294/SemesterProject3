@@ -11,6 +11,7 @@ public class OxygenRefill : NetworkBehaviour
 	[SerializeField] float refillRatePerSecond = 20f;
 
 	[Header ("Oxygen loss settings")]
+	[SerializeField] bool depletableByPlayers = true;
 	[Min (0)]
 	[SerializeField] float oxygenLossDelay;
 	[Min (0)]
@@ -90,22 +91,10 @@ public class OxygenRefill : NetworkBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.isTrigger || !Owner)
+		if (other.isTrigger || !Owner || !other.CompareTag ("Player"))
 			return;
 
-		PlayerCollision playerCollision = other.transform.parent.GetComponent<PlayerCollision>();
-
-		if (playerCollision)
-		{
-			PlayerOxygen playerOxygen = playerCollision.PlayerOxygen;
-
-			if (playerOxygen.Owner)
-			{
-				float refill = Mathf.Min (refillRatePerSecond * Time.deltaTime, currentOxygen, playerOxygen.MissingOxygen);
-				playerOxygen.Refill (refill);
-				currentOxygen -= refill;
-			}
-		}
+		RefillPlayerOxygen (other);
 	}
 
 	private void OnEnable()
@@ -122,5 +111,24 @@ public class OxygenRefill : NetworkBehaviour
 			oxygenLossTimer += Time.deltaTime;
 		else
 			currentOxygen -= oxygenLossPerSecond * Time.deltaTime;
+	}
+
+	private void RefillPlayerOxygen (Collider other)
+	{
+		PlayerCollision playerCollision = other.transform.parent.GetComponent<PlayerCollision>();
+
+		if (playerCollision)
+		{
+			PlayerOxygen playerOxygen = playerCollision.PlayerOxygen;
+
+			if (playerOxygen.Owner)
+			{
+				float refill = Mathf.Min (refillRatePerSecond * Time.deltaTime, currentOxygen, playerOxygen.MissingOxygen);
+				playerOxygen.Refill (refill);
+
+				if (depletableByPlayers)
+					currentOxygen -= refill;
+			}
+		}
 	}
 }
