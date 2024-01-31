@@ -50,8 +50,16 @@ public class NetworkManagerHostSessionBroadcast
 
 		while (!exitHost)
 		{
-			udpClient.Send(data, data.Length, "255.255.255.255", port);
-			Thread.Sleep (1000);
+			if (!NetworkManager.Me.Host)
+			{
+				exitHost = true;
+				Debug.Log ("Exit Host Session broadcast!");
+			}
+			else
+			{
+				udpClient.Send(data, data.Length, "255.255.255.255", port);
+				Thread.Sleep (1000);
+			}
 		}
 	}
 }
