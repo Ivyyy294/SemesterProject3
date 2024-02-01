@@ -34,6 +34,7 @@ public class DiverVFX : MonoBehaviour
 
     public void ResetTrails()
     {
+        _velocityTracker.ResetVelocities(transform.position);
         foreach (var t in _effectInstances)
         {
             t.ResetSimulation();
