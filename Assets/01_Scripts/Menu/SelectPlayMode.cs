@@ -7,7 +7,6 @@ using Ivyyy.Network;
 public class SelectPlayMode : MonoBehaviour
 {
 	[SerializeField] GameObject selectHostSessionObj;
-	[SerializeField] GameObject enterHostAdddressObj;
 	[SerializeField] GameObject selectPlaymodeObj;
 	[SerializeField] GameObject enterLobbyNameObj;
 
@@ -23,16 +22,9 @@ public class SelectPlayMode : MonoBehaviour
 		selectPlaymodeObj.SetActive (false);
 	}
 
-	public void OnEnterIpPressed()
-	{
-		enterHostAdddressObj.SetActive (true);
-		selectPlaymodeObj.SetActive (false);
-	}
-
 	public void ShowPlayModeSelection()
 	{
 		enterLobbyNameObj.SetActive (false);
-		enterHostAdddressObj.SetActive (false);
 		selectHostSessionObj.SetActive (false);
 		selectPlaymodeObj.SetActive (true);
 	}
