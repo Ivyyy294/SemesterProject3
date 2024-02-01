@@ -7,16 +7,18 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField] NetworkManagerCallback networkManagerCallback;
 	[SerializeField] GameObject selectPlayMode;
-	[SerializeField] GameObject settings;
+	[SerializeField] GameObject startScreen;
+
+	public void OnShowStartScreen()
+	{
+		selectPlayMode.SetActive (false);
+		startScreen.SetActive (true);
+	}
 
 	public void OnPlayPressed()
 	{
 		selectPlayMode.SetActive (true);
-	}
-
-	public void OnSettingsPressed()
-	{
-		settings.SetActive (true);
+		startScreen.SetActive (false);
 	}
 
 	public void OnCreditsPressed()

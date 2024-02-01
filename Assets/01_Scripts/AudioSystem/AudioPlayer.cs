@@ -14,7 +14,7 @@ public class AudioPlayer : MonoBehaviour
 	//Public Functions
 	public void Play()
 	{
-		if (!audioSource.isPlaying)
+		if (audioSource && !audioSource.isPlaying)
 		{
 			audioAsset?.Play(audioSource);
 			audioSource.volume = baseVolume;
