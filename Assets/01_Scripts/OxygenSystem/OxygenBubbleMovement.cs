@@ -14,9 +14,12 @@ public class OxygenBubbleMovement : MonoBehaviour
     //Vector3 velocity;
 	
 	//Public
+	public Rigidbody Rigidbody => m_rigidbody;
+
 	public void Spawn()
 	{
  		Debug.Log("Spawn Bubble");
+		gameObject.SetActive (true);
 
 		if (!audioPlayerSpawnBubble)
 			audioPlayerSpawnBubble = GetComponent<AudioPlayer>();
@@ -33,6 +36,7 @@ public class OxygenBubbleMovement : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		m_rigidbody.AddForce (Vector3.up * buoyancy);
+		if (!m_rigidbody.isKinematic)
+			m_rigidbody.AddForce (Vector3.up * buoyancy);
 	}
 }

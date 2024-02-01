@@ -41,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1620374421210688879}
   - component: {fileID: 2914084169230489826}
+  - component: {fileID: 7097240409580548318}
+  - component: {fileID: 1823656649017057821}
   m_Layer: 0
   m_Name: OxygenSpawner
   m_TagString: Untagged
@@ -83,6 +85,34 @@ MonoBehaviour:
   spawnOxygen: 100
   oxygenBubble: {fileID: 3576959958831500452}
   spawnPos: {fileID: 1892680660103858862}
+--- !u!114 &7097240409580548318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809228550554223161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7903e8052987dd42a41d80e5a54e5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1823656649017057821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809228550554223161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36d06b712a30474fa249fd84da7a991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 
+  bubble: {fileID: 3576959958831500452}
+  oxygenRefill: {fileID: 0}
+  oxygenBubbleMovement: {fileID: 0}
 --- !u!1 &7815100429926567384
 GameObject:
   m_ObjectHideFlags: 0

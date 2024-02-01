@@ -63,13 +63,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7221435729330241550}
   - component: {fileID: 4710890409118938953}
-  - component: {fileID: 5483662475098149662}
   - component: {fileID: 6619612925605246573}
-  - component: {fileID: 5121845000149691810}
-  - component: {fileID: 8678776969626362643}
-  - component: {fileID: 5125315951363170971}
   m_Layer: 0
-  m_Name: OxygenBubble
+  m_Name: OxygenBubbleStatic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 5848548415988282309}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.21227479, y: 1.2411265, z: -0.43160558}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -119,19 +115,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5483662475098149662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5848548415988282309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 609352698e28c41479fc5151665d0018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buoyancy: 0.4
 --- !u!114 &6619612925605246573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,51 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd24081fdfa4fc48988d67601ffd9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capacityOxygen: 200
-  refillRatePerSecond: 75
-  depletableByPlayers: 1
-  oxygenLossDelay: 15
-  oxygenLossPerSecond: 5
---- !u!114 &5121845000149691810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5848548415988282309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 702515d4514392743b106817318780d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minScale: 0.3
---- !u!114 &8678776969626362643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5848548415988282309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c984a9c3e7d68f14b81ed37733ffb16d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forceTyp: 2
---- !u!114 &5125315951363170971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5848548415988282309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0668c38364f0e04f921b60b31452cd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioAsset: {fileID: 11400000, guid: e661e88052ceae1498e9eca1f1c51a53, type: 2}
-  playOnAwake: 0
+  capacityOxygen: 100
+  refillRatePerSecond: 25
+  depletableByPlayers: 0
+  oxygenLossDelay: 0
+  oxygenLossPerSecond: 0
 --- !u!1 &6230910325485644007
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,36 +5,37 @@ using Ivyyy.Network;
 
 public class OxygenBubbleNetwork : NetworkBehaviour
 {
+	[SerializeField] GameObject bubble;
+
 	OxygenBubbleRefill oxygenRefill;
 	OxygenBubbleMovement oxygenBubbleMovement;
 
-	[RPCAttribute]
-	public void Spawn()
-	{
-		if (!Owner)
-			gameObject.SetActive(true);
+	public OxygenBubbleRefill OxygenRefill => oxygenRefill;
+	public OxygenBubbleMovement OxygenBubbleMovement => oxygenBubbleMovement;
 
+	public void SpawnAt (Vector3 pos)
+	{
+		bubble.transform.position = pos;
 		oxygenBubbleMovement.Spawn();
 	}
 
-	[RPCAttribute]
-	public void Despawn()
+	public void DespawnBubble()
 	{
-		if (!Owner)
-			gameObject.SetActive(false);
+		Debug.Log ("DespawnBubble");
+		bubble.SetActive(false);
 	}
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        oxygenRefill = bubble.GetComponent<OxygenBubbleRefill>();
+		oxygenBubbleMovement = bubble.GetComponent <OxygenBubbleMovement>();
+
 		if (!NetworkManager.Me)
 		{
 			enabled = false;
 			return;
 		}
 
-        oxygenRefill = GetComponent<OxygenBubbleRefill>();
-		oxygenBubbleMovement = GetComponent <OxygenBubbleMovement>();
 		Owner = NetworkManager.Me.Host;
     }
 
@@ -43,30 +44,30 @@ public class OxygenBubbleNetwork : NetworkBehaviour
     {
         if (!Owner && networkPackage.Available)
 		{
-			transform.position = networkPackage.Value(0).GetVector3();
+			OxygenBubbleMovement.Rigidbody.isKinematic = true;
+
+			//Set Position
+			bubble.transform.position = networkPackage.Value(0).GetVector3();
+
+			//Set Oxygen
 			oxygenRefill.SetCurrentOxygen (networkPackage.Value(1).GetFloat());
+			
+			//Set active
+			bool active = networkPackage.Value(2).GetBool();
+
+			if (active && !bubble.activeInHierarchy)
+				SpawnAt(transform.position);
+			else if (!active && bubble.activeInHierarchy)
+				DespawnBubble();
+
 			networkPackage.Clear();
 		}
     }
 
 	protected override void SetPackageData()
 	{
-		networkPackage.AddValue (new NetworkPackageValue (transform.position));
+		networkPackage.AddValue (new NetworkPackageValue (bubble.transform.position));
 		networkPackage.AddValue (new NetworkPackageValue (oxygenRefill.CurrentOxygen));
-	}
-
-	private void OnEnable()
-	{
-		if (Owner)
-		{
-			Spawn();
-			InvokeRPC("Spawn");
-		}
-	}
-
-	private void OnDisable()
-	{
-		if (Owner)
-			InvokeRPC("Despawn");
+		networkPackage.AddValue (new NetworkPackageValue (oxygenBubbleMovement.gameObject.activeInHierarchy));
 	}
 }

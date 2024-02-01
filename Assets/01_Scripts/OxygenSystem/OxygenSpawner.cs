@@ -20,17 +20,18 @@ public class OxygenSpawner : MonoBehaviour
 	float internTimer;
 	float spawnTime = -1;
 
-	OxygenBubbleMovement oxygenMovement;
+	OxygenBubbleNetwork oxygenBubbleNetwork;
 	OxygenBubbleRefill oxygenRefill;
 
 	private void Start()
 	{
-		oxygenBubble.SetActive (false);
-		oxygenMovement = oxygenBubble.GetComponent<OxygenBubbleMovement>();
+		oxygenBubbleNetwork = GetComponent<OxygenBubbleNetwork>();
 		oxygenRefill = oxygenBubble.GetComponent<OxygenBubbleRefill>();
 
+		oxygenBubbleNetwork.DespawnBubble();
+
 		//Only enable when local instance is owner of oxygenMovement
-		enabled = oxygenMovement && oxygenRefill && spawnPos && (!NetworkManager.Me || NetworkManager.Me.Host);
+		enabled = oxygenBubble && oxygenRefill && spawnPos && (!NetworkManager.Me || NetworkManager.Me.Host);
 
 		GetRandomSpawnTime();
 	}
@@ -41,7 +42,7 @@ public class OxygenSpawner : MonoBehaviour
 		if (spawnTime == -1f)
 			GetRandomSpawnTime();
 
-		if (!oxygenMovement.gameObject.activeInHierarchy)
+		if (!oxygenBubble.gameObject.activeInHierarchy)
 		{
 			if (internTimer <= spawnTime)
 				internTimer += Time.deltaTime;
@@ -55,8 +56,7 @@ public class OxygenSpawner : MonoBehaviour
 		internTimer = 0f;
 		spawnTime = -1f;
 
-		oxygenMovement.transform.position = spawnPos.transform.position;
-		oxygenMovement.gameObject.SetActive (true);
+		oxygenBubbleNetwork.SpawnAt (spawnPos.transform.position);
 		oxygenRefill.SetCurrentOxygen (spawnOxygen);
 	}
 
