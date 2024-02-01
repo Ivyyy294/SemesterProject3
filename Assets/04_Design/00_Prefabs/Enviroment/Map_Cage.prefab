@@ -292,7 +292,6 @@ GameObject:
   - component: {fileID: 6324426345406426089}
   - component: {fileID: 8530928010552908584}
   - component: {fileID: 6474391370050690388}
-  - component: {fileID: 2142947586084841789}
   - component: {fileID: 6653553894745905568}
   - component: {fileID: 1246947964423788612}
   m_Layer: 0
@@ -367,19 +366,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2142947586084841789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1629129113147778832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd157201bad7344468bfd21a92592c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamScoredEvent: {fileID: 11400000, guid: 7197fad9c5cc0b14885cd257003afa51, type: 2}
 --- !u!114 &6653553894745905568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1118,7 +1104,6 @@ GameObject:
   - component: {fileID: 1124136537257619212}
   - component: {fileID: 5829322344140273945}
   - component: {fileID: 3530957498355817792}
-  - component: {fileID: 8202206077115616106}
   - component: {fileID: 7164517869073010746}
   - component: {fileID: 4340265757104499139}
   m_Layer: 0
@@ -1193,19 +1178,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8202206077115616106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8945655396757513914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd157201bad7344468bfd21a92592c29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamScoredEvent: {fileID: 11400000, guid: 54cb15302791ff94dba4b561137f1203, type: 2}
 --- !u!114 &7164517869073010746
 MonoBehaviour:
   m_ObjectHideFlags: 0
