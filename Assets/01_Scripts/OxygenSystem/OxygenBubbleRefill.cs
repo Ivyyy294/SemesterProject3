@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ivyyy.Network;
 
-public class OxygenRefill : NetworkBehaviour
+public class OxygenBubbleRefill : MonoBehaviour
 {
 	[Range (1, 1000)]
 	[SerializeField] float capacityOxygen = 0f;
@@ -36,48 +35,24 @@ public class OxygenRefill : NetworkBehaviour
 		}
 	}
 
-	[RPCAttribute]
-	public void Despawn()
-	{
-		gameObject.SetActive(false);
-	}
-
-	//Protected Methods
-	protected override void SetPackageData()
-	{
-		networkPackage.AddValue (new NetworkPackageValue (currentOxygen));
-	}
-
 	//Private Methods
 	private void Start()
 	{
-		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
 		currentOxygen = capacityOxygen;
 	}
 
 	private void Update()
 	{
-		if (!Owner && networkPackage.Available)
-		{
-			currentOxygen = networkPackage.Value (0).GetFloat();
-			networkPackage.Clear();
-		}
-		else if (Owner)
-		{
-			OxygenLoss();
+		OxygenLoss();
 
-			//Despawn if oxygen is empty
-			if (currentOxygen <= 0f)
-			{
-				InvokeRPC ("Despawn");
-				gameObject.SetActive (false);
-			}
-		}
+		//Despawn if oxygen is empty
+		if (currentOxygen <= 0f)
+			gameObject.SetActive (false);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.isTrigger || !Owner)
+		if (other.isTrigger)
 			return;
 
 		PlayerCollision playerCollision = other.transform.parent.GetComponent<PlayerCollision>();
@@ -91,7 +66,7 @@ public class OxygenRefill : NetworkBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.isTrigger || !Owner || !other.CompareTag ("Player"))
+		if (other.isTrigger || !other.CompareTag ("Player"))
 			return;
 
 		RefillPlayerOxygen (other);

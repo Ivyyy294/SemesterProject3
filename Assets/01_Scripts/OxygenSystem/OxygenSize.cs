@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (OxygenRefill))]
+[RequireComponent (typeof (OxygenBubbleRefill))]
 public class OxygenSize : MonoBehaviour
 {
-	OxygenRefill oxygenRefill;
+	OxygenBubbleRefill oxygenRefill;
 
 	[Range (0.1f, 1f)]
 	[SerializeField] float minScale;
@@ -13,7 +13,7 @@ public class OxygenSize : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        oxygenRefill = GetComponent<OxygenRefill>();
+        oxygenRefill = GetComponent<OxygenBubbleRefill>();
     }
 
     // Update is called once per frame
