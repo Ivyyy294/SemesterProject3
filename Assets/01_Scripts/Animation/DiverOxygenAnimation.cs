@@ -32,10 +32,10 @@ public class DiverOxygenAnimation : MonoBehaviour
         diverVisuals.emissiveColor = teamColor.Color;
         diverVisuals.oxygenLevel = _oxygen;
 
-        if (playerOxygen.Owner && DiverUI.Me)
-        {
-            DiverUI.Me.oxygen = _oxygen;
-        }
+        // if (playerOxygen.Owner && DiverUI.Me)
+        // {
+        //     DiverUI.Me.oxygen = _oxygen;
+        // }
     }
 
     private float GetOxygenState()

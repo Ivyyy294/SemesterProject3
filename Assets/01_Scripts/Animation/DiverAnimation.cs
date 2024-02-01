@@ -92,7 +92,7 @@ public class DiverAnimation : MonoBehaviour
 
          _inertiaTracker = new(
              transform.position, 
-             verletBehavior.SmoothTarget, 
+             verletBehavior.GetLastNode(), 
              -transform.forward, 
              transform.right,
              transform.up);

@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3681897873580151919
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_CompassRender
-  m_Shader: {fileID: -6465566751694194690, guid: 93a7508795a09844b8c3335e0f047add,
+  m_Name: MAT_InGameUIBottom
+  m_Shader: {fileID: -6465566751694194690, guid: dbc1cc4053a55464796ac9249d0dc731,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -49,7 +62,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 077103f5ec413114f94c6966affef067, type: 3}
+        m_Texture: {fileID: 2800000, guid: f513cc0ed7d316e45be59f25704fa1b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: fd439228b32ff694792dc762e786de4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,8 +81,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_bd48fee3cdfe4478981097387e29d142_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 077103f5ec413114f94c6966affef067, type: 3}
+    - _SampleTexture2D_a47bb2e286aa4d0cab8aef35a34c0dc0_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 531ae38c4f784fb4d85ed8fdd6163900, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c000d29f2fe04125933fc5f66b836edf_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: cfa2ef8ad40e979468e4e14e652f0a74, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_f40b8ca9dd7044c4bd2d114f44798b15_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: fd439228b32ff694792dc762e786de4c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -105,8 +130,8 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
+    - _Oxygen: 0.5
     - _Parallax: 0.005
-    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -121,18 +146,8 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OxygenColor: {r: 0.33490568, g: 0.846917, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Team1: {r: 1, g: 0, b: 0, a: 1}
+    - _Team2: {r: 0, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1564037607126936857
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 7

@@ -28,7 +28,7 @@ public class ValueSmoother<T>
     {
         _timer += Time.deltaTime;
         var t = _timer / Time.fixedDeltaTime;
-        _smoothTarget = _lerpingFunction(_targetA, _targetB, _timer);
+        _smoothTarget = _lerpingFunction(_targetA, _targetB, t);
     }
 
     public static ValueSmoother<float> FloatSmoother(float initialValue)

@@ -20,6 +20,7 @@ public class DiverUI : MonoBehaviour
 
     private RuntimeMaterial _topOverride;
     private RuntimeMaterial _bottomOverride;
+    private PlayerOxygen _playerOxygen;
     
     public static DiverUI Me { get; private set; }
 
@@ -45,6 +46,7 @@ public class DiverUI : MonoBehaviour
         
         _topOverride = RuntimeMaterial.FromImage(topImage);
         _bottomOverride = RuntimeMaterial.FromImage(bottomImage);
+        _playerOxygen = PlayerManager.LocalPlayer.GetComponentInChildren<PlayerOxygen>();
     }
 
     private void OnDisable()
@@ -55,6 +57,7 @@ public class DiverUI : MonoBehaviour
 
     void Update()
     {
+        oxygen = _playerOxygen.CurrentOxygenPercent / 100;
         _oxygenFillGauge.Update(_previousOxygen < oxygen);
         _previousOxygen = oxygen;
         
