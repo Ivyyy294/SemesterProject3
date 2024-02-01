@@ -17,8 +17,8 @@ public class MenuController : MonoBehaviour
 
 	public void OnPlayPressed()
 	{
-		selectPlayMode.SetActive (true);
 		startScreen.SetActive (false);
+		selectPlayMode.SetActive (true);
 	}
 
 	public void OnCreditsPressed()

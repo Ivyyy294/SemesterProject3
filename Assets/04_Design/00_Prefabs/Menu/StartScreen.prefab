@@ -223,9 +223,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: OnPlayPressed
+      - m_Target: {fileID: 11400000, guid: 27753a93dc9d3d548b2de94a579d1aee, type: 2}
+        m_TargetAssemblyTypeName: AudioAsset, Assembly-CSharp
+        m_MethodName: PlayOneShot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -356,9 +356,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: OnCreditsPressed
+      - m_Target: {fileID: 11400000, guid: 27753a93dc9d3d548b2de94a579d1aee, type: 2}
+        m_TargetAssemblyTypeName: AudioAsset, Assembly-CSharp
+        m_MethodName: PlayOneShot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -968,9 +968,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: OnQuitPressed
+      - m_Target: {fileID: 11400000, guid: 27753a93dc9d3d548b2de94a579d1aee, type: 2}
+        m_TargetAssemblyTypeName: AudioAsset, Assembly-CSharp
+        m_MethodName: PlayOneShot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
