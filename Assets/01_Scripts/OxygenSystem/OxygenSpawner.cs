@@ -28,11 +28,6 @@ public class OxygenSpawner : MonoBehaviour
 		oxygenBubbleNetwork = GetComponent<OxygenBubbleNetwork>();
 		oxygenRefill = oxygenBubble.GetComponent<OxygenBubbleRefill>();
 
-		oxygenBubbleNetwork.DespawnBubble();
-
-		//Only enable when local instance is owner of oxygenMovement
-		enabled = oxygenBubble && oxygenRefill && spawnPos && (!NetworkManager.Me || NetworkManager.Me.Host);
-
 		GetRandomSpawnTime();
 	}
 

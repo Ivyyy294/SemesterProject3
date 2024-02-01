@@ -109,10 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36d06b712a30474fa249fd84da7a991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 
+  guid: ec4e6a19-570f-4a4a-9efe-a43d1e4a967f
   bubble: {fileID: 3576959958831500452}
-  oxygenRefill: {fileID: 0}
-  oxygenBubbleMovement: {fileID: 0}
 --- !u!1 &7815100429926567384
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 5848548415988282309, guid: e97042747067a7a49b17c1371b1c6c1c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6619612925605246573, guid: e97042747067a7a49b17c1371b1c6c1c,
         type: 3}

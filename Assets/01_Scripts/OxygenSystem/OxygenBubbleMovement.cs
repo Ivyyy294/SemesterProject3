@@ -19,7 +19,6 @@ public class OxygenBubbleMovement : MonoBehaviour
 	public void Spawn()
 	{
  		Debug.Log("Spawn Bubble");
-		gameObject.SetActive (true);
 
 		if (!audioPlayerSpawnBubble)
 			audioPlayerSpawnBubble = GetComponent<AudioPlayer>();

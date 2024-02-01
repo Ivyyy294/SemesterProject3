@@ -15,6 +15,7 @@ public class OxygenBubbleNetwork : NetworkBehaviour
 
 	public void SpawnAt (Vector3 pos)
 	{
+		bubble.SetActive(true);
 		bubble.transform.position = pos;
 		oxygenBubbleMovement.Spawn();
 	}
