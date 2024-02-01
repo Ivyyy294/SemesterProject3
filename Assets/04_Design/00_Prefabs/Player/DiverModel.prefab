@@ -204,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2293739039398636807}
   - component: {fileID: 7149194846749162119}
+  - component: {fileID: 5175434728048284093}
   m_Layer: 0
   m_Name: DiverVFX
   m_TagString: Untagged
@@ -247,6 +248,34 @@ MonoBehaviour:
   - {fileID: 3203273222802188322}
   bubbleParticles: {fileID: 119320487112054340}
   color: {r: 0.6367924, g: 1, b: 0.9920727, a: 1}
+--- !u!114 &5175434728048284093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079992872318825859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7a15554f8d296394a9645335d6e6574f, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7149194846749162119}
+        m_TargetAssemblyTypeName: DiverVFX, Assembly-CSharp
+        m_MethodName: ResetTrails
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &328954555905022978
 PrefabInstance:
   m_ObjectHideFlags: 0
