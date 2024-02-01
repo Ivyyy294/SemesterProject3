@@ -9,10 +9,12 @@ public class MatchScoreController : NetworkBehaviour
 
 	private ushort[] teamPoints = new ushort[2];
 	private MatchSoftReset matchSoftReset;
+	private int lastTeamToScore = -1;
 
 	//Public Methods
 	public ushort PointsTeam1 => teamPoints[0];
 	public ushort PointsTeam2 => teamPoints[1];
+	public int LastTeamToScore => lastTeamToScore;
 	public bool Tie {get{return PointsTeam1 == PointsTeam2; } }
 
 	public bool HasTeamWon (int teamIndex)
@@ -29,6 +31,7 @@ public class MatchScoreController : NetworkBehaviour
 		{
 			PlayerAudioScorePoint();
 			teamPoints[teamIndex]++;
+			lastTeamToScore = teamIndex;
 			matchSoftReset.Invoke();
 		}
 	}
@@ -39,6 +42,7 @@ public class MatchScoreController : NetworkBehaviour
 		//ToDo send as one byte array
 		networkPackage.AddValue (new NetworkPackageValue (teamPoints[0]));
 		networkPackage.AddValue (new NetworkPackageValue (teamPoints[1]));
+		networkPackage.AddValue (new NetworkPackageValue (lastTeamToScore));
 	}
 
 	//Private Methods
@@ -46,6 +50,7 @@ public class MatchScoreController : NetworkBehaviour
 	{
 		Owner = !NetworkManager.Me || NetworkManager.Me.Host;
 		matchSoftReset = GetComponent<MatchSoftReset>();
+		lastTeamToScore = -1;
 	}
 
 	// Update is called once per frame
@@ -55,6 +60,7 @@ public class MatchScoreController : NetworkBehaviour
 		{
 			ushort newPointsTeam1 = networkPackage.Value(0).GetUShort();
 			ushort newPointsTeam2 = networkPackage.Value(1).GetUShort();
+			lastTeamToScore = networkPackage.Value (2).GetInt32();
 
 			if (newPointsTeam1 > teamPoints[0]
 				|| newPointsTeam2 > teamPoints[1])

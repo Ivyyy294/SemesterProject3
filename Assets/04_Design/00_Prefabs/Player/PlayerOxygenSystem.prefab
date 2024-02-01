@@ -58,10 +58,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9883db0e658d83f43a98a804a334d823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 3f5ee7b3-dab7-4768-8df0-9ab33dd960e3
+  guid: d6797be7-b63d-4ac4-93ef-c70c4049f5d0
   maxOxygen: 100
   passiveOxygenConsumption: 2
   dashOxygenConsumption: 4
+  oxygenRefillPercentTeamScored: 0.5
+  oxygenRefillPercentTeamNotScored: 1
 --- !u!114 &7145510689496057092
 MonoBehaviour:
   m_ObjectHideFlags: 0

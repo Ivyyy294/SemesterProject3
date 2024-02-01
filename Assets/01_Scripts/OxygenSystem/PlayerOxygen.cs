@@ -14,11 +14,17 @@ public class PlayerOxygen : NetworkBehaviour
 
 	[Range (0f, 100f)]
 	[SerializeField] float dashOxygenConsumption = 10f;
+	
+	[Header ("Round start refill")]
+	[Range (0, 1)]
+	[SerializeField] float oxygenRefillPercentTeamScored = 0.5f;
+	[Range (0, 1)]
+	[SerializeField] float oxygenRefillPercentTeamNotScored = 1f;
 
 	float currentOxygen;
-	float timer;
 	PlayerInputProcessing playerInput;
 	PlayerAudio playerAudio;
+	PlayerConfigurationContainer playerConfigurationContainer;
 
 	//Public
 	public bool OxygenEmpty { get {return currentOxygen <= 0f;} }
@@ -37,6 +43,19 @@ public class PlayerOxygen : NetworkBehaviour
 		currentOxygen = maxOxygen;
 	}
 
+	public void RefillRoundStart()
+	{
+		if (MatchController.Me)
+		{
+			if (MatchController.Me.MatchScoreController.LastTeamToScore == playerConfigurationContainer.TeamIndex)
+				currentOxygen = maxOxygen * oxygenRefillPercentTeamScored;
+			else
+				currentOxygen = maxOxygen * oxygenRefillPercentTeamNotScored;
+		}
+		else
+			currentOxygen = maxOxygen * oxygenRefillPercentTeamNotScored;
+	}
+
 	public void PlayerAudioInhale()
 	{
 		playerAudio.PlayAudioInhale();
@@ -50,11 +69,12 @@ public class PlayerOxygen : NetworkBehaviour
 
 	//Private
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
 		currentOxygen = maxOxygen;
 		playerInput = transform.parent.GetComponentInChildren<PlayerInputProcessing>();
 		playerAudio = transform.parent.GetComponentInChildren<PlayerAudio>();
+		playerConfigurationContainer = transform.parent.GetComponentInChildren<PlayerConfigurationContainer>();
 	}
 
 	// Update is called once per frame

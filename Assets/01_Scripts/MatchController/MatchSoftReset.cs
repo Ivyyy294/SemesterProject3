@@ -11,6 +11,7 @@ public class MatchSoftReset : NetworkBehaviour
 	private MatchObjectSpawn objectSpawnController;
 	float timer = 0f;
 
+	[SerializeField] AudioAsset audioRoundStart;
 	[SerializeField] float pauseTime;
 	[SerializeField] GameEvent resetEvent;
 
@@ -64,6 +65,8 @@ public class MatchSoftReset : NetworkBehaviour
 			pauseController.PauseMatch (true);
 			timer = 0f;
 		}
+
+		audioRoundStart?.Play();
 
 		resetEvent?.Raise();
 	}
