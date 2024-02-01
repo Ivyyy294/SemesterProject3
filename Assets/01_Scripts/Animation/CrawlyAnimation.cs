@@ -27,6 +27,7 @@ public class CrawlyAnimation : MonoBehaviour
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
     private readonly int ID_IsCurledUp = Animator.StringToHash("IsCurledUp");
     private readonly int ID_IsBeingHeld = Animator.StringToHash("IsBeingHeld");
+    private readonly int ID_CurlUp = Animator.StringToHash("CurlUp");
 
     #endregion
 
@@ -49,9 +50,7 @@ public class CrawlyAnimation : MonoBehaviour
         // Currently OnEnable is being called a lot / whenever the ball is thrown. This will be fixed later
         // KEEP IN MIND THE IMPLICATIONS FOR NOW THOUGH
         
-        _velocityTracker = new VelocityTracker(transform.position, 8);
-        _movementVector = transform.forward;
-        verletBehavior.ResetSimulation();
+        ResetSimulations();
         _wiggleFactorGauge = new Gauge(4, 4);
         _wiggleFactorGauge.SetFillAmount(1);
         _playerIDListener = new(ballLogic, x => x.CurrentPlayerId, -1, OnPlayerIDUpdate);
@@ -67,6 +66,21 @@ public class CrawlyAnimation : MonoBehaviour
             ballLogic.onBallThrown.AddListener(OnThrown);
             ballLogic.onBallCollided.AddListener(OnCollision);
         }
+    }
+
+    private void ResetSimulations()
+    {
+        _velocityTracker = new VelocityTracker(transform.position, 8);
+        _movementVector = transform.forward;
+        verletBehavior.ResetSimulation();
+    }
+
+    public void OnRoundStart()
+    {
+        ResetSimulations();
+        animator.SetBool(ID_IsCurledUp, true);
+        animator.SetTrigger(ID_CurlUp);
+        crawlyVisuals.spherize = 1;
     }
 
     private void OnDisable()
