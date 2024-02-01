@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 658e4b51f490343db874b31fad7cb310,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1069,6 +1070,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1085659839795053993, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: 72458fd8-cb26-4fbc-b33a-2067ae7aaa7e
+      objectReference: {fileID: 0}
     - target: {fileID: 1134160896434713767, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
       propertyPath: guid
@@ -1094,6 +1100,11 @@ PrefabInstance:
       propertyPath: guid
       value: 7640e5f6-96d4-4d3d-8b21-d5f49abda436
       objectReference: {fileID: 0}
+    - target: {fileID: 1573640277591194444, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: 72041f98-ab1c-4a80-9657-ed301040d14b
+      objectReference: {fileID: 0}
     - target: {fileID: 1763491607731278292, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
       propertyPath: guid
@@ -1109,15 +1120,30 @@ PrefabInstance:
       propertyPath: guid
       value: 7c2d0562-1ee6-44c1-b1d6-3ea6cac62cb2
       objectReference: {fileID: 0}
+    - target: {fileID: 2519164752168206490, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: a84544a3-5e08-4c70-90a5-190c25ec43b1
+      objectReference: {fileID: 0}
     - target: {fileID: 3349578989805877106, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
       propertyPath: guid
       value: ffccc6dd-a47e-4505-81eb-d2b9e66b218e
       objectReference: {fileID: 0}
+    - target: {fileID: 3896581843474161420, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: d66c94b0-95b1-4bbf-8efe-b15842ffc3dc
+      objectReference: {fileID: 0}
     - target: {fileID: 4173577538249123237, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
       propertyPath: guid
       value: b460e081-a654-4f7a-94e7-e3b4578b297c
+      objectReference: {fileID: 0}
+    - target: {fileID: 4646033187925507220, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: ec40c65c-60e2-491a-83b3-c53b5cb32677
       objectReference: {fileID: 0}
     - target: {fileID: 4837843400595524199, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
@@ -1128,6 +1154,11 @@ PrefabInstance:
         type: 3}
       propertyPath: guid
       value: 30fd1ba4-6242-415f-a8a5-1a4539cee7db
+      objectReference: {fileID: 0}
+    - target: {fileID: 5155554772888480644, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: 9af168d6-c5b7-438b-86b4-938b03fc6bc1
       objectReference: {fileID: 0}
     - target: {fileID: 7169998549990161085, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
@@ -1164,15 +1195,30 @@ PrefabInstance:
       propertyPath: guid
       value: 8619308f-f629-4331-8146-d4444363f793
       objectReference: {fileID: 0}
+    - target: {fileID: 8613149181365477556, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: 2c6f0b41-7ab3-451f-aac5-26b7aa9c9e6a
+      objectReference: {fileID: 0}
     - target: {fileID: 8911777167026276202, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
       propertyPath: guid
       value: 1fc61e6b-4292-4ba0-b99f-c511d2312d61
       objectReference: {fileID: 0}
+    - target: {fileID: 9005560200409114699, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: a3ed56b9-a7d3-48a7-9003-9606e13b10d8
+      objectReference: {fileID: 0}
     - target: {fileID: 9081142398258514319, guid: c58b9907f7055c84d8e1e1d9d40209a7,
         type: 3}
       propertyPath: guid
       value: 50a29d39-1952-4f92-b851-5ff1c6bd37b5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088044409425384045, guid: c58b9907f7055c84d8e1e1d9d40209a7,
+        type: 3}
+      propertyPath: guid
+      value: 607c2ff6-9c64-4b77-bcd6-7dee38e41eda
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
