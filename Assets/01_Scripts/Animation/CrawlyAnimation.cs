@@ -56,9 +56,8 @@ public class CrawlyAnimation : MonoBehaviour
         _playerIDListener = new(ballLogic, x => x.CurrentPlayerId, -1, OnPlayerIDUpdate);
 
         var playerManager = FindObjectOfType<PlayerManager>();
-        _playerManagerFound = playerManager != null;
-        if (_playerManagerFound) 
-            _playerNetworkInfos = FindObjectOfType<PlayerManager>().PlayerNetworkInfos.ToArray();
+        if (playerManager != null) 
+            _playerNetworkInfos = playerManager.PlayerNetworkInfos.ToArray();
         else Debug.LogWarning($"CrawlyAnimation: No PlayerManager found. Some functionality is restricted!");
 
         if (ballLogic != null)
@@ -143,19 +142,15 @@ public class CrawlyAnimation : MonoBehaviour
         {
             PlayerNetworkInfo nearestPlayer = _playerNetworkInfos[0];
             float playerMinDistanceSqr = (nearestPlayer.transform.position - transform.position).sqrMagnitude;
-            int nearestPlayerIndex = 0;
             for (int i = 1; i < _playerNetworkInfos.Length; i++)
             {
                 var info = _playerNetworkInfos[i];
                 var currentDistanceSqr = (info.transform.position - transform.position).sqrMagnitude;
                 if (currentDistanceSqr < playerMinDistanceSqr)
                 {
-                    nearestPlayer = info;
                     playerMinDistanceSqr = currentDistanceSqr;
-                    nearestPlayerIndex = i;
                 }
             }
-            
             var nearestDistance = Mathf.Sqrt(playerMinDistanceSqr);
             var newScale = MathfUtils.RemapClamped(nearestDistance, 4, 13, 1, 1.7f);
             transform.localScale = Vector3.one * newScale;
