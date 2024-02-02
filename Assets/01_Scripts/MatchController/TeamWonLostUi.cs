@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TeamWonLostUi : MonoBehaviour
 {
+	[SerializeField] GameObject panel;
 	[SerializeField] GameObject wonUi;
 	[SerializeField] GameObject lostUi;
 
@@ -29,6 +30,7 @@ public class TeamWonLostUi : MonoBehaviour
 		else
 			localPlayerTeamIndex = 0;
 
+		panel.SetActive (false);
 		wonUi.SetActive (false);
 		lostUi.SetActive (false);
     }
@@ -38,6 +40,9 @@ public class TeamWonLostUi : MonoBehaviour
     {
         if (matchGameOver.GameOver())
 		{
+			if (!panel.activeInHierarchy)
+				panel.SetActive (true);
+
 			bool won = scoreController.HasTeamWon (localPlayerTeamIndex);
 
 			if (won && !wonUi.activeInHierarchy)
