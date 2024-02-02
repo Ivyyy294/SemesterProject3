@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 7185099482436244121}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93ee55744a8e8d4f9a01421ecf65365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: c9fdf57b-6b43-44a5-9bf3-032c21176a70
+  guid: 
   onBallThrown:
     m_PersistentCalls:
       m_Calls: []
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 2853650153621610897}
   m_Layer: 6
   m_Name: BallCollider
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
