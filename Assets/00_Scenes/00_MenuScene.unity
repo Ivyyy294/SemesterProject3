@@ -553,8 +553,11 @@ GameObject:
   m_Component:
   - component: {fileID: 549267174}
   - component: {fileID: 549267175}
+  - component: {fileID: 549267176}
+  - component: {fileID: 549267177}
+  - component: {fileID: 549267178}
   m_Layer: 0
-  m_Name: AmbientMusic
+  m_Name: AmbientMusicPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,7 +591,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioAsset: {fileID: 11400000, guid: fa6c0c58ec1f68443a95ecfd8ebcd7ce, type: 2}
-  playOnAwake: 1
+  playOnAwake: 0
+--- !u!114 &549267176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549267173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341b39ae1006bc8479b5a5f9370db93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambientNormal: {fileID: 11400000, guid: 1d7543c62d4fc6d40a497faf812ab029, type: 2}
+  ambientDeep: {fileID: 11400000, guid: fa6c0c58ec1f68443a95ecfd8ebcd7ce, type: 2}
+  transitionTime: 2
+--- !u!114 &549267177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549267173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 4b9ca1070169d344e8cf1545115d970a, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 549267176}
+        m_TargetAssemblyTypeName: AmbientMusicPlayer, Assembly-CSharp
+        m_MethodName: PlayAmbientNormal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &549267178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549267173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 863e9e49ec1b48f40896369cb2849ca1, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 549267176}
+        m_TargetAssemblyTypeName: AmbientMusicPlayer, Assembly-CSharp
+        m_MethodName: PlayAmbientDeep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &834905832 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4392171332100167692, guid: ca3ae5b061f5c1b439e3631648afca41,
@@ -649,6 +723,7 @@ MonoBehaviour:
   networkManagerCallback: {fileID: 1394660849}
   selectPlayMode: {fileID: 1763260312}
   startScreen: {fileID: 1197174393}
+  playAmbient: {fileID: 11400000, guid: 863e9e49ec1b48f40896369cb2849ca1, type: 2}
 --- !u!114 &952572944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -820,14 +895,14 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 18
   field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

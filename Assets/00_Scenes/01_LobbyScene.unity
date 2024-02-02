@@ -693,6 +693,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2656443462571168585, guid: 112a5da1480563f469724421bc4414e8,
         type: 3}
+      propertyPath: audioAmbient
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b9ca1070169d344e8cf1545115d970a,
+        type: 2}
+    - target: {fileID: 2656443462571168585, guid: 112a5da1480563f469724421bc4414e8,
+        type: 3}
       propertyPath: matchStartDelay
       value: 3
       objectReference: {fileID: 0}

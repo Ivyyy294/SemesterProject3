@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
+using Ivyyy.GameEvent;
 
 public class MenuController : MonoBehaviour
 {
     [SerializeField] NetworkManagerCallback networkManagerCallback;
 	[SerializeField] GameObject selectPlayMode;
 	[SerializeField] GameObject startScreen;
+	[SerializeField] GameEvent playAmbient;
 
 	public void OnShowStartScreen()
 	{
@@ -34,5 +36,6 @@ public class MenuController : MonoBehaviour
 	void Start()
 	{
 		networkManagerCallback.ResetNetworkObjects();
+		playAmbient?.Raise();
 	}   
 }

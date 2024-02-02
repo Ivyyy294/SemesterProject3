@@ -27,7 +27,7 @@ public class OxygenBubbleMovement : MonoBehaviour
 	}
 
 	// Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         m_rigidbody = GetComponent<Rigidbody>();
 		audioPlayerSpawnBubble = GetComponent<AudioPlayer>();

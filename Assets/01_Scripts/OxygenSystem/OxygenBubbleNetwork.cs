@@ -45,7 +45,8 @@ public class OxygenBubbleNetwork : NetworkBehaviour
     {
         if (!Owner && networkPackage.Available)
 		{
-			OxygenBubbleMovement.Rigidbody.isKinematic = true;
+			if (OxygenBubbleMovement.Rigidbody)
+				OxygenBubbleMovement.Rigidbody.isKinematic = true;
 
 			//Set Position
 			bubble.transform.position = networkPackage.Value(0).GetVector3();

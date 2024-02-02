@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 using Ivyyy.Network;
+using Ivyyy.GameEvent;
 
 public class Lobby : MonoBehaviour
 {
 	[SerializeField] float matchStartDelay;
+	[SerializeField] GameEvent audioAmbient;
 
 	PlayerConfigurationManager configurationManager;
 	NetworkSceneController networkSceneController;
@@ -26,6 +28,8 @@ public class Lobby : MonoBehaviour
 
 		if (configurationManager)
 			configurationManager.ResetPlayers();
+
+		audioAmbient?.Raise();
 	}
 
 	private void Update()

@@ -7,9 +7,9 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField]  AudioAsset audioAsset;
 	[SerializeField] bool playOnAwake = false;
 	private AudioSource audioSource;
-	private float fadeTime;
 	private float baseVolume;
 	bool fadeOut = false;
+	bool fadeIn = false;
 
 	//Public Functions
 	public void Play()
@@ -41,22 +41,45 @@ public class AudioPlayer : MonoBehaviour
 	{
 		if (!fadeOut)
 		{
-			fadeTime = time;
 			fadeOut = true;
+			StartCoroutine (FadeOutTask (time));
+		}
+	}
+
+	public void FadeIn (float time)
+	{
+		if (!fadeIn)
+		{
+			fadeIn = true;
+			StartCoroutine (FadeInTask (audioAsset, time));
+		}
+	}
+
+	public void FadeIn (AudioAsset newAudioAsset, float time)
+	{
+		if (!fadeIn)
+		{
+			audioAsset = newAudioAsset;
+			FadeIn(time);
 		}
 	}
 	
+	public void Transition (AudioAsset newAudioAsset, float transitionTime)
+	{
+		StartCoroutine (TransitionTask (newAudioAsset, transitionTime));
+	}
+
 	public bool IsPlaying () {return audioSource.isPlaying;}
 
 	public AudioAsset AudioAsset() { return audioAsset;}
 
 	//Private Functions
-	private void Start()
+	private void Awake()
 	{
 		audioSource = gameObject.AddComponent (typeof (AudioSource)) as AudioSource;
 		baseVolume = audioSource.volume;
 		audioSource.playOnAwake = false;
-		audioSource.Stop();
+		audioSource.Stop();		
 
 		if (playOnAwake)
 			Play();
@@ -64,18 +87,49 @@ public class AudioPlayer : MonoBehaviour
 
 	private void Update()
 	{
-		if (fadeOut && audioSource.isPlaying)
-		{
-			if (audioSource.volume > 0f)
-				audioSource.volume -= baseVolume * Time.unscaledDeltaTime / fadeTime;
-			else
-			{
-				audioSource.Stop();
-				fadeOut = false;
-			}
-		}
-		else if (audioAsset != null && audioSource.isPlaying)
+		if (!fadeOut && !fadeIn && audioAsset != null && audioSource.isPlaying)
 			audioSource.volume = baseVolume * audioAsset.GetVolumeFactor();
+	}
+
+	IEnumerator FadeInTask (AudioAsset newAudioAsset, float time)
+	{
+		Play(newAudioAsset);
+		audioSource.volume = 0f;
+
+		while (audioSource.volume < 1f)
+		{
+			float volumeOffset = baseVolume * Time.unscaledDeltaTime / time;
+			audioSource.volume += volumeOffset;
+			yield return null;
+		};
+
+		fadeIn = false;
+	}
+
+	IEnumerator FadeOutTask (float time)
+	{
+		while (audioSource.volume > 0f)
+		{
+			float volumeOffset = baseVolume * Time.unscaledDeltaTime / time;
+			audioSource.volume -= volumeOffset;
+			yield return null;
+		};
+
+		audioSource.Stop();
+		fadeOut = false;
+	}
+
+	IEnumerator TransitionTask (AudioAsset newAmbient, float transitionTime)
+	{
+		float fade = transitionTime * 0.5f;
+
+		if (IsPlaying())
+			FadeOut (fade);
+
+		while (fadeOut)
+			yield return null;
+
+		FadeIn(newAmbient, fade);
 	}
 
 	private void OnDrawGizmosSelected()
