@@ -4,6 +4,7 @@ using UnityEngine;
 using Ivyyy.Network;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class LocalPlayerPanel : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class LocalPlayerPanel : MonoBehaviour
 	public void OnNameChanged (string newName)
 	{
 		playerConfiguration.playerName = inputPlayerName.text;
+		EventSystem.current.SetSelectedGameObject(null);
 	}
 
 	public void SetTeamIndex (int teamNr)
