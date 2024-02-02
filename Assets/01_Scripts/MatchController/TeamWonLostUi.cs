@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ivyyy.GameEvent;
 
 public class TeamWonLostUi : MonoBehaviour
 {
 	[SerializeField] GameObject panel;
 	[SerializeField] GameObject wonUi;
 	[SerializeField] GameObject lostUi;
+	[SerializeField] GameEvent hidePlayerUiEvent;
 
 	[Header ("Audio")]
 	[SerializeField] AudioAsset audioWon;
@@ -41,7 +43,10 @@ public class TeamWonLostUi : MonoBehaviour
         if (matchGameOver.GameOver())
 		{
 			if (!panel.activeInHierarchy)
+			{
+				hidePlayerUiEvent?.Raise();
 				panel.SetActive (true);
+			}
 
 			bool won = scoreController.HasTeamWon (localPlayerTeamIndex);
 
