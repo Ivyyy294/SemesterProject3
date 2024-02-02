@@ -9,6 +9,7 @@ using UnityEngine.Events;
 
 public class PlayerConfigurationListener : MonoBehaviour
 {
+    private bool _listenerActive = false;
     public static PlayerConfigurationListener Me { get; private set; }
 
     public UnityEvent onConfigurationChange;
@@ -16,6 +17,7 @@ public class PlayerConfigurationListener : MonoBehaviour
     private int[] _playerTeams;
     private PlayerConfiguration[] _playerConfigs;
     private bool[] _playerVariationLookup;
+    
     
     public bool LookUpVariation(int playerID) => _playerVariationLookup[playerID];
 
@@ -33,18 +35,31 @@ public class PlayerConfigurationListener : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerConfigs = PlayerConfigurationManager.Me.playerConfigurations;
-        _playerTeams = _playerConfigs.Select(_=>-1).ToArray();
-        _playerVariationLookup = _playerTeams.Select(_ => false).ToArray();
+        try
+        {
+            _playerConfigs = PlayerConfigurationManager.Me.playerConfigurations;
+            _listenerActive = true;
+        }
+        catch (NullReferenceException) { }
+        
+        if (_listenerActive)
+        {
+            _playerTeams = _playerConfigs.Select(_ => -1).ToArray();
+            _playerVariationLookup = _playerTeams.Select(_ => false).ToArray();
+        }
+        else
+        {
+            Debug.LogWarning("PlayerConfigurationListener Inactive. Start from MenuScene to get access to PlayerConfigurationManager");
+        }
     }
 
     private void Update()
     {
-        var log = "";
+        if (!_listenerActive) return;
+        
         var hasChanges = false;
         foreach (var c in _playerConfigs)
         {
-            log += $"[{c.connected}, {c.teamNr}]\n";
             var currentConnected = c.connected;
             var currentTeam = currentConnected ? c.teamNr : -1;
             if (currentTeam != _playerTeams[c.playerId])
@@ -58,7 +73,7 @@ public class PlayerConfigurationListener : MonoBehaviour
 
     private void OnConfigChanges()
     {
-        Debug.LogWarning("Changes!!!");
+        Debug.LogWarning("Changes in Player Configuration");
         bool[] variationAssigned = new bool[_teamCount];
         for (int i = 0; i < _playerTeams.Length; i++)
         {
