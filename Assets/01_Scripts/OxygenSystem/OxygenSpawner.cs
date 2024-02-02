@@ -51,8 +51,8 @@ public class OxygenSpawner : MonoBehaviour
 		internTimer = 0f;
 		spawnTime = -1f;
 
-		oxygenBubbleNetwork.SpawnAt (spawnPos.transform.position);
 		oxygenRefill.SetCurrentOxygen (spawnOxygen);
+		oxygenBubbleNetwork.SpawnAt (spawnPos.transform.position);
 	}
 
 	void GetRandomSpawnTime()

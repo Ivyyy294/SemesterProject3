@@ -18,7 +18,7 @@ public class OxygenBubbleRefill : MonoBehaviour
 	
 	//Private values
 	float oxygenLossTimer = 0f;
-	float currentOxygen = 0f;
+	float currentOxygen = -1f;
 
 	//Public Methods
 	public float CapacityOxygen => capacityOxygen;
@@ -38,7 +38,8 @@ public class OxygenBubbleRefill : MonoBehaviour
 	//Private Methods
 	private void Start()
 	{
-		currentOxygen = capacityOxygen;
+		if (currentOxygen == -1)
+			currentOxygen = capacityOxygen;
 	}
 
 	private void Update()
