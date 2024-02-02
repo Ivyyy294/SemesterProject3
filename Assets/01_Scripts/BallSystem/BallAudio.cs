@@ -22,12 +22,17 @@ public class BallAudio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (crawlyBrain.IsSleeping && audioPlayer.AudioAsset() != audioSleeping)
-			audioPlayer.Play (audioSleeping);
-		else if (crawlyBrain.BrainActive 
-			&& (audioPlayer.AudioAsset() != audioSleeping || !audioPlayer.IsPlaying()))
-			audioPlayer.Play (audioSwimming);
+        if (crawlyBrain.IsSleeping)
+			SwitchAudio (audioSleeping);
+		else if (crawlyBrain.BrainActive)
+			SwitchAudio (audioSwimming);
 		else if (!crawlyBrain.BrainActive && audioPlayer.IsPlaying ())
 			audioPlayer.FadeOut (fadeTime);
     }
+
+	private void SwitchAudio(AudioAsset newAudio)
+	{
+		if (audioPlayer.AudioAsset() != newAudio || !audioPlayer.IsPlaying())
+			audioPlayer.Play (newAudio);
+	}
 }

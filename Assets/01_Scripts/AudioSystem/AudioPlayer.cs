@@ -17,7 +17,7 @@ public class AudioPlayer : MonoBehaviour
 		if (audioSource && !audioSource.isPlaying)
 		{
 			audioAsset?.Play(audioSource);
-			audioSource.volume = baseVolume;
+			baseVolume = audioSource.volume;
 			fadeOut = false;
 		}
 	}

@@ -99,14 +99,11 @@ public class AudioAssetEditor : Editor
 			SerializedProperty minDistance = serializedObject.FindProperty("minDistance");
 			SerializedProperty maxDistance = serializedObject.FindProperty("maxDistance");
 
-			EditorGUILayout.PropertyField(minDistance, new GUIContent("minDistance"));
-			EditorGUILayout.PropertyField(maxDistance, new GUIContent("maxDistance"));
+			float minDis = EditorGUILayout.Slider("minDistance", audioAsset.minDistance, 0f, 500f);
+			float maxDis = EditorGUILayout.Slider("maxDistance", audioAsset.maxDistance, 0f, 500f);
 
-			if (minDistance.floatValue < 0f)
-				minDistance.floatValue = 0f;
-
-			if (maxDistance.floatValue < 0f)
-				maxDistance.floatValue = 0f;
+			audioAsset.minDistance = minDis;
+			audioAsset.maxDistance = maxDis;
 		}
 
 		EditorGUILayout.Space();
