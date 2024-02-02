@@ -20,11 +20,10 @@ public class PlayerConfigurationManager : MonoBehaviour
 
 	//Public Methods
 	//ToDo Remove
-	public static int LocalPlayerId { get; set;}
-	
+	public static int LocalPlayerId { get; set;}	
 	public static int LocalPlayerTeamIndex => (Me ? Me.playerConfigurations[LocalPlayerId].teamNr : 0);
-
 	public int MaxPlayerCount { get { return maxPlayers;} }
+	public static string LocalPlayerName => (Me ? Me.playerConfigurations[LocalPlayerId].playerName : "Local tester");
 
 	public bool PlayersReady()
 	{

@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f30b9ed5dbd4b24782a37ae045e50ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 3cb2b06c-426f-4dd7-90a3-e1a359972e14
+  guid: 
   matchLengthMinutes: 0.5
 --- !u!114 &4328592375944585472
 MonoBehaviour:
@@ -180,8 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a0cf0f36ac7484db176c216ce59ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 685f1ce7-f280-49dc-8ca3-d4141249becb
+  guid: 
   audioScorePoint: {fileID: 11400000, guid: 293bb17c35e6e1c459b1c1ff700716dc, type: 2}
+  playerScored: {fileID: 11400000, guid: 0a88655f39e30c348b1907945d51ec3f, type: 2}
 --- !u!114 &7239724479903799635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02cbff74f1a7ea54eae33bda7d4c2a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 827a848b-5066-4c6a-8af0-2abe96311a51
+  guid: 
 --- !u!114 &2599001395422167855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6a45bbd55eee64db8d34a577611fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 5f3daf9c-5722-46cc-9296-410b31da5137
+  guid: 
   audioRoundStart: {fileID: 11400000, guid: bf5dc5cf2a104664e9c67d28d31cd34d, type: 2}
   pauseTime: 3
   resetEvent: {fileID: 11400000, guid: 7a15554f8d296394a9645335d6e6574f, type: 2}
