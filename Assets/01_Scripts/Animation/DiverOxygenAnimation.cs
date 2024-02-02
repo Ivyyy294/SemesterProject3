@@ -36,6 +36,9 @@ public class DiverOxygenAnimation : MonoBehaviour
         diverVisuals.emissiveColor = teamColors.GetTeamColor(playerConfig.TeamIndex);
         diverVisuals.oxygenLevel = _oxygen;
 
+        var hasMaterialVariation = PlayerConfigurationListener.Me.LookUpVariation(playerConfig.PlayerID);
+        diverVisuals.variationColor = hasMaterialVariation ? Color.white : Color.black;
+
     }
 
     private float GetOxygenState()
