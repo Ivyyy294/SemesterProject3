@@ -19,6 +19,10 @@ public struct MenuScreenSetting
 	public MenuScreens screenIndex;
 	public GameObject screenUiObj;
 	public GameObject CameraObj;
+	public Color fadeColor;
+	public float fadeInTime;
+	public float fadeOutTime;
+	public float maxAlpha;
 }
 
 public class MenuController : MonoBehaviour
@@ -29,7 +33,6 @@ public class MenuController : MonoBehaviour
 	[SerializeField] List <MenuScreenSetting> screenSettings;
 
 	[Header ("Color Fade")]
-	[SerializeField] float fadeTime = 1f;
 	[SerializeField] Image colorFadeImage;
 
 	[Header ("Audio")]
@@ -92,15 +95,27 @@ public class MenuController : MonoBehaviour
 			activeCamera.SetActive (true);
 	}
 
+	MenuScreenSetting GetMenuScreenSetting (MenuScreens targetScreen)
+	{
+		foreach (var screen in screenSettings)
+		{
+			if (screen.screenIndex ==targetScreen)
+				return screen;
+		}
+
+		return default;
+	}
+
 	IEnumerator ColorFadeInTask (MenuScreens targetScreen)
 	{
 		float timer = 0f;
-		Color color = colorFadeImage.color;
+		MenuScreenSetting menuScreenSetting = GetMenuScreenSetting(targetScreen);
+		Color color = menuScreenSetting.fadeColor;
 		color.a = 0f;
 
-		while (timer <= fadeTime)
+		while (timer <= menuScreenSetting.fadeInTime)
 		{
-			color.a = EaseOutQuad (timer / fadeTime);
+			color.a = menuScreenSetting.maxAlpha * EaseOutQuad (timer / menuScreenSetting.fadeInTime);
 			colorFadeImage.color = color;
 			timer += Time.deltaTime;
 			yield return null;
@@ -108,18 +123,19 @@ public class MenuController : MonoBehaviour
 
 		SwitchActiveScreen (targetScreen);
 
-		yield return StartCoroutine (ColorFadeOutTask());
+		yield return StartCoroutine (ColorFadeOutTask(targetScreen));
 	}
 
-	IEnumerator ColorFadeOutTask()
+	IEnumerator ColorFadeOutTask(MenuScreens targetScreen)
 	{
 		float timer = 0f;
-		Color color = colorFadeImage.color;
+		MenuScreenSetting menuScreenSetting = GetMenuScreenSetting(targetScreen);
+		Color color = menuScreenSetting.fadeColor;
 		color.a = 1f;
 
-		while (timer <= fadeTime)
+		while (timer <= menuScreenSetting.fadeOutTime)
 		{
-			color.a = EaseOutQuad (1 - (timer / fadeTime));
+			color.a = menuScreenSetting.maxAlpha * EaseOutQuad (1 - (timer / menuScreenSetting.fadeOutTime));
 			colorFadeImage.color = color;
 			timer += Time.deltaTime;
 			yield return null;

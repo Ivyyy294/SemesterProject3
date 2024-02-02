@@ -1140,16 +1140,31 @@ MonoBehaviour:
   - screenIndex: 0
     screenUiObj: {fileID: 1197174393}
     CameraObj: {fileID: 923399604}
+    fadeColor: {r: 0, g: 0, b: 0, a: 0}
+    fadeInTime: 1
+    fadeOutTime: 1
+    maxAlpha: 1
   - screenIndex: 1
     screenUiObj: {fileID: 1763260312}
     CameraObj: {fileID: 91992100}
+    fadeColor: {r: 0, g: 0, b: 0, a: 0}
+    fadeInTime: 1
+    fadeOutTime: 1
+    maxAlpha: 1
   - screenIndex: 2
     screenUiObj: {fileID: 1634472068}
     CameraObj: {fileID: 91992100}
+    fadeColor: {r: 0, g: 0, b: 0, a: 0}
+    fadeInTime: 0.4
+    fadeOutTime: 0.3
+    maxAlpha: 0.7
   - screenIndex: 3
     screenUiObj: {fileID: 1076867223}
     CameraObj: {fileID: 91992100}
-  fadeTime: 1
+    fadeColor: {r: 0, g: 0, b: 0, a: 0}
+    fadeInTime: 0.4
+    fadeOutTime: 0.3
+    maxAlpha: 0.7
   colorFadeImage: {fileID: 1017016096}
   playAmbient: {fileID: 11400000, guid: 863e9e49ec1b48f40896369cb2849ca1, type: 2}
 --- !u!1 &953715904
