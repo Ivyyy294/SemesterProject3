@@ -73,10 +73,12 @@ public class PlayerThrowBall : NetworkBehaviour
 		if (Host && playerBallStatus.HasBall())
 		{
 			ball.Throw (ballSpawn.position, transform.forward * throwForce);
-			playerAudio.PlayAudioThrow();
 		}
 		else
 			InvokeRPC ("ThrowBall");
+
+		if (Owner)
+			playerAudio.PlayAudioThrow();
 
 		onBallThrow.Invoke();
 	}

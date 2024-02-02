@@ -9,10 +9,13 @@ public class Lobby : MonoBehaviour
 {
 	[SerializeField] float matchStartDelay;
 	[SerializeField] GameEvent audioAmbient;
+	[SerializeField] AudioAsset startGameAudio;
 
 	PlayerConfigurationManager configurationManager;
 	NetworkSceneController networkSceneController;
 	float timer = 0f;
+
+	bool startGamePlayed = false;
 
 	public float TimeUntilStart => timer;
 
@@ -23,6 +26,7 @@ public class Lobby : MonoBehaviour
 
 	private void Start()
 	{
+		startGamePlayed = false;
 		configurationManager = PlayerConfigurationManager.Me;
 		networkSceneController = NetworkSceneController.Me;
 
@@ -37,7 +41,15 @@ public class Lobby : MonoBehaviour
 		bool playersReady = AllPayersReady();
 
 		if (playersReady)
+		{
 			timer -= Time.deltaTime;
+
+			if (!startGamePlayed)
+			{
+				startGamePlayed = true;
+				startGameAudio?.PlayOneShot();
+			}
+		}
 		else
 			timer = matchStartDelay;
 
