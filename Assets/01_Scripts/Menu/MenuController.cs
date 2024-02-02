@@ -3,24 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 using Ivyyy.GameEvent;
+using UnityEngine.UI;
+
+public 	enum MenuScreens
+{
+	START_SCREEN,
+	PLAY_MODE_SCREEN,
+	CREATE_LOBBY_SCREEN,
+	JOIN_LOBBY_SCREEN
+}
+
+[System.Serializable]
+public struct MenuScreenSetting
+{
+	public MenuScreens screenIndex;
+	public GameObject screenUiObj;
+	public GameObject CameraObj;
+}
 
 public class MenuController : MonoBehaviour
 {
     [SerializeField] NetworkManagerCallback networkManagerCallback;
-	[SerializeField] GameObject selectPlayMode;
-	[SerializeField] GameObject startScreen;
+	
+	[Header ("UI Screens")]
+	[SerializeField] List <MenuScreenSetting> screenSettings;
+
+	[Header ("Color Fade")]
+	[SerializeField] float fadeTime = 1f;
+	[SerializeField] Image colorFadeImage;
+
+	[Header ("Audio")]
 	[SerializeField] GameEvent playAmbient;
 
 	public void OnShowStartScreen()
 	{
-		selectPlayMode.SetActive (false);
-		startScreen.SetActive (true);
+		SwitchActiveScreen (MenuScreens.START_SCREEN);
 	}
 
-	public void OnPlayPressed()
+	public void OnShowPlayModeScreen (bool colorFade)
 	{
-		startScreen.SetActive (false);
-		selectPlayMode.SetActive (true);
+		if (colorFade)
+			StartCoroutine (ColorFadeInTask (MenuScreens.PLAY_MODE_SCREEN));
+		else
+			SwitchActiveScreen (MenuScreens.PLAY_MODE_SCREEN);
+	}
+
+	public void OnShowCreateLobbyScreen ()
+	{
+		StartCoroutine (ColorFadeInTask (MenuScreens.CREATE_LOBBY_SCREEN));
+	}
+
+	public void OnShowJoinLobbyScreen ()
+	{
+		StartCoroutine (ColorFadeInTask (MenuScreens.JOIN_LOBBY_SCREEN));
 	}
 
 	public void OnCreditsPressed()
@@ -37,5 +72,62 @@ public class MenuController : MonoBehaviour
 	{
 		networkManagerCallback.ResetNetworkObjects();
 		playAmbient?.Raise();
-	}   
+	}
+
+	void SwitchActiveScreen (MenuScreens targetScreen)
+	{
+		GameObject activeCamera = null;
+
+		foreach (var screen in screenSettings)
+		{
+			bool active = screen.screenIndex == targetScreen;
+			screen.CameraObj.SetActive (false);
+			screen.screenUiObj.SetActive (active);
+
+			if (active)
+				activeCamera = screen.CameraObj;
+		}
+
+		if (activeCamera)
+			activeCamera.SetActive (true);
+	}
+
+	IEnumerator ColorFadeInTask (MenuScreens targetScreen)
+	{
+		float timer = 0f;
+		Color color = colorFadeImage.color;
+		color.a = 0f;
+
+		while (timer <= fadeTime)
+		{
+			color.a = EaseOutQuad (timer / fadeTime);
+			colorFadeImage.color = color;
+			timer += Time.deltaTime;
+			yield return null;
+		}
+
+		SwitchActiveScreen (targetScreen);
+
+		yield return StartCoroutine (ColorFadeOutTask());
+	}
+
+	IEnumerator ColorFadeOutTask()
+	{
+		float timer = 0f;
+		Color color = colorFadeImage.color;
+		color.a = 1f;
+
+		while (timer <= fadeTime)
+		{
+			color.a = EaseOutQuad (1 - (timer / fadeTime));
+			colorFadeImage.color = color;
+			timer += Time.deltaTime;
+			yield return null;
+		}
+	}
+
+	float EaseOutQuad (float x)
+	{
+		return 1 - (1 - x) * (1 - x);
+	}
 }
