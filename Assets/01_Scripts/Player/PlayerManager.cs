@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ public class PlayerManager : MonoBehaviour
 	PlayerConfigurationManager playerConfigurationManager;
 	NetworkManager networkManager;
 	static GameObject localPlayer;
+	
+	public static PlayerManager Me { get; private set; }
 
 	public GameObject[] PlayerList => playerList;
 	public IEnumerable<PlayerNetworkInfo> PlayerNetworkInfos => playerList.Select(x => x.GetComponent<PlayerNetworkInfo>());
@@ -18,6 +21,12 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+	    if (Me != null)
+	    {
+		    Destroy(this);
+	    }
+	    Me = this;
+	    
         playerConfigurationManager = PlayerConfigurationManager.Me;
 		networkManager = NetworkManager.Me;
 
@@ -49,5 +58,13 @@ public class PlayerManager : MonoBehaviour
 	{
 		PlayerConfigurationContainer playerConfigurationContainer = player.GetComponentInChildren <PlayerConfigurationContainer>();
 		playerConfigurationContainer.playerConfiguration = playerConfiguration;
+	}
+
+	private void OnDestroy()
+	{
+		if (Me == this)
+		{
+			Me = null;
+		}
 	}
 }
