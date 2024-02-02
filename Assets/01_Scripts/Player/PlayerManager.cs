@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
 	    if (Me != null)
 	    {
 		    Destroy(this);
+		    return;
 	    }
 	    Me = this;
 	    
