@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Screen_Transition
-  m_Shader: {fileID: -6465566751694194690, guid: 541eb1f01fe20234cb949012967fc9cb,
+  m_Shader: {fileID: -6465566751694194690, guid: caac0efbd27fa854696e4c1b1fb6e7fa,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -85,7 +85,15 @@ Material:
         m_Texture: {fileID: 2800000, guid: cfa2ef8ad40e979468e4e14e652f0a74, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_33fd5199e7b9481f9990cde161e2a8f6_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: d5800eddd0c9d5944aa733447adb1fdb, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_9632b88bf6424f6e9c8b4fa67a643d8e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: d5800eddd0c9d5944aa733447adb1fdb, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_fc1479e80799421fb62d4f050975ab02_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: d5800eddd0c9d5944aa733447adb1fdb, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -141,6 +149,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _Transition: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
