@@ -8,6 +8,7 @@ public class PlayerStealBall : MonoBehaviour
 	[Range (0.1f, 1f)]
 	[SerializeField] float stealRange = 0.5f;
 	[SerializeField] float stealDuration = 0.25f;
+	[SerializeField] float stealCoolDown = 1f;
 	[SerializeField] LayerMask mask = -1;
 	[SerializeField] Transform checkPosition;
 
@@ -17,13 +18,15 @@ public class PlayerStealBall : MonoBehaviour
 	PlayerAudio playerAudio;
 	short playerId;
 	float timer = 0f;
+
+	bool coolDown = false;
 	bool host = false;
 
 	[RPCAttribute]
 	protected void StealBall ()
 	{
 		//Execute Steal only on host session
-		if (ballStatus.HasBall())
+		if (ballStatus.HasBall() || coolDown)
 			return;
 
 		//Layer ball collider
@@ -44,6 +47,8 @@ public class PlayerStealBall : MonoBehaviour
 
 		if (timer >= stealDuration)
 		{
+			coolDown = true;
+			StartCoroutine (StealCoolDown());
 			ball.SetPlayerId (playerId);
 			playerAudio.PlayAudioSteal();
 		}
@@ -76,5 +81,20 @@ public class PlayerStealBall : MonoBehaviour
 	{
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (checkPosition.position, stealRange);
+	}
+
+	IEnumerator StealCoolDown ()
+	{
+		coolDown = true;
+		float timer = 0f;
+
+		while (timer < stealCoolDown)
+		{
+			Debug.Log("Steal cooldown: " + (stealCoolDown - timer));
+			timer += Time.deltaTime;
+			yield return null;
+		}
+
+		coolDown = false;
 	}
 }
