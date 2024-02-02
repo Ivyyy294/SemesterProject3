@@ -40,7 +40,11 @@ public class PlayerConfigurationListener : MonoBehaviour
             _playerConfigs = PlayerConfigurationManager.Me.playerConfigurations;
             _listenerActive = true;
         }
-        catch (NullReferenceException) { }
+        catch (NullReferenceException)
+        {
+            _listenerActive = false;
+            _playerVariationLookup = new bool[4];
+        }
         
         if (_listenerActive)
         {
