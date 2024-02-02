@@ -47,7 +47,7 @@ public class GlobalPostProcessing : MonoBehaviour
     
     #endregion
 
-    private Timer _transition = new(1);
+    private Timer _transition = new(2);
 
     private void Awake()
     {
@@ -102,6 +102,7 @@ public class GlobalPostProcessing : MonoBehaviour
     {
         _transition.Update();
         _wobbleMaterial.Mat.SetFloat(ID_SpeedLines, speedLines);
+        _transitionMaterial.Mat.SetFloat(ID_Transition, _transition.ProgressNormalized);
     }
 
     public void Transition()
