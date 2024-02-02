@@ -7,9 +7,9 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class DiverVisuals : MonoBehaviour
 {
-    [SerializeField] private GameObject rig;
     public Color emissiveColor;
     [Range(0, 1)] public float oxygenLevel = 0.5f;
+    public Color variationColor;
 
     private Renderer[] _renderers;
 
@@ -19,6 +19,7 @@ public class DiverVisuals : MonoBehaviour
     #region ShaderProperties
     private readonly int ID_OxygenLevel = Shader.PropertyToID("_OxygenLevel");
     private readonly int ID_OxygenColor = Shader.PropertyToID("_OxygenColor");
+    private readonly int ID_MaskColor = Shader.PropertyToID("_MaskColor");
     #endregion
     
     private void OnEnable()
@@ -43,6 +44,7 @@ public class DiverVisuals : MonoBehaviour
     {
         Mpb.SetColor(ID_OxygenColor, emissiveColor);
         Mpb.SetFloat(ID_OxygenLevel, oxygenLevel);
+        Mpb.SetColor(ID_MaskColor, variationColor);
         UpdateProperties();
     }
 
