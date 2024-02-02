@@ -12,6 +12,7 @@ public class LocalPlayerPanel : MonoBehaviour
 	[SerializeField] GameObject readyButton;
 	[SerializeField] TextMeshProUGUI labelReady;
 	[SerializeField] TMP_InputField inputPlayerName;
+	[SerializeField] Toggle toogleYAxis;
 
 	public void OnReadyButtonPressed()
 	{
@@ -21,6 +22,8 @@ public class LocalPlayerPanel : MonoBehaviour
 	private void Start()
 	{
 		inputPlayerName.text = playerConfiguration.playerName;
+		toogleYAxis.onValueChanged.AddListener (OnInvertAxisToggled);
+		toogleYAxis.isOn = playerConfiguration.invertYAxis;
 	}
 
 	private void Update()
@@ -37,5 +40,10 @@ public class LocalPlayerPanel : MonoBehaviour
 	public void SetTeamIndex (int teamNr)
 	{
 		playerConfiguration.teamNr = teamNr;
+	}
+
+	public void OnInvertAxisToggled (bool isOn)
+	{
+		playerConfiguration.invertYAxis = isOn;
 	}
 }

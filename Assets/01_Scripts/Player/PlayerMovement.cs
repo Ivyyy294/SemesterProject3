@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     PlayerInputProcessing playerInput;
 	PlayerBallStatus playerBallStatus;
 	PlayerBlock playerBlock;
+	PlayerConfiguration playerConfiguration;
 
 	Transform targetTransform;
 	Rigidbody m_rigidbody;	
@@ -47,7 +48,13 @@ public class PlayerMovement : MonoBehaviour
 		currentMovementProfil = normalMovementProfil;
     }
 
-    void Update()
+	private void Start()
+	{
+		//Gets set in Awake
+		playerConfiguration = transform.parent.GetComponentInChildren <PlayerConfigurationContainer>().playerConfiguration;
+	}
+
+	void Update()
     {
 		SetCurrentMovementProfile();
 	}
@@ -75,7 +82,9 @@ public class PlayerMovement : MonoBehaviour
 	{
 		float turnSpeedDegrees = currentMovementProfil.turnSpeedDegrees;
 
-		Quaternion deltaRotationPitch = Quaternion.Euler(Vector3.right * Time.fixedDeltaTime * turnSpeedDegrees * playerInput.Pitch);
+		bool invertY = playerConfiguration ? playerConfiguration.invertYAxis : false;
+
+		Quaternion deltaRotationPitch = Quaternion.Euler(Vector3.right * Time.fixedDeltaTime * turnSpeedDegrees * playerInput.Pitch * (invertY ? -1f : 1f));
 		Quaternion deltaRotationYaw = Quaternion.Euler(Vector3.up * Time.fixedDeltaTime * turnSpeedDegrees * playerInput.Yaw);
 
 		m_rigidbody.MoveRotation (m_rigidbody.rotation * deltaRotationPitch * deltaRotationYaw);

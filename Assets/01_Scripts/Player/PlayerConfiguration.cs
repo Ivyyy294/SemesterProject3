@@ -11,6 +11,7 @@ public class PlayerConfiguration :NetworkBehaviour
 	public bool ready = false;
 	public bool sceneLoaded = false;
 	public bool connected = false;
+	public bool invertYAxis = false;
 	public IPAddress iPAddress = null;
 	public int port = 0;
 	public int teamNr = 0;
@@ -52,6 +53,7 @@ public class PlayerConfiguration :NetworkBehaviour
 		connected = networkPackage.Value(2).GetBool();
 		playerName = networkPackage.Value(3).GetString();
 		teamNr = networkPackage.Value(4).GetInt32();
+		invertYAxis = networkPackage.Value (5).GetBool();
 		networkPackage.Clear();
 	}
 
@@ -62,6 +64,7 @@ public class PlayerConfiguration :NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (connected));		//2
 		networkPackage.AddValue (new NetworkPackageValue (playerName));		//3
 		networkPackage.AddValue (new NetworkPackageValue (teamNr));			//4
+		networkPackage.AddValue (new NetworkPackageValue (invertYAxis));	//5
 	}
 
 	private void Update()
