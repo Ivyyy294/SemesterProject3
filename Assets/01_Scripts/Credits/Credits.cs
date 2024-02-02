@@ -5,8 +5,8 @@ using Ivyyy.Network;
 
 public class Credits : MonoBehaviour
 {
-    public void OnMenuPressed()
-	{
-		NetworkSceneController.Me.LoadScene (0);
-	}
+ //   public void OnMenuPressed()
+	//{
+	//	NetworkSceneController.Me.LoadScene (0);
+	//}
 }

@@ -1153,7 +1153,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 5477026347337817343}
+      objectReference: {fileID: 11400000, guid: 0daf7514c12914048b06ecb2fa83061f,
+        type: 2}
     - target: {fileID: 7062876568346067755, guid: 3012b33242e68b948887fb53c75d0bef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -1162,12 +1163,12 @@ PrefabInstance:
     - target: {fileID: 7062876568346067755, guid: 3012b33242e68b948887fb53c75d0bef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: OnMenuPressed
+      value: Raise
       objectReference: {fileID: 0}
     - target: {fileID: 7062876568346067755, guid: 3012b33242e68b948887fb53c75d0bef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Credits, Assembly-CSharp
+      value: Ivyyy.GameEvent.GameEvent, ivyyy.ivyyypackage.Runtime
       objectReference: {fileID: 0}
     - target: {fileID: 7062876568346067755, guid: 3012b33242e68b948887fb53c75d0bef,
         type: 3}

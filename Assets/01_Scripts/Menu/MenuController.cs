@@ -10,7 +10,8 @@ public 	enum MenuScreens
 	START_SCREEN,
 	PLAY_MODE_SCREEN,
 	CREATE_LOBBY_SCREEN,
-	JOIN_LOBBY_SCREEN
+	JOIN_LOBBY_SCREEN,
+	CREDITS_SCREEN,
 }
 
 [System.Serializable]
@@ -63,7 +64,7 @@ public class MenuController : MonoBehaviour
 
 	public void OnCreditsPressed()
 	{
-		NetworkSceneController.Me.LoadScene (3);
+		StartCoroutine (ColorFadeInTask (MenuScreens.CREDITS_SCREEN));
 	}
 
 	public void OnQuitPressed()
