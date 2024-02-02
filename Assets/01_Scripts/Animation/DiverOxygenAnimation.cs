@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class DiverOxygenAnimation : MonoBehaviour
 {
-    [SerializeField] private DiverVisuals diverVisuals;
+    [Header("External References")]
     [SerializeField] private PlayerOxygen playerOxygen;
-    [SerializeField] private TeamColor teamColor;
+    [SerializeField] private PlayerConfigurationContainer playerConfig;
+    [SerializeField] private TeamColorSettings teamColors;
+    
+    [Header("Local References")]
+    [SerializeField] private DiverVisuals diverVisuals;
 
     private float _oxygen;
     private Gauge _oxygenGainGauge = new(20, 1.5f);
@@ -29,13 +33,9 @@ public class DiverOxygenAnimation : MonoBehaviour
         _oxygen = newOxygen;
         _oxygenGainGauge.Update(oxygenIncreased);
         // Color resultColor = Color.Lerp(teamColor.Color, _oxygenFillColor, _oxygenGainGauge.FillAmount * 0.75f);
-        diverVisuals.emissiveColor = teamColor.Color;
+        diverVisuals.emissiveColor = teamColors.GetTeamColor(playerConfig.TeamIndex);
         diverVisuals.oxygenLevel = _oxygen;
 
-        // if (playerOxygen.Owner && DiverUI.Me)
-        // {
-        //     DiverUI.Me.oxygen = _oxygen;
-        // }
     }
 
     private float GetOxygenState()
