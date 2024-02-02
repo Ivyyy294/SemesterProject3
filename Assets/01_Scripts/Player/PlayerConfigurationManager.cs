@@ -21,6 +21,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 	//Public Methods
 	//ToDo Remove
 	public static int LocalPlayerId { get; set;}
+	
+	public static int LocalPlayerTeamIndex => (Me ? Me.playerConfigurations[LocalPlayerId].teamNr : 0);
 
 	public int MaxPlayerCount { get { return maxPlayers;} }
 
