@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7541728279514962664}
   - component: {fileID: 4178369902537849273}
   - component: {fileID: 4396500503557550941}
-  - component: {fileID: 6399125672231287929}
   m_Layer: 0
   m_Name: DiverModel
   m_TagString: Untagged
@@ -128,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0cecdf1115ee8499f0deb6f1bd13d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rig: {fileID: 1112364719769535235}
   emissiveColor: {r: 1, g: 0.06028847, b: 0, a: 0}
   oxygenLevel: 0.5
+  variationColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4178369902537849273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,37 +162,6 @@ MonoBehaviour:
   iterations: 30
   currentStrength: 2
   damping: 0.6
---- !u!114 &6399125672231287929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934874160835947609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56718501c832e7340a4fa3ea4eb4ca84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftArm:
-    target: {fileID: 0}
-    hint: {fileID: 0}
-    ikRig: {fileID: 0}
-    twistRig: {fileID: 0}
-    root: {fileID: 2734006582982887277}
-    elbow: {fileID: 3553738756073226969}
-    hand: {fileID: 2063523035957051804}
-  rightArm:
-    target: {fileID: 0}
-    hint: {fileID: 0}
-    ikRig: {fileID: 0}
-    twistRig: {fileID: 0}
-    root: {fileID: 1791673500452934064}
-    elbow: {fileID: 46813977298030712}
-    hand: {fileID: 6398513597483397129}
-  chestTwistUp: {fileID: 0}
-  chestTwistDown: {fileID: 0}
-  leftHandRotation: {fileID: 0}
 --- !u!1 &7079992872318825859
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,12 +417,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e0f2764caf74084ba114a3005ecca8c, type: 3}
---- !u!4 &46813977298030712 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1651929963597600738, guid: 7e0f2764caf74084ba114a3005ecca8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1606242025971140506}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &298426685223213497 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1328207718236446243, guid: 7e0f2764caf74084ba114a3005ecca8c,
@@ -467,21 +429,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1606242025971140506}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1112364719769535235 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1811974604375852185, guid: 7e0f2764caf74084ba114a3005ecca8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1606242025971140506}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1791673500452934064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1051530119688623658, guid: 7e0f2764caf74084ba114a3005ecca8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1606242025971140506}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2063523035957051804 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 786335361849492998, guid: 7e0f2764caf74084ba114a3005ecca8c,
     type: 3}
   m_PrefabInstance: {fileID: 1606242025971140506}
   m_PrefabAsset: {fileID: 0}
@@ -527,21 +477,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1606242025971140506}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3553738756073226969 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2818107732276069699, guid: 7e0f2764caf74084ba114a3005ecca8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1606242025971140506}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5018371358163821823 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6047862289884324709, guid: 7e0f2764caf74084ba114a3005ecca8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1606242025971140506}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6398513597483397129 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5658371247421093779, guid: 7e0f2764caf74084ba114a3005ecca8c,
     type: 3}
   m_PrefabInstance: {fileID: 1606242025971140506}
   m_PrefabAsset: {fileID: 0}
