@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class LobbyTimerUi : MonoBehaviour
+public class LobbyUi : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI labelTimer;
+	[SerializeField] TextMeshProUGUI labelWaiting;
+	[SerializeField] TextMeshProUGUI labelUnevenTeams;
 	[SerializeField] Lobby lobby;
 
     // Start is called before the first frame update
@@ -18,7 +20,15 @@ public class LobbyTimerUi : MonoBehaviour
     void Update()
     {
 		float timeRemaining = lobby.TimeUntilStart;
-        bool visible = lobby.AllPayersReady();
+
+		bool playersReady = lobby.AllPayersReady();
+		bool equalTeamSize = lobby.EqualTeamSize();
+
+		labelWaiting.gameObject.SetActive (!playersReady);
+		labelUnevenTeams.gameObject.SetActive (playersReady && !equalTeamSize);
+
+
+        bool visible = playersReady && equalTeamSize;
 
 		labelTimer.text = (1 + (int)timeRemaining).ToString();
 		labelTimer.gameObject.SetActive (visible);

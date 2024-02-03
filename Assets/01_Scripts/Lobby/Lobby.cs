@@ -21,7 +21,12 @@ public class Lobby : MonoBehaviour
 
 	public bool AllPayersReady()
 	{
-		 return configurationManager && configurationManager.PlayersReady() && configurationManager.EqualTeamSize();
+		 return configurationManager && configurationManager.PlayersReady();
+	}
+
+	public bool EqualTeamSize()
+	{
+		return configurationManager.EqualTeamSize();
 	}
 
 	private void Start()
@@ -38,7 +43,7 @@ public class Lobby : MonoBehaviour
 
 	private void Update()
 	{
-		bool playersReady = AllPayersReady();
+		bool playersReady = AllPayersReady() && EqualTeamSize();
 
 		if (playersReady)
 		{
@@ -53,7 +58,7 @@ public class Lobby : MonoBehaviour
 		else
 			timer = matchStartDelay;
 
-		if (AllPayersReady() && timer <= 0f)
+		if (AllPayersReady() && EqualTeamSize() && timer <= 0f)
 			networkSceneController.LoadScene(2);
 	}
 }
