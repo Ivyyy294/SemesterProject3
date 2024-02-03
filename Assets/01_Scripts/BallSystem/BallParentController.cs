@@ -5,14 +5,17 @@ using UnityEngine;
 public class BallParentController : MonoBehaviour
 {
 	Ball ball;
-	Rigidbody mrigidbody;
 	Transform defaultParent;
+
+	public void ResetParent()
+	{
+		transform.SetParent (defaultParent);
+	}
 
     // Start is called before the first frame update
     void Start()
     {
         ball = GetComponent<Ball>();
-		mrigidbody = GetComponent<Rigidbody>();
 		defaultParent = transform.parent;
     }
 
@@ -20,7 +23,7 @@ public class BallParentController : MonoBehaviour
     void Update()
     {
         if (ball.CurrentPlayerId == -1 && transform.parent != defaultParent)
-			transform.SetParent (defaultParent);
+			ResetParent();
 		else if (ball.CurrentPlayerId != -1)
 		{
 			Transform newParent = GetParentTransform();
