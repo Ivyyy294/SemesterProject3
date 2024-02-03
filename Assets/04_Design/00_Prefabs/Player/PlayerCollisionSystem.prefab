@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b53946b3d6adbd54e9f44e7c518f5411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConfiguration: {fileID: 0}
 --- !u!114 &1923111158589455104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,8 +79,8 @@ MonoBehaviour:
     fillRate: 3
     depletionRate: 3
   playerBlockCollider: {fileID: 4478825223472743110}
-  blockMass: 2
-  blockDrag: 2
+  blockMass: 100
+  blockDrag: 100
 --- !u!1 &3072804750113749174
 GameObject:
   m_ObjectHideFlags: 0
