@@ -13,7 +13,7 @@ public class PlayerMovementProfil : ScriptableObject
 	[Min(0f)]
 	public float turnSpeedDegrees = 10f;
 
-	[Range (0.3f, 1f)]
+	[Range (0.3f, 3f)]
 	public float movementSmoothTime = 0.3f;
 
 	//[Header ("Physic Settings")]
