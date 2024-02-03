@@ -42,6 +42,7 @@ public class MatchSoftReset : NetworkBehaviour
 		matchTimer = GetComponent <MatchTimer>();
 
 		SoftReset (false);
+		showBubbleEvent?.Raise();
     }
 
     // Update is called once per frame
