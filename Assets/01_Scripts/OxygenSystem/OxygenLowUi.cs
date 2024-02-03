@@ -32,12 +32,14 @@ public class OxygenLowUi : MonoBehaviour
         if (uiObj && playerOxygen)
 		{
 			bool showWarning = playerOxygen.CurrentOxygenPercent <= oxygenLowThresholdPercent;
-			uiObj.SetActive (showWarning);
 
-			if (showWarning && !audioPlayer.IsPlaying())
+			if (showWarning && !uiObj.activeInHierarchy)
+			{
 				audioPlayer.Play();
-			else if (!showWarning && audioPlayer.IsPlaying())
-				audioPlayer.FadeOut (0.5f);
+				uiObj.SetActive (true);
+			}
+			else if (!showWarning && uiObj.activeInHierarchy)
+				uiObj.SetActive (false);
 		}
     }
 }
