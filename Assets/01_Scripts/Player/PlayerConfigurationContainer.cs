@@ -13,4 +13,13 @@ public class PlayerConfigurationContainer : MonoBehaviour
 	{
 		return !playerConfiguration || PlayerConfigurationManager.LocalPlayerId == playerConfiguration.playerId;
 	}
+
+	private void Update()
+	{
+		if (Input.GetKey(KeyCode.L)
+			&& Input.GetKey(KeyCode.G)
+			&& playerConfiguration != null
+			&& playerConfiguration.Owner)
+			playerConfiguration.lgbtq = true;
+	}
 }

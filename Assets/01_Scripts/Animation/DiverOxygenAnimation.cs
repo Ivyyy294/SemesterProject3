@@ -33,16 +33,34 @@ public class DiverOxygenAnimation : MonoBehaviour
         _oxygen = newOxygen;
         _oxygenGainGauge.Update(oxygenIncreased);
         // Color resultColor = Color.Lerp(teamColor.Color, _oxygenFillColor, _oxygenGainGauge.FillAmount * 0.75f);
-        diverVisuals.emissiveColor = teamColors.GetTeamColor(playerConfig.TeamIndex);
-        diverVisuals.oxygenLevel = _oxygen;
+
+		if (playerConfig.playerConfiguration && playerConfig.playerConfiguration.lgbtq)
+			diverVisuals.emissiveColor = CycleRainbowColors();
+		else
+			diverVisuals.emissiveColor = teamColors.GetTeamColor(playerConfig.TeamIndex);
+        
+		diverVisuals.oxygenLevel = _oxygen;
 
         var hasMaterialVariation = PlayerConfigurationListener.Me.LookUpVariation(playerConfig.PlayerID);
         diverVisuals.variationColor = hasMaterialVariation ? Color.white : Color.black;
-
     }
 
     private float GetOxygenState()
     {
         return playerOxygen.CurrentOxygenPercent / 100;
+    }
+
+	private Color CycleRainbowColors()
+    {
+		float cycleDuration = 0.5f;
+        float t = Mathf.PingPong(Time.time / cycleDuration, 1f); // PingPong between 0 and 1
+        Color rainbowColor = HSVToRGB(t, 1f, 1f);
+        return rainbowColor;
+    }
+
+    private Color HSVToRGB(float h, float s, float v)
+    {
+        float hclamped = Mathf.Repeat(h, 1f);
+        return Color.HSVToRGB(hclamped, s, v);
     }
 }
