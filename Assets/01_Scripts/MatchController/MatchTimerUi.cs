@@ -12,19 +12,24 @@ public class MatchTimerUi : MonoBehaviour
 
 	[Header ("Lara values")]
 	[SerializeField] TextMeshProUGUI labelTimer;
+	[SerializeField] GameObject labelSuddenDeath;
 	MatchTimer matchTimer;
+	MatchScoreController matchScoreController;
 	BitSet audioMemory = new BitSet (1);
 
     // Start is called before the first frame update
     void Start()
     {
         matchTimer = MatchController.Me.MatchTimer;
+		matchScoreController = MatchController.Me.MatchScoreController;
     }
 
     // Update is called once per frame
     void Update()
     {
         labelTimer.text = GetRemainingTimeAsString();
+
+		labelSuddenDeath.SetActive (matchTimer.TimeRemaining <= 0f && matchScoreController.Tie);
 
 		HandleAudio();
     }
