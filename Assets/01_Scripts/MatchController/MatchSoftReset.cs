@@ -14,13 +14,18 @@ public class MatchSoftReset : NetworkBehaviour
 	[SerializeField] AudioAsset audioRoundStart;
 	[SerializeField] float pauseTime;
 	[SerializeField] GameEvent resetEvent;
+	[SerializeField] GameEvent showBubbleEvent;
+	[SerializeField] float softResetDelay = 1f;
 
 	public float PauseTimeRemaining => Mathf.Max (0f, pauseTime - timer);
 
 	public void Invoke()
 	{
 		if (!MatchController.Me.MatchGameOver.GameOver())
-			SoftReset();
+		{
+			showBubbleEvent?.Raise();
+			StartCoroutine (SoftResetDelay());
+		}
 	}
 
 	protected override void SetPackageData()
@@ -69,5 +74,18 @@ public class MatchSoftReset : NetworkBehaviour
 		audioRoundStart?.Play();
 
 		resetEvent?.Raise();
+	}
+
+	IEnumerator SoftResetDelay()
+	{
+		float timer = 0f;
+
+		while (timer < softResetDelay)
+		{
+			timer += Time.deltaTime;
+			yield return null;
+		}
+
+		SoftReset();
 	}
 }
