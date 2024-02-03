@@ -21,7 +21,7 @@ public class MatchSoftReset : NetworkBehaviour
 
 	public void Invoke()
 	{
-		if (!MatchController.Me.MatchGameOver.GameOver())
+		if (matchTimer.TimeRemaining > 0f)
 		{
 			showBubbleEvent?.Raise();
 			StartCoroutine (SoftResetDelay());
