@@ -121,15 +121,17 @@ public class DiverAnimation : MonoBehaviour
              animator.SetTrigger(ID_CancelAnimEffects);
          }
          else animator.SetBool(ID_IsReaching, false);
-         
 
-         var ballVector = (GetBallGrabPosition(chest.position) - chest.position).normalized;
-         var sideDot = Vector3.Dot(ballVector, -transform.right);
-         animator.SetBool(ID_IsBallLeft, sideDot > 0);
-         animator.SetFloat(ID_BallFront, Mathf.Clamp01(Vector3.Dot(ballVector, transform.forward)));
-         animator.SetFloat(ID_BallUp, Mathf.Clamp01(Vector3.Dot(ballVector, transform.up)));
-         animator.SetFloat(ID_BallSide, Mathf.Abs(sideDot));
-         animator.SetFloat(ID_BallDown, Mathf.Clamp01(Vector3.Dot(ballVector, -transform.up)));
+         if (!_isHoldingBall)
+         {
+             var ballVector = (GetBallGrabPosition(chest.position) - chest.position).normalized;
+             var sideDot = Vector3.Dot(ballVector, -transform.right);
+             animator.SetBool(ID_IsBallLeft, sideDot > 0);
+             animator.SetFloat(ID_BallFront, Mathf.Clamp01(Vector3.Dot(ballVector, transform.forward)));
+             animator.SetFloat(ID_BallUp, Mathf.Clamp01(Vector3.Dot(ballVector, transform.up)));
+             animator.SetFloat(ID_BallSide, Mathf.Abs(sideDot));
+             animator.SetFloat(ID_BallDown, Mathf.Clamp01(Vector3.Dot(ballVector, -transform.up)));
+         }
      }
 
      void FixedUpdate()
