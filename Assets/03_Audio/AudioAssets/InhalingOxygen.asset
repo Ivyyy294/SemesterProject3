@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7490679cbb0ec49b5d45a66e74b10e, type: 3}
   m_Name: InhalingOxygen
   m_EditorClassIdentifier: 
-  clipData: []
+  clipData:
+  - clip: {fileID: 8300000, guid: a7b771ba3e1159f468d6d4e276070691, type: 3}
+    subtitle: 
   playStyle: 0
   audioTyp: 0
-  loop: 0
+  loop: 1
   volume: {x: 0.5, y: 0.5}
   pitch: {x: 1, y: 1}
   spatial: 0
