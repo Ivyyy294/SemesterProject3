@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 358425657}
   - component: {fileID: 358425660}
   - component: {fileID: 358425659}
-  - component: {fileID: 358425658}
   m_Layer: 0
   m_Name: MatchVisuals
   m_TagString: Untagged
@@ -282,34 +281,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 432352293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &358425658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358425656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 54cb15302791ff94dba4b561137f1203, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 358425660}
-        m_TargetAssemblyTypeName: MatchVisuals, Assembly-CSharp
-        m_MethodName: OnGoalScored
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &358425659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 7197fad9c5cc0b14885cd257003afa51, type: 2}
+  gameEvent: {fileID: 11400000, guid: ec69f7da45936ac4497a2d104cc2096f, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
