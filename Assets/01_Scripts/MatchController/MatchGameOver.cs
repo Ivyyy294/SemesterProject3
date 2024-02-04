@@ -11,6 +11,8 @@ public class MatchGameOver : MonoBehaviour
 	[SerializeField] AudioAsset audioGameOver;
 	[SerializeField] GameEvent gameOverEvent;
 
+	bool eventsRaised = false;
+
 	public bool GameOver()
 	{
 		bool timerUp = matchTimer.TimeRemaining == 0f;
@@ -29,8 +31,9 @@ public class MatchGameOver : MonoBehaviour
 
 	private void Update()
 	{
-		if (GameOver() && !pauseController.IsMatchPaused)
+		if (GameOver() && !eventsRaised)
 		{
+			eventsRaised = true;
 			gameOverEvent.Raise();
 			pauseController.PauseMatch (true);
 			audioGameOver.PlayOneShot();

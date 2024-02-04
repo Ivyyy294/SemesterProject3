@@ -20,13 +20,15 @@ public class QuickMenu : MonoBehaviour
     void Start()
     {
         uiObj.SetActive (false);
-		matchGameOver = MatchController.Me.MatchGameOver;
+
+		if (MatchController.Me)
+			matchGameOver = MatchController.Me.MatchGameOver;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown (KeyCode.Escape) && !matchGameOver.GameOver())
+        if (Input.GetKeyDown (KeyCode.Escape) && (matchGameOver == null || !matchGameOver.GameOver()))
 		{
 			if (!uiObj.activeInHierarchy)
 			{
