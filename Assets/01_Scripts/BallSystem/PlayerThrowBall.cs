@@ -14,6 +14,7 @@ public class PlayerThrowBall : NetworkBehaviour
 
 	[Header ("Lara Values")]
 	[SerializeField] float initalCooldown = 0.1f;
+	[SerializeField] float safetyDistanz = 0.5f;
 	PlayerOxygen playerOxygen;
 	PlayerBallStatus playerBallStatus;
 	PlayerInputProcessing playerInput;
@@ -92,9 +93,10 @@ public class PlayerThrowBall : NetworkBehaviour
 			InvokeRPC("DropBall");
 	}
 
+	//Makes sure thrat crawly returned roughly to spawn point before allow a throw
 	bool IsBallBackInPosition()
 	{
 		float distanz = Vector3.Distance (ball.transform.position, ballSpawn.position);
-		return distanz < 0.5;
+		return distanz < safetyDistanz;
 	}
 }

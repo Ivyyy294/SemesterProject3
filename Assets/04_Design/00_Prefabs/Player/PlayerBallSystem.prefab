@@ -62,13 +62,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a298b2e11a89b243a31140efd9c8722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: 3c289520-b3c3-4e73-96bb-c4a9c882d50a
+  guid: 
   throwForce: 400
   ballSpawn: {fileID: 0}
   onBallThrow:
     m_PersistentCalls:
       m_Calls: []
   initalCooldown: 0.1
+  safetyDistanz: 0.3
 --- !u!114 &6233776089314568346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stealRange: 0.8
   stealDuration: 0.1
+  stealCoolDown: 1
   mask:
     serializedVersion: 2
     m_Bits: 128
@@ -129,7 +131,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   checkPosition: {fileID: 0}
-  catchCoolDown: 1
 --- !u!1 &8863458842665378861
 GameObject:
   m_ObjectHideFlags: 0
