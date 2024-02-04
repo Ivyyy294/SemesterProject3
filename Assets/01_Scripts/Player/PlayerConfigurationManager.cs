@@ -8,8 +8,6 @@ using System.Net;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-	[SerializeField] int maxPlayers = 4;
-
 	//Public Values
 	static public PlayerConfigurationManager Me {get; private set;}
 	
@@ -22,7 +20,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 	//ToDo Remove
 	public static int LocalPlayerId { get; set;}	
 	public static int LocalPlayerTeamIndex => (Me ? Me.playerConfigurations[LocalPlayerId].teamNr : 0);
-	public int MaxPlayerCount { get { return maxPlayers;} }
+	public int MaxPlayerCount { get; set;}
 	public static string LocalPlayerName => (Me ? Me.playerConfigurations[LocalPlayerId].playerName : "Local tester");
 
 	public bool PlayersReady()
@@ -77,7 +75,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 	public int GetNewPlayerIndex(IPAddress iPAddress)
 	{
 		//Player 0 is always host
-		for (int i = 1; i < playerConfigurations.Length && i < maxPlayers; ++i)
+		for (int i = 1; i < playerConfigurations.Length && i < MaxPlayerCount; ++i)
 		{
 			PlayerConfiguration playerConfiguration = playerConfigurations[i];
 

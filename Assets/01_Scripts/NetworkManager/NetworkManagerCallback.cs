@@ -95,6 +95,7 @@ public class NetworkManagerCallback : MonoBehaviour
 		Debug.Log ("LocalPlayerId: " + LocalPlayerId);
 		Debug.Log("MaxPlayerCount: " + maxPlayers);
 
+		playerConfigurationManager.MaxPlayerCount = maxPlayers;
 		playerConfigurationManager.InitClientConfiguration (LocalPlayerId, data);
 	}
 

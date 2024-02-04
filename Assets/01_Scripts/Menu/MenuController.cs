@@ -76,6 +76,7 @@ public class MenuController : MonoBehaviour
 	{
 		networkManagerCallback.ResetNetworkObjects();
 		playAmbient?.Raise();
+		Cursor.visible = true;
 	}
 
 	void SwitchActiveScreen (MenuScreens targetScreen)
