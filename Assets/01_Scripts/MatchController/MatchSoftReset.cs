@@ -58,7 +58,10 @@ public class MatchSoftReset : NetworkBehaviour
 			if (timer < pauseTime)
 				timer += Time.unscaledDeltaTime;
 			else if (pauseController.IsMatchPaused)
+			{
+				audioRoundStart?.Play();
 				pauseController.PauseMatch (false);
+			}
 		}
     }
 
@@ -72,7 +75,7 @@ public class MatchSoftReset : NetworkBehaviour
 			timer = 0f;
 		}
 
-		audioRoundStart?.Play();
+		//audioRoundStart?.Play();
 
 		resetEvent?.Raise();
 	}
