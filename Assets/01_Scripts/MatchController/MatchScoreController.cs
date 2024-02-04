@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 using Ivyyy.GameEvent;
+using System;
 
 public class MatchScoreController : NetworkBehaviour
 {
@@ -53,6 +54,11 @@ public class MatchScoreController : NetworkBehaviour
 		networkPackage.AddValue (new NetworkPackageValue (teamPoints[1]));
 		networkPackage.AddValue (new NetworkPackageValue (lastTeamToScore));
 		networkPackage.AddValue (new NetworkPackageValue (lastScoringPlayer));
+
+		byte[] playerScoreCountBytes = new byte[playerScoreCount.Length * sizeof(int)];
+		Buffer.BlockCopy(playerScoreCount, 0, playerScoreCountBytes, 0, playerScoreCountBytes.Length);
+
+		networkPackage.AddValue (new NetworkPackageValue (playerScoreCountBytes));
 	}
 
 	//Private Methods
@@ -81,6 +87,10 @@ public class MatchScoreController : NetworkBehaviour
 
 			teamPoints[0] = newPointsTeam1;
 			teamPoints[1] = newPointsTeam2;
+
+			byte[] playerScoreCountBytes = networkPackage.Value(4).GetBytes();
+			Buffer.BlockCopy(playerScoreCountBytes, 0, playerScoreCount, 0, playerScoreCountBytes.Length);
+
 			networkPackage.Clear();
 		}
 		else if (Owner && Ball.Me && Ball.Me.CurrentPlayerId != -1)
