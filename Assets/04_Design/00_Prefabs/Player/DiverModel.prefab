@@ -72,8 +72,8 @@ MonoBehaviour:
   - {fileID: 8535851244018204969}
   - {fileID: 6937034549894063866}
   breastStrokeCooldown:
-    cooldownTime: 0.5
-  lowSpeedThreshold: 0.4
+    cooldownTime: 0.3
+  lowSpeedThreshold: 1
 --- !u!114 &8530861625139363382
 MonoBehaviour:
   m_ObjectHideFlags: 0

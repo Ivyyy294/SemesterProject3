@@ -51,7 +51,7 @@ public class DiverVFX : MonoBehaviour
 
         if (_networkPlayer.Owner)
         {
-            _globalPP.speedLines = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 2, 4, 0, 1); 
+            _globalPP.speedLines = MathfUtils.RemapClamped(_velocityTracker.SmoothSpeed, 2.5f, 4, 0, 1); 
             if(!bubbleParticles.isPlaying) bubbleParticles.Play();
         }
     }
