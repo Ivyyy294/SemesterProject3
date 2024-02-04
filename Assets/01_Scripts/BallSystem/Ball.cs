@@ -50,7 +50,8 @@ public class Ball : NetworkBehaviour
 	{
 		timer = 0f;
 		CurrentPlayerId = -1;
-		transform.position = spawnPos;
+		m_rigidbody.MovePosition (spawnPos);
+		//transform.position = spawnPos;
 		m_rigidbody.isKinematic = !Owner;
 	}
 
