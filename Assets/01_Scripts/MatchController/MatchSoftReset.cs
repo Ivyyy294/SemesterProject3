@@ -10,6 +10,7 @@ public class MatchSoftReset : NetworkBehaviour
 	private MatchPauseController pauseController;
 	private MatchObjectSpawn objectSpawnController;
 	float timer = 0f;
+	bool delayDone = false;
 
 	[SerializeField] AudioAsset audioRoundStart;
 	[SerializeField] float pauseTime;
@@ -57,7 +58,7 @@ public class MatchSoftReset : NetworkBehaviour
 			}
 			if (timer < pauseTime)
 				timer += Time.unscaledDeltaTime;
-			else if (pauseController.IsMatchPaused)
+			else if (pauseController.IsMatchPaused && delayDone)
 			{
 				audioRoundStart?.Play();
 				pauseController.PauseMatch (false);
@@ -82,14 +83,16 @@ public class MatchSoftReset : NetworkBehaviour
 
 	IEnumerator SoftResetDelay()
 	{
-		float timer = 0f;
+		delayDone = false;
+		float delayTimer = 0f;
 
-		while (timer < softResetDelay)
+		while (delayTimer < softResetDelay)
 		{
-			timer += Time.deltaTime;
+			delayTimer += Time.deltaTime;
 			yield return null;
 		}
 
+		delayDone = true;
 		SoftReset();
 	}
 }

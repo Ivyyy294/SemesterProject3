@@ -6,6 +6,8 @@ using UnityEngine;
 public class AudioTriggerHypeZone : MonoBehaviour
 {
 	[SerializeField] float fadeTime = 1f;
+	[SerializeField] float radius = 6f;
+	[SerializeField] LayerMask layerMask;
 
 	AudioPlayer audioPlayer;
     // Start is called before the first frame update
@@ -14,15 +16,21 @@ public class AudioTriggerHypeZone : MonoBehaviour
         audioPlayer = GetComponent <AudioPlayer>();
     }
 
-	private void OnTriggerEnter(Collider other)
+	private void FixedUpdate()
 	{
-		if (other.CompareTag("Ball") && !audioPlayer.IsPlaying())
+		var colliders = Physics.OverlapSphere (transform.position, radius, layerMask);
+
+		bool playAudio = colliders.Length > 0;
+		bool isPlaying = audioPlayer.IsPlaying();
+
+		if (playAudio && !isPlaying)
 			audioPlayer.Play();
+		else if (!playAudio && isPlaying)
+			audioPlayer.FadeOut(fadeTime);
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void OnDrawGizmos()
 	{
-		if (other.CompareTag("Ball") && audioPlayer.IsPlaying())
-			audioPlayer.FadeOut(fadeTime);	
+		Gizmos.DrawWireSphere (transform.position, radius);
 	}
 }
