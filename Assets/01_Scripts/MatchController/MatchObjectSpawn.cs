@@ -16,7 +16,10 @@ public class MatchObjectSpawn : MonoBehaviour
 	public void RespawnObjects()
 	{
 		if (ball && ballSpawnPoint)
+		{
+			ball.SetActive (true);
 			RespawnObject (ball, ballSpawnPoint);
+		}
 
 		if (playerManager && team1SpawnPoint != null && team2SpawnPoint != null)
 		{
