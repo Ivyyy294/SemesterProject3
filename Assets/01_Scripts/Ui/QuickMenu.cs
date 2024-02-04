@@ -13,16 +13,20 @@ public class QuickMenu : MonoBehaviour
 	[Header ("Cursor")]
 	[SerializeField] GameEvent showCursor;
 	[SerializeField] GameEvent hideCursor;
+
+	MatchGameOver matchGameOver;
+
     // Start is called before the first frame update
     void Start()
     {
         uiObj.SetActive (false);
+		matchGameOver = MatchController.Me.MatchGameOver;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown (KeyCode.Escape))
+        if (Input.GetKeyDown (KeyCode.Escape) && !matchGameOver.GameOver())
 		{
 			if (!uiObj.activeInHierarchy)
 			{
