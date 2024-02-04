@@ -21,7 +21,7 @@ public class DiverSandVFX : MonoBehaviour
         if (_hasHitSand) OnHitSand();
         else
         {
-            particles.Pause();
+            particles.Stop();
         }
     }
 
