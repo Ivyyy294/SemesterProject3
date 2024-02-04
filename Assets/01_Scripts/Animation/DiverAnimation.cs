@@ -26,6 +26,7 @@ public class DiverAnimation : MonoBehaviour
     [SerializeField] private Transform chest;
     [SerializeField] private List<Transform> lowerLegs;
     [SerializeField] private List<Transform> arms;
+    [SerializeField] private List<Transform> neck;
 
     #region AnimatorParameterIDs
     private readonly int ID_SwimSpeed = Animator.StringToHash("SwimSpeed");
@@ -147,6 +148,8 @@ public class DiverAnimation : MonoBehaviour
     public void UpdateSimulatedLimbs()
     {
         float multiplier = 1.5f;
+        var verticalAngle = _inertiaTracker.Angle1 * multiplier;
+        var horizontalAngle = _inertiaTracker.Angle2 * multiplier;
 
         // Update Lower Body Transforms
 
@@ -155,8 +158,8 @@ public class DiverAnimation : MonoBehaviour
         for (int i = 0; i < spineChain.ChainLength - 1; i++)
         {
             var t = spineChain.GetInverse(i);
-            t.Rotate(Vector3.right, _inertiaTracker.Angle1 * 0.3f * multiplier);
-            t.Rotate(Vector3.forward, -_inertiaTracker.Angle2 * 0.3f * multiplier);
+            t.Rotate(Vector3.right, verticalAngle * 0.3f);
+            t.Rotate(Vector3.forward, -horizontalAngle * 0.3f);
         }
         
         spineChain.Apply();
@@ -165,24 +168,30 @@ public class DiverAnimation : MonoBehaviour
         foreach (var t in lowerLegs)
         {
             var vectorPitch = t.InverseTransformDirection(transform.right);
-            t.Rotate(vectorPitch, _inertiaTracker.Angle1 * 0.7f * multiplier);
+            t.Rotate(vectorPitch, verticalAngle * 0.7f);
         }
         
         // Update Upper Body Twist Transforms
 
         if (!_isHoldingBall)
         {
-            float verticalAngle = _inertiaTracker.Angle1 * multiplier;
-            float horizontalAngle = _inertiaTracker.Angle2 * multiplier;
-            upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f * multiplier);
-            upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f * multiplier);
+            upperSpine.Rotate(Vector3.up, horizontalAngle * 0.5f);
+            upperSpine.Rotate(Vector3.right, -verticalAngle * 0.5f);
             foreach (var t in arms)
             {
                 var vectorYaw = t.InverseTransformDirection(transform.up);
                 var vectorPitch = t.InverseTransformDirection(transform.right);
-                t.Rotate(vectorYaw, horizontalAngle * 0.5f * multiplier);
-                t.Rotate(vectorPitch, verticalAngle * 0.7f * multiplier);
+                t.Rotate(vectorYaw, horizontalAngle * 0.5f);
+                t.Rotate(vectorPitch, verticalAngle * 0.7f);
             }
+        }
+        
+        // Update Neck and Head
+
+        foreach (var t in neck)
+        {
+            t.Rotate(Vector3.forward, horizontalAngle * 0.2f);
+            t.Rotate(Vector3.right, -verticalAngle * 0.2f);
         }
     }
 

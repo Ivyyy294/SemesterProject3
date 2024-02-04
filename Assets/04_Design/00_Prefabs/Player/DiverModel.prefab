@@ -67,6 +67,10 @@ MonoBehaviour:
   arms:
   - {fileID: 2734006582982887277}
   - {fileID: 1791673500452934064}
+  neck:
+  - {fileID: 5554216425909703002}
+  - {fileID: 8535851244018204969}
+  - {fileID: 6937034549894063866}
   breastStrokeCooldown:
     cooldownTime: 0.5
   lowSpeedThreshold: 0.4
@@ -501,9 +505,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1606242025971140506}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &5554216425909703002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6583716153555457728, guid: 7e0f2764caf74084ba114a3005ecca8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1606242025971140506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6937034549894063866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8507238911718482272, guid: 7e0f2764caf74084ba114a3005ecca8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1606242025971140506}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7235727682852686941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8223840519507495879, guid: 7e0f2764caf74084ba114a3005ecca8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1606242025971140506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8535851244018204969 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6935521330726454963, guid: 7e0f2764caf74084ba114a3005ecca8c,
     type: 3}
   m_PrefabInstance: {fileID: 1606242025971140506}
   m_PrefabAsset: {fileID: 0}
