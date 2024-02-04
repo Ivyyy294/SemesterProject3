@@ -59,7 +59,7 @@ public class PlayerThrowBall : NetworkBehaviour
 
 	public void OnThrowPressed()
 	{ 
-		if (Owner && playerBallStatus.HasBall() && timer > initalCooldown)
+		if (Owner && playerBallStatus.HasBall() && timer > initalCooldown && IsBallBackInPosition())
 			ThrowBall ();
 	}
 
@@ -90,5 +90,11 @@ public class PlayerThrowBall : NetworkBehaviour
 			ball.BallDrop (ballSpawn.position);
 		else
 			InvokeRPC("DropBall");
+	}
+
+	bool IsBallBackInPosition()
+	{
+		float distanz = Vector3.Distance (ball.transform.position, ballSpawn.position);
+		return distanz < 0.5;
 	}
 }

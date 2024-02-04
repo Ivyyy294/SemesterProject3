@@ -57,7 +57,7 @@ public class CrawlyBrain : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(_ball.CurrentPlayerId != -1) WakeUp();
         

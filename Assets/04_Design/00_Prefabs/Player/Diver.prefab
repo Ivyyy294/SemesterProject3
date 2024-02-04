@@ -220,7 +220,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ballSpawn
       value: 
-      objectReference: {fileID: 4938510275983830220}
+      objectReference: {fileID: 635941892918236221}
     - target: {fileID: 4204484461061604603, guid: 48ac5d5e375cad24787cea683e72d401,
         type: 3}
       propertyPath: playerOxygen
@@ -259,6 +259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a298b2e11a89b243a31140efd9c8722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &635941892918236221 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4250440256453711427, guid: 48ac5d5e375cad24787cea683e72d401,
+    type: 3}
+  m_PrefabInstance: {fileID: 3616330220809732734}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2489644510067209916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1198862748022305986, guid: 48ac5d5e375cad24787cea683e72d401,
