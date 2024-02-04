@@ -35,7 +35,7 @@ public class DiverOxygenAnimation : MonoBehaviour
         // Color resultColor = Color.Lerp(teamColor.Color, _oxygenFillColor, _oxygenGainGauge.FillAmount * 0.75f);
 
 		if (playerConfig.playerConfiguration && playerConfig.playerConfiguration.lgbtq)
-			diverVisuals.emissiveColor = CycleRainbowColors();
+			diverVisuals.emissiveColor = teamColors.CycleRainbowColors();
 		else
 			diverVisuals.emissiveColor = teamColors.GetTeamColor(playerConfig.TeamIndex);
         
@@ -48,19 +48,5 @@ public class DiverOxygenAnimation : MonoBehaviour
     private float GetOxygenState()
     {
         return playerOxygen.CurrentOxygenPercent / 100;
-    }
-
-	private Color CycleRainbowColors()
-    {
-		float cycleDuration = 0.5f;
-        float t = Mathf.PingPong(Time.time / cycleDuration, 1f); // PingPong between 0 and 1
-        Color rainbowColor = HSVToRGB(t, 1f, 1f);
-        return rainbowColor;
-    }
-
-    private Color HSVToRGB(float h, float s, float v)
-    {
-        float hclamped = Mathf.Repeat(h, 1f);
-        return Color.HSVToRGB(hclamped, s, v);
     }
 }

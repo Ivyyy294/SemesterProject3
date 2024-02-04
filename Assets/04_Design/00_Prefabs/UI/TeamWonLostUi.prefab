@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7967894156421168624}
   - component: {fileID: 6532152050868059941}
+  - component: {fileID: 4814807019576765603}
   m_Layer: 0
   m_Name: TeamWonLostUi
   m_TagString: Untagged
@@ -55,6 +56,34 @@ MonoBehaviour:
   hidePlayerUiEvent: {fileID: 11400000, guid: 35d9e8c79bfd4d6478784f2fe87fc417, type: 2}
   audioWon: {fileID: 11400000, guid: e2a8371832f504f429db3a1980852fc9, type: 2}
   audioLost: {fileID: 11400000, guid: 984805c56d5cb3348b0fa51a591f323b, type: 2}
+--- !u!114 &4814807019576765603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698955963052220060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a1d18488b0649147a4b6dea6447213e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 10a55ec76c69a404e8c226346ef2a8ec, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6532152050868059941}
+        m_TargetAssemblyTypeName: TeamWonLostUi, Assembly-CSharp
+        m_MethodName: ShowScoreBoard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4889502096845047453
 GameObject:
   m_ObjectHideFlags: 0

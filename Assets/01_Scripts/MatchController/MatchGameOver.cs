@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Ivyyy.GameEvent;
 
 public class MatchGameOver : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MatchGameOver : MonoBehaviour
 	MatchScoreController scoreController;
 	MatchPauseController pauseController;
 	[SerializeField] AudioAsset audioGameOver;
+	[SerializeField] GameEvent gameOverEvent;
 
 	public bool GameOver()
 	{
@@ -29,6 +31,7 @@ public class MatchGameOver : MonoBehaviour
 	{
 		if (GameOver() && !pauseController.IsMatchPaused)
 		{
+			gameOverEvent.Raise();
 			pauseController.PauseMatch (true);
 			audioGameOver.PlayOneShot();
 		}

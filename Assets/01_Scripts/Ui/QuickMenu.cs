@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Ivyyy.Network;
 using UnityEngine.SceneManagement;
+using Ivyyy.GameEvent;
 
 public class QuickMenu : MonoBehaviour
 {
 	[SerializeField] PlayerManager playerManager;
 	[SerializeField] GameObject uiObj;
+
+	[Header ("Cursor")]
+	[SerializeField] GameEvent showCursor;
+	[SerializeField] GameEvent hideCursor;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +23,21 @@ public class QuickMenu : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown (KeyCode.Escape))
-			uiObj.SetActive (!uiObj.activeInHierarchy);
+		{
+			if (!uiObj.activeInHierarchy)
+			{
+				uiObj.SetActive (true);
+				showCursor.Raise();
+			}
+			else
+				OnContinuePressed();
+		}
     }
 
 	public void OnContinuePressed()
 	{
 		uiObj.SetActive (false);
+		hideCursor.Raise();
 	}
 
 	public void OnReturnToMenuPressed()

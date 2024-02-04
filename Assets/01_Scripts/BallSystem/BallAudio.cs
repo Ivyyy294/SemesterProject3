@@ -24,9 +24,9 @@ public class BallAudio : MonoBehaviour
     {
         if (crawlyBrain.IsSleeping)
 			SwitchAudio (audioSleeping);
-		else if (crawlyBrain.BrainActive)
+		else if (crawlyBrain.CanMove)
 			SwitchAudio (audioSwimming);
-		else if (!crawlyBrain.BrainActive && audioPlayer.IsPlaying ())
+		else if (audioPlayer.IsPlaying ())
 			audioPlayer.FadeOut (fadeTime);
     }
 

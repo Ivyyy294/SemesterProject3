@@ -14,14 +14,12 @@ public class TeamWonLostUi : MonoBehaviour
 	[SerializeField] AudioAsset audioWon;
 	[SerializeField] AudioAsset audioLost;
 
-	MatchGameOver matchGameOver;
 	MatchScoreController scoreController;
 	int localPlayerTeamIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        matchGameOver = MatchController.Me.MatchGameOver;
 		scoreController = MatchController.Me.MatchScoreController;
 
 		if (PlayerConfigurationManager.Me)
@@ -37,30 +35,26 @@ public class TeamWonLostUi : MonoBehaviour
 		lostUi.SetActive (false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (matchGameOver.GameOver())
+	public void ShowScoreBoard()
+	{
+		if (!panel.activeInHierarchy)
 		{
-			if (!panel.activeInHierarchy)
-			{
-				hidePlayerUiEvent?.Raise();
-				panel.SetActive (true);
-			}
-
-			bool won = scoreController.HasTeamWon (localPlayerTeamIndex);
-
-			if (won && !wonUi.activeInHierarchy)
-			{
-				wonUi.SetActive (true);
-				audioWon?.PlayOneShot();
-
-			}
-			else if (!won && !lostUi.activeInHierarchy)
-			{
-				lostUi.SetActive (!won);
-				audioLost?.PlayOneShot();
-			}
+			hidePlayerUiEvent?.Raise();
+			panel.SetActive (true);
 		}
-    }
+
+		bool won = scoreController.HasTeamWon (localPlayerTeamIndex);
+
+		if (won && !wonUi.activeInHierarchy)
+		{
+			wonUi.SetActive (true);
+			audioWon?.PlayOneShot();
+
+		}
+		else if (!won && !lostUi.activeInHierarchy)
+		{
+			lostUi.SetActive (!won);
+			audioLost?.PlayOneShot();
+		}
+	}
 }

@@ -31,6 +31,7 @@ public class Lobby : MonoBehaviour
 
 	private void Start()
 	{
+		Cursor.visible = true;
 		startGamePlayed = false;
 		configurationManager = PlayerConfigurationManager.Me;
 		networkSceneController = NetworkSceneController.Me;

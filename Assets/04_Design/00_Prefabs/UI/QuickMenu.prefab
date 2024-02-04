@@ -104,6 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManager: {fileID: 0}
   uiObj: {fileID: 5316667175057709411}
+  showCursor: {fileID: 11400000, guid: 24151910767ed6741b292046b0b65e1c, type: 2}
+  hideCursor: {fileID: 11400000, guid: 8b491ecdb1e825b46b9546aa2b27f63d, type: 2}
 --- !u!1 &5316667175057709411
 GameObject:
   m_ObjectHideFlags: 0
