@@ -101,7 +101,7 @@ public class PlayerInputProcessing : NetworkBehaviour
 	
 	public void OnDash(InputAction.CallbackContext context)
 	{
-		_isDashing = context.ReadValue<float>() > 0.5;
+		_isDashing = _goingForward = context.ReadValue<float>() > 0.5;
 	}
 	
 	public void OnThrow(InputAction.CallbackContext context)
