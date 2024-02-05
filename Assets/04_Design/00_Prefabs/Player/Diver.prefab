@@ -226,6 +226,11 @@ PrefabInstance:
       propertyPath: playerOxygen
       value: 
       objectReference: {fileID: 2346642503218768759}
+    - target: {fileID: 4250440256453711427, guid: 48ac5d5e375cad24787cea683e72d401,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4829771078199515062, guid: 48ac5d5e375cad24787cea683e72d401,
         type: 3}
       propertyPath: stealRange
