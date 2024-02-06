@@ -18,6 +18,17 @@ public class LocalPlayerPanel : MonoBehaviour
 	[SerializeField] Sprite normalSprite;
 	[SerializeField] Sprite readySprite;
 
+	[Header ("SelectTeam")]
+	[SerializeField] TeamColorSettings teamColor;
+	[SerializeField] Image team1;
+	[SerializeField] Image team2;
+	[Space]
+	[SerializeField] Button buttonTeam1;
+	[SerializeField] Button buttonTeam2;
+	[Space]
+	[SerializeField] Sprite buttonTeamNormalSprite;
+	[SerializeField] Sprite buttonTeamSelectedSprite;
+
 	public void OnReadyButtonPressed()
 	{
 		playerConfiguration.ready = !playerConfiguration.ready;
@@ -28,11 +39,18 @@ public class LocalPlayerPanel : MonoBehaviour
 		inputPlayerName.text = playerConfiguration.playerName;
 		toogleYAxis.onValueChanged.AddListener (OnInvertAxisToggled);
 		toogleYAxis.isOn = playerConfiguration.invertYAxis;
+
 	}
 
 	private void Update()
 	{
 		readyButton.image.sprite = playerConfiguration.ready ? readySprite : normalSprite;
+
+		team1.color = teamColor.GetTeamColor (0);
+		team2.color = teamColor.GetTeamColor (1);
+
+		buttonTeam1.image.sprite = playerConfiguration.teamNr == 0 ? buttonTeamSelectedSprite : buttonTeamNormalSprite;
+		buttonTeam2.image.sprite = playerConfiguration.teamNr == 1 ? buttonTeamSelectedSprite : buttonTeamNormalSprite;
 	}
 
 	public void OnNameChanged (string newName)
