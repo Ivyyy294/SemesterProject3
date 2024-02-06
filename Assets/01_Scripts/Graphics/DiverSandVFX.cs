@@ -36,7 +36,7 @@ public class DiverSandVFX : MonoBehaviour
     }
     private void OnHitSand()
     {
-        particles.transform.position = _rayCast.point + Vector3.down * 0.1f;
+        particles.transform.position = _rayCast.point;
         if(!particles.isPlaying) particles.Play();
     }
     
