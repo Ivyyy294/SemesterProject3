@@ -10,14 +10,17 @@ public class LocalPlayerPanel : MonoBehaviour
 {
 	public PlayerConfiguration playerConfiguration;
 
-	[SerializeField] GameObject readyButton;
-	[SerializeField] TextMeshProUGUI labelReady;
 	[SerializeField] TMP_InputField inputPlayerName;
 	[SerializeField] Toggle toogleYAxis;
 
+	[Header ("ReadyButton")]
+	[SerializeField] Button readyButton;
+	[SerializeField] Sprite normalSprite;
+	[SerializeField] Sprite readySprite;
+
 	public void OnReadyButtonPressed()
 	{
-		playerConfiguration.ready = true;
+		playerConfiguration.ready = !playerConfiguration.ready;
 	}
 
 	private void Start()
@@ -29,8 +32,7 @@ public class LocalPlayerPanel : MonoBehaviour
 
 	private void Update()
 	{
-		readyButton.SetActive (!playerConfiguration.ready);
-		labelReady.gameObject.SetActive (playerConfiguration.ready);
+		readyButton.image.sprite = playerConfiguration.ready ? readySprite : normalSprite;
 	}
 
 	public void OnNameChanged (string newName)
