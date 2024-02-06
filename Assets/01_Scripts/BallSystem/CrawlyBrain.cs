@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Ivyyy.Network;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -33,6 +34,7 @@ public class CrawlyBrain : MonoBehaviour
     private RaycastHit _raycastHit;
     private bool _raycastIsHit;
     private bool _isSleeping;
+    private List<Transform> _goals;
 
     public bool BrainActive => !_isSleeping && _networkBehaviour.Owner && _ball.CurrentPlayerId == -1;
     public bool CanMove => BrainActive && idleTime.TimeRemaining < 0;
@@ -53,7 +55,9 @@ public class CrawlyBrain : MonoBehaviour
 
     public void WakeUp()
     {
+        if (!_isSleeping) return;
         _isSleeping = false;
+        _goals = FindObjectsOfType<Goal>().Select(x => x.transform).ToList();
     }
 
     // Update is called once per frame
@@ -124,9 +128,21 @@ public class CrawlyBrain : MonoBehaviour
             var shouldBoost = Random.value < randomBurstFrequencySeconds * Time.deltaTime;
             if (shouldBoost)
             {
+                AvoidGoals();
                 randomBurstTime.Reset();
             }
         }
+    }
+
+    void AvoidGoals()
+    {
+        if (_goals.Count == 0) return;
+        
+        var nearest = _goals.OrderBy(x => (x.position - transform.position).sqrMagnitude).First();
+        var delta = nearest.position - transform.position;
+        if (delta.magnitude > 6) return;
+      
+        transform.forward = -delta.normalized;
     }
     
     public void ResetBrain()
