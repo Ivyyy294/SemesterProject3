@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ButtonAnimation : MonoBehaviour
 {
-	[SerializeField] float xOffset;
+	[SerializeField] Vector2 offset;
 	[Range (0, 2)]
 	[SerializeField] float easeInSpeed = 1f;
 	[Range (0, 2)]
 	[SerializeField] float easeOutSpeed = 1f;
+	[SerializeField] RectTransform targetRectTransform;
 	Vector2 basePos;
-	RectTransform rectTransform;
 
 	float timer = 0f;
 	bool mouseOver = false;
@@ -27,16 +27,16 @@ public class ButtonAnimation : MonoBehaviour
 
 	private void OnEnable()
 	{
-		if (rectTransform == null)
+		if (targetRectTransform == null)
 		{
-			rectTransform = GetComponent <RectTransform>();
-			basePos = rectTransform.anchoredPosition;
+			targetRectTransform = GetComponent <RectTransform>();
+			basePos = targetRectTransform.anchoredPosition;
 		}
 		else
 		{
 			timer = 0f;
 			mouseOver = false;
-			rectTransform.anchoredPosition = basePos;
+			targetRectTransform.anchoredPosition = basePos;
 		}
 	}
 
@@ -50,8 +50,8 @@ public class ButtonAnimation : MonoBehaviour
 		timer = Mathf.Clamp (timer, 0f, 1f);
 
 		Vector2 newPos = basePos;
-		newPos.x += xOffset * EaseOutQuint(timer);
-		rectTransform.anchoredPosition = newPos;
+		newPos += offset * EaseOutQuint(timer);
+		targetRectTransform.anchoredPosition = newPos;
 	}
 
 	float EaseOutCirc(float x)
