@@ -37517,6 +37517,7 @@ GameObject:
   - component: {fileID: 8607576735045794316}
   - component: {fileID: 4888437447658825469}
   - component: {fileID: 8544715856111764744}
+  - component: {fileID: 7231572365714945278}
   m_Layer: 0
   m_Name: New_Core_Lowpoly.001
   m_TagString: Untagged
@@ -37589,6 +37590,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7231572365714945278
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445562053086516110}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6771765787865332845, guid: 368d130412035491fb4243c8d37024bb, type: 3}
 --- !u!1 &7448579002313445712
 GameObject:
   m_ObjectHideFlags: 0
@@ -39718,6 +39741,7 @@ GameObject:
   - component: {fileID: 1090056497890496855}
   - component: {fileID: 3150512524385484910}
   - component: {fileID: 6512638598988938560}
+  - component: {fileID: 142844389256492098}
   m_Layer: 0
   m_Name: New_Core_Lowpoly
   m_TagString: Untagged
@@ -39790,6 +39814,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &142844389256492098
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7842118799539379429}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2522494112554947110, guid: 368d130412035491fb4243c8d37024bb, type: 3}
 --- !u!1 &7858699731674255429
 GameObject:
   m_ObjectHideFlags: 0
@@ -40148,7 +40194,7 @@ Transform:
   m_GameObject: {fileID: 7945653233937141871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20, y: -0.13596201, z: 0}
+  m_LocalPosition: {x: 20.884, y: -0.13596201, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
