@@ -6,8 +6,8 @@ using TMPro;
 public class LobbyUi : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI labelTimer;
-	[SerializeField] TextMeshProUGUI labelWaiting;
-	[SerializeField] TextMeshProUGUI labelUnevenTeams;
+	[SerializeField] GameObject labelWaiting;
+	[SerializeField] GameObject labelUnevenTeams;
 	[SerializeField] Lobby lobby;
 
     // Start is called before the first frame update
@@ -24,8 +24,8 @@ public class LobbyUi : MonoBehaviour
 		bool playersReady = lobby.AllPayersReady();
 		bool equalTeamSize = lobby.EqualTeamSize();
 
-		labelWaiting.gameObject.SetActive (!playersReady);
-		labelUnevenTeams.gameObject.SetActive (playersReady && !equalTeamSize);
+		labelWaiting.SetActive (!playersReady);
+		labelUnevenTeams.SetActive (playersReady && !equalTeamSize);
 
 
         bool visible = playersReady && equalTeamSize;
