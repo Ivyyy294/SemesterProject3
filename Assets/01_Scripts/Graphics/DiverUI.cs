@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class DiverUI : MonoBehaviour
 {
-    [Header("References")]
+    [Header("References")] 
     [SerializeField] private TeamColorSettings teamColors;
-    [SerializeField] private Image topImage;
     [SerializeField] private Image bottomImage;
+    [SerializeField] private Image leftTeam;
+    [SerializeField] private Image rightTeam;
 
     [Header("Override Properties")]
     [Range(0, 1)] public float oxygen = 0.5f;
@@ -17,8 +18,7 @@ public class DiverUI : MonoBehaviour
     
     private Gauge _oxygenFillGauge = new(30, 1);
     private float _previousOxygen;
-
-    private RuntimeMaterial _topOverride;
+    
     private RuntimeMaterial _bottomOverride;
     private PlayerOxygen _playerOxygen;
     
@@ -27,8 +27,6 @@ public class DiverUI : MonoBehaviour
     #region MaterialPropertyIDs
 
     private readonly int ID_Oxygen = Shader.PropertyToID("_Oxygen");
-    private readonly int ID_Team1 = Shader.PropertyToID("_Team1");
-    private readonly int ID_Team2 = Shader.PropertyToID("_Team2");
     private readonly int ID_OxygenColor = Shader.PropertyToID("_OxygenColor");
 
     #endregion
@@ -44,13 +42,11 @@ public class DiverUI : MonoBehaviour
         _oxygenFillGauge.SetFillAmount(0);
         _previousOxygen = oxygen;
         
-        _topOverride = RuntimeMaterial.FromImage(topImage);
         _bottomOverride = RuntimeMaterial.FromImage(bottomImage);
     }
 
     private void OnDisable()
     {
-        topImage.material = _topOverride.Release();
         bottomImage.material = _bottomOverride.Release();
     }
 
@@ -62,13 +58,12 @@ public class DiverUI : MonoBehaviour
         oxygen = _playerOxygen.CurrentOxygenPercent / 100;
         _oxygenFillGauge.Update(_previousOxygen < oxygen);
         _previousOxygen = oxygen;
-        
-        _topOverride.Mat.SetColor(ID_Team1, teamColors.GetTeamColor(0));
-        _topOverride.Mat.SetColor(ID_Team2, teamColors.GetTeamColor(1));
+
+        leftTeam.color = teamColors.GetTeamColor(0);
+        rightTeam.color = teamColors.GetTeamColor(1);
         _bottomOverride.Mat.SetFloat(ID_Oxygen, oxygen);
         
-        var finalColor = Color.Lerp(oxygenColor, Color.white, _oxygenFillGauge.FillAmount * 0.5f);
-        _bottomOverride.Mat.SetColor(ID_OxygenColor, finalColor);
+        _bottomOverride.Mat.SetColor(ID_OxygenColor, oxygenColor * _oxygenFillGauge.FillAmount * 0.5f);
 
     }
 }
