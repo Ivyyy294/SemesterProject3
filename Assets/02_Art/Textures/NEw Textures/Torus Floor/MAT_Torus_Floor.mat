@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_Torus_Floor
-  m_Shader: {fileID: -6465566751694194690, guid: af95417e0469d3f428c7050e73f36403,
+  m_Shader: {fileID: -6465566751694194690, guid: 14a6e65a9d93ef044812e2dc118aa574,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -69,6 +69,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emissive:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MRA:
         m_Texture: {fileID: 2800000, guid: 807b16e809f934ea9a79f5073f67d000, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -91,6 +95,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SHGFCaustics_136f49618fce45408063f54bb9387eff_CausticsTexture_3493670941_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 8584296c32cf74141a1ee86712427130, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -126,6 +134,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EmissionStrength: 30
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
