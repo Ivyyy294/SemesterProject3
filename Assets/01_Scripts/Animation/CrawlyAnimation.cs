@@ -69,7 +69,7 @@ public class CrawlyAnimation : MonoBehaviour
 
     private void ResetSimulations()
     {
-        _velocityTracker = new VelocityTracker(transform.position, 8);
+        _velocityTracker = new VelocityTracker(transform.position, 15);
         _movementVector = transform.forward;
         verletBehavior.ResetSimulation();
     }
@@ -91,7 +91,7 @@ public class CrawlyAnimation : MonoBehaviour
     {
         _inertiaTracker = new(
             transform.position, 
-            verletBehavior.SmoothTarget, 
+            verletBehavior.GetLastNode(), 
             -transform.forward, 
             transform.right,
             transform.up);
